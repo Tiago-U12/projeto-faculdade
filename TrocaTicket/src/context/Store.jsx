@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { initialEvents, initialInventory, initialProposals, initialPeople } from '../data/demo';
-const Context = createContext(null);
+import { useI18n } from '../i18n';
+import { StoreContext } from './StoreContext';
 const defaults = {
   events: initialEvents,
   inventory: initialInventory,
@@ -25,6 +26,7 @@ function read() {
   }
 }
 export function StoreProvider({ children }) {
+  const { t } = useI18n();
   const [data, setData] = useState(read);
   const [role, setRole] = useState(() => {
     try {
@@ -61,24 +63,26 @@ export function StoreProvider({ children }) {
     update('favorites', (old) => (old.includes(id) ? old.filter((x) => x !== id) : [...old, id]));
   }
   return (
-    <Context.Provider value={{ data, update, role, chooseRole, notify: setToast, toggleFavorite }}>
+    <StoreContext.Provider
+      value={{ data, update, role, chooseRole, notify: setToast, toggleFavorite }}
+    >
       {children}
       {storageError && (
         <div className="storage-warning" role="alert">
-          Não foi possível salvar no navegador. As alterações desta sessão podem se perder ao
-          recarregar.
+          {t(
+            'Não foi possível salvar no navegador. As alterações desta sessão podem se perder ao recarregar.',
+          )}
         </div>
       )}
       {toast && (
         <div className="toast" role="status">
           <span>✓</span>
-          {toast}
-          <button aria-label="Fechar aviso" onClick={() => setToast('')}>
+          {t(toast)}
+          <button aria-label={t('Fechar aviso')} onClick={() => setToast('')}>
             ×
           </button>
         </div>
       )}
-    </Context.Provider>
+    </StoreContext.Provider>
   );
 }
-export const useStore = () => useContext(Context);

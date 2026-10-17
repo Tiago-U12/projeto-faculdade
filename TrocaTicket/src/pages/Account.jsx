@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useI18n } from '../i18n';
 import { Link, useNavigate, useSearchParams } from 'react-router';
-import { useStore } from '../context/Store';
+import { useStore } from '../context/StoreContext';
 import { destinations, roleNames } from '../data/demo';
 import { Field, Tabs } from '../components/UI';
 export default function Account({ login = false }) {
+  const { t } = useI18n();
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const { chooseRole, notify } = useStore();
@@ -42,13 +44,13 @@ export default function Account({ login = false }) {
     <section className="auth-page">
       <div className="auth-card">
         <span className="auth-symbol">♙</span>
-        <h1>{login ? 'Acesse sua Conta' : 'Crie sua Conta'}</h1>
+        <h1>{login ? t('Acesse sua Conta') : t('Crie sua Conta')}</h1>
         <div className="tabs auth-tabs">
           <Link className={login ? 'active' : ''} to="/entrar">
-            Entrar
+            {t('Entrar')}
           </Link>
           <Link className={!login ? 'active' : ''} to="/cadastro">
-            Criar Conta
+            {t('Criar Conta')}
           </Link>
         </div>
         {!login && (
@@ -67,13 +69,13 @@ export default function Account({ login = false }) {
                 label="Nome completo"
                 name="name"
                 autoComplete="name"
-                placeholder="João da Silva"
+                placeholder={t('João da Silva')}
                 error={errors.name}
               />
               <Field
                 label={profile === 'comprador' ? 'CPF' : 'CPF / CNPJ'}
                 name="document"
-                placeholder="Documento fictício"
+                placeholder={t('Documento fictício')}
                 error={errors.document}
               />
             </>
@@ -83,7 +85,7 @@ export default function Account({ login = false }) {
             name="email"
             type="email"
             autoComplete="email"
-            placeholder="exemplo@email.com"
+            placeholder={t('exemplo@email.com')}
             error={errors.email}
           />
           <Field
@@ -91,7 +93,7 @@ export default function Account({ login = false }) {
             name="password"
             type={show ? 'text' : 'password'}
             autoComplete={login ? 'current-password' : 'new-password'}
-            placeholder="Mínimo de 8 caracteres"
+            placeholder={t('Mínimo de 8 caracteres')}
             error={errors.password}
           />
           {!login && (
@@ -106,34 +108,35 @@ export default function Account({ login = false }) {
           <div className="form-options">
             <label>
               <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} />{' '}
-              Mostrar senha
+              {t('Mostrar senha')}
             </label>
-            {login && <Link to="/recuperar">Esqueceu sua senha?</Link>}
+            {login && <Link to="/recuperar">{t('Esqueceu sua senha?')}</Link>}
           </div>
           <button className={`button ${login ? 'blue-button' : 'dark'}`} disabled={busy}>
-            {busy ? 'Validando…' : login ? 'Entrar na plataforma' : 'Cadastrar'}
+            {busy ? t('Validando…') : login ? t('Entrar na plataforma') : t('Cadastrar')}
           </button>
         </form>
         <p className="auth-note">
-          Demonstração: use dados fictícios. Senhas e documentos não são armazenados.
+          {t('Demonstração: use dados fictícios. Senhas e documentos não são armazenados.')}
         </p>
-        <div className="divider">OU EXPLORE SEM CADASTRO</div>
+        <div className="divider">{t('OU EXPLORE SEM CADASTRO')}</div>
         <Link className="button outline full" to="/perfis">
-          Escolher perfil de demonstração →
+          {t('Escolher perfil de demonstração →')}
         </Link>
       </div>
     </section>
   );
 }
 export function Profiles() {
+  const { t } = useI18n();
   const { chooseRole } = useStore();
   const navigate = useNavigate();
   return (
     <section className="auth-page profile-selection">
       <div className="section-heading">
-        <p className="eyebrow purple">Uma plataforma, muitas possibilidades</p>
-        <h1>Como você quer explorar?</h1>
-        <p>Escolha um perfil para conhecer os fluxos da plataforma.</p>
+        <p className="eyebrow purple">{t('Uma plataforma, muitas possibilidades')}</p>
+        <h1>{t('Como você quer explorar?')}</h1>
+        <p>{t('Escolha um perfil para conhecer os fluxos da plataforma.')}</p>
       </div>
       <div className="role-grid">
         {Object.entries(roleNames).map(([id, name], i) => (
@@ -146,37 +149,39 @@ export function Profiles() {
             }}
           >
             <span className="role-symbol">{['♧', '⚑', '▣', '◇'][i]}</span>
-            <h2>{name}</h2>
+            <h2>{t(name)}</h2>
             <p>
-              {
+              {t(
                 [
                   'Descubra eventos, salve favoritos e simule seus ingressos.',
                   'Crie eventos, conecte fornecedores e consolide custos.',
                   'Gerencie seu catálogo e envie propostas comerciais.',
                   'Acompanhe relatórios e faça a moderação de cadastros.',
-                ][i]
-              }
+                ][i],
+              )}
             </p>
-            <strong>Acessar área →</strong>
+            <strong>{t('Acessar área →')}</strong>
           </button>
         ))}
       </div>
       <Link className="text-link" to="/">
-        ← Voltar ao início
+        {t('← Voltar ao início')}
       </Link>
     </section>
   );
 }
 export function Recover() {
+  const { t } = useI18n();
   const [done, setDone] = useState(false);
   return (
     <section className="auth-page">
       <div className="auth-card">
-        <h1>Recuperar acesso</h1>
+        <h1>{t('Recuperar acesso')}</h1>
         {done ? (
           <p role="status">
-            Solicitação simulada. Nenhum e-mail foi enviado; você pode entrar com qualquer e-mail
-            válido e senha de 8 caracteres na demonstração.
+            {t(
+              'Solicitação simulada. Nenhum e-mail foi enviado; você pode entrar com qualquer e-mail válido e senha de 8 caracteres na demonstração.',
+            )}
           </p>
         ) : (
           <form
@@ -186,11 +191,11 @@ export function Recover() {
             }}
           >
             <Field label="E-mail da conta" name="recover-email" type="email" required />
-            <button className="button blue-button">Simular recuperação</button>
+            <button className="button blue-button">{t('Simular recuperação')}</button>
           </form>
         )}
         <Link className="text-link" to="/entrar">
-          Voltar para entrar
+          {t('Voltar para entrar')}
         </Link>
       </div>
     </section>

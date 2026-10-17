@@ -1,4 +1,5 @@
 import React from 'react';
+import { useI18n } from './i18n';
 import { Routes, Route, Link } from 'react-router';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -9,19 +10,21 @@ import { Opportunities, Proposals, Quote, Inventory } from './pages/Supplier';
 import { Admin, Report, Moderation } from './pages/Admin';
 import { Catalog, EventDetails, Tickets, Community } from './pages/Participant';
 function Info({ title, children }) {
+  const { t } = useI18n();
   return (
     <div className="workspace narrow">
       <section className="panel">
-        <h1>{title}</h1>
-        <p>{children}</p>
+        <h1>{t(title)}</h1>
+        <p>{t(children)}</p>
         <Link className="button primary" to="/perfis">
-          Explorar os perfis
+          {t('Explorar os perfis')}
         </Link>
       </section>
     </div>
   );
 }
 export default function App() {
+  const { t } = useI18n();
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -53,9 +56,9 @@ export default function App() {
           path="termos"
           element={
             <Info title="Termos da demonstração">
-              Este é um protótipo acadêmico. Eventos, empresas, propostas, moderação e reservas são
-              demonstrativos. Nenhuma compra, autenticação ou contratação real é realizada. As
-              informações podem ser alteradas localmente para testar os fluxos.
+              {t(
+                'Este é um protótipo acadêmico. Eventos, empresas, propostas, moderação e reservas são demonstrativos. Nenhuma compra, autenticação ou contratação real é realizada. As informações podem ser alteradas localmente para testar os fluxos.',
+              )}
             </Info>
           }
         />
@@ -63,10 +66,9 @@ export default function App() {
           path="privacidade"
           element={
             <Info title="Privacidade nesta demonstração">
-              As alterações em eventos, propostas, inventário, perfil e preferências ficam no
-              armazenamento local deste navegador. Use apenas dados fictícios. Senhas e documentos
-              dos formulários de acesso não são salvos nem enviados. Limpar os dados do site no
-              navegador remove as alterações.
+              {t(
+                'As alterações em eventos, propostas, inventário, perfil e preferências ficam no armazenamento local deste navegador. Use apenas dados fictícios. Senhas e documentos dos formulários de acesso não são salvos nem enviados. Limpar os dados do site no navegador remove as alterações.',
+              )}
             </Info>
           }
         />
@@ -74,10 +76,9 @@ export default function App() {
           path="ajuda"
           element={
             <Info title="Ajuda & Suporte">
-              Use “Explorar demo” ou “Trocar perfil” para acessar cada área. O organizador cria e
-              publica eventos; o fornecedor prepara cotações e gerencia itens; o participante salva
-              favoritos e simula reservas; o administrador consulta relatórios e modera cadastros
-              fictícios. A integração com serviços reais ainda não faz parte deste front-end.
+              {t(
+                'Use “Explorar demo” ou “Trocar perfil” para acessar cada área. O organizador cria e publica eventos; o fornecedor prepara cotações e gerencia itens; o participante salva favoritos e simula reservas; o administrador consulta relatórios e modera cadastros fictícios. A integração com serviços reais ainda não faz parte deste front-end.',
+              )}
             </Info>
           }
         />
@@ -85,7 +86,7 @@ export default function App() {
           path="*"
           element={
             <Info title="404 — Página não encontrada">
-              O endereço acessado não existe. Escolha uma área para continuar.
+              {t('O endereço acessado não existe. Escolha uma área para continuar.')}
             </Info>
           }
         />

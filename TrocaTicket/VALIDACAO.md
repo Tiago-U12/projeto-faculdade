@@ -34,3 +34,23 @@ Foram ajustados tamanhos de títulos, espaçamento dos painéis, contraste dos e
 ## Limites da verificação
 
 Teste manual dos principais fluxos; não constitui cobertura automatizada completa. O clique de exportação CSV foi executado sem erro de console, mas o navegador integrado não confirmou o evento de download; confirme o salvamento no Chrome/Edge ao avaliar essa função. Não houve teste de autenticação, pagamentos, e-mail ou serviços reais, pois não há backend nesta entrega.
+
+## Atualização local — acessibilidade, idiomas e aparência (17/10/2026)
+
+Base: primeira entrega (0.2.0), em documentos/Entrega 1/FULL STACK/TrocaTicket do repositório Projeto6. Os registros anteriores deste arquivo foram preservados.
+
+Verificações concluídas:
+
+- Sete testes Node aprovados: sanitização, persistência e falha de storage, independência tema/contraste, inicialização antecipada, catálogos/interpolação, preservação de conteúdo sem tradução e carregamento único/nova tentativa do VLibras.
+- 662 mensagens por idioma adicional, com paridade de chaves, conteúdo não vazio e parâmetros preservados em inglês, espanhol, francês, alemão e italiano.
+- Prettier aprovado em src, public/data, script de inicialização, testes, configuração e documentos. Três arquivos antigos exigiram somente formatação: data/demo.js, services/events.js e public/data/events.json.
+- Build Vite aprovado sem alertas após separar o catálogo de traduções em um arquivo de produção próprio: aplicação aproximadamente 361 kB, traduções 193 kB e CSS 63 kB antes de gzip.
+- No navegador: mudanças reais de fonte, letras, linhas, família tipográfica, links, tema e alto contraste; salvar/recarregar; cancelar prévia; restaurar padrão; Escape e retorno de foco; Sistema resolvendo a preferência do dispositivo.
+- Troca de idioma preservou texto digitado no formulário do organizador. Os seis idiomas foram conferidos na versão compilada.
+- Passagem por 23 rotas, incluindo áreas públicas, perfil, catálogo, organizador, fornecedor, administrador e 404. Telas internas verificadas em 390px sem transbordamento horizontal da página. Detalhes de evento usam carregamento assíncrono, portanto o título pode aparecer após a primeira leitura.
+- Painel mobile alemão a 200%: corrigido excesso de largura nos botões; painel ficou com largura interna igual à largura rolável (374px em viewport390px). Rolagem vertical preservada.
+- Contexto comercial separado do Provider após erro de Fast Refresh durante desenvolvimento. Na aba nova com versão compilada, nenhum erro de console foi observado.
+- VLibras oficial carregou uma única vez e abriu sua interface v7.12.2. A sinalização completa do avatar e sua qualidade linguística não foram avaliadas; o serviço continua dependente de conexão e recursos gráficos.
+- Referências de teclado/labels/foco/modal mantidas; não é certificação WCAG ou auditoria automatizada de todas as combinações.
+
+Limites: não foi feita alternância real da aparência do sistema operacional durante o teste; a resolução foi verificada por testes e pelo modo Sistema no navegador atual, e o listener está implementado. A base continua demonstrativa, sem backend/autenticação/pagamentos. Não foram realizadas operações de gravação Git, alterações remotas ou publicação.

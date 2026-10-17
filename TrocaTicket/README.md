@@ -99,3 +99,9 @@ A hospedagem de produção precisa redirecionar as rotas da SPA para `index.html
 ## Verificação
 
 Consulte `VALIDACAO.md` para os fluxos e tamanhos de tela verificados. A versão de produção fica em `dist/` após executar o build; `node_modules/` e `dist/` não são incluídos no ZIP.
+
+## Acessibilidade, idiomas e aparência (17/10/2026)
+
+A primeira entrega agora inclui painel global de leitura/acessibilidade, temas Claro/Escuro/Sistema e seis idiomas com persistência própria. Abra o painel pelo símbolo no cabeçalho ou botão flutuante; use o seletor de idioma ao lado. As alterações visuais são prévias até Salvar preferências; fechar sem salvar desfaz a prévia. Restaurar padrão também deve ser confirmado em Salvar.
+
+Veja ACESSIBILIDADE-IDIOMAS.md para arquivos, decisões, suporte VLibras, execução e checklist. Execute npm test, npm run format:check e npm run build para as verificações locais. Nenhuma dependência foi acrescentada. Os comandos Git mencionados na seção de trabalho em grupo são orientações históricas; nenhuma operação que grave estado Git ou modifique o remoto foi feita nesta atualização.

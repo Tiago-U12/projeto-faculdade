@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useStore } from '../context/Store';
+import { useI18n } from '../i18n';
+import { useStore } from '../context/StoreContext';
 import { Field, PageTitle, Panel } from '../components/UI';
 import { roleNames } from '../data/demo';
 export default function Profile() {
+  const { t } = useI18n();
   const { data, update, role, notify } = useStore();
   const [form, setForm] = useState(data.profile);
   const [error, setError] = useState('');
@@ -41,7 +43,7 @@ export default function Profile() {
         <Panel className="profile-banner">
           <div className="avatar large">
             {form.photo ? (
-              <img src={form.photo} alt="Foto de perfil" />
+              <img src={form.photo} alt={t('Foto de perfil')} />
             ) : (
               form.name.slice(0, 2).toUpperCase()
             )}
@@ -49,7 +51,7 @@ export default function Profile() {
           <div>
             <h2>{form.name}</h2>
             <label className="button dark upload-label">
-              ↑ Enviar nova foto
+              {t('↑ Enviar nova foto')}
               <input type="file" accept="image/png,image/jpeg,image/webp" onChange={photo} />
             </label>
             <button
@@ -57,9 +59,9 @@ export default function Profile() {
               className="button text-danger"
               onClick={() => setForm({ ...form, photo: '' })}
             >
-              Remover foto
+              {t('Remover foto')}
             </button>
-            <p className="muted">PNG, JPG ou WEBP · até 2 MB</p>
+            <p className="muted">{t('PNG, JPG ou WEBP · até 2 MB')}</p>
           </div>
         </Panel>
         <Panel
@@ -77,7 +79,7 @@ export default function Profile() {
             <Field
               label="Tipo de perfil"
               name="profile-role"
-              value={roleNames[role] || 'Participante'}
+              value={t(roleNames[role] || 'Participante')}
               readOnly
             />
             <Field
@@ -97,8 +99,9 @@ export default function Profile() {
             />
           </div>
           <div className="info-note">
-            A autenticação e a alteração de senha estarão disponíveis quando o backend for
-            conectado.
+            {t(
+              'A autenticação e a alteração de senha estarão disponíveis quando o backend for conectado.',
+            )}
           </div>
         </Panel>
         <Panel
@@ -113,8 +116,8 @@ export default function Profile() {
           ].map((name, i) => (
             <label className="preference" key={name}>
               <span>
-                <strong>{name}</strong>
-                <small>Personalize os avisos que deseja acompanhar.</small>
+                <strong>{t(name)}</strong>
+                <small>{t('Personalize os avisos que deseja acompanhar.')}</small>
               </span>
               <input
                 type="checkbox"
@@ -131,7 +134,7 @@ export default function Profile() {
         </Panel>
         {error && (
           <p role="alert" className="field-error">
-            {error}
+            {t(error)}
           </p>
         )}
         <div className="actions end">
@@ -143,9 +146,9 @@ export default function Profile() {
               setError('');
             }}
           >
-            Cancelar alterações
+            {t('Cancelar alterações')}
           </button>
-          <button className="button dark">✓ Salvar alterações</button>
+          <button className="button dark">{t('✓ Salvar alterações')}</button>
         </div>
       </form>
     </div>

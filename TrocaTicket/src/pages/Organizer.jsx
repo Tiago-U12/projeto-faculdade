@@ -1,6 +1,7 @@
+import { useI18n } from '../i18n';
 import React, { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { useStore } from '../context/Store';
+import { useStore } from '../context/StoreContext';
 import { suppliers } from '../data/demo';
 import {
   Badge,
@@ -17,6 +18,7 @@ import {
 } from '../components/UI';
 
 export function Organizer({ list = false }) {
+  const { t } = useI18n();
   const { data } = useStore();
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('Todos');
@@ -29,11 +31,11 @@ export function Organizer({ list = false }) {
   return (
     <div className="workspace">
       <PageTitle
-        title={list ? 'Meus Eventos' : 'Vamos criar experiências memoráveis?'}
-        subtitle="Seus eventos, parceiros e próximos passos em um só lugar."
+        title={list ? t('Meus Eventos') : t('Vamos criar experiências memoráveis?')}
+        subtitle={t('Seus eventos, parceiros e próximos passos em um só lugar.')}
       >
         <Link className="button blue-button" to="/organizador/novo">
-          + Novo evento
+          {t('+ Novo evento')}
         </Link>
       </PageTitle>
       <div className="dashboard-layout">
@@ -56,27 +58,27 @@ export function Organizer({ list = false }) {
               ['Parceiros', suppliers.length, 'Rede de fornecedores'],
             ].map(([label, value, note]) => (
               <div className="metric" key={label}>
-                <span>{label}</span>
+                <span>{t(label)}</span>
                 <strong>{value}</strong>
-                <small>{note}</small>
+                <small>{t(note)}</small>
               </div>
             ))}
           </div>
           <div className="section-row">
             <h2>
-              Meus Eventos <Badge>Painel ativo</Badge>
+              {t('Meus Eventos')} <Badge>Painel ativo</Badge>
             </h2>
             <Tabs options={['Grade', 'Lista']} value={view} onChange={setView} />
           </div>
           <div className="filter-bar">
             <input
-              aria-label="Buscar meus eventos"
-              placeholder="Buscar evento…"
+              aria-label={t('Buscar meus eventos')}
+              placeholder={t('Buscar evento…')}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <select
-              aria-label="Status do evento"
+              aria-label={t('Status do evento')}
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
@@ -89,7 +91,9 @@ export function Organizer({ list = false }) {
                 'Publicado',
                 'Cancelado',
               ].map((s) => (
-                <option key={s}>{s}</option>
+                <option key={s} value={s}>
+                  {t(s)}
+                </option>
               ))}
             </select>
           </div>
@@ -101,7 +105,7 @@ export function Organizer({ list = false }) {
                   <Badge>{event.status}</Badge>
                 </div>
                 <div className="managed-body">
-                  <p className="eyebrow purple">{event.category}</p>
+                  <p className="eyebrow purple">{t(event.category)}</p>
                   <h3>{event.title}</h3>
                   <p>
                     ▦ {dateLabel(event.date)} · {event.time}
@@ -109,10 +113,10 @@ export function Organizer({ list = false }) {
                   <p>⌖ {event.location}</p>
                   <div className="card-actions">
                     <span>
-                      Capacidade: <strong>{event.capacity}</strong>
+                      {t('Capacidade:')} <strong>{event.capacity}</strong>
                     </span>
                     <Link className="text-link" to={`/organizador/eventos/${event.id}/consolidar`}>
-                      Detalhes →
+                      {t('Detalhes →')}
                     </Link>
                   </div>
                 </div>
@@ -121,8 +125,8 @@ export function Organizer({ list = false }) {
           </div>
           {!events.length && <Empty />}
           <Panel
-            title="Agenda de eventos"
-            subtitle="Acompanhe as próximas datas do seu planejamento."
+            title={t('Agenda de eventos')}
+            subtitle={t('Acompanhe as próximas datas do seu planejamento.')}
           >
             <div className="agenda-grid">
               {data.events
@@ -137,7 +141,9 @@ export function Organizer({ list = false }) {
                     <Badge>{dateLabel(event.date)}</Badge>
                     <h3>{event.title}</h3>
                     <p>{event.location}</p>
-                    <small>{event.suppliers.length} fornecedores vinculados</small>
+                    <small>
+                      {t('{count} fornecedores vinculados', { count: event.suppliers.length })}
+                    </small>
                   </Link>
                 ))}
             </div>
@@ -145,11 +151,11 @@ export function Organizer({ list = false }) {
         </div>
         <aside>
           <Panel
-            title="Últimos Fornecedores"
-            subtitle="Contratos recentes e contatos rápidos"
+            title={t('Últimos Fornecedores')}
+            subtitle={t('Contratos recentes e contatos rápidos')}
             action={
               <Link className="text-link" to="/organizador/fornecedores">
-                Ver todos
+                {t('Ver todos')}
               </Link>
             }
           >
@@ -158,17 +164,19 @@ export function Organizer({ list = false }) {
                 <img src={s.image} alt="" />
                 <div>
                   <strong>{s.name}</strong>
-                  <small>{s.category}</small>
+                  <small>{t(s.category)}</small>
                   <Badge>{s.status}</Badge>
                 </div>
               </Link>
             ))}
             <Link className="button outline full" to="/organizador/fornecedores">
-              Gerenciar fornecedores →
+              {t('Gerenciar fornecedores →')}
             </Link>
           </Panel>
           <div className="info-note">
-            Tudo pronto para o próximo evento? Comece pelo planejamento e reúna seus fornecedores.
+            {t(
+              'Tudo pronto para o próximo evento? Comece pelo planejamento e reúna seus fornecedores.',
+            )}
           </div>
         </aside>
       </div>
@@ -192,6 +200,7 @@ const blank = {
   suppliers: ['vibe', 'buffet'],
 };
 export function EventEditor() {
+  const { t } = useI18n();
   const { id } = useParams();
   const { data, update, notify } = useStore();
   const navigate = useNavigate();
@@ -199,7 +208,7 @@ export function EventEditor() {
   const [form, setForm] = useState(existing || blank);
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState(false);
-  if (id && !existing) return <NotFound title="Evento não encontrado" />;
+  if (id && !existing) return <NotFound title={t('Evento não encontrado')} />;
   function field(name, value) {
     setForm((old) => ({ ...old, [name]: value }));
   }
@@ -232,8 +241,8 @@ export function EventEditor() {
     update('events', (old) => (id ? old.map((e) => (e.id === id ? event : e)) : [...old, event]));
     notify(
       consolidate
-        ? 'Evento salvo. Revise os custos antes de publicar.'
-        : 'Rascunho salvo neste navegador.',
+        ? t('Evento salvo. Revise os custos antes de publicar.')
+        : t('Rascunho salvo neste navegador.'),
     );
     navigate(`/organizador/eventos/${event.id}/${consolidate ? 'consolidar' : 'editar'}`);
   }
@@ -254,14 +263,14 @@ export function EventEditor() {
   return (
     <div className="workspace">
       <PageTitle
-        title={id ? 'Editar Evento' : 'Novo Evento'}
-        subtitle="Preencha as informações abaixo para planejar, orçar e publicar seu evento."
+        title={id ? t('Editar Evento') : t('Novo Evento')}
+        subtitle={t('Preencha as informações abaixo para planejar, orçar e publicar seu evento.')}
       >
         <button className="button outline" onClick={() => setPreview(true)}>
-          ◉ Pré-visualizar
+          {t('◉ Pré-visualizar')}
         </button>
         <button className="button blue-button" onClick={() => save(false)}>
-          Salvar rascunho
+          {t('Salvar rascunho')}
         </button>
       </PageTitle>
       <form
@@ -274,40 +283,44 @@ export function EventEditor() {
         <Panel>
           <div className="editor-layout">
             <div>
-              <h2 className="form-section-title">Ⅰ Informações Principais & Localização</h2>
+              <h2 className="form-section-title">{t('Ⅰ Informações Principais & Localização')}</h2>
               <Field
-                label="Nome do evento *"
+                label={t('Nome do evento *')}
                 name="title"
                 value={form.title}
                 onChange={(e) => field('title', e.target.value)}
                 error={errors.title}
               />
               <div className="form-grid">
-                <Field label="Categoria" name="category">
+                <Field label={t('Categoria')} name="category">
                   <select
                     id="category"
                     value={form.category}
                     onChange={(e) => field('category', e.target.value)}
                   >
                     {['Show / Cultura', 'Corporativo', 'Workshop', 'Gastronomia'].map((x) => (
-                      <option key={x}>{x}</option>
+                      <option key={x} value={x}>
+                        {t(x)}
+                      </option>
                     ))}
                   </select>
                 </Field>
-                <Field label="Formato do evento" name="format">
+                <Field label={t('Formato do evento')} name="format">
                   <select
                     id="format"
                     value={form.format}
                     onChange={(e) => field('format', e.target.value)}
                   >
                     {['Presencial', 'Online', 'Híbrido'].map((x) => (
-                      <option key={x}>{x}</option>
+                      <option key={x} value={x}>
+                        {t(x)}
+                      </option>
                     ))}
                   </select>
                 </Field>
               </div>
               <Field
-                label="Endereço / Local da realização *"
+                label={t('Endereço / Local da realização *')}
                 name="location"
                 value={form.location}
                 onChange={(e) => field('location', e.target.value)}
@@ -335,7 +348,7 @@ export function EventEditor() {
                   />
                 ))}
               </div>
-              <Field label="Descrição & programação resumida" name="description">
+              <Field label={t('Descrição & programação resumida')} name="description">
                 <textarea
                   id="description"
                   maxLength={1000}
@@ -344,33 +357,47 @@ export function EventEditor() {
                   onChange={(e) => field('description', e.target.value)}
                 />
               </Field>
-              <small className="muted">{form.description.length} / 1000 caracteres</small>
+              <small className="muted">
+                {t('{count} / 1000 caracteres', { count: form.description.length })}
+              </small>
             </div>
             <div>
-              <h2 className="form-section-title">Ⅱ Fotos & Mídia</h2>
+              <h2 className="form-section-title">{t('Ⅱ Fotos & Mídia')}</h2>
               <label className="cover-upload">
-                <img src={form.image} alt="Capa do evento" />
-                <span>↑ Clique para substituir a foto principal</span>
-                <input type="file" accept="image/png,image/jpeg,image/webp" onChange={upload} />
+                <img src={form.image} alt={t('Capa do evento')} />
+                <span>{t('↑ Clique para substituir a foto principal')}</span>
+                <input
+                  id="event-cover-file"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  onChange={upload}
+                />
               </label>
-              <small className="muted">JPG, PNG ou WEBP · até 2 MB</small>
-              {errors.image && <p className="field-error">{errors.image}</p>}
+              <button
+                type="button"
+                className="button outline"
+                onClick={() => document.getElementById('event-cover-file')?.click()}
+              >
+                {t('Selecionar foto do evento')}
+              </button>
+              <small className="muted">{t('JPG, PNG ou WEBP · até 2 MB')}</small>
+              {errors.image && <p className="field-error">{t(errors.image)}</p>}
               <div className="media-options">
                 {[5, 1, 20].map((i) => (
                   <button
                     type="button"
                     key={i}
-                    aria-label={`Usar capa ${i}`}
+                    aria-label={t('Usar capa {number}', { number: i })}
                     onClick={() => field('image', `/images/asset-${i}.jpg`)}
                   >
-                    <img src={`/images/asset-${i}.jpg`} alt="Opção de capa" />
+                    <img src={`/images/asset-${i}.jpg`} alt={t('Opção de capa')} />
                   </button>
                 ))}
               </div>
               <Panel
                 className="soft"
-                title="Fornecedores vinculados"
-                subtitle="Selecione os parceiros para esta operação."
+                title={t('Fornecedores vinculados')}
+                subtitle={t('Selecione os parceiros para esta operação.')}
               >
                 {suppliers.map((s) => (
                   <label className="supplier-check" key={s.id}>
@@ -398,24 +425,26 @@ export function EventEditor() {
           </div>
           <div className="form-footer">
             <Link className="button outline" to="/organizador">
-              Cancelar
+              {t('Cancelar')}
             </Link>
             <button type="button" className="button outline" onClick={() => save(false)}>
-              Salvar rascunho
+              {t('Salvar rascunho')}
             </button>
-            <button className="button blue-button">Consolidação de custo →</button>
+            <button className="button blue-button">{t('Consolidação de custo →')}</button>
           </div>
         </Panel>
       </form>
       {preview && (
-        <Modal title="Prévia do evento" onClose={() => setPreview(false)}>
-          <img className="modal-cover" src={form.image} alt="Capa" />
-          <h2>{form.title || 'Nome do evento'}</h2>
+        <Modal title={t('Prévia do evento')} onClose={() => setPreview(false)}>
+          <img className="modal-cover" src={form.image} alt={t('Capa')} />
+          <h2>{form.title || t('Nome do evento')}</h2>
           <p>{form.description}</p>
           <p>
-            {dateLabel(form.date)} · {form.location || 'Local a definir'}
+            {dateLabel(form.date)} · {form.location || t('Local a definir')}
           </p>
-          <strong>{money(form.price)} / ingresso</strong>
+          <strong>
+            {money(form.price)} {t('/ ingresso')}
+          </strong>
         </Modal>
       )}
     </div>
@@ -423,11 +452,12 @@ export function EventEditor() {
 }
 
 export function Consolidation() {
+  const { t } = useI18n();
   const { id } = useParams();
   const { data, update, notify } = useStore();
   const [modal, setModal] = useState(false);
   const event = data.events.find((e) => e.id === id);
-  if (!event) return <NotFound title="Evento não encontrado" />;
+  if (!event) return <NotFound title={t('Evento não encontrado')} />;
   const selected = suppliers.filter((s) => event.suppliers.includes(s.id));
   const confirmations = event.confirmations || [];
   const pending = selected.filter((s) => s.status === 'Pendente' && !confirmations.includes(s.id));
@@ -440,39 +470,46 @@ export function Consolidation() {
   return (
     <div className="workspace">
       <PageTitle
-        title="Seleção e Consolidação"
-        subtitle="Revise os fornecedores e os custos antes de confirmar a realização do evento."
+        title={t('Seleção e Consolidação')}
+        subtitle={t(
+          'Revise os fornecedores e os custos antes de confirmar a realização do evento.',
+        )}
       >
         <DownloadButton
           name="custos-evento.csv"
           rows={[
             [event.title],
-            ['Fornecedor', 'Valor'],
+            ['Fornecedor', 'Valor'].map((heading) => t(heading)),
             ...selected.map((s) => [s.name, s.price]),
-            ['Total', total],
+            [t('Total'), total],
           ]}
         />
         <Link className="button outline" to={`/organizador/eventos/${id}/editar`}>
-          Editar evento
+          {t('Editar evento')}
         </Link>
       </PageTitle>
       <div className="consolidation-layout">
         <Panel
-          title="Status Fornecedores"
-          subtitle={`${selected.length} vinculados · ${progress}% concluído`}
+          title={t('Status Fornecedores')}
+          subtitle={t('{count} vinculados · {progress}% concluído', {
+            count: selected.length,
+            progress,
+          })}
         >
           <div className="mini-stats">
             <div>
-              <strong>{selected.length - pending.length}</strong>Confirmados
+              <strong>{selected.length - pending.length}</strong>
+              {t('Confirmados')}
             </div>
             <div>
-              <strong>{pending.length}</strong>Pendentes
+              <strong>{pending.length}</strong>
+              {t('Pendentes')}
             </div>
           </div>
           {selected.map((s) => (
             <div className="supplier-status" key={s.id}>
               <strong>{s.name}</strong>
-              <small>{s.category}</small>
+              <small>{t(s.category)}</small>
               <div className="card-actions">
                 <span>{money(s.price)}</span>
                 {pending.some((p) => p.id === s.id) ? (
@@ -480,10 +517,10 @@ export function Consolidation() {
                     className="button tiny outline"
                     onClick={() => {
                       change({ confirmations: [...confirmations, s.id] });
-                      notify('Confirmação simulada registrada.');
+                      notify(t('Confirmação simulada registrada.'));
                     }}
                   >
-                    Confirmar parceiro
+                    {t('Confirmar parceiro')}
                   </button>
                 ) : (
                   <Badge>Confirmado</Badge>
@@ -493,18 +530,20 @@ export function Consolidation() {
           ))}
           {!selected.length && (
             <p>
-              Nenhum fornecedor vinculado. Adicione parceiros na edição do evento se necessário.
+              {t(
+                'Nenhum fornecedor vinculado. Adicione parceiros na edição do evento se necessário.',
+              )}
             </p>
           )}
           <Link className="text-link" to="/organizador/fornecedores">
-            Gerenciar fornecedores →
+            {t('Gerenciar fornecedores →')}
           </Link>
         </Panel>
         <Panel>
           <div className="event-summary">
             <img src={event.image} alt="" />
             <div>
-              <Badge>{event.category}</Badge>
+              <Badge>{t(event.category)}</Badge>
               <h2>{event.title}</h2>
               <small>ID: {event.id.slice(0, 12)}</small>
             </div>
@@ -513,30 +552,30 @@ export function Consolidation() {
             {[
               ['Data & Horário', `${dateLabel(event.date)} · ${event.time}`],
               ['Localização', event.location],
-              ['Capacidade', `${event.capacity} pessoas`],
+              ['Capacidade', t('{count} pessoas', { count: event.capacity })],
               ['Orçamento consolidado', money(total)],
             ].map(([label, value]) => (
               <div key={label}>
-                <small>{label}</small>
+                <small>{t(label)}</small>
                 <strong>{value}</strong>
               </div>
             ))}
           </div>
           <div className="panel-heading">
-            <h3>Status do evento</h3>
+            <h3>{t('Status do evento')}</h3>
             <Badge>{event.status}</Badge>
           </div>
-          <progress value={progress} max="100" aria-label="Progresso da consolidação" />
+          <progress value={progress} max="100" aria-label={t('Progresso da consolidação')} />
           <p className="muted">
             {pending.length
-              ? 'Confirme os parceiros pendentes para liberar a publicação.'
-              : 'Tudo pronto para publicar este evento na demonstração.'}
+              ? t('Confirme os parceiros pendentes para liberar a publicação.')
+              : t('Tudo pronto para publicar este evento na demonstração.')}
           </p>
           <div className="info-note">
-            Receita estimada com lotação completa:{' '}
+            {t('Receita estimada com lotação completa:')}{' '}
             <strong>{money(event.capacity * event.price)}</strong>
             <br />
-            Resultado estimado após fornecedores:{' '}
+            {t('Resultado estimado após fornecedores:')}{' '}
             <strong>{money(event.capacity * event.price - total)}</strong>
           </div>
           <div className="form-footer">
@@ -545,7 +584,7 @@ export function Consolidation() {
               onClick={() => setModal(true)}
               disabled={event.status === 'Cancelado'}
             >
-              Cancelar evento
+              {t('Cancelar evento')}
             </button>
             <button
               className="button blue-button"
@@ -554,30 +593,30 @@ export function Consolidation() {
               }
               onClick={() => {
                 change({ status: 'Publicado' });
-                notify('Evento publicado no catálogo da demonstração.');
+                notify(t('Evento publicado no catálogo da demonstração.'));
               }}
             >
-              ✓ {event.status === 'Publicado' ? 'Publicado' : 'Consolidar e publicar'}
+              ✓ {event.status === 'Publicado' ? t('Publicado') : t('Consolidar e publicar')}
             </button>
           </div>
         </Panel>
       </div>
       {modal && (
-        <Modal title="Cancelar este evento?" onClose={() => setModal(false)}>
-          <p>Ele ficará marcado como cancelado. Você pode continuar editando seus dados.</p>
+        <Modal title={t('Cancelar este evento?')} onClose={() => setModal(false)}>
+          <p>{t('Ele ficará marcado como cancelado. Você pode continuar editando seus dados.')}</p>
           <div className="actions">
             <button className="button outline" onClick={() => setModal(false)}>
-              Voltar
+              {t('Voltar')}
             </button>
             <button
               className="button danger"
               onClick={() => {
                 change({ status: 'Cancelado' });
                 setModal(false);
-                notify('Evento cancelado.');
+                notify(t('Evento cancelado.'));
               }}
             >
-              Confirmar cancelamento
+              {t('Confirmar cancelamento')}
             </button>
           </div>
         </Modal>
@@ -587,6 +626,7 @@ export function Consolidation() {
 }
 
 export function Suppliers() {
+  const { t } = useI18n();
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(null);
   const filtered = suppliers.filter((s) =>
@@ -595,13 +635,13 @@ export function Suppliers() {
   return (
     <div className="workspace">
       <PageTitle
-        title="Rede de Fornecedores"
-        subtitle="Encontre parceiros para transformar o seu próximo evento."
+        title={t('Rede de Fornecedores')}
+        subtitle={t('Encontre parceiros para transformar o seu próximo evento.')}
       />
       <div className="filter-bar">
         <input
-          aria-label="Buscar fornecedores"
-          placeholder="Buscar por nome ou especialidade…"
+          aria-label={t('Buscar fornecedores')}
+          placeholder={t('Buscar por nome ou especialidade…')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -612,14 +652,14 @@ export function Suppliers() {
             <img className="supplier-cover" src={s.image} alt={s.name} />
             <Badge>{s.status}</Badge>
             <h2>{s.name}</h2>
-            <p className="muted">{s.category}</p>
+            <p className="muted">{t(s.category)}</p>
             <strong>{money(s.price)}</strong>
             <div className="form-footer">
               <button className="button outline" onClick={() => setSelected(s)}>
-                Ver detalhes
+                {t('Ver detalhes')}
               </button>
               <Link className="button blue-button" to="/organizador/novo">
-                Vincular a evento
+                {t('Vincular a evento')}
               </Link>
             </div>
           </Panel>
@@ -628,15 +668,17 @@ export function Suppliers() {
       {!filtered.length && <Empty />}
       {selected && (
         <Modal title={selected.name} onClose={() => setSelected(null)}>
-          <p>{selected.category}</p>
+          <p>{t(selected.category)}</p>
           <p>
-            Valor de referência: <strong>{money(selected.price)}</strong>
+            {t('Valor de referência:')} <strong>{money(selected.price)}</strong>
           </p>
           <p>
-            Atendimento em São Paulo e região. Os contratos desta plataforma são demonstrativos.
+            {t(
+              'Atendimento em São Paulo e região. Os contratos desta plataforma são demonstrativos.',
+            )}
           </p>
           <Link className="button blue-button" to="/organizador/novo">
-            Planejar evento com este parceiro
+            {t('Planejar evento com este parceiro')}
           </Link>
         </Modal>
       )}
