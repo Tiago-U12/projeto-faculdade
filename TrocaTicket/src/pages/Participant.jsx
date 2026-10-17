@@ -194,7 +194,7 @@ export function EventDetails() {
           <Panel className="event-hero-panel">
             <div className="event-poster">
               <img
-                src={id === 'lollapalooza' ? '/images/asset-30.jpg' : event.image}
+                src={id === 'lollapalooza' ? './images/asset-30.jpg' : event.image}
                 alt={event.title}
               />
               <div>
@@ -302,7 +302,7 @@ export function EventDetails() {
             {id === 'lollapalooza' && (
               <img
                 className="venue-map"
-                src="/images/asset-33.jpg"
+                src="./images/asset-33.jpg"
                 alt={t('Mapa ilustrativo do local do festival')}
               />
             )}

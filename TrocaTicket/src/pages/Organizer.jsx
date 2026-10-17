@@ -196,7 +196,7 @@ const blank = {
   capacity: 1200,
   price: 80,
   description: '',
-  image: '/images/asset-5.jpg',
+  image: './images/asset-5.jpg',
   suppliers: ['vibe', 'buffet'],
 };
 export function EventEditor() {
@@ -388,9 +388,9 @@ export function EventEditor() {
                     type="button"
                     key={i}
                     aria-label={t('Usar capa {number}', { number: i })}
-                    onClick={() => field('image', `/images/asset-${i}.jpg`)}
+                    onClick={() => field('image', `./images/asset-${i}.jpg`)}
                   >
-                    <img src={`/images/asset-${i}.jpg`} alt={t('Opção de capa')} />
+                    <img src={`./images/asset-${i}.jpg`} alt={t('Opção de capa')} />
                   </button>
                 ))}
               </div>

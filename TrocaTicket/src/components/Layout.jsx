@@ -60,7 +60,7 @@ export default function Layout() {
       </a>
       <header className={`header ${!publicPage ? 'app-header' : ''}`}>
         <Link className="brand" to="/" aria-label={t('TrocaTicket, início')}>
-          <img src="/images/logo.png" alt="" />
+          <img src="./images/logo.png" alt="" />
           <span>
             TrocaTicket<small>{t('EVENTOS & INGRESSOS')}</small>
           </span>
