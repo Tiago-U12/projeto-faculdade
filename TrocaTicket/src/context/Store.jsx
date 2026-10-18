@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { restoreData } from '../services/rules';
+import { roleNames } from '../data/demo';
 import { initialEvents, initialInventory, initialProposals, initialPeople } from '../data/demo';
-import { useI18n } from '../i18n';
 import { StoreContext } from './StoreContext';
 const defaults = {
   events: initialEvents,
@@ -17,20 +18,21 @@ const defaults = {
     preferences: [true, true, true, false],
   },
 };
+// Lê os dados do navegador. Se houver algo inválido, usa os exemplos iniciais.
 function read() {
   try {
     const saved = JSON.parse(localStorage.getItem('trocaticket-v2'));
-    return saved?.version === 2 ? { ...defaults, ...saved.data } : defaults;
+    return restoreData(saved, defaults);
   } catch {
     return defaults;
   }
 }
 export function StoreProvider({ children }) {
-  const { t } = useI18n();
   const [data, setData] = useState(read);
   const [role, setRole] = useState(() => {
     try {
-      return sessionStorage.getItem('trocaticket-role') || '';
+      const savedRole = sessionStorage.getItem('trocaticket-role');
+      return Object.hasOwn(roleNames, savedRole) ? savedRole : '';
     } catch {
       return '';
     }
@@ -51,11 +53,13 @@ export function StoreProvider({ children }) {
     return () => clearTimeout(id);
   }, [toast]);
   function chooseRole(value) {
+    value = Object.hasOwn(roleNames, value) ? value : '';
     setRole(value);
     try {
       sessionStorage.setItem('trocaticket-role', value);
     } catch {}
   }
+  // Atualiza uma lista ou o perfil sem alterar diretamente o estado anterior.
   function update(key, value) {
     setData((old) => ({ ...old, [key]: typeof value === 'function' ? value(old[key]) : value }));
   }
@@ -69,16 +73,15 @@ export function StoreProvider({ children }) {
       {children}
       {storageError && (
         <div className="storage-warning" role="alert">
-          {t(
-            'Não foi possível salvar no navegador. As alterações desta sessão podem se perder ao recarregar.',
-          )}
+          Não foi possível salvar no navegador. As alterações desta sessão podem se perder ao
+          recarregar.
         </div>
       )}
       {toast && (
         <div className="toast" role="status">
           <span>✓</span>
-          {t(toast)}
-          <button aria-label={t('Fechar aviso')} onClick={() => setToast('')}>
+          {toast}
+          <button aria-label="Fechar aviso" onClick={() => setToast('')}>
             ×
           </button>
         </div>

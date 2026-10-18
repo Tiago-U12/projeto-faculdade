@@ -1,3 +1,7 @@
 import { createContext, useContext } from 'react';
+
+// As páginas usam este contexto para acessar os mesmos dados.
 export const StoreContext = createContext(null);
-export const useStore = () => useContext(StoreContext);
+export function useStore() {
+  return useContext(StoreContext);
+}

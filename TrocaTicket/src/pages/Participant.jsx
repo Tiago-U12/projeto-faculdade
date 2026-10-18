@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { useI18n } from '../i18n';
 import { Link, useParams } from 'react-router';
 import { useEvents, LoadState } from '../components/Events';
 import { useStore } from '../context/StoreContext';
-import { Badge, Empty, Modal, PageTitle, Panel, Tabs, money } from '../components/UI';
+import { reservationError, normalizeSearch } from '../services/rules';
+import { assetUrl } from '../services/assets.js';
+import { Badge, Empty, Modal, PageTitle, Panel, Tabs, money, dateLabel } from '../components/UI';
 
 export function EventCard({ event }) {
-  const { t } = useI18n();
   const { data, toggleFavorite } = useStore();
   const saved = data.favorites.includes(event.id);
   return (
     <article className="discovery-card">
       <div className="discovery-image">
-        <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" />
+        <img src={assetUrl(event.image)} alt={event.imageAlt || event.title} loading="lazy" />
         <Badge tone="light">Ingresso demonstrativo</Badge>
         <button
           className={`favorite ${saved ? 'saved' : ''}`}
-          aria-label={t(
-            saved ? 'Remover dos favoritos: {title}' : 'Adicionar aos favoritos: {title}',
-            { title: event.title },
-          )}
+          aria-label={`${saved ? 'Remover dos' : 'Adicionar aos'} favoritos: ${event.title}`}
           aria-pressed={saved}
           onClick={() => toggleFavorite(event.id)}
         >
@@ -28,15 +25,15 @@ export function EventCard({ event }) {
       </div>
       <div className="discovery-body">
         <h3>{event.title}</h3>
-        <p>▦ {event.date}</p>
+        <p>▦ {/^\d{4}-\d{2}-\d{2}$/.test(event.date) ? dateLabel(event.date) : event.date}</p>
         <p>⌖ {event.location}</p>
         <div className="card-actions">
           <div>
-            <small>{t('A partir de')}</small>
+            <small>A partir de</small>
             <strong>{money(event.price)}</strong>
           </div>
           <Link className="ticket-link" to={`/eventos/${event.id}`}>
-            {t('Ver opções →')}
+            Ver opções →
           </Link>
         </div>
       </div>
@@ -44,7 +41,6 @@ export function EventCard({ event }) {
   );
 }
 export function Catalog({ favorites = false }) {
-  const { t } = useI18n();
   const state = useEvents();
   const { data } = useStore();
   const [query, setQuery] = useState('');
@@ -54,31 +50,31 @@ export function Catalog({ favorites = false }) {
   const filtered = all.filter(
     (e) =>
       (!favorites || data.favorites.includes(e.id)) &&
-      `${e.title} ${e.location}`.toLowerCase().includes(query.toLowerCase()) &&
-      (city === 'Todas' || e.location.includes(city)),
+      normalizeSearch(`${e.title} ${e.location}`).includes(normalizeSearch(query)) &&
+      (city === 'Todas' || normalizeSearch(e.location).includes(normalizeSearch(city))),
   );
   return (
     <div className="workspace discovery">
       <div className="discovery-heading">
         <Badge>EXPERIÊNCIAS QUE CONECTAM PESSOAS</Badge>
-        <h1>{favorites ? t('Seus favoritos') : t('EVENTOS')}</h1>
+        <h1>{favorites ? 'Seus favoritos' : 'EVENTOS'}</h1>
         <p>
-          {t('Explore festivais, grandes turnês e experiências ao vivo.')}
+          Explore festivais, grandes turnês e experiências ao vivo.
           <br />
-          {t('Encontre o seu próximo momento inesquecível.')}
+          Encontre o seu próximo momento inesquecível.
         </p>
         <div className="discovery-search">
           <input
             type="search"
-            aria-label={t('Buscar eventos')}
-            placeholder={t('Buscar por artista, festival ou cidade…')}
+            aria-label="Buscar eventos"
+            placeholder="Buscar por artista, festival ou cidade…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <select aria-label={t('Cidade')} value={city} onChange={(e) => setCity(e.target.value)}>
-            <option value="Todas">{t('Todas')}</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="Rio de Janeiro">Rio de Janeiro</option>
+          <select aria-label="Cidade" value={city} onChange={(e) => setCity(e.target.value)}>
+            <option>Todas</option>
+            <option>São Paulo</option>
+            <option>Rio de Janeiro</option>
           </select>
         </div>
       </div>
@@ -86,8 +82,9 @@ export function Catalog({ favorites = false }) {
       {!state.loading && !state.error && (
         <>
           <PageTitle
+            as="h2"
             title={favorites ? 'Eventos salvos' : 'Recomendados para Você'}
-            subtitle={t('{count} eventos encontrados', { count: filtered.length })}
+            subtitle={`${filtered.length} eventos encontrados`}
           />
           <div className="discovery-grid">
             {filtered.slice(0, 4).map((e) => (
@@ -97,6 +94,7 @@ export function Catalog({ favorites = false }) {
           {filtered.length > 4 && (
             <>
               <PageTitle
+                as="h2"
                 title="Mais experiências para descobrir"
                 subtitle="Shows, cultura e encontros para todos os gostos."
               />
@@ -108,10 +106,16 @@ export function Catalog({ favorites = false }) {
             </>
           )}
           {!filtered.length && (
-            <Empty title={favorites ? 'Você ainda não tem favoritos' : 'Nenhum evento encontrado'}>
-              {favorites
-                ? t('Toque no coração de um evento para encontrá-lo aqui.')
-                : t('Experimente outro nome ou cidade.')}
+            <Empty
+              title={
+                favorites && !data.favorites.length
+                  ? 'Você ainda não tem favoritos'
+                  : 'Nenhum evento encontrado'
+              }
+            >
+              {favorites && !data.favorites.length
+                ? 'Toque no coração de um evento para encontrá-lo aqui.'
+                : 'Experimente outro nome ou cidade.'}
             </Empty>
           )}
         </>
@@ -120,12 +124,14 @@ export function Catalog({ favorites = false }) {
   );
 }
 
-export function EventDetails() {
-  const { t } = useI18n();
+export function EventDetails({ organizer = false }) {
   const { id } = useParams();
   const state = useEvents();
   const { data, update, notify, toggleFavorite } = useStore();
-  const event = [...state.events, ...data.events].find((e) => e.id === id);
+  const event = [
+    ...state.events,
+    ...data.events.filter((e) => organizer || ['Publicado', 'Cancelado'].includes(e.status)),
+  ].find((e) => e.id === id);
   const [tab, setTab] = useState('Sobre o evento');
   const [type, setType] = useState('Inteira');
   const [quantity, setQuantity] = useState(1);
@@ -141,21 +147,28 @@ export function EventDetails() {
       <div className="workspace">
         <Empty title="Evento não encontrado" />
         <Link className="button primary" to="/eventos">
-          {t('Voltar aos eventos')}
+          Voltar aos eventos
         </Link>
       </div>
     );
   const price = event.price * (type === 'Meia-entrada' ? 0.5 : 1);
-  const total = price * quantity;
+  const bookingError = reservationError(event, quantity, data.tickets);
+  const total = (Math.round(price * 100) * (Number(quantity) || 0)) / 100;
   function reserve() {
+    if (reservationError(event, quantity, data.tickets)) {
+      setModal(false);
+      return;
+    }
     update('tickets', (old) => [
       {
-        id: `DEMO-${Date.now().toString().slice(-7)}`,
+        id: `DEMO-${crypto.randomUUID().slice(0, 8)}`,
         eventId: id,
         title: event.title,
         image: event.image,
         type,
-        quantity,
+        location: event.location,
+        date: event.date,
+        quantity: Number(quantity),
         total,
         status: 'Reservado (demo)',
       },
@@ -167,7 +180,7 @@ export function EventDetails() {
   return (
     <div className="workspace">
       <div className="breadcrumb">
-        <Link to="/eventos">{t('Eventos')}</Link>
+        <Link to="/eventos">Eventos</Link>
         <span>›</span>
         <span>{event.title}</span>
       </div>
@@ -183,10 +196,20 @@ export function EventDetails() {
             );
           }}
         >
-          {data.favorites.includes(id) ? t('♥ Salvo') : t('♡ Salvar')}
+          {data.favorites.includes(id) ? '♥ Salvo' : '♡ Salvar'}
         </button>
+        {organizer && data.events.some((item) => item.id === id) && (
+          <Link className="button blue-button" to={`/organizador/eventos/${id}/editar`}>
+            Editar evento
+          </Link>
+        )}
+        {organizer && data.events.some((item) => item.id === id) && (
+          <Link className="button outline" to={`/organizador/eventos/${id}/consolidar`}>
+            Consolidar evento
+          </Link>
+        )}
         <Link className="button outline" to="/comunidade">
-          {t('Comunidade →')}
+          Comunidade →
         </Link>
       </PageTitle>
       <div className="dashboard-layout detail-layout">
@@ -194,7 +217,7 @@ export function EventDetails() {
           <Panel className="event-hero-panel">
             <div className="event-poster">
               <img
-                src={id === 'lollapalooza' ? './images/asset-30.jpg' : event.image}
+                src={assetUrl(id === 'lollapalooza' ? '/images/asset-30.jpg' : event.image)}
                 alt={event.title}
               />
               <div>
@@ -203,7 +226,7 @@ export function EventDetails() {
               </div>
             </div>
             <div className="card-actions">
-              <span>{t('Uma experiência para guardar na memória')}</span>
+              <span>Uma experiência para guardar na memória</span>
               <strong className="stars">★★★★★</strong>
             </div>
           </Panel>
@@ -218,45 +241,41 @@ export function EventDetails() {
                 <>
                   <p>{event.description}</p>
                   <p>
-                    {t(
-                      'Encontre sua entrada, escolha o tipo de ingresso e acompanhe tudo em sua área de participante.',
-                    )}
+                    Encontre sua entrada, escolha o tipo de ingresso e acompanhe tudo em sua área de
+                    participante.
                   </p>
                   <div className="info-note">
-                    {t('Os eventos, valores e avaliações deste protótipo são demonstrativos.')}
+                    Os eventos, valores e avaliações deste protótipo são demonstrativos.
                   </div>
                 </>
               ) : tab === 'Line-up & atrações' ? (
                 <>
-                  <h3>{t('Programação do evento')}</h3>
+                  <h3>Programação do evento</h3>
                   <p>
-                    {t(
-                      'Abertura dos portões, apresentações principais e experiências de gastronomia e cultura.',
-                    )}
+                    Abertura dos portões, apresentações principais e experiências de gastronomia e
+                    cultura.
                   </p>
                   <p className="muted">
-                    {t(
-                      'A programação oficial será disponibilizada pelo organizador no serviço real.',
-                    )}
+                    A programação oficial será disponibilizada pelo organizador no serviço real.
                   </p>
                 </>
               ) : tab === 'Como funciona' ? (
                 <>
-                  <h3>{t('Escolha, reserve e acompanhe')}</h3>
+                  <h3>Escolha, reserve e acompanhe</h3>
                   <ol>
-                    <li>{t('Selecione o tipo de ingresso.')}</li>
-                    <li>{t('Confira quantidade e total.')}</li>
-                    <li>{t('Simule a reserva e consulte “Meus ingressos”.')}</li>
+                    <li>Selecione o tipo de ingresso.</li>
+                    <li>Confira quantidade e total.</li>
+                    <li>Simule a reserva e consulte “Meus ingressos”.</li>
                   </ol>
-                  <p>{t('Nenhuma cobrança é feita.')}</p>
+                  <p>Nenhuma cobrança é feita.</p>
                 </>
               ) : (
                 <>
-                  <h3>{t('Avaliações da comunidade')}</h3>
+                  <h3>Avaliações da comunidade</h3>
                   <p className="stars">★★★★★</p>
-                  <p>{t('“Uma experiência inesquecível!” — Participante de demonstração')}</p>
+                  <p>“Uma experiência inesquecível!” — Participante de demonstração</p>
                   <Link className="text-link" to="/comunidade">
-                    {t('Participar da conversa →')}
+                    Participar da conversa →
                   </Link>
                 </>
               )}
@@ -266,51 +285,61 @@ export function EventDetails() {
         <aside>
           <Panel className="booking-panel">
             <Badge>Reserva de demonstração</Badge>
-            <p className="muted">{t('Ingressos a partir de')}</p>
+            <p className="muted">Ingressos a partir de</p>
             <div className="booking-price">{money(price)}</div>
-            <label htmlFor="ticket-type">{t('Selecione o tipo de entrada')}</label>
+            <label htmlFor="ticket-type">Selecione o tipo de entrada</label>
             <select id="ticket-type" value={type} onChange={(e) => setType(e.target.value)}>
-              <option value="Inteira">{t('Inteira')}</option>
-              <option value="Meia-entrada">{t('Meia-entrada')}</option>
+              <option>Inteira</option>
+              <option>Meia-entrada</option>
             </select>
-            <label htmlFor="ticket-quantity">{t('Quantidade')}</label>
+            <label htmlFor="ticket-quantity">Quantidade</label>
             <input
               id="ticket-quantity"
               type="number"
               min="1"
               max="6"
               value={quantity}
-              onChange={(e) => setQuantity(Math.min(6, Math.max(1, Number(e.target.value) || 1)))}
+              step="1"
+              aria-invalid={!!bookingError}
+              aria-describedby={bookingError ? 'booking-error' : undefined}
+              onChange={(e) => setQuantity(e.target.value)}
             />
             <div className="card-actions">
-              <span>{t('Total')}</span>
+              <span>Total</span>
               <strong>{money(total)}</strong>
             </div>
-            <button className="button primary full" onClick={() => setModal(true)}>
-              {t('Simular reserva →')}
-            </button>
-            <small className="muted">
-              {t('Sem cobrança. Ingressos sem validade para entrada.')}
-            </small>
+            <p id="booking-error" className="field-error" role="status">
+              {bookingError}
+            </p>
+            {!organizer && (
+              <button
+                className="button primary full"
+                disabled={!!bookingError}
+                onClick={() => setModal(true)}
+              >
+                Simular reserva →
+              </button>
+            )}
+            <small className="muted">Sem cobrança. Ingressos sem validade para entrada.</small>
           </Panel>
           <Panel title="Detalhes e Localização">
-            <p>▦ {event.date}</p>
+            <p>▦ {/^\d{4}-\d{2}-\d{2}$/.test(event.date) ? dateLabel(event.date) : event.date}</p>
             <p>⌖ {event.location}</p>
             <p className="muted">
-              {t('Consulte as regras e a classificação indicativa na programação oficial.')}
+              Consulte as regras e a classificação indicativa na programação oficial.
             </p>
             {id === 'lollapalooza' && (
               <img
                 className="venue-map"
-                src="./images/asset-33.jpg"
-                alt={t('Mapa ilustrativo do local do festival')}
+                src={assetUrl('/images/asset-33.jpg')}
+                alt="Mapa ilustrativo do local do festival"
               />
             )}
           </Panel>
           <Panel title="Comunidade & Fórum">
-            <p>{t('Encontre outras pessoas e compartilhe sua expectativa.')}</p>
+            <p>Encontre outras pessoas e compartilhe sua expectativa.</p>
             <Link className="button outline full" to="/comunidade">
-              {t('Acessar comunidade →')}
+              Acessar comunidade →
             </Link>
           </Panel>
         </aside>
@@ -319,15 +348,14 @@ export function EventDetails() {
         <Modal title="Confirmar reserva de demonstração" onClose={() => setModal(false)}>
           <h3>{event.title}</h3>
           <p>
-            {quantity} × {t(type)} · <strong>{money(total)}</strong>
+            {quantity} × {type} · <strong>{money(total)}</strong>
           </p>
           <p>
-            {t(
-              'Esta ação apenas adiciona um registro local. Não há compra, pagamento ou ingresso válido.',
-            )}
+            Esta ação apenas adiciona um registro local. Não há compra, pagamento ou ingresso
+            válido.
           </p>
           <button className="button primary full" onClick={reserve}>
-            {t('Confirmar simulação')}
+            Confirmar simulação
           </button>
         </Modal>
       )}
@@ -335,57 +363,7 @@ export function EventDetails() {
   );
 }
 
-export function Tickets() {
-  const { t } = useI18n();
-  const { data, update, notify } = useStore();
-  return (
-    <div className="workspace">
-      <PageTitle title="Meus Ingressos" subtitle="Acompanhe as reservas feitas na demonstração.">
-        <Link className="button primary" to="/eventos">
-          {t('Explorar eventos')}
-        </Link>
-      </PageTitle>
-      <div className="cards-three">
-        {data.tickets.map((ticket) => (
-          <Panel key={ticket.id}>
-            <img className="supplier-cover" src={ticket.image} alt={ticket.title} />
-            <Badge>{ticket.status}</Badge>
-            <h2>{ticket.title}</h2>
-            <code>{ticket.id}</code>
-            <p>
-              {ticket.quantity} × {t(ticket.type)} · {money(ticket.total)}
-            </p>
-            <p className="muted">{t('SEM VALIDADE PARA ENTRADA')}</p>
-            <div className="actions">
-              <Link className="button outline" to={`/eventos/${ticket.eventId}`}>
-                {t('Ver evento')}
-              </Link>
-              <button
-                className="button danger-outline"
-                disabled={ticket.status === 'Cancelado'}
-                onClick={() => {
-                  update('tickets', (old) =>
-                    old.map((t) => (t.id === ticket.id ? { ...t, status: 'Cancelado' } : t)),
-                  );
-                  notify('Reserva de demonstração cancelada.');
-                }}
-              >
-                {t('Cancelar reserva')}
-              </button>
-            </div>
-          </Panel>
-        ))}
-      </div>
-      {!data.tickets.length && (
-        <Empty title="Sua próxima experiência começa aqui">
-          {t('Explore os eventos e simule uma reserva para vê-la nesta página.')}
-        </Empty>
-      )}
-    </div>
-  );
-}
 export function Community() {
-  const { t } = useI18n();
   const { data, update, notify } = useStore();
   const [message, setMessage] = useState('');
   return (
@@ -408,17 +386,17 @@ export function Community() {
           }}
         >
           <textarea
-            aria-label={t('Sua mensagem')}
+            aria-label="Sua mensagem"
             required
             maxLength={500}
             rows={4}
-            placeholder={t('Conte qual evento você quer conhecer…')}
+            placeholder="Conte qual evento você quer conhecer…"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <div className="form-footer">
-            <small className="muted">{t('Visível apenas neste navegador.')}</small>
-            <button className="button primary">{t('Publicar na demo')}</button>
+            <small className="muted">Visível apenas neste navegador.</small>
+            <button className="button primary">Publicar na demo</button>
           </div>
         </form>
       </Panel>
@@ -430,16 +408,14 @@ export function Community() {
             className="plain-button text-danger"
             onClick={() => update('messages', (old) => old.filter((x) => x.id !== m.id))}
           >
-            {t('Remover mensagem')}
+            Remover mensagem
           </button>
         </Panel>
       ))}
       <Panel>
         <Badge>Boas-vindas</Badge>
-        <h2>{t('Viva a próxima experiência')}</h2>
-        <p>
-          {t('Salve seus eventos favoritos, explore as áreas e teste os fluxos do TrocaTicket.')}
-        </p>
+        <h2>Viva a próxima experiência</h2>
+        <p>Salve seus eventos favoritos, explore as áreas e teste os fluxos do TrocaTicket.</p>
       </Panel>
     </div>
   );

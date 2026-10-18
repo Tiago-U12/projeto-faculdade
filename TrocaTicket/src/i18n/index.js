@@ -2,6 +2,8 @@ import { useSyncExternalStore } from 'react';
 import publicMessages from './publicMessages.js';
 import workspaceMessages from './workspaceMessages.js';
 import settingsMessages from './settingsMessages.js';
+import integrationMessages from './integrationMessages.js';
+import mvpMessages from '../mvp/texts.js';
 import { readPreferences } from '../accessibility/preferences.js';
 
 const resources = {};
@@ -10,6 +12,8 @@ for (const language of ['en', 'es', 'fr', 'de', 'it'])
     ...publicMessages[language],
     ...workspaceMessages[language],
     ...settingsMessages[language],
+    ...integrationMessages[language],
+    ...mvpMessages[language],
   };
 let locale = 'pt-BR';
 try {

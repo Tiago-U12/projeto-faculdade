@@ -1,4 +1,3 @@
-import { useI18n } from '../i18n';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { opportunities } from '../data/demo';
@@ -25,7 +24,6 @@ const lots = [
   ['LT-2028-MJ4', 'michael', 'VIP Lounge', 800, 620, 'Aprovado'],
 ];
 export function Admin() {
-  const { t, locale } = useI18n();
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const filtered = lots.filter((l) =>
@@ -38,26 +36,21 @@ export function Admin() {
   return (
     <div className="workspace">
       <PageTitle
-        title={t('Painel Geral')}
-        subtitle={t('Visão consolidada dos eventos e relatórios de demonstração.')}
+        title="Painel Geral"
+        subtitle="Visão consolidada dos eventos e relatórios de demonstração."
       >
         <Link className="button blue-button" to="/admin/moderacao">
-          {t('Moderar cadastros →')}
+          Moderar cadastros →
         </Link>
         <DownloadButton
           name="relatorio-geral.csv"
-          rows={[
-            ['Lote', 'Evento', 'Setor', 'Emitidos', 'Trocas', 'Status'].map((heading) =>
-              t(heading),
-            ),
-            ...lots,
-          ]}
+          rows={[['Lote', 'Evento', 'Setor', 'Emitidos', 'Trocas', 'Status'], ...lots]}
         />
       </PageTitle>
       <div className="filter-bar">
         <input
-          aria-label={t('Buscar relatórios')}
-          placeholder={t('Buscar por evento, artista ou código…')}
+          aria-label="Buscar relatórios"
+          placeholder="Buscar por evento, artista ou código…"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -65,12 +58,12 @@ export function Admin() {
           }}
         />
       </div>
-      <h2 className="subheading">{t('Visão Geral dos Eventos Prioritários')}</h2>
+      <h2 className="subheading">Visão Geral dos Eventos Prioritários</h2>
       <div className="cards-three">
         {opportunities.map((event, i) => (
           <Panel className="admin-event" key={event.id}>
             <div className="card-actions">
-              <Badge>{t('EVENTO {number}', { number: i + 1 })}</Badge>
+              <Badge>EVENTO {i + 1}</Badge>
               <Badge>{['Aprovado / Ativo', 'Em auditoria', 'Pré-venda ativa'][i]}</Badge>
             </div>
             <h2>{event.title.toUpperCase()}</h2>
@@ -78,40 +71,35 @@ export function Admin() {
             <div className="info-note">▦ {dateLabel(event.date)}</div>
             <div className="mini-stats">
               <div>
-                <small>{t('Trocas efetuadas')}</small>
-                <strong>{[3420, 1890, 8950][i].toLocaleString(locale)}</strong>
+                <small>Trocas efetuadas</small>
+                <strong>{[3420, 1890, 8950][i].toLocaleString('pt-BR')}</strong>
               </div>
               <div>
-                <small>{t('Conversão geral')}</small>
-                <strong className="green-text">
-                  {[0.948, 0.874, 0.992][i].toLocaleString(locale, {
-                    style: 'percent',
-                    maximumFractionDigits: 1,
-                  })}
-                </strong>
+                <small>Conversão geral</small>
+                <strong className="green-text">{['94,8%', '87,4%', '99,2%'][i]}</strong>
               </div>
             </div>
             <Link className="button dark full" to={`/admin/relatorios/${event.id}`}>
-              {t('Visão e relatórios ↗')}
+              Visão e relatórios ↗
             </Link>
           </Panel>
         ))}
       </div>
       <Panel
-        title={t('Lista Consolidada de Relatórios Recentes e Lotes')}
-        subtitle={t('Histórico de validação e transferências demonstrativas.')}
+        title="Lista Consolidada de Relatórios Recentes e Lotes"
+        subtitle="Histórico de validação e transferências demonstrativas."
       >
         <div className="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>{t('ID do lote')}</th>
-                <th>{t('Evento / artista')}</th>
-                <th>{t('Data prevista')}</th>
-                <th>{t('Emitidos')}</th>
-                <th>{t('Trocas concluídas')}</th>
-                <th>{t('Status')}</th>
-                <th>{t('Ações')}</th>
+                <th>ID do lote</th>
+                <th>Evento / artista</th>
+                <th>Data prevista</th>
+                <th>Emitidos</th>
+                <th>Trocas concluídas</th>
+                <th>Status</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -124,7 +112,7 @@ export function Admin() {
                     </td>
                     <td>
                       <strong>{event.title}</strong>
-                      <small>{t(l[2])}</small>
+                      <small>{l[2]}</small>
                     </td>
                     <td>{dateLabel(event.date)}</td>
                     <td>{l[3]}</td>
@@ -134,7 +122,7 @@ export function Admin() {
                     </td>
                     <td>
                       <Link className="text-link" to={`/admin/relatorios/${event.id}`}>
-                        {t('Ver →')}
+                        Ver →
                       </Link>
                     </td>
                   </tr>
@@ -146,17 +134,13 @@ export function Admin() {
         {!filtered.length && <Empty />}
         <div className="pagination">
           <span>
-            {t('{count} registros · página {page} de {pages}', {
-              count: filtered.length,
-              page: current,
-              pages: count,
-            })}
+            {filtered.length} registros · página {current} de {count}
           </span>
           <button disabled={current === 1} onClick={() => setPage(current - 1)}>
-            {t('Anterior')}
+            Anterior
           </button>
           <button disabled={current === count} onClick={() => setPage(current + 1)}>
-            {t('Próxima')}
+            Próxima
           </button>
         </div>
       </Panel>
@@ -165,12 +149,11 @@ export function Admin() {
 }
 
 export function Report() {
-  const { t, locale } = useI18n();
   const { id } = useParams();
   const event = opportunities.find((e) => e.id === id);
   const [group, setGroup] = useState('Por setor');
   const [selected, setSelected] = useState(null);
-  if (!event) return <NotFound title={t('Relatório não encontrado')} />;
+  if (!event) return <NotFound title="Relatório não encontrado" />;
   const sold = id === 'tim-maia' ? 80000 : id === 'lil-peep' ? 16000 : 42000;
   const sectors =
     group === 'Por setor'
@@ -181,76 +164,63 @@ export function Report() {
   return (
     <div className="workspace">
       <PageTitle
-        title={t('Relatórios Gerenciais')}
-        subtitle={t('{name} · indicadores de demonstração', { name: event.title })}
+        title="Relatórios Gerenciais"
+        subtitle={`${event.title} · indicadores de demonstração`}
       >
         <Link className="button outline" to="/admin">
-          {t('← Painel geral')}
+          ← Painel geral
         </Link>
         <DownloadButton
           name={`relatorio-${id}.csv`}
-          rows={[
-            [event.title],
-            ['Canal / Setor', 'Vendidos', 'Participação'].map((heading) => t(heading)),
-            ...rows,
-          ]}
+          rows={[[event.title], ['Canal / Setor', 'Vendidos', 'Participação'], ...rows]}
         />
       </PageTitle>
       <div className="cards-two">
         <Panel>
           <Badge>{event.subtitle}</Badge>
           <h1 className="report-title">{event.title.toUpperCase()}</h1>
-          <p className="muted">{t('Mega produção imersiva · experiência ao vivo')}</p>
+          <p className="muted">Mega produção imersiva · experiência ao vivo</p>
           <div className="summary-grid">
             <div>
-              <small>{t('DATA DO EVENTO')}</small>
+              <small>DATA DO EVENTO</small>
               <strong>{dateLabel(event.date)}</strong>
             </div>
             <div>
-              <small>{t('LOCAL / PRAÇA')}</small>
+              <small>LOCAL / PRAÇA</small>
               <strong>{event.location}</strong>
             </div>
           </div>
           <div className="info-note">
-            {t('Capacidade:')}{' '}
-            <strong>
-              {t('{count} pessoas', { count: Math.ceil(sold / 0.941).toLocaleString(locale) })}
-            </strong>{' '}
-            {t('· Lote 04')}
+            Capacidade: <strong>{Math.ceil(sold / 0.941).toLocaleString('pt-BR')} pessoas</strong> ·
+            Lote 04
           </div>
           <Link className="button outline" to="/admin">
-            {t('Gerenciar relatórios de lotes')}
+            Gerenciar relatórios de lotes
           </Link>
         </Panel>
         <Panel>
-          <p className="eyebrow muted">{t('Totalizadores de bilheteria')}</p>
+          <p className="eyebrow muted">Totalizadores de bilheteria</p>
           <h2 className="sales-title">
-            {t('TICKETS VENDIDOS:')} <span>{sold.toLocaleString(locale)}</span>
+            TICKETS VENDIDOS: <span>{sold.toLocaleString('pt-BR')}</span>
           </h2>
-          <progress max="100" value="94.1" aria-label={t('Ocupação de 94,1%')} />
+          <progress max="100" value="94.1" aria-label="Ocupação de 94,1%" />
           <div className="summary-grid">
             <div>
-              <small>{t('Faturamento bruto')}</small>
+              <small>Faturamento bruto</small>
               <strong>{money(sold * 310)}</strong>
             </div>
             <div>
-              <small>{t('Ticket médio')}</small>
+              <small>Ticket médio</small>
               <strong>{money(310)}</strong>
             </div>
           </div>
           <Tabs options={['Por setor', 'Por canal']} value={group} onChange={setGroup} />
           <div className="chart-layout">
-            <div
-              className="donut"
-              role="img"
-              aria-label={rows
-                .map((r) => `${t(r[0])}: ${r[1].toLocaleString(locale)}, ${r[2]}`)
-                .join('; ')}
-            >
+            <div className="donut" role="img" aria-label={rows.map((r) => r.join(': ')).join(', ')}>
               <div>
-                <small>{t('Total')}</small>
-                <strong>{sold.toLocaleString(locale)}</strong>
-                <small>{t('ingressos')}</small>
+                <small>Total</small>
+                <strong>{sold.toLocaleString('pt-BR')}</strong>
+                <small>ingressos</small>
               </div>
             </div>
             <ul className="chart-legend">
@@ -261,7 +231,7 @@ export function Report() {
                       background: ['#243c91', '#2860ee', '#13a3d7', '#ff7914', '#0cba86'][i],
                     }}
                   />
-                  <span>{t(r[0])}</span>
+                  <span>{r[0]}</span>
                   <strong>{r[2]}</strong>
                 </li>
               ))}
@@ -270,19 +240,19 @@ export function Report() {
         </Panel>
       </div>
       <Panel
-        title={t('Detalhamento de Lotes e Transações Recentes')}
-        subtitle={t('Dados fictícios para avaliação do front-end.')}
+        title="Detalhamento de Lotes e Transações Recentes"
+        subtitle="Dados fictícios para avaliação do front-end."
       >
         <div className="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>{t('ID transação')}</th>
-                <th>{t('Setor / Categoria')}</th>
-                <th>{t('Quantidade')}</th>
-                <th>{t('Valor total')}</th>
-                <th>{t('Status')}</th>
-                <th>{t('Ação')}</th>
+                <th>ID transação</th>
+                <th>Setor / Categoria</th>
+                <th>Quantidade</th>
+                <th>Valor total</th>
+                <th>Status</th>
+                <th>Ação</th>
               </tr>
             </thead>
             <tbody>
@@ -292,12 +262,10 @@ export function Report() {
                     <code>TRX-8923{i}</code>
                   </td>
                   <td>
-                    <strong>{t(name)}</strong>
-                    <small>{t('Lote 04 · Entrada padrão')}</small>
+                    <strong>{name}</strong>
+                    <small>Lote 04 · Entrada padrão</small>
                   </td>
-                  <td>
-                    {i + 1} {t('un.')}
-                  </td>
+                  <td>{i + 1} un.</td>
                   <td>{money((i + 1) * 310)}</td>
                   <td>
                     <Badge>{i === 1 ? 'Pendente' : 'Aprovado'}</Badge>
@@ -307,7 +275,7 @@ export function Report() {
                       className="text-link plain-button"
                       onClick={() => setSelected({ name, quantity: i + 1 })}
                     >
-                      {t('Detalhes')}
+                      Detalhes
                     </button>
                   </td>
                 </tr>
@@ -317,16 +285,14 @@ export function Report() {
         </div>
       </Panel>
       {selected && (
-        <Modal title={t('Detalhes da transação')} onClose={() => setSelected(null)}>
-          <h3>{t(selected.name)}</h3>
+        <Modal title="Detalhes da transação" onClose={() => setSelected(null)}>
+          <h3>{selected.name}</h3>
           <p>
-            {t('{count} ingressos', { count: selected.quantity })} ·{' '}
-            {money(selected.quantity * 310)}
+            {selected.quantity} ingressos · {money(selected.quantity * 310)}
           </p>
           <p>
-            {t(
-              'Registro fictício para demonstrar a consulta de transações. Não existe cobrança associada.',
-            )}
+            Registro fictício para demonstrar a consulta de transações. Não existe cobrança
+            associada.
           </p>
         </Modal>
       )}
@@ -335,7 +301,6 @@ export function Report() {
 }
 
 export function Moderation() {
-  const { t } = useI18n();
   const { data, update, notify } = useStore();
   const [status, setStatus] = useState('Pendente');
   const [query, setQuery] = useState('');
@@ -366,20 +331,18 @@ export function Moderation() {
       old.map((p) => (p.id === person.id ? { ...p, status: next, note } : p)),
     );
     select(people.find((p) => p.id !== person.id)?.id);
-    notify(t('Cadastro {status} na demonstração.', { status: t(next) }));
+    notify(`Cadastro ${next.toLowerCase()} na demonstração.`);
   }
   return (
     <div className="workspace">
       <PageTitle
-        title={t('Moderação de Cadastros')}
-        subtitle={t(
-          'Fila de validação com pessoas fictícias. Nenhuma consulta externa é realizada.',
-        )}
+        title="Moderação de Cadastros"
+        subtitle="Fila de validação com pessoas fictícias. Nenhuma consulta externa é realizada."
       />
       <div className="filter-bar">
         <input
-          aria-label={t('Buscar cadastro')}
-          placeholder={t('Buscar por nome…')}
+          aria-label="Buscar cadastro"
+          placeholder="Buscar por nome…"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -403,10 +366,7 @@ export function Moderation() {
           {person ? (
             <Panel className="moderation-panel">
               <div className="moderation-banner">
-                <span>
-                  {t('MÓDULO DE VALIDAÇÃO · #')}
-                  {person.id}
-                </span>
+                <span>MÓDULO DE VALIDAÇÃO · #{person.id}</span>
                 <Badge>{person.status}</Badge>
               </div>
               <div className="moderation-content">
@@ -419,31 +379,28 @@ export function Moderation() {
                         .join('')}
                     </span>
                     <div>
-                      <small>{t('NOME')}</small>
+                      <small>NOME</small>
                       <h2>{person.name}</h2>
                       <code>@{person.name.toLowerCase().replaceAll(' ', '_')}</code>
                     </div>
                   </div>
                   <div className="info-note">
-                    <small>{t('E-MAIL DE DEMONSTRAÇÃO')}</small>
+                    <small>E-MAIL DE DEMONSTRAÇÃO</small>
                     <strong>{person.email}</strong>
                   </div>
                   <div className="info-note">
-                    <small>{t('DOCUMENTO')}</small>
+                    <small>DOCUMENTO</small>
                     <strong>***.***.***-**</strong>
-                    <p>{t('Dados mascarados e fictícios')}</p>
+                    <p>Dados mascarados e fictícios</p>
                   </div>
                   <div className="info-note">
-                    {t(
-                      'A validação oficial de identidade e os controles de segurança serão integrados ao backend.',
-                    )}
+                    A validação oficial de identidade e os controles de segurança serão integrados
+                    ao backend.
                   </div>
                 </div>
                 <div className="decision-panel">
-                  <h2>{status === 'Pendente' ? t('Deseja aceitar?') : t('Decisão registrada')}</h2>
-                  <p className="muted">
-                    {t('Avalie os critérios deste cadastro de demonstração.')}
-                  </p>
+                  <h2>{status === 'Pendente' ? 'Deseja aceitar?' : 'Decisão registrada'}</h2>
+                  <p className="muted">Avalie os critérios deste cadastro de demonstração.</p>
                   {status === 'Pendente' ? (
                     <>
                       {[
@@ -461,36 +418,36 @@ export function Moderation() {
                               )
                             }
                           />
-                          {t(label)}
+                          {label}
                         </label>
                       ))}
-                      <Field label={t('Notas do moderador')} name="moderation-note">
+                      <Field label="Notas do moderador" name="moderation-note">
                         <textarea
                           id="moderation-note"
                           rows={4}
-                          placeholder={t('Informe o motivo caso recuse…')}
+                          placeholder="Informe o motivo caso recuse…"
                           value={note}
                           onChange={(e) => setNote(e.target.value)}
                         />
                       </Field>
                       {error && (
                         <p role="alert" className="field-error">
-                          {t(error)}
+                          {error}
                         </p>
                       )}
                       <div className="decision-buttons">
                         <button className="approve" onClick={() => decision('Aprovado')}>
-                          ✓<small>{t('Aprovar')}</small>
+                          ✓<small>Aprovar</small>
                         </button>
                         <button className="reject" onClick={() => decision('Recusado')}>
-                          ×<small>{t('Recusar')}</small>
+                          ×<small>Recusar</small>
                         </button>
                       </div>
                     </>
                   ) : (
                     <>
                       <Badge>{person.status}</Badge>
-                      <p>{person.note || t('Sem observações.')}</p>
+                      <p>{person.note || 'Sem observações.'}</p>
                       <button
                         className="button outline"
                         onClick={() => {
@@ -501,7 +458,7 @@ export function Moderation() {
                           select(person.id);
                         }}
                       >
-                        {t('Reabrir análise')}
+                        Reabrir análise
                       </button>
                     </>
                   )}
@@ -510,17 +467,14 @@ export function Moderation() {
             </Panel>
           ) : (
             <Panel>
-              <Empty title={t('Fila concluída')}>
-                {t('Nenhum cadastro corresponde aos filtros selecionados.')}
+              <Empty title="Fila concluída">
+                Nenhum cadastro corresponde aos filtros selecionados.
               </Empty>
             </Panel>
           )}
         </div>
         <aside>
-          <Panel
-            title={t('Fila de Espera')}
-            subtitle={t('{count} cadastros nesta seleção', { count: people.length })}
-          >
+          <Panel title="Fila de Espera" subtitle={`${people.length} cadastros nesta seleção`}>
             {people.map((p) => (
               <button
                 key={p.id}
@@ -541,11 +495,10 @@ export function Moderation() {
             ))}
           </Panel>
           <div className="info-note">
-            <strong>{t('Regras de auditoria')}</strong>
+            <strong>Regras de auditoria</strong>
             <p>
-              {t(
-                'Confira cada critério e documente o motivo das recusas. As decisões ficam salvas apenas neste navegador.',
-              )}
+              Confira cada critério e documente o motivo das recusas. As decisões ficam salvas
+              apenas neste navegador.
             </p>
           </div>
         </aside>

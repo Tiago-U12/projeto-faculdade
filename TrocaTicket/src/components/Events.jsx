@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useI18n, getLocale } from '../i18n';
 import { Link, useSearchParams } from 'react-router';
 import { getEvents } from '../services/events';
+import { assetUrl } from '../services/assets.js';
 export const currency = (value) =>
-  value.toLocaleString(getLocale(), { style: 'currency', currency: 'BRL' });
+  value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 export function useEvents() {
   const [params] = useSearchParams();
   const simulateError = params.get('erro') === '1';
@@ -13,7 +13,9 @@ export function useEvents() {
     const controller = new AbortController();
     setState({ loading: true, events: [], error: '' });
     getEvents(controller.signal, simulateError && attempt === 0)
-      .then((events) => setState({ loading: false, events, error: '' }))
+      .then((events) => {
+        if (!controller.signal.aborted) setState({ loading: false, events, error: '' });
+      })
       .catch((error) => {
         if (error.name !== 'AbortError')
           setState({ loading: false, events: [], error: error.message });
@@ -23,26 +25,24 @@ export function useEvents() {
   return { ...state, retry: () => setAttempt((value) => value + 1) };
 }
 export function LoadState({ loading, error, retry }) {
-  const { t } = useI18n();
   if (loading)
     return (
       <p className="feedback" role="status">
-        {t('Carregando eventos…')}
+        Carregando eventos…
       </p>
     );
   if (error)
     return (
       <div className="feedback" role="alert">
-        <p>{t(error)}</p>
+        <p>{error}</p>
         <button className="button primary" onClick={retry}>
-          {t('Tentar novamente')}
+          Tentar novamente
         </button>
       </div>
     );
   return null;
 }
 export default function Events({ catalog = false }) {
-  const { t } = useI18n();
   const state = useEvents();
   const [query, setQuery] = useState('');
   const events = state.events.filter((event) =>
@@ -54,26 +54,25 @@ export default function Events({ catalog = false }) {
     <section className="events section" aria-labelledby="events-title">
       <div className="section-row">
         <div>
-          <p className="eyebrow purple">{t('Eventos')}</p>
+          <p className="eyebrow purple">Eventos</p>
           <h2 id="events-title">
-            {catalog ? t('Encontre seu próximo evento') : t('Festivais de Música')}
+            {catalog ? 'Encontre seu próximo evento' : 'Festivais de Música'}
           </h2>
         </div>
         {!catalog && (
           <Link className="text-link" to="/eventos">
-            {t('Ver todos os eventos')}
-            <span aria-hidden="true">›</span>
+            Ver todos os eventos <span aria-hidden="true">›</span>
           </Link>
         )}
       </div>
       {catalog && (
         <label className="search">
-          {t('Buscar por evento ou local')}
+          Buscar por evento ou local
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={t('Busque por nome ou cidade')}
+            placeholder="Busque por nome ou cidade"
           />
         </label>
       )}
@@ -84,8 +83,8 @@ export default function Events({ catalog = false }) {
             {(catalog ? events : events.slice(0, 3)).map((event) => (
               <article className="event-card" key={event.id}>
                 <div className="event-image">
-                  <img loading="lazy" src={event.image} alt={event.imageAlt} />
-                  <span className="verified">{t('✓ Verificado')}</span>
+                  <img loading="lazy" src={assetUrl(event.image)} alt={event.imageAlt} />
+                  <span className="verified">Evento demonstrativo</span>
                 </div>
                 <div className="event-info">
                   <p className="event-meta">
@@ -94,15 +93,15 @@ export default function Events({ catalog = false }) {
                   <h3>{event.title}</h3>
                   <div className="event-bottom">
                     <div>
-                      <small>{t('A partir de')}</small>
+                      <small>A partir de</small>
                       <strong>{currency(event.price)}</strong>
                     </div>
                     <Link
                       to={`/eventos/${event.id}`}
                       className="ticket-link"
-                      aria-label={t('Ver ingressos: {title}', { title: event.title })}
+                      aria-label={`Ver ingressos: ${event.title}`}
                     >
-                      {t('Ver Ingressos')}
+                      Ver Ingressos
                     </Link>
                   </div>
                 </div>
@@ -110,7 +109,7 @@ export default function Events({ catalog = false }) {
             ))}
           </div>
           {events.length === 0 && (
-            <p role="status">{t('Nenhum evento encontrado. Experimente outro nome ou cidade.')}</p>
+            <p role="status">Nenhum evento encontrado. Experimente outro nome ou cidade.</p>
           )}
         </>
       )}

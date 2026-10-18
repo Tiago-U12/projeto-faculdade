@@ -5,3 +5,11 @@ reference/assets/
 reference/contact-sheet.jpg
 *.log
 *.zip
+.env
+.env.*
+!.env.example
+server/node_modules/
+config/*.local.json
+logs/
+historico/
+tmp/

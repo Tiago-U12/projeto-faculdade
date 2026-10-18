@@ -1,18 +1,19 @@
 import React from 'react';
-import { useI18n } from '../i18n';
 import { Link } from 'react-router';
 import Events from '../components/Events';
+import ContasDemonstracao from '../mvp/componentes/ContasDemonstracao';
+import { useI18n } from '../i18n';
 const profiles = [
   {
     id: 'comprador',
     tag: 'Participante',
     name: 'Comprador',
     icon: '♧',
-    description: 'Compre, troque ou revenda ingressos sem risco de golpes.',
+    description: 'Explore compras, reservas e repasses de ingressos fictícios.',
     features: [
-      'Compre ingressos para os seus eventos favoritos',
+      'Simule reservas para os seus eventos favoritos',
       'Interaja com a comunidade e avalie eventos',
-      'Converse com outros usuários pelo chat',
+      'Experimente as mensagens de exemplo da comunidade',
     ],
   },
   {
@@ -47,27 +48,30 @@ export default function Home() {
       <section className="hero">
         <div className="hero-content">
           <p className="hero-badge">
-            <span />
-            {t('Troca e compra segura de ingressos')}
+            <span /> {t('Demonstração acadêmica de eventos e ingressos')}
           </p>
           <h1>
             {t('Compre e troque ingressos para')}
             <br className="desktop-break" /> {t('seus eventos')} <em>{t('favoritos!')}</em>
           </h1>
           <p className="hero-description">
-            {t('Compre e transfira seus ingressos em poucos cliques com qualquer pessoa.')}
+            {t('Explore os perfis e simule operações com dados fictícios, sem pagamentos reais.')}
           </p>
           <div className="hero-actions">
-            <Link to="/cadastro" className="button primary">
-              {t('Começar Gratuitamente')}
-              <span aria-hidden="true">→</span>
+            <Link to="/perfis" className="button primary">
+              {t('Explorar os perfis')} <span aria-hidden="true">→</span>
             </Link>
-            <a className="button secondary" href="#como-funciona">
-              {t('♧ Como funciona')}
-            </a>
+            <button
+              type="button"
+              className="button secondary"
+              onClick={() => document.getElementById('como-funciona')?.scrollIntoView()}
+            >
+              ♧ {t('Como funciona')}
+            </button>
           </div>
         </div>
       </section>
+      <ContasDemonstracao somenteNavegador />
       <section className="profiles section" aria-labelledby="profiles-title">
         <div className="section-heading">
           <p className="eyebrow">{t('Acesso multi-perfil')}</p>
@@ -94,7 +98,7 @@ export default function Home() {
                 ))}
               </ul>
               <Link className="button dark" to={`/cadastro?perfil=${profile.id}`}>
-                {t('Criar conta de {profile}', { profile: t(profile.name) })}
+                {t('Seja um')} {t(profile.name)}
               </Link>
             </article>
           ))}
@@ -104,7 +108,7 @@ export default function Home() {
         <div className="section-heading">
           <p className="eyebrow purple">{t('Simplicidade & velocidade')}</p>
           <h2>{t('Como a TROCATICKET funciona?')}</h2>
-          <p>{t('Protegendo comprador e vendedor do anúncio até o acesso ao evento.')}</p>
+          <p>{t('Conheça os fluxos simulados de cada perfil. Nenhum ingresso real é emitido.')}</p>
         </div>
         <div className="grid">
           {[

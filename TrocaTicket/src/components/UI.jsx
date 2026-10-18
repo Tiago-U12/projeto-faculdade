@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useId } from 'react';
+import React, { useEffect, useRef, useId, useState } from 'react';
 import { Link } from 'react-router';
+import { csvText } from '../services/rules';
 import { getLocale, translate, useI18n } from '../i18n';
 export const money = (value) =>
   Number(value).toLocaleString(getLocale(), { style: 'currency', currency: 'BRL' });
@@ -10,7 +11,7 @@ export function Badge({ children, tone }) {
   const text = String(children).toLowerCase();
   const color =
     tone ||
-    (/confirm|aprov|dispon|public|abert/.test(text)
+    (/confirm|aprov|dispon|public|abert|reservado/.test(text)
       ? 'green'
       : /pend|análise|andamento|alocado|prioridade/.test(text)
         ? 'amber'
@@ -19,13 +20,13 @@ export function Badge({ children, tone }) {
           : 'blue');
   return <span className={`badge ${color}`}>{t(children)}</span>;
 }
-export function PageTitle({ title, subtitle, children, eyebrow }) {
+export function PageTitle({ title, subtitle, children, eyebrow, as: Heading = 'h1' }) {
   const { t } = useI18n();
   return (
     <div className="page-title">
       <div>
         {eyebrow && <p className="eyebrow purple">{t(eyebrow)}</p>}
-        <h1>{t(title)}</h1>
+        <Heading>{t(title)}</Heading>
         {subtitle && <p>{t(subtitle)}</p>}
       </div>
       <div className="actions">{children}</div>
@@ -118,18 +119,15 @@ export function Modal({ title, children, onClose }) {
       className="modal"
       aria-labelledby={titleId}
       ref={ref}
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
+      onCancel={onClose}
       onClick={(event) => {
-        if (event.target !== event.currentTarget) return;
-        const bounds = event.currentTarget.getBoundingClientRect();
+        const rect = event.currentTarget.getBoundingClientRect();
         if (
-          event.clientX < bounds.left ||
-          event.clientX > bounds.right ||
-          event.clientY < bounds.top ||
-          event.clientY > bounds.bottom
+          event.target === event.currentTarget &&
+          (event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom)
         )
           onClose();
       }}
@@ -150,36 +148,51 @@ export function Modal({ title, children, onClose }) {
   );
 }
 export function DownloadButton({ name, rows, children = '↓ Exportar CSV' }) {
-  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
   return (
-    <button className="button outline" onClick={() => downloadCSV(name, rows)}>
-      {t(children)}
-    </button>
+    <>
+      <button type="button" className="button outline" onClick={() => setOpen(true)}>
+        {children}
+      </button>
+      {open && (
+        <Modal title="Exportar relatório" onClose={() => setOpen(false)}>
+          <p>Confira os dados e baixe o arquivo para abrir no Excel ou em outra planilha.</p>
+          <label htmlFor="csv-preview">Conteúdo do arquivo {name}</label>
+          <textarea
+            id="csv-preview"
+            className="csv-preview"
+            readOnly
+            value={csvText(rows).replace(/^\ufeff/, '')}
+          />
+          <p className="muted">
+            Se o navegador impedir o download, selecione e copie o conteúdo acima para um arquivo
+            .csv.
+          </p>
+          <button type="button" className="button primary" onClick={() => downloadCSV(name, rows)}>
+            Baixar arquivo CSV
+          </button>
+        </Modal>
+      )}
+    </>
   );
 }
 export function downloadCSV(name, rows) {
-  const cell = (value) => {
-    let text = String(value ?? '');
-    if (/^[=+@-]/.test(text)) text = `'${text}`;
-    return `"${text.replaceAll('"', '""')}"`;
-  };
-  const blob = new Blob(['\ufeff' + rows.map((row) => row.map(cell).join(';')).join('\r\n')], {
-    type: 'text/csv;charset=utf-8;',
-  });
+  const blob = new Blob([csvText(rows)], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   a.download = name;
+  document.body.appendChild(a);
   a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
 export function NotFound({ title = 'Página não encontrada' }) {
-  const { t } = useI18n();
   return (
     <div className="workspace">
       <Empty title={title}>O endereço solicitado não está disponível.</Empty>
       <Link className="button primary" to="/perfis">
-        {t('Escolher uma área')}
+        Escolher uma área
       </Link>
     </div>
   );

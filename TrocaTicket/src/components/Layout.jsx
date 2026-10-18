@@ -3,7 +3,9 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import { useStore } from '../context/StoreContext';
 import { destinations, roleNames } from '../data/demo';
 import AccessibilityTools from '../accessibility/AccessibilityTools';
+import { assetUrl } from '../services/assets';
 import { useI18n } from '../i18n';
+import '../styles/demo-publica.css';
 const menus = {
   organizador: [
     ['Início', '/organizador'],
@@ -31,42 +33,57 @@ const menus = {
   ],
 };
 export default function Layout() {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const { pathname } = useLocation();
-  const { role, chooseRole } = useStore();
+  const { data, role, chooseRole } = useStore();
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const activeRole = pathname.startsWith('/organizador')
-    ? 'organizador'
-    : pathname.startsWith('/fornecedor')
-      ? 'fornecedor'
-      : pathname.startsWith('/admin')
-        ? 'admin'
-        : role || 'comprador';
+  let activeRole = role || 'comprador';
+  if (pathname.startsWith('/organizador')) activeRole = 'organizador';
+  else if (pathname.startsWith('/fornecedor')) activeRole = 'fornecedor';
+  else if (pathname.startsWith('/admin')) activeRole = 'admin';
+  else if (
+    ['/eventos', '/favoritos', '/ingressos', '/comunidade'].some(
+      (caminho) => pathname === caminho || pathname.startsWith(caminho + '/'),
+    )
+  )
+    activeRole = 'comprador';
+
+  // Mantém o perfil das configurações igual ao da área que está aberta.
+  useEffect(() => {
+    if (activeRole !== role) chooseRole(activeRole);
+  }, [pathname, activeRole, role]);
   const publicPage = ['/', '/entrar', '/cadastro', '/perfis', '/recuperar'].includes(pathname);
   useEffect(() => {
     window.scrollTo(0, 0);
     setMenu(false);
     setNotifications(false);
+    document.title = 'TrocaTicket — Eventos & ingressos';
   }, [pathname]);
-  useEffect(() => {
-    document.title = t('TrocaTicket — Eventos & ingressos');
-  }, [locale]);
   return (
-    <div className={publicPage ? 'public-shell' : 'app-shell'}>
-      <a className="skip-link" href="#conteudo">
+    <div className={`${publicPage ? 'public-shell' : 'app-shell'} demo-browser-shell`}>
+      <a
+        className="skip-link"
+        href="#conteudo"
+        onClick={(event) => {
+          event.preventDefault();
+          const content = document.getElementById('conteudo');
+          content?.focus();
+          content?.scrollIntoView();
+        }}
+      >
         {t('Pular para o conteúdo')}
       </a>
       <header className={`header ${!publicPage ? 'app-header' : ''}`}>
-        <Link className="brand" to="/" aria-label={t('TrocaTicket, início')}>
-          <img src="./images/logo.png" alt="" />
+        <Link className="brand" to="/" aria-label="TrocaTicket, início">
+          <img src={assetUrl('/images/logo.png')} alt="" />
           <span>
-            TrocaTicket<small>{t('EVENTOS & INGRESSOS')}</small>
+            TrocaTicket<small>EVENTOS & INGRESSOS</small>
           </span>
         </Link>
         {publicPage ? (
-          <nav aria-label={t('Navegação principal')}>
+          <nav aria-label="Navegação principal">
             <Link to="/perfis" className="demo-link">
               {t('Explorar demo')}
             </Link>
@@ -74,24 +91,22 @@ export default function Layout() {
               {t('Entrar')}
             </Link>
             <Link className="header-cta" to="/cadastro">
-              {t('Criar conta ↗')}
+              {t('Criar conta')} ↗
             </Link>
           </nav>
         ) : (
           <>
             <button
               className="menu-toggle"
-              aria-label={t(menu ? 'Fechar menu' : 'Abrir menu')}
+              aria-label="Abrir menu"
               aria-expanded={menu}
-              aria-controls="main-navigation"
               onClick={() => setMenu(!menu)}
             >
               ☰
             </button>
             <nav
-              id="main-navigation"
               className={`app-navigation ${menu ? 'is-open' : ''}`}
-              aria-label={t('Navegação principal')}
+              aria-label="Navegação principal"
             >
               {menus[activeRole].map(([label, to]) => (
                 <NavLink end key={to} to={to}>
@@ -102,17 +117,24 @@ export default function Layout() {
             <div className="header-tools">
               <button
                 className="notification-button"
-                aria-label={t('Notificações')}
+                aria-label="Notificações"
                 aria-expanded={notifications}
                 onClick={() => setNotifications(!notifications)}
               >
                 ♧<i />
               </button>
-              <Link to="/perfil" aria-label={t('Configurações do perfil')}>
+              <Link to="/perfil" aria-label="Configurações do perfil">
                 ⚙
               </Link>
               <Link className="user-chip" to="/perfis">
-                <span className="avatar small">CM</span>
+                <span className="avatar small">
+                  {data.profile.name
+                    .trim()
+                    .split(/\s+/)
+                    .map((part) => part[0])
+                    .slice(0, 2)
+                    .join('') || 'TT'}
+                </span>
                 <span>
                   {t('MINHA CONTA')}
                   <small>{t(roleNames[activeRole])}</small>
@@ -121,41 +143,46 @@ export default function Layout() {
             </div>
           </>
         )}
+        <AccessibilityTools />
         {notifications && (
           <div className="notification-popover">
             <strong>{t('Central de notificações')}</strong>
             <p>{t('Seu ambiente de demonstração está pronto.')}</p>
             <Link to={destinations[activeRole]} onClick={() => setNotifications(false)}>
-              {t('Ir para meu painel →')}
+              {t('Ir para meu painel')} →
             </Link>
           </div>
         )}
-        <AccessibilityTools />
       </header>
-      {!publicPage && (
-        <div className="demo-strip">
-          <span>{t('Ambiente de demonstração · alterações salvas neste navegador')}</span>
+      <div className="demo-strip demo-browser-notice" role="note">
+        <span>
+          <strong>{t('Demonstração acadêmica • sem pagamentos ou ingressos reais')}</strong>
+          <small>
+            {t('Dados fictícios salvos neste navegador • sem backend ou banco de dados')}
+          </small>
+        </span>
+        {!publicPage && (
           <button
             onClick={() => {
               chooseRole('');
               navigate('/perfis');
             }}
           >
-            {t('Trocar perfil ↗')}
+            {t('Trocar perfil')} ↗
           </button>
-        </div>
-      )}
-      <main id="conteudo">
+        )}
+      </div>
+      <main id="conteudo" tabIndex={-1}>
         <Outlet />
       </main>
       <footer>
         <span>
-          © 2026 <strong>TrocaTicket.</strong> {t('Todos os direitos reservados.')}
+          © 2026 <strong>TrocaTicket.</strong> Todos os direitos reservados.
         </span>
-        <nav aria-label={t('Links institucionais')}>
-          <Link to="/termos">{t('Termos de Uso')}</Link>
-          <Link to="/privacidade">{t('Política de Privacidade')}</Link>
-          <Link to="/ajuda">{t('Ajuda & Suporte')}</Link>
+        <nav aria-label="Links institucionais">
+          <Link to="/termos">Termos de Uso</Link>
+          <Link to="/privacidade">Política de Privacidade</Link>
+          <Link to="/ajuda">Ajuda & Suporte</Link>
         </nav>
       </footer>
     </div>

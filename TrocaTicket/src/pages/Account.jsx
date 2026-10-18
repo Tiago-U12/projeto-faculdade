@@ -1,24 +1,55 @@
-import React, { useState } from 'react';
-import { useI18n } from '../i18n';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useStore } from '../context/StoreContext';
 import { destinations, roleNames } from '../data/demo';
 import { Field, Tabs } from '../components/UI';
+import { buscarContaDemo, senhaInicialDemo } from '../mvp/contasDemo';
+import { useI18n } from '../i18n';
+
+// Só a demonstração local usa estes atalhos. A sessão real da API continua separada.
+const perfisDasContasDemo = {
+  ana: 'comprador',
+  bruna: 'comprador',
+  caio: 'comprador',
+  organizador: 'organizador',
+  fornecedor: 'fornecedor',
+  admin: 'admin',
+};
+
 export default function Account({ login = false }) {
-  const { t } = useI18n();
   const [params] = useSearchParams();
+  const { t } = useI18n();
+  const contaDemo = login ? buscarContaDemo(params.get('demo')) : null;
   const navigate = useNavigate();
   const { chooseRole, notify } = useStore();
   const [profile, setProfile] = useState(
-    ['comprador', 'organizador', 'fornecedor'].includes(params.get('perfil'))
-      ? params.get('perfil')
-      : 'comprador',
+    contaDemo
+      ? perfisDasContasDemo[contaDemo.id]
+      : ['comprador', 'organizador', 'fornecedor'].includes(params.get('perfil'))
+        ? params.get('perfil')
+        : 'comprador',
   );
+  const [email, setEmail] = useState(contaDemo?.email || '');
+  const [password, setPassword] = useState(contaDemo ? senhaInicialDemo : '');
   const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
   const [show, setShow] = useState(false);
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!login) return;
+    setEmail(contaDemo?.email || '');
+    setPassword(contaDemo ? senhaInicialDemo : '');
+    setProfile(contaDemo ? perfisDasContasDemo[contaDemo.id] : 'comprador');
+  }, [login, contaDemo]);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
   async function submit(event) {
     event.preventDefault();
+    if (busy) return;
     const data = Object.fromEntries(new FormData(event.currentTarget));
     const next = {};
     if (!login && data.name.trim().length < 2) next.name = 'Informe seu nome completo.';
@@ -34,17 +65,21 @@ export default function Account({ login = false }) {
     }
     setBusy(true);
     await new Promise((resolve) => setTimeout(resolve, 450));
+    if (!mounted.current) return;
     chooseRole(profile);
     notify(
       login ? 'Acesso de demonstração iniciado.' : 'Cadastro validado. Bem-vindo à demonstração!',
     );
-    navigate(login ? '/perfis' : destinations[profile]);
+    navigate(destinations[profile]);
   }
   return (
     <section className="auth-page">
       <div className="auth-card">
         <span className="auth-symbol">♙</span>
-        <h1>{login ? t('Acesse sua Conta') : t('Crie sua Conta')}</h1>
+        <h1>{t(login ? 'Acesse sua Conta' : 'Crie sua Conta')}</h1>
+        <p className="auth-note">
+          {t('Demonstração acadêmica no navegador, sem autenticação ou pagamentos reais.')}
+        </p>
         <div className="tabs auth-tabs">
           <Link className={login ? 'active' : ''} to="/entrar">
             {t('Entrar')}
@@ -62,6 +97,11 @@ export default function Account({ login = false }) {
             }
           />
         )}
+        {login && contaDemo && (
+          <p className="demo-selected-account" role="status">
+            {t('Perfil de demonstração')}: <strong>{t(contaDemo.perfil)}</strong>
+          </p>
+        )}
         <form noValidate onSubmit={submit}>
           {!login && (
             <>
@@ -69,13 +109,13 @@ export default function Account({ login = false }) {
                 label="Nome completo"
                 name="name"
                 autoComplete="name"
-                placeholder={t('João da Silva')}
+                placeholder="João da Silva"
                 error={errors.name}
               />
               <Field
                 label={profile === 'comprador' ? 'CPF' : 'CPF / CNPJ'}
                 name="document"
-                placeholder={t('Documento fictício')}
+                placeholder="Documento fictício"
                 error={errors.document}
               />
             </>
@@ -85,7 +125,9 @@ export default function Account({ login = false }) {
             name="email"
             type="email"
             autoComplete="email"
-            placeholder={t('exemplo@email.com')}
+            placeholder="exemplo@email.com"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             error={errors.email}
           />
           <Field
@@ -93,7 +135,9 @@ export default function Account({ login = false }) {
             name="password"
             type={show ? 'text' : 'password'}
             autoComplete={login ? 'current-password' : 'new-password'}
-            placeholder={t('Mínimo de 8 caracteres')}
+            placeholder="Mínimo de 8 caracteres"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
             error={errors.password}
           />
           {!login && (
@@ -110,33 +154,37 @@ export default function Account({ login = false }) {
               <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} />{' '}
               {t('Mostrar senha')}
             </label>
-            {login && <Link to="/recuperar">{t('Esqueceu sua senha?')}</Link>}
+            {login && <Link to="/recuperar">Esqueceu sua senha?</Link>}
           </div>
           <button className={`button ${login ? 'blue-button' : 'dark'}`} disabled={busy}>
-            {busy ? t('Validando…') : login ? t('Entrar na plataforma') : t('Cadastrar')}
+            {t(busy ? 'Validando…' : login ? 'Entrar na demonstração' : 'Cadastrar')}
           </button>
         </form>
         <p className="auth-note">
-          {t('Demonstração: use dados fictícios. Senhas e documentos não são armazenados.')}
+          {t(
+            'Use somente dados fictícios. Senhas e documentos deste formulário não são armazenados nem enviados. As alterações das telas ficam neste navegador.',
+          )}
         </p>
-        <div className="divider">{t('OU EXPLORE SEM CADASTRO')}</div>
+        <div className="divider">OU EXPLORE SEM CADASTRO</div>
         <Link className="button outline full" to="/perfis">
-          {t('Escolher perfil de demonstração →')}
+          Escolher perfil de demonstração →
         </Link>
       </div>
     </section>
   );
 }
 export function Profiles() {
-  const { t } = useI18n();
   const { chooseRole } = useStore();
   const navigate = useNavigate();
   return (
     <section className="auth-page profile-selection">
       <div className="section-heading">
-        <p className="eyebrow purple">{t('Uma plataforma, muitas possibilidades')}</p>
-        <h1>{t('Como você quer explorar?')}</h1>
-        <p>{t('Escolha um perfil para conhecer os fluxos da plataforma.')}</p>
+        <p className="eyebrow purple">Uma plataforma, muitas possibilidades</p>
+        <h1>Como você quer explorar?</h1>
+        <p>
+          Escolha um perfil para conhecer os fluxos simulados. Esta seleção não concede acesso a
+          contas reais; os dados fictícios ficam neste navegador.
+        </p>
       </div>
       <div className="role-grid">
         {Object.entries(roleNames).map(([id, name], i) => (
@@ -149,39 +197,37 @@ export function Profiles() {
             }}
           >
             <span className="role-symbol">{['♧', '⚑', '▣', '◇'][i]}</span>
-            <h2>{t(name)}</h2>
+            <h2>{name}</h2>
             <p>
-              {t(
+              {
                 [
                   'Descubra eventos, salve favoritos e simule seus ingressos.',
                   'Crie eventos, conecte fornecedores e consolide custos.',
                   'Gerencie seu catálogo e envie propostas comerciais.',
                   'Acompanhe relatórios e faça a moderação de cadastros.',
-                ][i],
-              )}
+                ][i]
+              }
             </p>
-            <strong>{t('Acessar área →')}</strong>
+            <strong>Acessar área →</strong>
           </button>
         ))}
       </div>
       <Link className="text-link" to="/">
-        {t('← Voltar ao início')}
+        ← Voltar ao início
       </Link>
     </section>
   );
 }
 export function Recover() {
-  const { t } = useI18n();
   const [done, setDone] = useState(false);
   return (
     <section className="auth-page">
       <div className="auth-card">
-        <h1>{t('Recuperar acesso')}</h1>
+        <h1>Recuperar acesso</h1>
         {done ? (
           <p role="status">
-            {t(
-              'Solicitação simulada. Nenhum e-mail foi enviado; você pode entrar com qualquer e-mail válido e senha de 8 caracteres na demonstração.',
-            )}
+            Solicitação simulada. Nenhum e-mail foi enviado; você pode entrar com qualquer e-mail
+            válido e senha de 8 caracteres na demonstração.
           </p>
         ) : (
           <form
@@ -191,11 +237,11 @@ export function Recover() {
             }}
           >
             <Field label="E-mail da conta" name="recover-email" type="email" required />
-            <button className="button blue-button">{t('Simular recuperação')}</button>
+            <button className="button blue-button">Simular recuperação</button>
           </form>
         )}
         <Link className="text-link" to="/entrar">
-          {t('Voltar para entrar')}
+          Voltar para entrar
         </Link>
       </div>
     </section>
