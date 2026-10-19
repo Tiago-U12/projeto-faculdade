@@ -76,14 +76,15 @@ export default function Layout() {
         {t('Pular para o conteúdo')}
       </a>
       <header className={`header ${!publicPage ? 'app-header' : ''}`}>
-        <Link className="brand" to="/" aria-label="TrocaTicket, início">
+        <Link className="brand" to="/" aria-label={t('TrocaTicket, início')}>
           <img src={assetUrl('/images/logo.png')} alt="" />
           <span>
-            TrocaTicket<small>EVENTOS & INGRESSOS</small>
+            TrocaTicket
+            <small>{t('EVENTOS & INGRESSOS')}</small>
           </span>
         </Link>
         {publicPage ? (
-          <nav aria-label="Navegação principal">
+          <nav aria-label={t('Navegação principal')}>
             <Link to="/perfis" className="demo-link">
               {t('Explorar demo')}
             </Link>
@@ -98,7 +99,7 @@ export default function Layout() {
           <>
             <button
               className="menu-toggle"
-              aria-label="Abrir menu"
+              aria-label={t('Abrir menu')}
               aria-expanded={menu}
               onClick={() => setMenu(!menu)}
             >
@@ -106,7 +107,7 @@ export default function Layout() {
             </button>
             <nav
               className={`app-navigation ${menu ? 'is-open' : ''}`}
-              aria-label="Navegação principal"
+              aria-label={t('Navegação principal')}
             >
               {menus[activeRole].map(([label, to]) => (
                 <NavLink end key={to} to={to}>
@@ -117,13 +118,13 @@ export default function Layout() {
             <div className="header-tools">
               <button
                 className="notification-button"
-                aria-label="Notificações"
+                aria-label={t('Notificações')}
                 aria-expanded={notifications}
                 onClick={() => setNotifications(!notifications)}
               >
                 ♧<i />
               </button>
-              <Link to="/perfil" aria-label="Configurações do perfil">
+              <Link to="/perfil" aria-label={t('Configurações do perfil')}>
                 ⚙
               </Link>
               <Link className="user-chip" to="/perfis">
@@ -177,12 +178,12 @@ export default function Layout() {
       </main>
       <footer>
         <span>
-          © 2026 <strong>TrocaTicket.</strong> Todos os direitos reservados.
+          © 2026 <strong>TrocaTicket.</strong> {t('Todos os direitos reservados.')}
         </span>
-        <nav aria-label="Links institucionais">
-          <Link to="/termos">Termos de Uso</Link>
-          <Link to="/privacidade">Política de Privacidade</Link>
-          <Link to="/ajuda">Ajuda & Suporte</Link>
+        <nav aria-label={t('Links institucionais')}>
+          <Link to="/termos">{t('Termos de Uso')}</Link>
+          <Link to="/privacidade">{t('Política de Privacidade')}</Link>
+          <Link to="/ajuda">{t('Ajuda & Suporte')}</Link>
         </nav>
       </footer>
     </div>
