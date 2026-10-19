@@ -19,6 +19,19 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       proxy: { '/api': 'http://127.0.0.1:3333' },
+      // Documentos e arquivos gerados não fazem parte do frontend observado pelo Vite.
+      watch: {
+        ignored: [
+          '**/docs/**',
+          '**/tmp/**',
+          '**/historico/**',
+          '**/logs/**',
+          '**/config/**',
+          '**/server/**',
+          '**/*.zip',
+          '**/MANIFESTO.sha256',
+        ],
+      },
     },
     preview: {
       proxy: { '/api': 'http://127.0.0.1:3333' },
