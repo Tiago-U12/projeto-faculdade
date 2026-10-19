@@ -19,3 +19,10 @@ Requer Node.js 22.12 ou mais recente.
 Use npm test para verificar as regras e npm run build para gerar o site em dist. A publicação usa o fluxo existente em .github/workflows/deploy.yml. As rotas usam # para permitir acesso direto e recarregamento no GitHub Pages.
 
 Há ajustes de fonte, contraste, espaçamento, aparência e idioma no cabeçalho. O VLibras é opcional e depende do serviço externo após sua ativação.
+
+
+## Aysha Park — projeto separado
+
+[Abrir o protótipo jogável](https://tiago-u12.github.io/projeto-faculdade/aysha-park/) · [Código e instruções](aysha-park/README.md)
+
+Aventura de exploração com Aysha, Jenny e Tico, mantida em `aysha-park/`, com código, arte provisória e comandos próprios. O protótipo tem uma área e uma missão para coletar três frutas.

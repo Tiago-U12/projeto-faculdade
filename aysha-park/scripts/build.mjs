@@ -1,0 +1,15 @@
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const read = (p) => readFile(path.join(root, p), 'utf8');
+let html = await read('index.html');
+const [css, engine, data, geometry, art, main] = await Promise.all(['src/style.css','vendor/phaser.min.js','src/data.js','src/geometry.js','src/art.js','src/main.js'].map(read));
+const escapeScript = (s) => s.replace(/<\/script/gi, '<\\/script');
+const js = [data, geometry, art, main].map(s => s.replace(/^import .*?;\s*$/gm, '').replace(/^export /gm, '')).join('\n\n');
+html = html.replace('<link rel="stylesheet" href="./src/style.css" />', () => `<style>${css.replace(/^@import .*?;\s*$/m,'')}</style>`);
+html = html.replace('<script src="./vendor/phaser.min.js"></script>', () => `<script>${escapeScript(engine)}</script>`);
+html = html.replace('<script type="module" src="./src/main.js"></script>', () => `<script>(() => {\n${escapeScript(js)}\n})();</script>`);
+await mkdir(path.join(root, 'dist'), { recursive:true });
+await writeFile(path.join(root, 'dist/index.html'),html);
+console.log(`Build concluído: dist/index.html (${(Buffer.byteLength(html)/1024/1024).toFixed(2)} MB). Arquivo independente e jogável sem internet.`);

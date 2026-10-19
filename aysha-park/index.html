@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#122f29" />
+    <meta name="description" content="Uma pequena aventura de amizade no Aysha Park. Explore o jardim com Jenny e ajude Tico a encontrar suas frutas." />
+    <title>Aysha Park — O Segredo da Ilha</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231d4c3d'/%3E%3Cpath d='M17 44V29q0-12 13-12h9v12h-9v15M35 17V9h13v17H35' fill='%23b4dc9a'/%3E%3Ccircle cx='43' cy='14' r='2' fill='%231d4c3d'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Aysha Park, início" id="brand-home"><span class="brand-mark">a<span>✦</span></span><span>AYSHA PARK<small>O SEGREDO DA ILHA</small></span></a>
+        <div class="chapter-label"><span></span> Uma pequena grande aventura</div>
+        <div class="top-actions"><span class="prototype-tag">PROTÓTIPO 02</span><button class="icon-button" id="sound-button" aria-label="Ativar som" title="Ativar som"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM16 9l5 6m0-6-5 6"/></svg></button><button class="icon-button" id="help-button" aria-label="Como jogar" title="Como jogar">?</button></div>
+      </header>
+      <main>
+        <div class="section-heading"><div><span class="eyebrow">SEU PRIMEIRO PASSO NA ILHA</span><h1>Todo segredo começa com uma amizade.</h1></div><div class="garden-tag"><span class="tiny-leaf">❧</span> Jardim dos Herbívoros <span class="weather">☀ 24°</span></div></div>
+        <section class="game-shell" id="game-shell" aria-label="Jogo Aysha Park" data-mode="menu">
+          <div id="game" tabindex="0" role="application" aria-label="Jardim dos Herbívoros. Use WASD ou as setas para andar e E para interagir."></div>
+          <div class="game-vignette"></div>
+          <div class="hud" id="hud" hidden>
+            <div class="location-chip"><span class="location-icon">❧</span><div>JARDIM DOS HERBÍVOROS<small>Capítulo 01 · Um novo amigo</small></div></div>
+            <button class="pause-button icon-button" id="pause-button" aria-label="Pausar" title="Pausar"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+            <div class="quest-card" id="quest-card"><span class="quest-kicker">SUA MISSÃO <span id="quest-stage">01</span></span><strong id="quest-title">Um tricerátopo faminto</strong><p id="quest-description">Encontre Tico e descubra o que aconteceu.</p><div class="fruit-progress" id="fruit-progress" aria-live="polite"><span>◆</span><span>◆</span><span>◆</span><small id="fruit-count">0 / 3 frutas</small></div></div>
+            <button class="objective-guide" id="objective-guide" aria-label="Pedir uma dica à Jenny" hidden><span id="guide-arrow">↑</span><span id="guide-label">Encontre Tico</span><small>?</small></button>
+            <div class="badges"><span>AMIZADES</span><div><span class="badge-slot" id="friendship-badge" title="Emblema de amizade">❧</span><span class="badge-slot locked">✧</span><span class="badge-slot locked">✧</span></div></div>
+            <div class="jenny-tip" id="jenny-tip" hidden><span>JENNY</span><p></p></div>
+            <button id="interact-button" class="interact-button" hidden><kbd>E</kbd><span>Conversar com Tico</span><span class="interact-arrow">↗</span></button>
+            <div class="keyboard-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> mover</span><i></i><span><kbd>E</kbd> interagir</span></div>
+          </div>
+          <div class="intro overlay" id="intro">
+            <div class="intro-inner"><span class="intro-kicker">BEM-VINDA À SUA PRÓXIMA AVENTURA</span><h2>Aysha <em>Park</em><span>O SEGREDO DA ILHA</span></h2><div class="intro-line"><span></span>✦<span></span></div><p>Uma ilha cheia de mistérios.<br>Uma gatinha com muitos planos.<br>E amigos esperando por você.</p><button class="primary-button" id="start-button">Explorar o parque <span>↗</span></button><button class="text-button" id="continue-button" hidden>Continuar minha aventura →</button><div class="intro-footnote"><span>❧</span> Explore no seu ritmo. A ilha não tem pressa.</div></div>
+          </div>
+          <div class="dialogue" id="dialogue" hidden role="dialog" aria-label="Conversa"><div class="dialogue-portrait" id="dialogue-portrait">✦</div><div class="dialogue-content"><span id="dialogue-speaker">JENNY</span><p id="dialogue-text"></p><button id="dialogue-next">Continuar <kbd>ESPAÇO</kbd><span>→</span></button></div></div>
+          <div class="modal-backdrop" id="pause-modal" hidden role="dialog" aria-modal="true" aria-labelledby="pause-title"><div class="modal-card"><span class="eyebrow">UMA PAUSA NA AVENTURA</span><h2 id="pause-title">A ilha espera por você.</h2><p>Seu progresso fica salvo neste navegador.</p><button class="primary-button" id="resume-button">Voltar ao jardim <span>→</span></button><button class="secondary-button" id="restart-button">Recomeçar este protótipo</button></div></div>
+          <div class="modal-backdrop" id="help-modal" hidden role="dialog" aria-modal="true" aria-labelledby="help-title"><div class="modal-card"><span class="eyebrow">GUIA DA EXPLORADORA</span><h2 id="help-title">Pequenos passos.<br>Grandes descobertas.</h2><div class="help-row"><span>01</span><p><strong>Explore o jardim</strong>Use WASD, setas ou o joystick. Pode jogar com o celular em pé ou deitado.</p></div><div class="help-row"><span>02</span><p><strong>Faça uma amizade</strong>Chegue perto de Tico e pressione E ou toque no botão de interação.</p></div><div class="help-row"><span>03</span><p><strong>Siga as pistas</strong>Encontre três frutas e volte ao Tico. A setinha aponta o objetivo; toque nela para pedir uma dica à Jenny.</p></div><button class="primary-button" id="close-help">Entendi, vamos lá <span>→</span></button></div></div>
+          <div class="modal-backdrop" id="complete-modal" hidden role="dialog" aria-modal="true" aria-labelledby="complete-title"><div class="modal-card complete-card"><div class="reward-medallion">❧</div><span class="eyebrow">EMBLEMA DA AMIZADE · 1 DE 3</span><h2 id="complete-title">Uma amizade<br>para a aventura toda.</h2><p>Tico está de barriga cheia. E o jardim ganhou mais uma história para contar.</p><div class="complete-note">Primeiro capítulo concluído<span>Você chegou ao fim deste protótipo.</span></div><button class="primary-button" id="keep-exploring">Continuar explorando <span>↗</span></button><button class="text-button" id="play-again">Jogar de novo</button></div></div>
+          <div class="touch-controls" id="touch-controls" hidden><div class="joystick" id="joystick" aria-label="Controle de movimento"><div id="joystick-thumb"></div></div></div>
+          <div class="toast" id="toast" hidden role="status"></div>
+          <div class="loading" id="loading"><span>✦</span> Preparando um pedacinho da ilha…</div>
+        </section>
+        <footer class="game-footer"><span><span class="status-dot"></span> Um mundo pequeno. Uma aventura só sua.</span><span>Feito de curiosidade, carinho e um pouquinho de magia. <span class="footer-star">✦</span></span></footer>
+      </main>
+    </div>
+    <script src="./vendor/phaser.min.js"></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
