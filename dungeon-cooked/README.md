@@ -50,7 +50,7 @@ Clicar/tocar numa estação faz o chef andar até ela (A* com desvio das bancada
 
 - Salva automaticamente **ao fim de cada noite** (junto com a recompensa, de forma atômica) e **após cada compra**. Se sair no meio de uma noite, ela recomeça do início — isso é avisado na pausa.
 - Um slot por modo narrativo (História e Tranquilo). Recordes do Desafio, conquistas e finais vistos ficam num registro separado. Ajustes também são salvos.
-- **Opções → Dados salvos:** exportar JSON, importar (com validação estrita e confirmação; uma cópia de segurança do save atual é guardada) e apagar tudo.
+- **Opções → Dados salvos:** exportar (texto JSON para copiar, ou arquivo `.json` onde o navegador permite baixar), importar arquivo ou texto colado (validação estrita e confirmação; uma cópia de segurança do save atual é guardada) e apagar tudo.
 - Se o navegador bloquear o armazenamento, o jogo continua jogável e avisa que não pode salvar.
 
 Chaves usadas no `localStorage`: `dungeonCooked.save.v1`, `dungeonCooked.meta.v1`, `dungeonCooked.settings.v1` e `dungeonCooked.save.v1.backup`.
@@ -88,6 +88,7 @@ Dados ficam fora da lógica; a simulação não depende de DOM nem de relógios 
 
 ```bash
 npm run build          # gera dist/Dungeon_Cooked_FINAL_OFFLINE.html e dist/index.html
+node scripts/build.mjs --page   # também gera dist/page.html, sem <html>/<head>/<body>, para páginas hospedadas
 npm test               # 51 testes de regras (Node, sem dependências)
 npm run test:browser   # 15 verificações no navegador (requer Playwright + Chromium)
 npm run dev            # servidor local em http://localhost:5174

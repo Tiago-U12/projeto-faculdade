@@ -586,44 +586,35 @@ function openOptions() {
     storageOk: store.available,
     onChange: updateSettings,
     onExport: () => {
-      try {
-        const blob = new Blob([exportSave(saveFile)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = el('a', { href: url, download: `dungeon-cooked-save-${new Date().toISOString().slice(0, 10)}.json` });
-        document.body.append(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 2000);
-        hud.toast('Save exportado.', 'good');
-      } catch {
-        screens.notice({ title: 'Não deu para exportar', text: 'O navegador bloqueou o download.' });
-      }
+      const json = exportSave(saveFile);
+      screens.exportData({
+        json,
+        canDownload: !window.__DC_ARTIFACT,
+        onDownload: () => {
+          try {
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = el('a', { href: url, download: `dungeon-cooked-save-${new Date().toISOString().slice(0, 10)}.json` });
+            document.body.append(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+          } catch {
+            screens.notice({ title: 'Não deu para baixar', text: 'O navegador bloqueou o download. Use Copiar texto.' });
+          }
+        },
+      });
     },
-    onImport: (file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const parsed = parseImport(String(reader.result || ''));
-        if (!parsed.ok) {
-          screens.notice({ title: 'Arquivo recusado', text: `Esse arquivo não é um save válido (${parsed.error}). Seu progresso atual não foi alterado.` });
-          return;
-        }
-        screens.confirm({
-          title: 'Substituir o progresso?',
-          text: 'O save importado substitui as campanhas e conquistas deste navegador. Uma cópia de segurança do save atual será guardada.',
-          confirmLabel: 'Importar',
-          danger: true,
-          onConfirm: () => {
-            store.backup();
-            saveFile = parsed.value;
-            const err = persist();
-            if (err) screens.notice({ title: 'Importado só nesta sessão', text: err });
-            goMenu();
-            hud.toast('Save importado com sucesso.', 'good');
-          },
-        });
-      };
-      reader.onerror = () => screens.notice({ title: 'Erro de leitura', text: 'Não foi possível ler o arquivo.' });
-      reader.readAsText(file);
+    onImport: () => {
+      screens.importData({
+        onFile: (file) => {
+          const reader = new FileReader();
+          reader.onload = () => importSaveText(String(reader.result || ''));
+          reader.onerror = () => screens.notice({ title: 'Erro de leitura', text: 'Não foi possível ler o arquivo.' });
+          reader.readAsText(file);
+        },
+        onText: importSaveText,
+      });
     },
     onReset: () => {
       screens.confirm({
@@ -639,6 +630,28 @@ function openOptions() {
           goMenu();
         },
       });
+    },
+  });
+}
+
+function importSaveText(text) {
+  const parsed = parseImport(text);
+  if (!parsed.ok) {
+    screens.notice({ title: 'Save recusado', text: `Esse texto não é um save válido (${parsed.error}). Seu progresso atual não foi alterado.` });
+    return;
+  }
+  screens.confirm({
+    title: 'Substituir o progresso?',
+    text: 'O save importado substitui as campanhas e conquistas deste navegador. Uma cópia de segurança do save atual será guardada.',
+    confirmLabel: 'Importar',
+    danger: true,
+    onConfirm: () => {
+      store.backup();
+      saveFile = parsed.value;
+      const err = persist();
+      if (err) screens.notice({ title: 'Importado só nesta sessão', text: err });
+      goMenu();
+      hud.toast('Save importado.', 'good');
     },
   });
 }

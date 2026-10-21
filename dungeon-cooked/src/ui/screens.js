@@ -312,18 +312,66 @@ export function createScreens(modal) {
         select('pace', 'Ritmo do serviço (História)', Object.fromEntries(Object.entries(PACE).map(([k, v]) => [k, v.label])), 'Vale a partir da próxima noite'));
       panel.append(el('h3', { text: 'Dados salvos' }));
       if (!o.storageOk) panel.append(el('div', { class: 'storage-warning', text: 'Este navegador não permite salvar agora.' }));
-      const file = el('input', { type: 'file', accept: 'application/json,.json', hidden: true });
-      file.addEventListener('change', () => {
-        if (file.files && file.files[0]) o.onImport(file.files[0]);
-        file.value = '';
-      });
-      panel.append(file, el('div', { class: 'btn-row' }, [
-        btn('Exportar save (JSON)', o.onExport, { small: true }),
-        btn('Importar save', () => file.click(), { small: true }),
+      panel.append(el('div', { class: 'btn-row' }, [
+        btn('Exportar save', o.onExport, { small: true }),
+        btn('Importar save', o.onImport, { small: true }),
         btn('Apagar todo o progresso', o.onReset, { small: true, danger: true }),
       ]));
       panel.append(el('div', { class: 'btn-row sticky' }, [btn('Fechar', () => modal.close(entry), { primary: true, autofocus: true })]));
       const entry = modal.open(panel, { label: 'Opções', dismissible: true, onClose: o.onClose, name: 'options' });
+      return entry;
+    },
+
+    // Exportar: JSON visível para copiar (e baixar, onde o navegador permitir).
+    exportData(o) {
+      const panel = el('div', { class: 'panel' });
+      const area = el('textarea', { id: 'export-json', class: 'json-box', readonly: true, rows: '8', 'aria-label': 'Save em JSON' });
+      area.value = o.json;
+      const status = el('p', { class: 'json-status', role: 'status' });
+      panel.append(el('span', { class: 'eyebrow', text: 'Cópia de segurança' }), el('h2', { text: 'Exportar save' }));
+      panel.append(el('p', { text: 'Guarde este texto num arquivo ou numa nota. Para recuperar, use Importar save e cole o texto.' }), area, status);
+      const copy = () => {
+        const done = () => { status.textContent = 'Copiado para a área de transferência.'; };
+        const fallback = () => { area.focus(); area.select(); status.textContent = 'Texto selecionado: use Ctrl+C (ou Copiar no celular).'; };
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(o.json).then(done, fallback);
+          else fallback();
+        } catch {
+          fallback();
+        }
+      };
+      panel.append(el('div', { class: 'btn-row' }, [
+        btn('Copiar texto', copy, { primary: true, autofocus: true }),
+        o.canDownload ? btn('Baixar arquivo .json', o.onDownload) : null,
+        btn('Fechar', () => modal.close(entry)),
+      ]));
+      const entry = modal.open(panel, { label: 'Exportar save', dismissible: true, name: 'export' });
+      return entry;
+    },
+
+    // Importar: arquivo .json ou texto colado. A validação acontece antes de qualquer troca.
+    importData(o) {
+      const panel = el('div', { class: 'panel' });
+      const file = el('input', { type: 'file', id: 'import-file', accept: 'application/json,.json', hidden: true });
+      const area = el('textarea', { id: 'import-json', class: 'json-box', rows: '6', placeholder: 'Cole aqui o texto exportado…', 'aria-label': 'Texto do save para importar' });
+      file.addEventListener('change', () => {
+        const f = file.files && file.files[0];
+        file.value = '';
+        if (f) { modal.close(entry); o.onFile(f); }
+      });
+      panel.append(el('span', { class: 'eyebrow', text: 'Recuperar progresso' }), el('h2', { text: 'Importar save' }));
+      panel.append(el('p', { text: 'Escolha um arquivo exportado ou cole o texto. Nada muda antes da sua confirmação, e o save atual ganha uma cópia de segurança.' }));
+      panel.append(file, el('div', { class: 'btn-row' }, [btn('Escolher arquivo .json', () => file.click())]), area);
+      panel.append(el('div', { class: 'btn-row' }, [
+        btn('Importar texto colado', () => {
+          const text = area.value.trim();
+          if (!text) { area.focus(); return; }
+          modal.close(entry);
+          o.onText(text);
+        }, { primary: true }),
+        btn('Cancelar', () => modal.close(entry), { autofocus: true }),
+      ]));
+      const entry = modal.open(panel, { label: 'Importar save', dismissible: true, name: 'import' });
       return entry;
     },
 

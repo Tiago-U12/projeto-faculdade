@@ -96,5 +96,16 @@ if (/\b(?:src|href)=["']https?:/i.test(html)) throw new Error('O HTML final refe
 await mkdir(path.join(root, 'dist'), { recursive: true });
 await writeFile(path.join(root, 'dist/index.html'), html);
 await writeFile(path.join(root, 'dist/Dungeon_Cooked_FINAL_OFFLINE.html'), html);
+// Variante para página hospedada que já fornece <html>/<head>/<body> (ex.: Artifact do claude.ai):
+// mesmo jogo, só sem o esqueleto e com download de arquivo desativado (o quadro bloqueia).
+if (process.argv.includes('--page')) {
+  const head = html.slice(html.indexOf('<head>') + 6, html.indexOf('</head>'));
+  const body = html.slice(html.indexOf('<body>') + 6, html.lastIndexOf('</body>'));
+  const style = head.slice(head.indexOf('<style>'), head.indexOf('</style>') + 8);
+  const description = (head.match(/<meta name="description"[^>]*>/) || [''])[0];
+  const page = `<title>Dungeon Cooked</title>\n${description}\n<meta name="theme-color" content="#161320" />\n${style}\n<script>window.__DC_ARTIFACT = true;</script>\n${body.trim()}\n`;
+  await writeFile(path.join(root, 'dist/page.html'), page);
+  console.log(`Variante de página: dist/page.html (${(Buffer.byteLength(page) / 1024).toFixed(0)} KB).`);
+}
 const kb = (Buffer.byteLength(html) / 1024).toFixed(0);
 console.log(`Build concluído: ${modules.length} módulos -> dist/Dungeon_Cooked_FINAL_OFFLINE.html (${kb} KB). Abre direto do disco, sem internet.`);
