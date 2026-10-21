@@ -50,6 +50,15 @@ jobs:
           mkdir -p TrocaTicket/dist/aysha-park
           cp aysha-park/dist/index.html aysha-park/vendor/PHASER-LICENSE.md TrocaTicket/dist/aysha-park/
 
+      - name: Gerar Dungeon Cooked
+        working-directory: dungeon-cooked
+        run: npm run build
+
+      - name: Incluir Dungeon Cooked na publicacao
+        run: |
+          mkdir -p TrocaTicket/dist/dungeon-cooked
+          cp dungeon-cooked/dist/index.html TrocaTicket/dist/dungeon-cooked/
+
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 

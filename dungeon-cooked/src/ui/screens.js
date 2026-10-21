@@ -479,7 +479,7 @@ function recipeTab(o) {
   const night = o.campaign ? (o.campaign.completed ? NIGHT_COUNT : o.campaign.night) : NIGHT_COUNT;
   const cooked = o.campaign ? o.campaign.cooked : o.cooked || [];
   const wrap = el('div');
-  wrap.append(el('p', { text: o.campaign ? `Receitas desbloqueadas até a Noite ${night}. ✓ marca as que você já preparou (${cooked.length}/12).` : 'Catálogo completo (modo Desafio usa as receitas até a Noite 4).' }));
+  wrap.append(el('p', { text: o.campaign ? `Receitas desbloqueadas até a Noite ${night}. ✓ marca as que você já preparou (${cooked.length}/12).` : 'Catálogo completo. O Desafio usa 8 receitas das Noites 1 a 4, liberadas ao longo do turno.' }));
   const grid = el('div', { class: 'recipe-grid' });
   for (const r of RECIPES) {
     const unlocked = r.unlockNight <= night;
