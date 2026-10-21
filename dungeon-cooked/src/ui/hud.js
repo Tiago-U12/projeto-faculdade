@@ -2,7 +2,7 @@
 // Só reescreve o DOM quando algo muda, para não forçar reflow a cada quadro.
 import { $, el, clear, setText, setIcon } from './dom.js';
 import { ingredientIcon, dishIcon, tagIcon, portraitIcon } from './icons.js';
-import { RECIPE_BY_ID, COOK_STATIONS, TAGS, prefName, dishName } from '../data/recipes.js';
+import { RECIPE_BY_ID, COOK_STATIONS, prefName, dishName } from '../data/recipes.js';
 import { INGREDIENTS } from '../data/ingredients.js';
 import { CUSTOMERS } from '../data/customers.js';
 import { ORDER_STATUS, orderLabel, satisfyingRecipes } from '../sim/orders.js';
@@ -20,6 +20,7 @@ export function createHud() {
     clockLabel: $('clock-label'),
     clock: $('hud-clock'),
     coins: $('hud-coins'),
+    coinsLabel: $('coins-label'),
     tension: $('stat-tension'),
     tensionName: $('tension-name'),
     tensionText: $('hud-tension'),
@@ -61,6 +62,7 @@ export function createHud() {
       const done = svc.orders.filter((o) => o.status === ORDER_STATUS.FULFILLED || o.status === ORDER_STATUS.EXPIRED).length;
       setText(nodes.clock, `${done}/${svc.guestTotal}`);
     }
+    setText(nodes.coinsLabel, svc.mode === 'desafio' ? 'Pontos' : 'Moedas');
     setText(nodes.coins, String(info.coins));
     const chaos = svc.chaos;
     if (!chaos.enabled) {

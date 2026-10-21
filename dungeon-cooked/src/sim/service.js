@@ -289,11 +289,23 @@ function updatePlayer(svc, dt, input) {
     moveWithCollision(p, (mx / mag) * step, (my / mag) * step);
     p.moving = p.x !== before.x || p.y !== before.y;
     if (Math.abs(mx) > 0.2) p.face = mx > 0 ? 1 : -1;
-    if (p.moving) p.walkCycle += dt * 9;
-    else if (p.path) {
-      // Bloqueado no caminho (ex.: quina): desiste em vez de travar.
-      p.path = null;
-      p.target = null;
+    if (p.moving) {
+      p.walkCycle += dt * 9;
+      p.stuck = 0;
+    } else if (p.path) {
+      // Preso numa quina: replaneja uma vez a partir daqui; se continuar preso, desiste.
+      p.stuck = (p.stuck || 0) + 1;
+      const goal = p.path[p.path.length - 1];
+      const target = p.target;
+      if (p.stuck <= 2 && goal) {
+        const path = findPath(svc.nav || (svc.nav = createNavGrid()), p, goal);
+        p.path = path;
+        p.target = path ? target : null;
+      } else {
+        p.path = null;
+        p.target = null;
+        p.stuck = 0;
+      }
     }
   }
 }

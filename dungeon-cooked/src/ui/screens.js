@@ -204,7 +204,7 @@ export function createScreens(modal) {
         panel.append(el('ul', { class: 'list-plain' }, o.achievements.map((a) => el('li', { text: `★ ${a.name} — ${a.desc}` }))));
       }
       if (o.saveError) panel.append(el('div', { class: 'storage-warning', text: o.saveError }));
-      const row = el('div', { class: 'btn-row' });
+      const row = el('div', { class: 'btn-row sticky' });
       if (o.success) {
         row.append(btn(o.isFinal ? 'Ver o epílogo' : 'Ir à loja da taberna', o.onNext, { primary: true, autofocus: true }));
       } else {
@@ -243,7 +243,7 @@ export function createScreens(modal) {
         }
       };
       render();
-      panel.append(el('div', { class: 'btn-row' }, [btn(o.nextLabel || 'Próxima noite', o.onDone, { primary: true, autofocus: true })]));
+      panel.append(el('div', { class: 'btn-row sticky' }, [btn(o.nextLabel || 'Próxima noite', o.onDone, { primary: true, autofocus: true })]));
       return modal.open(panel, { label: 'Loja da taberna', name: 'shop', onEscape: () => {} });
     },
 
@@ -270,7 +270,7 @@ export function createScreens(modal) {
         tabs.append(b);
       }
       show(current);
-      panel.append(el('div', { class: 'btn-row' }, [btn('Fechar', () => modal.close(entry), { primary: true, autofocus: true })]));
+      panel.append(el('div', { class: 'btn-row sticky' }, [btn('Fechar', () => modal.close(entry), { primary: true, autofocus: true })]));
       const entry = modal.open(panel, { label: 'Livro do chef', dismissible: true, onClose: o.onClose, name: 'book' });
       return entry;
     },
@@ -322,7 +322,7 @@ export function createScreens(modal) {
         btn('Importar save', () => file.click(), { small: true }),
         btn('Apagar todo o progresso', o.onReset, { small: true, danger: true }),
       ]));
-      panel.append(el('div', { class: 'btn-row' }, [btn('Fechar', () => modal.close(entry), { primary: true, autofocus: true })]));
+      panel.append(el('div', { class: 'btn-row sticky' }, [btn('Fechar', () => modal.close(entry), { primary: true, autofocus: true })]));
       const entry = modal.open(panel, { label: 'Opções', dismissible: true, onClose: o.onClose, name: 'options' });
       return entry;
     },
@@ -500,7 +500,7 @@ function recipeTab(o) {
     card.append(el('p', { text: r.ingredients.map((id) => `${INGREDIENTS[id].name}${INGREDIENTS[id].prep === 'chop' ? ' (cortar)' : ''}`).join(' + ') }));
     card.append(el('p', { text: r.desc }));
     card.append(el('div', {}, r.tags.map((t) => el('span', { class: 'tag-chip', text: TAGS[t].name }))));
-    card.append(el('small', { class: 'price', text: `Valor-base ${r.baseValue} · ${r.cookSeconds ? `${r.cookSeconds}s no fogo` : 'montagem a frio, não queima'}` }));
+    card.append(el('small', { class: 'recipe-meta', text: `Valor-base ${r.baseValue} · ${r.cookSeconds ? `${r.cookSeconds}s no fogo` : 'montagem a frio, não queima'}` }));
     if (cooked.includes(r.id)) card.append(el('span', { class: 'cooked', text: '✓ preparado' }));
     grid.append(card);
   }

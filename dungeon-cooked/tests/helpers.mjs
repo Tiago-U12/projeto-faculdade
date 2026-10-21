@@ -71,7 +71,7 @@ export function loadRecipe(svc, recipeId) {
 }
 
 export function cookAndTake(svc, recipeId) {
-  const st = loadRecipe(svc, recipeId);
+  loadRecipe(svc, recipeId);
   run(svc, (RECIPE_BY_ID[recipeId].cookSeconds || 0) + 0.2);
   goTo(svc, RECIPE_BY_ID[recipeId].station);
   const res = interact(svc);

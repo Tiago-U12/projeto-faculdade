@@ -50,7 +50,7 @@ export function createAudio() {
       for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
       applyVolumes();
       return true;
-    } catch (error) {
+    } catch {
       failed = true;
       ctx = null;
       return false;
@@ -172,6 +172,11 @@ export function createAudio() {
     return beat;
   }
 
+  function startScheduler() {
+    nextTime = ctx.currentTime + 0.1;
+    if (!timer) timer = setInterval(tick, 60);
+  }
+
   function tick() {
     if (!ctx || !theme) return;
     const th = THEMES[theme];
@@ -190,6 +195,8 @@ export function createAudio() {
     unlock() {
       if (!ensure()) return false;
       if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+      // Tema pedido antes do primeiro gesto começa agora.
+      if (theme && !timer) startScheduler();
       return true;
     },
     setVolumes({ music, sfx, mute }) {
@@ -211,9 +218,8 @@ export function createAudio() {
       theme = name && THEMES[name] ? name : null;
       step = 0;
       if (!ctx) return;
-      nextTime = ctx.currentTime + 0.1;
-      if (!timer && theme) timer = setInterval(tick, 60);
-      if (!theme && timer) {
+      if (theme) startScheduler();
+      else if (timer) {
         clearInterval(timer);
         timer = null;
       }

@@ -1,5 +1,5 @@
 // Renderer Canvas 2D: desenha o estado do serviço. Não altera a simulação.
-import { PAL, rr, ell, circle, poly, line, arcStroke, glow, sparkle, star, text, heart } from './paint.js';
+import { PAL, rr, ell, circle, poly, line, arcStroke, glow, star, text } from './paint.js';
 import { drawIngredient, drawDish, drawTagIcon } from './art-items.js';
 import { drawChef, drawCustomer, heldItemPositions } from './art-characters.js';
 import {
@@ -12,7 +12,6 @@ import { STATION_STATE, BOARD_STATE, isNearBurn, possibleRecipes, contentIds } f
 import { RECIPE_BY_ID } from '../data/recipes.js';
 import { INGREDIENTS } from '../data/ingredients.js';
 import { CUSTOMERS } from '../data/customers.js';
-import { ORDER_STATUS } from '../sim/orders.js';
 import { activeConflicts } from '../sim/chaos.js';
 import { missingFrom } from '../core/util.js';
 
@@ -271,9 +270,11 @@ export function createRenderer(canvas) {
         pill(avail ? SHORT_LABEL[id] : `${SHORT_LABEL[id]} · fechado`, below.x, below.y, { size: fontBase - 1, bg: settings.highContrast ? '#000000ee' : '#1e1630cc', fg: avail ? '#fff1d8' : '#b9a9c3' });
       }
       const status = stationStatus(svc, id);
-      if (status && !(status.blink && Math.sin(t * 8) < -0.3 && !settings.reducedMotion)) {
+      if (status) {
+        // Alertas pulsam a borda, mas o texto nunca some (e fica parado com movimento reduzido).
+        const pulse = status.blink && !settings.reducedMotion && Math.sin(t * 8) > 0;
         const top = toScreen(r.x + r.w / 2, r.y - 4);
-        pill(status.text, top.x, top.y - 8, { size: fontBase, bg: status.color, fg: status.fg, border: settings.highContrast ? '#ffffff' : null, progress: status.progress ?? null, bar: status.bar });
+        pill(status.text, top.x, top.y - 8, { size: fontBase, bg: status.color, fg: status.fg, border: settings.highContrast || pulse ? '#ffffff' : status.blink ? '#ffd182' : null, progress: status.progress ?? null, bar: status.bar });
       }
     }
     // Prompt de interação

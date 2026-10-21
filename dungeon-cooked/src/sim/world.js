@@ -194,7 +194,7 @@ export function findPath(grid, from, to, maxNodes = 4000) {
 
 export function segmentWalkable(a, b, radius = PLAYER_RADIUS) {
   const len = distance(a.x, a.y, b.x, b.y);
-  const steps = Math.max(1, Math.ceil(len / 6));
+  const steps = Math.max(1, Math.ceil(len / 3));
   for (let i = 1; i <= steps; i++) {
     const t = i / steps;
     if (collides(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, radius)) return false;
@@ -209,8 +209,9 @@ function smoothPath(from, points) {
   let i = 0;
   while (i < points.length) {
     let far = i;
+    // Folga extra: o atalho não pode passar rente às quinas das bancadas.
     for (let j = points.length - 1; j > i; j--) {
-      if (segmentWalkable(anchor, points[j])) { far = j; break; }
+      if (segmentWalkable(anchor, points[j], PLAYER_RADIUS + 4)) { far = j; break; }
     }
     result.push(points[far]);
     anchor = points[far];

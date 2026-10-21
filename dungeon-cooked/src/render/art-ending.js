@@ -1,5 +1,5 @@
 // Ilustrações dos três finais (desenhadas na hora, sem imagens externas).
-import { PAL, rr, ell, circle, glow, sparkle, star, heart, line } from './paint.js';
+import { PAL, rr, ell, circle, glow, sparkle, star, heart } from './paint.js';
 import { drawChef, drawCustomer } from './art-characters.js';
 import { drawDish } from './art-items.js';
 
@@ -41,12 +41,9 @@ export function drawEndingArt(ctx, w, h, ending, t = 0) {
     for (let i = 0; i < 5; i++) sparkle(ctx, W / 2 - 40 + i * 20, 160 - (i % 2) * 30, 5, '#ffffff');
     drawChef(ctx, W / 2, 120, { t, mood: 'happy', face: 1, reduced: true });
     drawCustomer(ctx, 'mora', W / 2 + 150, 230, { mood: 'happy', t, reduced: true });
-    ctx.save();
-    ctx.globalAlpha = 0.5;
-    line(ctx, W / 2, 40, W / 2, 20, '#fff3c4', 2);
+    glow(ctx, W / 2 - 160, 60, 40, '#fff3c4', 0.35);
     circle(ctx, W / 2 - 160, 60, 18, '#fff3c4');
-    circle(ctx, W / 2 - 152, 54, 16, ending === 'segredo' ? '#14243f' : '#2c2138');
-    ctx.restore();
+    circle(ctx, W / 2 - 152, 54, 16, '#14243f');
   }
   ctx.restore();
 }

@@ -95,6 +95,6 @@ if (/\b(?:src|href)=["']https?:/i.test(html)) throw new Error('O HTML final refe
 
 await mkdir(path.join(root, 'dist'), { recursive: true });
 await writeFile(path.join(root, 'dist/index.html'), html);
-await writeFile(path.join(root, 'dist/Dungeon_Cooked_OFFLINE.html'), html);
+await writeFile(path.join(root, 'dist/Dungeon_Cooked_FINAL_OFFLINE.html'), html);
 const kb = (Buffer.byteLength(html) / 1024).toFixed(0);
-console.log(`Build concluído: ${modules.length} módulos -> dist/Dungeon_Cooked_OFFLINE.html (${kb} KB). Abre direto do disco, sem internet.`);
+console.log(`Build concluído: ${modules.length} módulos -> dist/Dungeon_Cooked_FINAL_OFFLINE.html (${kb} KB). Abre direto do disco, sem internet.`);
