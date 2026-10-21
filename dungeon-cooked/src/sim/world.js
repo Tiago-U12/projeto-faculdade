@@ -3,30 +3,30 @@
 import { clamp, distance, distanceToRect, circleHitsRect, pointInRect } from '../core/util.js';
 
 export const WORLD = { w: 960, h: 600 };
-export const COUNTER = { x: 24, y: 138, w: 912, h: 74 };
-export const FLOOR = { x: 24, y: 212, w: 912, h: 376 };
+export const COUNTER = { x: 24, y: 168, w: 912, h: 74 };
+export const FLOOR = { x: 24, y: 242, w: 912, h: 346 };
 export const PLAYER_RADIUS = 16;
 export const REACH = 30;
 export const SEAT_X = [232, 484, 714];
-export const SEAT_Y = 104;
+export const SEAT_Y = 134;
 export const DOOR_LEFT = -70;
 export const DOOR_RIGHT = WORLD.w + 70;
-export const PLAYER_START = { x: 484, y: 470 };
+export const PLAYER_START = { x: 484, y: 500 };
 
 export const STATION_LAYOUT = {
-  horta: { id: 'horta', kind: 'pantry', shelf: 'horta', label: 'Horta Subterrânea', rect: { x: 28, y: 256, w: 110, h: 78 } },
-  rustica: { id: 'rustica', kind: 'pantry', shelf: 'rustica', label: 'Despensa Rústica', rect: { x: 28, y: 362, w: 110, h: 78 } },
-  arcano: { id: 'arcano', kind: 'pantry', shelf: 'arcano', label: 'Armário Arcano', rect: { x: 28, y: 468, w: 110, h: 78 } },
-  board: { id: 'board', kind: 'board', label: 'Tábua de Corte', rect: { x: 236, y: 304, w: 116, h: 68 } },
-  cauldron: { id: 'cauldron', kind: 'cook', cook: 'cauldron', label: 'Caldeirão', rect: { x: 424, y: 292, w: 112, h: 90 } },
-  cold: { id: 'cold', kind: 'cook', cook: 'cold', label: 'Bancada Fria', rect: { x: 606, y: 304, w: 126, h: 68 } },
-  oven: { id: 'oven', kind: 'cook', cook: 'oven', label: 'Forno', rect: { x: 822, y: 256, w: 110, h: 86 } },
-  grill: { id: 'grill', kind: 'cook', cook: 'grill', label: 'Grelha', rect: { x: 822, y: 366, w: 110, h: 76 } },
-  trash: { id: 'trash', kind: 'trash', label: 'Lixeira', rect: { x: 852, y: 480, w: 72, h: 66 } },
-  bell: { id: 'bell', kind: 'bell', label: 'Sino da Harmonia', onCounter: true, rect: { x: 834, y: 146, w: 74, h: 60 } },
-  seat0: { id: 'seat0', kind: 'seat', seat: 0, label: 'Balcão', onCounter: true, rect: { x: 96, y: 138, w: 272, h: 74 } },
-  seat1: { id: 'seat1', kind: 'seat', seat: 1, label: 'Balcão', onCounter: true, rect: { x: 368, y: 138, w: 234, h: 74 } },
-  seat2: { id: 'seat2', kind: 'seat', seat: 2, label: 'Balcão', onCounter: true, rect: { x: 602, y: 138, w: 226, h: 74 } },
+  horta: { id: 'horta', kind: 'pantry', shelf: 'horta', label: 'Horta Subterrânea', rect: { x: 28, y: 286, w: 110, h: 78 } },
+  rustica: { id: 'rustica', kind: 'pantry', shelf: 'rustica', label: 'Despensa Rústica', rect: { x: 28, y: 390, w: 110, h: 78 } },
+  arcano: { id: 'arcano', kind: 'pantry', shelf: 'arcano', label: 'Armário Arcano', rect: { x: 28, y: 494, w: 110, h: 78 } },
+  board: { id: 'board', kind: 'board', label: 'Tábua de Corte', rect: { x: 236, y: 334, w: 116, h: 68 } },
+  cauldron: { id: 'cauldron', kind: 'cook', cook: 'cauldron', label: 'Caldeirão', rect: { x: 424, y: 322, w: 112, h: 90 } },
+  cold: { id: 'cold', kind: 'cook', cook: 'cold', label: 'Bancada Fria', rect: { x: 606, y: 334, w: 126, h: 68 } },
+  oven: { id: 'oven', kind: 'cook', cook: 'oven', label: 'Forno', rect: { x: 822, y: 286, w: 110, h: 86 } },
+  grill: { id: 'grill', kind: 'cook', cook: 'grill', label: 'Grelha', rect: { x: 822, y: 396, w: 110, h: 76 } },
+  trash: { id: 'trash', kind: 'trash', label: 'Lixeira', rect: { x: 852, y: 504, w: 72, h: 66 } },
+  bell: { id: 'bell', kind: 'bell', label: 'Sino da Harmonia', onCounter: true, rect: { x: 834, y: 176, w: 74, h: 60 } },
+  seat0: { id: 'seat0', kind: 'seat', seat: 0, label: 'Balcão', onCounter: true, rect: { x: 96, y: 168, w: 272, h: 74 } },
+  seat1: { id: 'seat1', kind: 'seat', seat: 1, label: 'Balcão', onCounter: true, rect: { x: 368, y: 168, w: 234, h: 74 } },
+  seat2: { id: 'seat2', kind: 'seat', seat: 2, label: 'Balcão', onCounter: true, rect: { x: 602, y: 168, w: 226, h: 74 } },
 };
 
 export const STATION_ORDER = Object.keys(STATION_LAYOUT);

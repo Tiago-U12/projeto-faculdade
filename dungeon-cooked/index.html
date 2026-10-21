@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#161320" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Dungeon Cooked: a cozinha dos impossíveis. Um chef fantasma reabre a taberna da dungeon. Jogo 2D de culinária, offline, em português." />
+    <title>Dungeon Cooked — A Cozinha dos Impossíveis</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23252036'/%3E%3Cpath d='M18 50V30q0-16 14-16t14 16v20l-5-4-4 4-5-4-5 4-4-4z' fill='%23eef8ff' stroke='%232b1d2e' stroke-width='3'/%3E%3Ccircle cx='27' cy='30' r='3' fill='%23352d52'/%3E%3Ccircle cx='37' cy='30' r='3' fill='%23352d52'/%3E%3Cpath d='M20 18q-2-10 8-9 4-6 8 0 10-1 8 9z' fill='%23fff7ea' stroke='%232b1d2e' stroke-width='3'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <noscript>
+      <p class="noscript">Dungeon Cooked precisa de JavaScript ativado para funcionar. O jogo não usa internet nem coleta dados.</p>
+    </noscript>
+    <div id="app" class="app" data-screen="boot">
+      <main id="game" class="game" aria-label="Dungeon Cooked">
+        <header class="hud" id="hud">
+          <div class="hud-left">
+            <button class="icon-btn" id="btn-pause" type="button" aria-label="Pausar (P ou Esc)" title="Pausar (P)"></button>
+            <div class="hud-title">
+              <span id="hud-mode">HISTÓRIA</span>
+              <strong id="hud-night">Noite 1</strong>
+            </div>
+          </div>
+          <div class="hud-stats">
+            <div class="stat" id="stat-clock">
+              <span class="stat-icon" aria-hidden="true">◷</span>
+              <div><small id="clock-label">Clientes</small><strong id="hud-clock">0/0</strong></div>
+            </div>
+            <div class="stat" id="stat-coins">
+              <span class="stat-icon coin" aria-hidden="true"></span>
+              <div><small>Moedas</small><strong id="hud-coins">0</strong></div>
+            </div>
+            <div class="stat stat-tension" id="stat-tension" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Tensão do salão">
+              <span class="stat-icon" id="tension-icon" aria-hidden="true">☾</span>
+              <div>
+                <small id="tension-name">Sossego</small>
+                <strong id="hud-tension">0%</strong>
+                <div class="meter"><b id="tension-bar"></b></div>
+              </div>
+            </div>
+          </div>
+          <div class="hud-right">
+            <button class="icon-btn" id="btn-book" type="button" aria-label="Livro de receitas (R)" title="Livro de receitas (R)"></button>
+            <button class="icon-btn" id="btn-sound" type="button" aria-label="Som" title="Som (M)"></button>
+          </div>
+        </header>
+        <section class="objective" id="objective" aria-live="polite">
+          <span class="obj-check" id="objective-check" aria-hidden="true">◎</span>
+          <span class="obj-text" id="objective-text"></span>
+          <span class="obj-progress" id="objective-progress"></span>
+          <span class="obj-hint" id="hint" hidden></span>
+        </section>
+        <section class="tickets" id="tickets" aria-label="Pedidos dos clientes"></section>
+        <div class="viewport" id="viewport">
+          <canvas id="canvas" role="img" aria-label="Cozinha da taberna Mesa do Luar vista de cima. O chef fantasma anda entre despensa, tábua, caldeirão, bancada fria, forno, grelha, lixeira e balcão."></canvas>
+          <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+          <div class="picker" id="picker" role="dialog" aria-label="Escolha o ingrediente" hidden></div>
+        </div>
+        <footer class="controls" id="controls">
+          <div class="joystick" id="joystick" role="application" aria-label="Controle de movimento: arraste o polegar" hidden><div class="joystick-thumb" id="joystick-thumb"></div></div>
+          <div class="status-col">
+            <div class="carry" id="carry" aria-live="polite"></div>
+            <div class="context">
+              <b id="context-main">Ande até uma bancada</b>
+              <span id="context-sub"></span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="act act-alt" id="btn-discard" type="button"><span>Descartar</span><small>Q</small></button>
+            <button class="act act-main" id="btn-act" type="button"><span>Fazer</span><small>E / Espaço</small></button>
+          </div>
+        </footer>
+      </main>
+      <div class="layer" id="layer"></div>
+      <div class="sr-only" id="announcer" aria-live="assertive"></div>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

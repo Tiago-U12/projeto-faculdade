@@ -1019,6 +1019,8 @@ function deliver(svc, c, order, dish) {
   // Transição terminal única: se já foi fechado, nada é pago.
   if (!closeOrder(order, ORDER_STATUS.FULFILLED)) return { ok: false, reason: 'closed' };
   order.rewardClaimed = true;
+  order.servedRecipe = dish.recipeId;
+  order.servedQuality = dish.quality;
   removeFromHands(svc, dish.uid);
   const s = svc.stats;
   s.served += 1;
