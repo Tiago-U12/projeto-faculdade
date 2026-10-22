@@ -5,13 +5,13 @@ Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-22T23:43:00.315Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-22T23:45:59.889Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
-**Total aprovado: 243 de 600** (faltam 357).
+**Total aprovado: 264 de 600** (faltam 336).
 
 | Disciplina | Fácil | Média | Difícil | Total |
 |---|---:|---:|---:|---:|
-| Cálculo II | 81/100 | 81/100 | 81/100 | 243/300 |
+| Cálculo II | 88/100 | 88/100 | 88/100 | 264/300 |
 | Desenvolvimento Web Full Stack | 0/100 | 0/100 | 0/100 | 0/300 |
 
 #### Cálculo II — por assunto
@@ -26,11 +26,11 @@ _Gerado automaticamente em 2026-10-22T23:43:00.315Z por `npm run progress`. Só 
 | Integração por substituição ★ | 13/13 | 13/13 | 13/13 | 39/39 | sim |
 | Integral definida, Riemann, TFC e áreas ★ | 13/13 | 13/13 | 14/14 | 40/40 | sim |
 | Funções de várias variáveis | 5/5 | 5/5 | 5/5 | 15/15 | não |
-| Derivadas parciais e derivada total | 0/7 | 0/7 | 0/7 | 0/21 | não |
+| Derivadas parciais e derivada total | 7/7 | 7/7 | 7/7 | 21/21 | sim |
 | Integrais duplas | 0/6 | 0/6 | 0/6 | 0/18 | não |
 | Otimização com e sem restrições | 0/6 | 0/6 | 0/6 | 0/18 | não |
 
-Fluxo editorial (todas as questões da disciplina): aprovadas 243 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
+Fluxo editorial (todas as questões da disciplina): aprovadas 264 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
 
 #### Desenvolvimento Web Full Stack — por assunto
 
@@ -54,8 +54,8 @@ Fluxo editorial (todas as questões da disciplina): aprovadas 0 · verificadas a
 
 ★ = assunto cobrado na prova de 26/10/2026.
 
-Verificação das aprovadas: 62 por `sympy+mpmath.diff` · 10 por `sympy+amostragem` · 37 por `sympy+mpmath` · 62 por `sympy+independente` · 7 por `sympy+mpmath (por alternativa)` · 37 por `sympy+mpmath.quad` · 12 por `source-review` · 2 por `sympy+mpmath (forma)` · 14 por `sympy+amostragem+mpmath.taylor`.
-Revisão das aprovadas: 243 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
+Verificação das aprovadas: 76 por `sympy+independente` · 68 por `sympy+mpmath.diff` · 11 por `sympy+amostragem` · 37 por `sympy+mpmath` · 7 por `sympy+mpmath (por alternativa)` · 37 por `sympy+mpmath.quad` · 12 por `source-review` · 2 por `sympy+mpmath (forma)` · 14 por `sympy+amostragem+mpmath.taylor`.
+Revisão das aprovadas: 264 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
 <!-- CONTAGENS:FIM -->
 
 ## Estado por etapa (implementado × testado × planejado)

@@ -1,15 +1,15 @@
 {
  "schemaVersion": 1,
- "bankVersion": "2026.10.22-5101b1a8",
- "generatedAt": "2026-10-22T23:42:43.549Z",
+ "bankVersion": "2026.10.22-b2614c49",
+ "generatedAt": "2026-10-22T23:45:41.997Z",
  "totals": {
-  "approved": 243
+  "approved": 264
  },
  "byDiscipline": {
   "calculo2": {
-   "facil": 81,
-   "medio": 81,
-   "dificil": 81
+   "facil": 88,
+   "medio": 88,
+   "dificil": 88
   }
  }
 }
