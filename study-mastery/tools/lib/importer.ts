@@ -86,7 +86,7 @@ export function classify(text: string, tax: Taxonomy, keywords: Record<string, s
         let idx = norm.indexOf(k);
         while (idx !== -1 && score < 500) {
           score++;
-          idx = norm.indexOf(k, idx + k.length);
+          idx = norm.indexOf(k, idx + k.length - 1);
         }
       }
       if (score >= 3) res.push({ disciplineId: d.id, topicId: t.id, score });
