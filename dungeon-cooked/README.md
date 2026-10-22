@@ -50,8 +50,13 @@ Clicar/tocar numa estação faz o chef andar até ela (A* com desvio das bancada
 
 - Salva automaticamente **ao fim de cada noite** (junto com a recompensa, de forma atômica) e **após cada compra**. Se sair no meio de uma noite, ela recomeça do início — isso é avisado na pausa.
 - Um slot por modo narrativo (História e Tranquilo). Recordes do Desafio, conquistas e finais vistos ficam num registro separado. Ajustes também são salvos.
-- **Opções → Dados salvos:** exportar (texto JSON para copiar, ou arquivo `.json` onde o navegador permite baixar), importar arquivo ou texto colado (validação estrita e confirmação; uma cópia de segurança do save atual é guardada) e apagar tudo.
-- Se o navegador bloquear o armazenamento, o jogo continua jogável e avisa que não pode salvar.
+- **Link de continuar** (Opções → Dados salvos, ou o botão no fim de cada noite): um link com todo o progresso compactado dentro (cerca de 1.200 caracteres numa campanha completa). Mande para você mesmo (WhatsApp, e-mail, nota) e abra em qualquer aparelho: o jogo mostra o que vem no link e o que já existe no navegador, e só troca com confirmação (o save atual ganha cópia de segurança). Também dá para colar o link em Importar save.
+  - Não usa servidor nem conta: o progresso vai no trecho depois de `#`, que o navegador não envia ao site. O código sai da barra de endereço assim que é lido.
+  - No arquivo offline, o link aponta para a versão online (`https://tiago-u12.github.io/projeto-faculdade/dungeon-cooked/`).
+  - É uma fotografia do momento: depois de jogar mais noites, gere outro.
+- Ao fim da primeira noite salva, o jogo pede ao navegador armazenamento persistente (`navigator.storage.persist`) para ele não apagar o save sozinho. O navegador pode negar, e limpar os dados do site apaga tudo de qualquer jeito: por isso o lembrete do link.
+- **Opções → Dados salvos:** exportar (texto JSON para copiar, ou arquivo `.json` onde o navegador permite baixar), importar arquivo, link ou texto colado (validação estrita e confirmação; uma cópia de segurança do save atual é guardada) e apagar tudo.
+- Se o navegador bloquear o armazenamento, o jogo continua jogável e avisa que não pode salvar; o link de continuar ainda funciona para levar o progresso embora.
 
 Chaves usadas no `localStorage`: `dungeonCooked.save.v1`, `dungeonCooked.meta.v1`, `dungeonCooked.settings.v1` e `dungeonCooked.save.v1.backup`.
 
@@ -73,7 +78,7 @@ dungeon-cooked/
   src/main.js              fluxo do app (menu, noites, loja, finais, Desafio)
   src/core/                utilitários, RNG com semente, eventos
   src/data/                ingredientes, receitas, clientes, noites, diálogos, melhorias, conquistas
-  src/sim/                 simulação sem DOM: mundo/A*, cozinha, pedidos, caos, serviço, campanha, save, história
+  src/sim/                 simulação sem DOM: mundo/A*, cozinha, pedidos, caos, serviço, campanha, save, link de continuar, história
   src/render/              arte procedural, câmera, partículas, renderer
   src/systems/             áudio (Web Audio), entrada, ajustes
   src/ui/                  HUD, telas, diálogos, seletor, janelas
@@ -89,8 +94,8 @@ Dados ficam fora da lógica; a simulação não depende de DOM nem de relógios 
 ```bash
 npm run build          # gera dist/Dungeon_Cooked_FINAL_OFFLINE.html e dist/index.html
 node scripts/build.mjs --page   # também gera dist/page.html, sem <html>/<head>/<body>, para páginas hospedadas
-npm test               # 51 testes de regras (Node, sem dependências)
-npm run test:browser   # 15 verificações no navegador (requer Playwright + Chromium)
+npm test               # 56 testes de regras (Node, sem dependências)
+npm run test:browser   # 18 verificações no navegador (requer Playwright + Chromium)
 npm run dev            # servidor local em http://localhost:5174
 ```
 
@@ -98,7 +103,7 @@ O build é um mini-empacotador próprio (só módulos nativos do Node): junta os
 
 ## O que foi testado
 
-Veja `TEST_REPORT.md`. Resumo: 51 testes de regras passando (incluindo a bateria CK/OR/CH/SV/PR/IN do GDD e um robô que conclui a campanha nos três finais) e 15 verificações automáticas no Chromium headless abrindo a build via `file://`, além de sessões guiadas (Noites 1, 3, 5 e 7, Desafio completo, Tranquilo, alto contraste) com capturas revisadas em 360×800, 390×844, 768×1024, 800×360, 844×390, 1366×768 e 1920×1080.
+Veja `TEST_REPORT.md`. Resumo: 56 testes de regras passando (incluindo a bateria CK/OR/CH/SV/PR/IN do GDD, o link de continuar e um robô que conclui a campanha nos três finais) e 18 verificações automáticas no Chromium headless abrindo a build via `file://`, além de sessões guiadas (Noites 1, 3, 5 e 7, Desafio completo, Tranquilo, alto contraste) com capturas revisadas em 360×800, 390×844, 768×1024, 800×360, 844×390, 1366×768 e 1920×1080.
 
 **Não testado:** aparelhos reais (Android/iOS), Firefox, Safari e Edge, zoom de 125%/200%, leitor de tela, modo avião literal e a qualidade do áudio ouvida por uma pessoa. Também não houve playtest com pessoas: as metas de playtest do GDD continuam pendentes.
 

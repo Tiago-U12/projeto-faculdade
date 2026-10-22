@@ -1,4 +1,4 @@
-# Status da entrega — V1.0
+# Status da entrega — V1.1
 
 Checklist do aceite do prompt mestre e dos portões do GDD (seção 17.3). "Feito" significa implementado **e** verificado conforme `TEST_REPORT.md`.
 
@@ -13,6 +13,7 @@ Checklist do aceite do prompt mestre e dos portões do GDD (seção 17.3). "Feit
 | Pausa real (inclui aba oculta e perda de foco) | Feito |
 | Menus | Feito |
 | Salvar, fechar, reabrir e continuar sem duplicar recompensa | Feito |
+| Levar o progresso para outro aparelho sem servidor (link de continuar) | Feito (1.1.0; testado no Chromium headless) |
 
 ## P1 — conteúdo
 

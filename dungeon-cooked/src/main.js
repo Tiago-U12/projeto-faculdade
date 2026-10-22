@@ -26,7 +26,10 @@ import {
   newCampaign, serviceOptionsFor, commitNight, previewCampaign, endingEligibility, recordRetry, revisitFinalNight,
   buyItem, recordChallenge, challengeRank, averageTrust,
 } from './sim/campaign.js';
-import { createSaveStore, emptySaveFile, exportSave, parseImport } from './sim/save.js';
+import { createSaveStore, emptySaveFile, exportSave, parseImport, validateSaveFile } from './sim/save.js';
+import {
+  encodeSaveCode, decodeSaveCode, extractSaveCode, continueLink, LINK_PARAM, PUBLIC_URL,
+} from './sim/save-link.js';
 import { pointInRect } from './core/util.js';
 
 // ---------- Armazenamento e ajustes ----------
@@ -84,6 +87,21 @@ function persist() {
   const res = store.save(saveFile);
   if (!res.ok) return res.error || 'Este navegador não permite salvar agora.';
   return null;
+}
+
+// Pede ao navegador para não apagar o save sozinho quando faltar espaço (ou, no
+// Safari, após dias sem visita). Sem garantia: limpar os dados ainda apaga tudo.
+let storageProtectionAsked = false;
+function protectStorage() {
+  if (storageProtectionAsked || !store.available) return;
+  storageProtectionAsked = true;
+  try {
+    const s = navigator.storage;
+    if (!s || !s.persist || !s.persisted) return;
+    s.persisted().then((already) => (already ? true : s.persist())).catch(() => {});
+  } catch {
+    // navegador sem a API: segue normalmente
+  }
 }
 
 function updateSettings(key, value) {
@@ -370,6 +388,7 @@ function finalizeNight() {
   saveFile.meta.conflictsTotal += summary.stats.conflictsResolved;
   if (result.report.isFinal && !saveFile.meta.endingsSeen.includes(app.chosenEnding)) saveFile.meta.endingsSeen.push(app.chosenEnding);
   const saveError = persist();
+  if (!saveError) protectStorage();
   const got = [];
   const tryUnlock = (id, cond) => {
     if (!cond) return;
@@ -400,6 +419,7 @@ function showResults(o) {
     isFinal: o.isFinal,
     achievements: o.achievements || [],
     saveError: o.saveError,
+    onBackup: openContinueLink,
     onNext: () => {
       modal.close(entry);
       if (o.isFinal) showEnding();
@@ -585,6 +605,7 @@ function openOptions() {
     audioOk: audio.available,
     storageOk: store.available,
     onChange: updateSettings,
+    onLink: openContinueLink,
     onExport: () => {
       const json = exportSave(saveFile);
       screens.exportData({
@@ -634,26 +655,100 @@ function openOptions() {
   });
 }
 
+// Texto colado em Importar: aceita o link de continuar ou o JSON exportado.
 function importSaveText(text) {
-  const parsed = parseImport(text);
+  const code = extractSaveCode(text);
+  if (code) openSaveCode(code);
+  else offerSave(parseImport(text), 'import');
+}
+
+function openSaveCode(code) {
+  decodeSaveCode(code).then(
+    (res) => offerSave(res, 'link'),
+    () => offerSave({ ok: false, error: 'link ilegível' }, 'link'),
+  );
+}
+
+function hasProgress(file) {
+  const m = file.meta;
+  return Boolean(file.slots.historia || file.slots.tranquilo || m.challengeRuns > 0 || m.achievements.length || m.endingsSeen.length);
+}
+
+function sameProgress(incoming) {
+  const current = validateSaveFile(JSON.parse(JSON.stringify(saveFile)));
+  const key = (f) => JSON.stringify({ slots: f.slots, meta: f.meta });
+  return current.ok && key(current.value) === key(incoming);
+}
+
+function offerSave(parsed, source) {
+  const fromLink = source === 'link';
   if (!parsed.ok) {
-    screens.notice({ title: 'Save recusado', text: `Esse texto não é um save válido (${parsed.error}). Seu progresso atual não foi alterado.` });
+    screens.notice({
+      title: fromLink ? 'O link não abriu' : 'Save recusado',
+      text: `${fromLink ? 'Esse link de continuar não pôde ser lido' : 'Esse texto não é um save válido'} (${parsed.error}). Seu progresso atual não foi alterado.`,
+    });
     return;
   }
-  screens.confirm({
-    title: 'Substituir o progresso?',
-    text: 'O save importado substitui as campanhas e conquistas deste navegador. Uma cópia de segurança do save atual será guardada.',
-    confirmLabel: 'Importar',
-    danger: true,
+  if (sameProgress(parsed.value)) {
+    hud.toast('Este navegador já tem exatamente esse progresso.', 'good');
+    return;
+  }
+  const replaces = hasProgress(saveFile);
+  screens.loadSave({
+    source,
+    incoming: parsed.value,
+    current: saveFile,
+    replaces,
     onConfirm: () => {
-      store.backup();
+      if (replaces) store.backup();
       saveFile = parsed.value;
       const err = persist();
-      if (err) screens.notice({ title: 'Importado só nesta sessão', text: err });
       goMenu();
-      hud.toast('Save importado.', 'good');
+      if (err) {
+        screens.notice({ title: 'Carregado só nesta sessão', text: `${err} Guarde o link de continuar de novo antes de fechar.` });
+        return;
+      }
+      protectStorage();
+      hud.toast(fromLink ? 'Progresso do link carregado.' : 'Save importado.', 'good');
     },
   });
+}
+
+// Fora de http(s) (arquivo offline) ou dentro de outra página, o link aponta para a versão online.
+function linkBase() {
+  const { protocol, origin, pathname, search } = window.location;
+  if (window.__DC_ARTIFACT || (protocol !== 'http:' && protocol !== 'https:')) return PUBLIC_URL;
+  return origin + pathname + search;
+}
+
+async function openContinueLink() {
+  let code;
+  try {
+    code = await encodeSaveCode(saveFile);
+  } catch {
+    screens.notice({ title: 'Não deu para criar o link', text: 'Use Opções → Exportar save para guardar uma cópia do progresso.' });
+    return;
+  }
+  const base = linkBase();
+  screens.continueLink({ link: continueLink(code, base), online: base === PUBLIC_URL && !window.location.href.startsWith(PUBLIC_URL) });
+}
+
+// Abrir o jogo por um link de continuar (#continuar=...) oferece carregar aquele progresso.
+function takeLinkFromUrl() {
+  const hash = window.location.hash || '';
+  if (!hash.includes(`${LINK_PARAM}=`)) return;
+  const code = extractSaveCode(hash);
+  // Tira o código da barra de endereço para recarregar a página não perguntar de novo.
+  try {
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  } catch {
+    window.location.hash = '';
+  }
+  if (!code) {
+    offerSave({ ok: false, error: 'link incompleto' }, 'link');
+    return;
+  }
+  openSaveCode(code);
 }
 
 // ---------- Ações do jogador ----------
@@ -863,6 +958,8 @@ goMenu();
 if (loaded.corrupt) {
   screens.notice({ title: 'Save inválido ignorado', text: `O progresso salvo neste navegador não pôde ser lido (${loaded.error}). Uma cópia foi guardada e o jogo começa limpo.` });
 }
+takeLinkFromUrl();
+window.addEventListener('hashchange', takeLinkFromUrl);
 requestAnimationFrame(frame);
 
 // Ganchos para testes automatizados no navegador (não alteram o jogo).
