@@ -1,0 +1,789 @@
+{
+ "generatedAt": "2026-10-22T22:30:11.111Z",
+ "disciplines": [
+  {
+   "id": "calculo2",
+   "name": "Cálculo II",
+   "approved": {
+    "facil": 15,
+    "medio": 0,
+    "dificil": 0
+   },
+   "quota": {
+    "facil": 100,
+    "medio": 100,
+    "dificil": 100
+   },
+   "byStatus": {
+    "approved": {
+     "facil": 15,
+     "medio": 0,
+     "dificil": 0
+    },
+    "verified": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    },
+    "draft": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    },
+    "rejected": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    }
+   },
+   "topics": [
+    {
+     "id": "derivadas",
+     "name": "Regras de derivação (revisão)",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 5
+     },
+     "totalApproved": 0,
+     "totalQuota": 17,
+     "gaps": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 5
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "taylor",
+     "name": "Linearização, Taylor e Maclaurin",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 7
+     },
+     "totalApproved": 0,
+     "totalQuota": 21,
+     "gaps": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 7
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "maxmin",
+     "name": "Máximos, mínimos, concavidade e inflexão",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "totalApproved": 0,
+     "totalQuota": 27,
+     "gaps": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "lhopital",
+     "name": "Regra de L'Hôpital",
+     "examFocus": true,
+     "approved": {
+      "facil": 15,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 15,
+      "medio": 15,
+      "dificil": 15
+     },
+     "totalApproved": 15,
+     "totalQuota": 45,
+     "gaps": {
+      "facil": 0,
+      "medio": 15,
+      "dificil": 15
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 11,
+      "aprofundamento": 4,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "primitivas",
+     "name": "Antiderivadas e integrais indefinidas",
+     "examFocus": true,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 13
+     },
+     "totalApproved": 0,
+     "totalQuota": 39,
+     "gaps": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 13
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "substituicao",
+     "name": "Integração por substituição",
+     "examFocus": true,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 13
+     },
+     "totalApproved": 0,
+     "totalQuota": 39,
+     "gaps": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 13
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "integral-definida",
+     "name": "Integral definida, Riemann, TFC e áreas",
+     "examFocus": true,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 14
+     },
+     "totalApproved": 0,
+     "totalQuota": 40,
+     "gaps": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 14
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "funcoes-2-var",
+     "name": "Funções de várias variáveis",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 5,
+      "medio": 5,
+      "dificil": 5
+     },
+     "totalApproved": 0,
+     "totalQuota": 15,
+     "gaps": {
+      "facil": 5,
+      "medio": 5,
+      "dificil": 5
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "derivadas-parciais",
+     "name": "Derivadas parciais e derivada total",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 7
+     },
+     "totalApproved": 0,
+     "totalQuota": 21,
+     "gaps": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 7
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "integrais-duplas",
+     "name": "Integrais duplas",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "totalApproved": 0,
+     "totalQuota": 18,
+     "gaps": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "otimizacao",
+     "name": "Otimização com e sem restrições",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "totalApproved": 0,
+     "totalQuota": 18,
+     "gaps": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": "fullstack",
+   "name": "Desenvolvimento Web Full Stack",
+   "approved": {
+    "facil": 0,
+    "medio": 0,
+    "dificil": 0
+   },
+   "quota": {
+    "facil": 100,
+    "medio": 100,
+    "dificil": 100
+   },
+   "byStatus": {
+    "approved": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    },
+    "verified": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    },
+    "draft": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    },
+    "rejected": {
+     "facil": 0,
+     "medio": 0,
+     "dificil": 0
+    }
+   },
+   "topics": [
+    {
+     "id": "html",
+     "name": "HTML semântico e Emmet",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 6
+     },
+     "totalApproved": 0,
+     "totalQuota": 20,
+     "gaps": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 6
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "css",
+     "name": "CSS: Flexbox, Grid e mobile-first",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 8
+     },
+     "totalApproved": 0,
+     "totalQuota": 24,
+     "gaps": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 8
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "js-funcoes",
+     "name": "JavaScript: funções puras e arrays",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 10,
+      "medio": 9,
+      "dificil": 8
+     },
+     "totalApproved": 0,
+     "totalQuota": 27,
+     "gaps": {
+      "facil": 10,
+      "medio": 9,
+      "dificil": 8
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "fetch-async",
+     "name": "Fetch, Promises e CORS",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 9,
+      "medio": 8,
+      "dificil": 9
+     },
+     "totalApproved": 0,
+     "totalQuota": 26,
+     "gaps": {
+      "facil": 9,
+      "medio": 8,
+      "dificil": 9
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "classes-erros",
+     "name": "Classes, validação e erros customizados",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 8
+     },
+     "totalApproved": 0,
+     "totalQuota": 22,
+     "gaps": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 8
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "react-componentes",
+     "name": "React: componentes, JSX e props",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 8
+     },
+     "totalApproved": 0,
+     "totalQuota": 24,
+     "gaps": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 8
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "react-hooks-forms",
+     "name": "React: useState, useEffect e formulários",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "totalApproved": 0,
+     "totalQuota": 27,
+     "gaps": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "react-router",
+     "name": "React Router",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "totalApproved": 0,
+     "totalQuota": 18,
+     "gaps": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "express-rest",
+     "name": "API REST com Express",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "totalApproved": 0,
+     "totalQuota": 27,
+     "gaps": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "mysql",
+     "name": "MySQL e persistência",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 8,
+      "medio": 9,
+      "dificil": 9
+     },
+     "totalApproved": 0,
+     "totalQuota": 26,
+     "gaps": {
+      "facil": 8,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "jwt-auth",
+     "name": "Autenticação: JWT e bcrypt",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 9
+     },
+     "totalApproved": 0,
+     "totalQuota": 25,
+     "gaps": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 9
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "validacao-erros",
+     "name": "Validação e tratamento de erros na API",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "totalApproved": 0,
+     "totalQuota": 18,
+     "gaps": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    },
+    {
+     "id": "deploy",
+     "name": "Deploy: Render, MySQL gerenciado e Netlify",
+     "examFocus": false,
+     "approved": {
+      "facil": 0,
+      "medio": 0,
+      "dificil": 0
+     },
+     "quota": {
+      "facil": 5,
+      "medio": 6,
+      "dificil": 5
+     },
+     "totalApproved": 0,
+     "totalQuota": 16,
+     "gaps": {
+      "facil": 5,
+      "medio": 6,
+      "dificil": 5
+     },
+     "sessionOf20": false,
+     "byScope": {
+      "aula": 0,
+      "aprofundamento": 0,
+      "desafio": 0
+     }
+    }
+   ]
+  }
+ ],
+ "totals": {
+  "approved": 15,
+  "goal": 600,
+  "remaining": 585
+ },
+ "verificationMethods": {
+  "source-review": 3,
+  "sympy+mpmath (forma)": 2,
+  "sympy+mpmath": 9,
+  "sympy+mpmath (por alternativa)": 1
+ },
+ "reviewerTypes": {
+  "ai-assisted": 15
+ },
+ "sourcesUsed": [
+  {
+   "id": "c2-lhopital-slides",
+   "title": "Regra de L'Hôpital (slides, 18 pp.)",
+   "approvedQuestions": 15
+  },
+  {
+   "id": "c2-lhopital-lista",
+   "title": "Lista de Exercícios · Regra de L'Hôpital (8 limites)",
+   "approvedQuestions": 3
+  }
+ ],
+ "quality": {
+  "longestCorrectPct": 40,
+  "topStemTemplates": [
+   {
+    "topicId": "calculo2/lhopital",
+    "template": "calcule",
+    "pct": 20
+   }
+  ]
+ }
+}

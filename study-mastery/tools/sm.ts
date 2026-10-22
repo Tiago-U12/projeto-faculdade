@@ -174,6 +174,23 @@ async function main() {
         for (const x of q) console.log(` - ${x.id} [${x.difficulty}/${x.scope}] ${x.stem.replace(/\s+/g, ' ').slice(0, 90)}`);
         return;
       }
+      if (sub === 'sheet') {
+        // folha de revisão legível: enunciado, alternativas (✔ correta), motivos, passos e verificação
+        const pref = pos[1] ?? '';
+        const list = all.filter((q) => (flags.status ? q.status === flags.status : q.status === 'verified') && q.id.startsWith(pref));
+        for (const q of list) {
+          console.log(`\n### ${q.id} [${q.difficulty}/${q.scope}${q.subtopic ? ' · ' + q.subtopic : ''}] ${q.status}`);
+          console.log(q.stem);
+          for (const o of q.options) console.log(`  ${o.id === q.correctOptionId ? '✔' : '✗'} ${o.id}) ${o.text}${o.id === q.correctOptionId ? '' : '\n        ↳ ' + q.explanation.wrong?.[o.id]}`);
+          console.log(`  EXP: ${q.explanation.correct}`);
+          if (q.explanation.steps) console.log(`  PASSOS: ${q.explanation.steps.join(' | ')}`);
+          if (q.explanation.commonMistakes) console.log(`  ERROS: ${q.explanation.commonMistakes.join(' | ')}`);
+          console.log(`  FONTES: ${q.sourceRefs.map((r) => r.sourceId + (r.locator ? ' (' + r.locator + ')' : '')).join('; ')}`);
+          console.log(`  VERIF: ${q.verification?.kind} → ${q.verification?.result?.details ?? '—'}`);
+        }
+        console.log(`\n${list.length} questão(ões).`);
+        return;
+      }
       if (sub === 'show') {
         const q = all.find((x) => x.id === pos[1]);
         if (!q) throw new Error('questão não encontrada');

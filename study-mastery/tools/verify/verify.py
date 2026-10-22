@@ -20,7 +20,7 @@ import mpmath as mp
 import sympy as sp
 from sympy import (E, Eq, Float, Integer, Rational, S, Symbol, oo, pi, zoo, nan)
 
-mp.mp.dps = 40
+mp.mp.dps = 250
 resource.setrlimit(resource.RLIMIT_CPU, (50, 55))
 resource.setrlimit(resource.RLIMIT_AS, (3 * 1024**3, 3 * 1024**3))
 
@@ -171,18 +171,19 @@ def mp_eval(expr, var, x):
 
 
 def numeric_limit(expr, var, at, direction):
-    """Estimativa numérica independente do SymPy (mpmath, 40 dígitos)."""
-    hs = [mp.mpf(10) ** (-k) for k in (6, 8, 10, 12)]
+    """Estimativa numérica independente do SymPy (mpmath, 250 dígitos): sequências que se aproximam do ponto."""
+    ks = (6, 12, 24, 48, 96) if at in (oo, -oo) else (6, 9, 12, 16, 20)
     results = {}
     sides = ['+', '-'] if direction == '+-' else [direction]
     for side in sides:
         seq = []
-        for h in hs:
+        for k in ks:
+            h = mp.mpf(10) ** (-k)
             try:
                 if at in (oo, -oo):
                     x = (mp.mpf(1) / h if at == oo else -mp.mpf(1) / h)
                 else:
-                    x = mp.mpf(str(sp.N(at, 40))) + (h if side == '+' else -h)
+                    x = mp.mpf(str(sp.N(at, 60))) + (h if side == '+' else -h)
                 seq.append(mp_eval(expr, var, x))
             except Exception:
                 seq.append(None)
@@ -191,14 +192,18 @@ def numeric_limit(expr, var, at, direction):
 
 
 def classify_numeric(seq):
-    vals = [v for v in seq if v is not None and not (isinstance(v, mp.mpc))]
-    if len(vals) < 3:
+    vals = [v for v in seq if v is not None and not isinstance(v, mp.mpc)]
+    if len(vals) < 4:
         return 'unknown', None
-    last, prev = vals[-1], vals[-2]
-    if abs(last) > mp.mpf(10) ** 8 and abs(last) > abs(prev) * 5:
-        return ('oo' if last > 0 else '-oo'), None
-    if abs(last - prev) <= mp.mpf(10) ** -4 * max(1, abs(last)):
+    last, prev, prev2 = vals[-1], vals[-2], vals[-3]
+    if abs(last - prev) <= mp.mpf(10) ** -6 * max(1, abs(last)) and abs(prev - prev2) <= mp.mpf(10) ** -4 * max(1, abs(prev)):
         return 'finite', last
+    # convergência lenta a zero (ex.: ln x / x^0,1): valores estritamente decrescentes e já muito pequenos
+    if abs(last) < mp.mpf(10) ** -4 and all(abs(vals[i + 1]) < abs(vals[i]) for i in range(len(vals) - 4, len(vals) - 1)):
+        return 'finite', last
+    grow = all(abs(vals[i + 1]) > abs(vals[i]) for i in range(len(vals) - 4, len(vals) - 1))
+    if grow and abs(last) >= 10 and abs(last) >= mp.mpf('1.3') * abs(prev2) and all((v > 0) == (last > 0) for v in vals[-3:]):
+        return ('oo' if last > 0 else '-oo'), None
     return 'unknown', None
 
 
@@ -239,6 +244,132 @@ def verify_limit(p, options, correct):
     return truth, truth_label, ok_numeric, ';'.join(notes)
 
 
+
+def part_limit(expr_src, var, at, direction):
+    expr = parse(expr_src)
+    sym = sp.limit(expr, var, at, direction if direction != '+-' else '+-')
+    seq = numeric_limit(expr, var, at, direction)
+    kinds = [classify_numeric(v)[0] if v else 'unknown' for v in seq.values()]
+    return sym, kinds
+
+
+def kind_of(v):
+    if v == oo or v == -oo:
+        return 'oo'
+    if v == 0:
+        return '0'
+    if v == 1:
+        return '1'
+    if is_nan(v):
+        return 'dne'
+    return 'finite'
+
+
+def numeric_kind(kinds, sym):
+    """Concorda a classificação numérica (mpmath) com o limite simbólico."""
+    for k in kinds:
+        if sym in (oo, -oo):
+            if k != ('oo' if sym == oo else '-oo'):
+                return False
+        elif k not in ('finite', 'unknown'):
+            return False
+    return True
+
+
+def verify_form(p):
+    """Classifica a forma de uma expressão no ponto: 0/0, oo/oo, 0*oo, oo-oo, 1^oo, 0^0, oo^0 ou 'determinada'."""
+    var = parse(p.get('var', 'x'))
+    at = parse(p['at'])
+    direction = p.get('dir', '+-')
+    typ = p['type']
+    fsrc, gsrc = p['parts']
+    f, kf = part_limit(fsrc, var, at, direction)
+    g, kg = part_limit(gsrc, var, at, direction)
+    ok_num = numeric_kind(kf, f) and numeric_kind(kg, g)
+    kf_, kg_ = kind_of(f), kind_of(g)
+    label = 'determinada'
+    if typ == 'quotient':
+        if kf_ == '0' and kg_ == '0':
+            label = '0/0'
+        elif kf_ == 'oo' and kg_ == 'oo':
+            label = 'oo/oo'
+    elif typ == 'product':
+        if {kf_, kg_} == {'0', 'oo'}:
+            label = '0*oo'
+    elif typ == 'difference':
+        if kf_ == 'oo' and kg_ == 'oo' and f == g:
+            label = 'oo-oo'
+    elif typ == 'power':
+        if kf_ == '1' and kg_ == 'oo':
+            label = '1^oo'
+        elif kf_ == '0' and kg_ == '0':
+            label = '0^0'
+        elif kf_ == 'oo' and kg_ == '0':
+            label = 'oo^0'
+    else:
+        raise ValueError('type inválido')
+    return label, ok_num, f'{typ}: lim f={f}, lim g={g} → {label}'
+
+
+def scalar_truth(kind, p):
+    """Valor verdadeiro de um problema escalar + status da checagem numérica independente."""
+    if kind == 'limit':
+        truth, label, ok_num, notes = verify_limit(p, {}, None)
+        return truth, ok_num, f'limite={label}'
+    if kind == 'definite':
+        expr, var = parse(p['expr']), parse(p.get('var', 'x'))
+        a, b = parse(p['a']), parse(p['b'])
+        truth = sp.integrate(expr, (var, a, b))
+        f = sp.lambdify(var, expr, modules='mpmath')
+        lo = -mp.inf if a == -oo else mp.mpf(str(sp.N(a, 40)))
+        hi = mp.inf if b == oo else mp.mpf(str(sp.N(b, 40)))
+        nv = mp.quad(f, [lo, hi])
+        tv = complex(sp.N(truth, 30))
+        return truth, abs(tv - complex(nv)) < 1e-7 * max(1, abs(tv)), f'integral={truth}'
+    if kind == 'form':
+        label, ok_num, d = verify_form(p)
+        return label, ok_num, d
+    if kind == 'expr':
+        truth = parse(p['expr'])
+        ok = same_value(truth, parse(p['numeric']), 1e-7) if p.get('numeric') else False
+        return truth, ok, f'valor={truth}'
+    raise ValueError(f'perOption não suportado para {kind}')
+
+
+def run_per_option(kind, p, options, correct):
+    """Cada alternativa traz um problema próprio (p['perOption'][optId]); o valor declarado de cada alternativa
+    deve coincidir com o valor calculado, e somente a correta pode igualar p['target']."""
+    errors, notes = [], []
+    target = p['target']
+    matches = []
+    for oid, sub in p['perOption'].items():
+        sub = dict(sub)
+        truth, ok_num, d = scalar_truth(kind, sub)
+        notes.append(f'{oid}:{d}')
+        claim = options.get(oid, '')
+        if not ok_num:
+            errors.append(f'alternativa {oid}: checagem numérica divergente')
+        if isinstance(truth, str):
+            claim_ok = str(truth).lower() == claim.strip().lower()
+            tgt_ok = str(truth).lower() == str(target).lower()
+        else:
+            try:
+                claim_ok = (claim.strip().upper() == 'DNE' and is_nan(truth)) or same_value(truth, parse(claim))
+            except Exception:
+                claim_ok = False
+            try:
+                tgt_ok = (str(target).upper() == 'DNE' and is_nan(truth)) or same_value(truth, parse(str(target)))
+            except Exception:
+                tgt_ok = False
+        if not claim_ok:
+            errors.append(f'alternativa {oid}: valor declarado «{claim}» ≠ calculado «{truth}»')
+        if tgt_ok:
+            matches.append(oid)
+    if matches != [correct]:
+        errors.append(f'alternativas que atendem ao alvo «{target}»: {matches or "nenhuma"} (esperado apenas {correct})')
+    return dict(ok=not errors, method='sympy+mpmath (por alternativa)', details='; '.join(notes), errors=errors)
+
+
 def compare_scalar_options(truth, options, correct):
     matches = []
     for oid, text in options.items():
@@ -264,7 +395,17 @@ def run(task):
     if not options or set(options) == set():
         return dict(ok=False, method=kind, details='optionValues ausente', errors=['optionValues ausente'])
 
-    if kind == 'limit':
+    if p.get('perOption'):
+        return run_per_option(kind, p, options, correct)
+
+    if kind == 'form':
+        label, ok_num, d = verify_form(p)
+        matches = [oid for oid, text in options.items() if text.strip().lower() == label.lower()]
+        method = 'sympy+mpmath (forma)'
+        details = f'{d}; checagem numérica {"ok" if ok_num else "DIVERGENTE"}'
+        if not ok_num:
+            errors.append('checagem numérica discorda do SymPy')
+    elif kind == 'limit':
         truth, label, ok_num, notes = verify_limit(p, options, correct)
         matches = compare_scalar_options(truth, options, correct)
         method = 'sympy+mpmath'

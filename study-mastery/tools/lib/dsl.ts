@@ -24,6 +24,8 @@ export interface DraftSpec {
   verify?: {
     kind: VerificationSpec['kind'];
     params?: Record<string, unknown>;
+    /** problema próprio de cada alternativa (mesma ordem de opts): o verificador confere o valor declarado em `values` */
+    perOption?: [Record<string, unknown>, Record<string, unknown>, Record<string, unknown>, Record<string, unknown>];
     /** valores verificáveis, paralelos a opts (mesma ordem: correta primeiro) */
     values?: [string, string, string, string];
     claims?: string[];
@@ -70,7 +72,8 @@ export function toQuestion(spec: DraftSpec, now = new Date().toISOString()): Que
   };
   if (spec.verify) {
     const optionValues = spec.verify.values ? Object.fromEntries(spec.verify.values.map((v, i) => [idOfOrig(i), v])) : undefined;
-    q.verification = { kind: spec.verify.kind, ...(spec.verify.params ? { params: spec.verify.params } : {}), ...(optionValues ? { optionValues } : {}), ...(spec.verify.claims ? { claims: spec.verify.claims } : {}) };
+    const params = spec.verify.perOption ? { ...(spec.verify.params ?? {}), perOption: Object.fromEntries(spec.verify.perOption.map((pp, i) => [idOfOrig(i), pp])) } : spec.verify.params;
+    q.verification = { kind: spec.verify.kind, ...(params ? { params } : {}), ...(optionValues ? { optionValues } : {}), ...(spec.verify.claims ? { claims: spec.verify.claims } : {}) };
   }
   return q;
 }

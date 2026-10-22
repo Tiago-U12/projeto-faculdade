@@ -40,7 +40,7 @@ export interface Explanation {
 /** Resultado de verificação automática registrado na questão. */
 export interface VerificationSpec {
   /** sympy = verificação simbólica + numérica; js = execução isolada; source = checagem contra fonte oficial */
-  kind: 'limit' | 'derivative' | 'integral' | 'definite' | 'expr' | 'js' | 'source';
+  kind: 'limit' | 'form' | 'derivative' | 'integral' | 'definite' | 'expr' | 'function' | 'js' | 'source';
   /** parâmetros específicos de cada tipo (ver tools/lib/verify) */
   params?: Record<string, unknown>;
   /** valor verificável de cada alternativa, por id (expressões sympy, saídas do js ou rótulos) */
