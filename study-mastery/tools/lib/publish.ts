@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { BankManifest, Difficulty, PublishedQuestion, Question, SourceRecord, Taxonomy } from '../../src/types';
+import type { BankManifest, Difficulty, PublishedQuestion, PublishedSource, Question, SourceRecord, Taxonomy } from '../../src/types';
 import { findDuplicates } from './dedupe';
 import { contentHash } from './dsl';
 import { PUBLISH_DIR, REPORTS_DIR } from './paths';
@@ -71,6 +71,11 @@ export async function publish(all: Question[], tax: Taxonomy, sources: SourceRec
     }
     writeJson(path.join(out, 'manifest.json'), manifest);
     written.push(path.join(out, 'manifest.json'));
+    // apenas metadados das fontes realmente citadas (nunca caminhos locais nem texto dos materiais)
+    const used = new Set(pubs.flatMap((p) => p.sourceRefs.map((r) => r.sourceId)));
+    const pubSources: PublishedSource[] = sources.filter((s) => used.has(s.id)).map((s) => ({ id: s.id, title: s.title, kind: s.kind, ...(s.author ? { author: s.author } : {}), ...(s.institution ? { institution: s.institution } : {}), ...(s.license ? { license: s.license } : {}), ...(/^https?:/.test(s.origin) ? { url: s.origin } : {}) }));
+    writeJson(path.join(out, 'sources.json'), pubSources);
+    written.push(path.join(out, 'sources.json'));
     // livro-razão de IDs: nenhum ID publicado some ou é reutilizado sem registro
     for (const q of approved) ledger[q.id] = { firstPublished: ledger[q.id]?.firstPublished ?? nowIso, lastVersion: q.version };
     for (const id of Object.keys(ledger)) if (!approvedIds.has(id) && !ledger[id].retired) ledger[id].retired = nowIso;

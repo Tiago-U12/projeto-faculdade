@@ -97,6 +97,16 @@ export interface PublishedQuestion extends Omit<Question, 'verification' | 'revi
   reviewedBy: 'human' | 'ai-assisted';
 }
 
+export interface PublishedSource {
+  id: string;
+  title: string;
+  kind: SourceRecord['kind'];
+  author?: string;
+  institution?: string;
+  license?: string;
+  url?: string;
+}
+
 export interface BankManifest {
   schemaVersion: 1;
   bankVersion: string;
