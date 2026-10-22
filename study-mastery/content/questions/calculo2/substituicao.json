@@ -2362,5 +2362,1184 @@
     "referencia-verificavel": true
    }
   }
+ },
+ {
+  "id": "c2-substituicao-027",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Função composta no expoente",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\cos x\\;e^{\\sin x}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-e^{\\sin x}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{\\sin x}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$e^{\\sin x}\\cos x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\sin x\\,e^{\\sin x}+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O fator $\\cos x$ é a derivada do expoente $\\sin x$. Com $u=\\sin x$, $du=\\cos x\\,dx$: $\\displaystyle\\int e^u\\,du=e^u+C=e^{\\sin x}+C$.",
+   "steps": [
+    "$u=\\sin x$, $du=\\cos x\\,dx$.",
+    "$\\int e^{u}du=e^{u}$.",
+    "$e^{\\sin x}+C$."
+   ],
+   "wrong": {
+    "c": "Derivando o produto surge um termo extra $-e^{\\sin x}\\sin x$; não volta ao integrando.",
+    "d": "Derivando surge o termo $\\sin x\\cos x\\,e^{\\sin x}$, que não existe no integrando.",
+    "a": "$\\left(-e^{\\sin x}\\right)'=-\\cos x\\,e^{\\sin x}$, com sinal oposto."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 8–9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.935Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "integral",
+   "params": {
+    "expr": "cos(x)*exp(sin(x))",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "exp(sin(x))",
+    "c": "exp(sin(x))*cos(x)",
+    "d": "sin(x)*exp(sin(x))",
+    "a": "-exp(sin(x))"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "∫ = exp(sin(x)) + C; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-028",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Troca de limites com inversão",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{0}^{\\pi/2}\\sin x\\cos^{3}x\\,dx$ usando $u=\\cos x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac14$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac14$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$u=\\cos x$, $du=-\\sin x\\,dx$; $x=0\\to u=1$ e $x=\\frac\\pi2\\to u=0$. $\\displaystyle\\int_{0}^{\\pi/2}\\sin x\\cos^3x\\,dx=-\\int_1^0u^3du=\\int_0^1u^3du=\\dfrac{u^4}{4}\\Big|_0^1=\\dfrac14$.",
+   "steps": [
+    "$u=\\cos x$: $x=0\\to u=1$; $x=\\tfrac\\pi2\\to u=0$.",
+    "$-\\int_{1}^{0}u^{3}du=\\int_{0}^{1}u^{3}du$.",
+    "$\\dfrac{u^{4}}{4}\\Big|_{0}^{1}=\\dfrac14$."
+   ],
+   "wrong": {
+    "a": "O sinal de $du=-\\sin x\\,dx$ já foi compensado ao inverter os limites ($u:1\\to0$); o resultado é positivo.",
+    "b": "$\\int u^3du=\\frac{u^4}{4}$; o expoente passa a $4$, e o divisor também.",
+    "c": "Só se avaliou o limite $u=0$ ($\\cos\\frac\\pi2=0$); falta o limite $u=1$ de $x=0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 9 (limites g(c)=a, g(d)=b)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "sin(x)*cos(x)**3",
+    "var": "x",
+    "a": "0",
+    "b": "pi/2"
+   },
+   "optionValues": {
+    "d": "1/4",
+    "a": "-1/4",
+    "b": "1/3",
+    "c": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = 1/4 ≈ 0.250000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-029",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Isolar x em função de u",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{0}^{1}x^{3}\\sqrt{1-x^{2}}\\,dx$. Dica: $u=1-x^{2}$ e $x^{2}=1-u$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{2}{15}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{4}{15}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{2}{15}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$u=1-x^2\\Rightarrow du=-2x\\,dx$, $x\\,dx=-\\dfrac{du}{2}$ e $x^2=1-u$. Limites: $x=0\\to u=1$, $x=1\\to u=0$. $\\displaystyle\\int_0^1x^2\\sqrt{1-x^2}\\,x\\,dx=\\dfrac12\\int_0^1(1-u)\\sqrt u\\,du=\\dfrac12\\left(\\dfrac23-\\dfrac25\\right)=\\dfrac2{15}$.",
+   "steps": [
+    "$x^{3}dx=x^{2}\\cdot x\\,dx=(1-u)\\cdot\\left(-\\dfrac{du}{2}\\right)$.",
+    "Limites $x:0\\to1$ viram $u:1\\to0$ ⇒ $\\dfrac12\\int_{0}^{1}(1-u)\\sqrt u\\,du$.",
+    "$\\dfrac12\\left(\\dfrac23-\\dfrac25\\right)=\\dfrac{2}{15}$."
+   ],
+   "wrong": {
+    "c": "Ignorou o fator $x^2=1-u$: sem ele, $\\int_0^1\\sqrt u\\,\\frac{du}2$ vale $\\frac13$, que é outra integral.",
+    "d": "O sinal de $du=-2x\\,dx$ foi compensado ao inverter os limites ($u:1\\to0$): o resultado é positivo.",
+    "b": "Esqueceu o fator $\\frac12$ de $x\\,dx=-\\frac{du}{2}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-subst",
+    "locator": "itens a–k (técnica de isolar x, como no item k)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**3*sqrt(1-x**2)",
+    "var": "x",
+    "a": "0",
+    "b": "1"
+   },
+   "optionValues": {
+    "a": "2/15",
+    "c": "1/3",
+    "d": "-2/15",
+    "b": "4/15"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = 2/15 ≈ 0.133333333333; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-030",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Isolar x em função de u",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>-\\tfrac12$, determine $\\displaystyle\\int x\\sqrt{2x+1}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{(2x+1)^{5/2}}{5}-\\dfrac{(2x+1)^{3/2}}{3}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{(2x+1)^{3/2}}{3}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{2}}{2}\\cdot\\dfrac{(2x+1)^{3/2}}{3}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{(2x+1)^{5/2}}{10}-\\dfrac{(2x+1)^{3/2}}{6}+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$u=2x+1$, $x=\\dfrac{u-1}{2}$, $dx=\\dfrac{du}2$. Então $\\displaystyle\\int\\dfrac{u-1}{2}\\sqrt u\\,\\dfrac{du}{2}=\\dfrac14\\int\\left(u^{3/2}-u^{1/2}\\right)du=\\dfrac14\\left(\\dfrac25u^{5/2}-\\dfrac23u^{3/2}\\right)=\\dfrac{u^{5/2}}{10}-\\dfrac{u^{3/2}}{6}$.",
+   "steps": [
+    "$u=2x+1$, $x=\\dfrac{u-1}{2}$, $dx=\\dfrac{du}{2}$.",
+    "$\\dfrac14\\int\\left(u^{3/2}-u^{1/2}\\right)du$.",
+    "$=\\dfrac14\\left(\\dfrac25u^{5/2}-\\dfrac23u^{3/2}\\right)$ e volte a $x$."
+   ],
+   "wrong": {
+    "a": "Esqueceu o fator $\\frac12$ de $dx=\\frac{du}{2}$ nos dois termos.",
+    "b": "Ignorou o fator $x=\\frac{u-1}{2}$: só integrou $\\sqrt{2x+1}$.",
+    "c": "Primitiva de produto não é produto de primitivas."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-subst",
+    "locator": "item k (técnica análoga)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "integral",
+   "params": {
+    "expr": "x*sqrt(2*x+1)",
+    "var": "x",
+    "points": [
+     "1/3",
+     "7/5",
+     "11/4",
+     "5/2"
+    ]
+   },
+   "optionValues": {
+    "d": "(2*x+1)**Rational(5,2)/10-(2*x+1)**Rational(3,2)/6",
+    "a": "(2*x+1)**Rational(5,2)/5-(2*x+1)**Rational(3,2)/3",
+    "b": "(2*x+1)**Rational(3,2)/3",
+    "c": "x**2*(2*x+1)**Rational(3,2)/6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "∫ = 2*x**2*sqrt(2*x + 1)/5 + x*sqrt(2*x + 1)/15 - sqrt(2*x + 1)/15 + C; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-031",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Logaritmo com limites",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{1}^{e}\\frac{(\\ln x)^{2}}{x}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{1}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{e^{3}-1}{3}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$u=\\ln x$, $du=\\dfrac{dx}x$; $x=1\\to u=0$ e $x=e\\to u=1$. $\\displaystyle\\int_0^1u^2du=\\dfrac{u^3}{3}\\Big|_0^1=\\dfrac13$.",
+   "steps": [
+    "$u=\\ln x$, $du=\\dfrac{dx}{x}$.",
+    "Limites: $\\ln1=0$ e $\\ln e=1$.",
+    "$\\int_{0}^{1}u^{2}du=\\dfrac13$."
+   ],
+   "wrong": {
+    "c": "Esqueceu de dividir pelo novo expoente: $\\int u^2du=\\frac{u^3}{3}$.",
+    "b": "$\\frac12$ resultaria de $\\int u\\,du$; aqui o integrando em $u$ é $u^2$.",
+    "d": "Usou os limites de $x$ no lugar dos de $u=\\ln x$ (que são $0$ e $1$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "log(x)**2/x",
+    "var": "x",
+    "a": "1",
+    "b": "E"
+   },
+   "optionValues": {
+    "a": "1/3",
+    "c": "1",
+    "b": "1/2",
+    "d": "(exp(3)-1)/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = 1/3 ≈ 0.333333333333; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-032",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Logaritmo duplo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>1$, determine $\\displaystyle\\int\\frac{dx}{x\\ln x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\ln(\\ln x)+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{(\\ln x)^{2}}{2}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{\\ln x}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\ln x+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Com $u=\\ln x$, $du=\\dfrac{dx}{x}$. A integral vira $\\displaystyle\\int\\dfrac{du}{u}=\\ln|u|+C=\\ln|\\ln x|+C$; para $x>1$, $\\ln x>0$ e fica $\\ln(\\ln x)+C$.",
+   "steps": [
+    "$u=\\ln x$, $du=\\dfrac{dx}{x}$.",
+    "$\\int\\dfrac{du}{u}=\\ln|u|$.",
+    "$\\ln(\\ln x)+C$ para $x>1$."
+   ],
+   "wrong": {
+    "b": "Essa é a primitiva de $\\frac{\\ln x}{x}$ (o $\\ln x$ está no numerador); aqui está no denominador.",
+    "d": "$(\\ln x)'=\\frac1x$, e não $\\frac{1}{x\\ln x}$.",
+    "c": "$\\left(\\frac1{\\ln x}\\right)'=-\\frac{1}{x\\ln^2x}$: sinal e potência diferentes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 8–9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "integral",
+   "params": {
+    "expr": "1/(x*log(x))",
+    "var": "x",
+    "points": [
+     "5/2",
+     "17/5",
+     "23/7",
+     "9/2"
+    ]
+   },
+   "optionValues": {
+    "a": "log(log(x))",
+    "b": "log(x)**2/2",
+    "d": "log(x)",
+    "c": "1/log(x)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "∫ = log(log(x)) + C; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-033",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Trigonométrica",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\tan x\\,dx$ para $x$ em $\\left(-\\tfrac\\pi2,\\tfrac\\pi2\\right)$. Dica: $\\tan x=\\dfrac{\\sin x}{\\cos x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\ln(\\cos x)+C$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\ln(\\cos x)+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\sec^{2}x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{\\tan^{2}x}{2}+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\tan x=\\dfrac{\\sin x}{\\cos x}$. Com $u=\\cos x$, $du=-\\sin x\\,dx$: $\\displaystyle\\int\\dfrac{\\sin x}{\\cos x}dx=-\\int\\dfrac{du}{u}=-\\ln|u|+C=-\\ln(\\cos x)+C$ (pois $\\cos x>0$ nesse intervalo).",
+   "steps": [
+    "$\\tan x=\\dfrac{\\sin x}{\\cos x}$; $u=\\cos x$, $du=-\\sin x\\,dx$.",
+    "$-\\int\\dfrac{du}{u}=-\\ln|u|$.",
+    "$-\\ln(\\cos x)+C$ (com $\\cos x>0$)."
+   ],
+   "wrong": {
+    "a": "Falta o sinal: com $u=\\cos x$, $du=-\\sin x\\,dx$.",
+    "c": "$\\sec^2x$ é a derivada de $\\tan x$, e não sua primitiva.",
+    "d": "Derivando, $\\left(\\frac{\\tan^2x}2\\right)'=\\tan x\\sec^2x$, que não é $\\tan x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 8–9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "integral",
+   "params": {
+    "expr": "tan(x)",
+    "var": "x",
+    "points": [
+     "1/3",
+     "7/10",
+     "11/10",
+     "1/2"
+    ]
+   },
+   "optionValues": {
+    "b": "-log(cos(x))",
+    "a": "log(cos(x))",
+    "c": "sec(x)**2",
+    "d": "tan(x)**2/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "∫ = -log(cos(x)) + C; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-034",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Quociente de exponenciais",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{0}^{\\ln 2}\\frac{e^{x}}{\\left(1+e^{x}\\right)^{2}}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "b",
+    "text": "$\\ln\\dfrac32$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\dfrac16$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac16$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$u=1+e^x$, $du=e^x\\,dx$; $x=0\\to u=2$ e $x=\\ln2\\to u=3$. $\\displaystyle\\int_2^3u^{-2}du=\\left[-\\dfrac1u\\right]_2^3=-\\dfrac13+\\dfrac12=\\dfrac16$.",
+   "steps": [
+    "$u=1+e^{x}$, $du=e^{x}dx$; limites $2$ e $3$.",
+    "$\\int_{2}^{3}u^{-2}du=\\left[-\\dfrac{1}{u}\\right]_{2}^{3}$.",
+    "$=-\\dfrac13+\\dfrac12=\\dfrac16$."
+   ],
+   "wrong": {
+    "a": "Avaliou só o limite superior ($\\left|-\\frac13\\right|$) e esqueceu de somar o termo $+\\frac12$ vindo do limite inferior.",
+    "c": "O sinal da primitiva $-\\frac1u$ é compensado ao avaliar $F(3)-F(2)=-\\frac13+\\frac12>0$.",
+    "b": "Essa é a integral de $\\frac{e^x}{1+e^x}$ (expoente $1$ no denominador)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "exp(x)/(1+exp(x))**2",
+    "var": "x",
+    "a": "0",
+    "b": "log(2)"
+   },
+   "optionValues": {
+    "d": "1/6",
+    "a": "1/3",
+    "c": "-1/6",
+    "b": "log(3/2)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = 1/6 ≈ 0.166666666667; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-035",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Exponencial com cubo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int x^{2}\\,e^{x^{3}}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3e^{x^{3}}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{3}}{3}\\,e^{x^{3}}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{e^{x^{3}}}{3}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$e^{x^{3}}+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$u=x^3\\Rightarrow du=3x^2dx$, $x^2dx=\\dfrac{du}3$. $\\displaystyle\\int e^u\\dfrac{du}3=\\dfrac{e^{u}}{3}+C=\\dfrac{e^{x^3}}{3}+C$.",
+   "steps": [
+    "$u=x^{3}$, $x^{2}dx=\\dfrac{du}{3}$.",
+    "$\\dfrac13\\int e^{u}du=\\dfrac{e^{u}}{3}$.",
+    "$\\dfrac{e^{x^{3}}}{3}+C$."
+   ],
+   "wrong": {
+    "d": "Falta o fator $\\frac13$: $du=3x^2dx\\Rightarrow x^2dx=\\frac{du}{3}$.",
+    "b": "Derivando surge um termo extra $\\frac{x^3}{3}\\cdot3x^2e^{x^3}$; não volta ao integrando.",
+    "a": "Multiplicou por $3$ em vez de dividir."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-subst",
+    "locator": "item j (mesma estrutura com x³)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "integral",
+   "params": {
+    "expr": "x**2*exp(x**3)",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "exp(x**3)/3",
+    "d": "exp(x**3)",
+    "b": "x**3*exp(x**3)/3",
+    "a": "3*exp(x**3)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "∫ = exp(x**3)/3 + C; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-036",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Limites com u não injetiva",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-1}^{2}x\\,e^{x^{2}}\\,dx$ usando $u=x^{2}$. Atenção: o intervalo contém valores negativos de $x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{e^{4}-e}{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{e^{4}+e}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{e^{4}-e^{-1}}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$e^{4}-e$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Com $u=x^2$: $du=2x\\,dx$. Os limites são $u(-1)=(-1)^2=1$ e $u(2)=4$. Então $\\displaystyle\\dfrac12\\int_1^4e^udu=\\dfrac{e^4-e}{2}$. A substituição vale mesmo com $u$ não injetiva, pois o teorema só exige $u'$ contínua e os limites transformados por $u$.",
+   "steps": [
+    "$u=x^{2}$, $x\\,dx=\\dfrac{du}{2}$.",
+    "$u(-1)=1$ e $u(2)=4$.",
+    "$\\dfrac12\\int_{1}^{4}e^{u}du=\\dfrac{e^{4}-e}{2}$."
+   ],
+   "wrong": {
+    "c": "Calculou $u(-1)=-1$; mas $u(-1)=(-1)^2=1$, então o limite inferior de $u$ é $1$.",
+    "b": "Somou os valores nos limites em vez de subtrair: $F(b)-F(a)$.",
+    "d": "Esqueceu o fator $\\frac12$ de $x\\,dx=\\frac{du}{2}$."
+   },
+   "commonMistakes": [
+    "Calcular o limite de $u$ como $-1$ (esquecendo que o quadrado é positivo)."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 9 (teorema: g′ contínua, g(c)=a e g(d)=b)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x*exp(x**2)",
+    "var": "x",
+    "a": "-1",
+    "b": "2"
+   },
+   "optionValues": {
+    "a": "(exp(4)-E)/2",
+    "c": "(exp(4)-exp(-1))/2",
+    "b": "(exp(4)+E)/2",
+    "d": "exp(4)-E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = -E/2 + exp(4)/2 ≈ 25.9399341023; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-037",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Limites iguais",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\int_{-1}^{1}x\\,e^{x^{2}}\\,dx$? Observe os limites obtidos com $u=x^{2}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{e-1}{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$e$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$e-1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Com $u=x^2$: $x=-1\\to u=1$ e $x=1\\to u=1$ — os limites coincidem, então $\\displaystyle\\frac12\\int_1^1e^udu=0$. Também se vê pela paridade: $xe^{x^2}$ é ímpar e a integral de uma função ímpar em $[-1,1]$ é $0$.",
+   "steps": [
+    "$u=x^{2}$: $x=-1\\to u=1$ e $x=1\\to u=1$.",
+    "$\\dfrac12\\int_{1}^{1}e^{u}du=0$.",
+    "Alternativa: $xe^{x^{2}}$ é ímpar ⇒ integral simétrica nula."
+   ],
+   "wrong": {
+    "d": "Isso seria $\\int_0^1 2xe^{x^2}dx$; aqui o intervalo é simétrico em torno de $0$.",
+    "a": "É o valor de $\\int_0^1xe^{x^2}dx$; o intervalo $[-1,0]$ contribui com o valor oposto.",
+    "b": "Nada na integral produz $e$ sem subtrair o valor em $u=1$ do mesmo valor."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x*exp(x**2)",
+    "var": "x",
+    "a": "-1",
+    "b": "1"
+   },
+   "optionValues": {
+    "c": "0",
+    "d": "E-1",
+    "a": "(E-1)/2",
+    "b": "E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = 0 ≈ 0; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-038",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Raiz no denominador",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, calcule $\\displaystyle\\int\\frac{dx}{\\sqrt{x}\\,\\left(1+\\sqrt{x}\\right)}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\ln\\!\\left(1+\\sqrt{x}\\right)+C$"
+   },
+   {
+    "id": "b",
+    "text": "$2\\sqrt{x}\\,\\ln\\!\\left(1+\\sqrt{x}\\right)+C$"
+   },
+   {
+    "id": "c",
+    "text": "$2\\ln\\!\\left(1+\\sqrt{x}\\right)+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{1}{1+\\sqrt{x}}+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$u=1+\\sqrt x\\Rightarrow du=\\dfrac{dx}{2\\sqrt x}$, ou seja, $\\dfrac{dx}{\\sqrt x}=2\\,du$. Então $\\displaystyle\\int\\dfrac{2\\,du}{u}=2\\ln|u|+C=2\\ln\\!\\left(1+\\sqrt x\\right)+C$.",
+   "steps": [
+    "$u=1+\\sqrt{x}$, $du=\\dfrac{dx}{2\\sqrt{x}}$.",
+    "$\\dfrac{dx}{\\sqrt{x}}=2\\,du$.",
+    "$\\int\\dfrac{2\\,du}{u}=2\\ln u=2\\ln(1+\\sqrt{x})$."
+   ],
+   "wrong": {
+    "a": "Falta o fator $2$: $du=\\frac{dx}{2\\sqrt x}$, então $\\frac{dx}{\\sqrt x}=2\\,du$.",
+    "d": "$\\left(\\frac1{1+\\sqrt x}\\right)'=-\\frac{1}{2\\sqrt x(1+\\sqrt x)^2}$: potência e sinal diferentes.",
+    "b": "Derivando surge um termo extra com $\\ln(1+\\sqrt x)/\\sqrt x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 8–9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "integral",
+   "params": {
+    "expr": "1/(sqrt(x)*(1+sqrt(x)))",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "2*log(1+sqrt(x))",
+    "a": "log(1+sqrt(x))",
+    "d": "1/(1+sqrt(x))",
+    "b": "2*sqrt(x)*log(1+sqrt(x))"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "∫ = 2*log(sqrt(x) + 1) + C; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-substituicao-039",
+  "disciplineId": "calculo2",
+  "topicId": "substituicao",
+  "subtopic": "Isolar x em função de u (definida)",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{0}^{3}\\frac{x}{\\sqrt{x+1}}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{16}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$2$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{4}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{8}{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$u=x+1$, $x=u-1$, $dx=du$; $x=0\\to u=1$ e $x=3\\to u=4$. $\\displaystyle\\int_1^4\\dfrac{u-1}{\\sqrt u}du=\\int_1^4\\left(u^{1/2}-u^{-1/2}\\right)du=\\left[\\dfrac23u^{3/2}-2u^{1/2}\\right]_1^4=\\left(\\dfrac{16}3-4\\right)-\\left(\\dfrac23-2\\right)=\\dfrac43+\\dfrac43=\\dfrac83$.",
+   "steps": [
+    "$u=x+1$, $x=u-1$; limites $1$ e $4$.",
+    "$\\int_{1}^{4}\\left(u^{1/2}-u^{-1/2}\\right)du=\\left[\\tfrac23u^{3/2}-2u^{1/2}\\right]_{1}^{4}$.",
+    "$\\left(\\tfrac{16}{3}-4\\right)-\\left(\\tfrac23-2\\right)=\\tfrac83$."
+   ],
+   "wrong": {
+    "c": "Avaliou os dois termos só em $u=4$ ($\\frac{16}{3}-4$) e esqueceu de subtrair o valor em $u=1$, que é $-\\frac43$.",
+    "a": "Calculou só o termo $\\frac23u^{3/2}$ em $u=4$, esquecendo o termo $-2u^{1/2}$ e o limite inferior.",
+    "b": "Integrou $\\frac{1}{\\sqrt{x+1}}$ no lugar de $\\frac{x}{\\sqrt{x+1}}$: faltou o termo vindo de $x=u-1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-subst",
+    "locator": "item k (técnica de isolar x)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:20:13.936Z",
+  "updatedAt": "2026-10-22T23:20:38.175Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x/sqrt(x+1)",
+    "var": "x",
+    "a": "0",
+    "b": "3"
+   },
+   "optionValues": {
+    "d": "8/3",
+    "c": "4/3",
+    "a": "16/3",
+    "b": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:20:34.857Z",
+    "details": "valor = 8/3 ≈ 2.66666666667; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:20:38.175Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
  }
 ]

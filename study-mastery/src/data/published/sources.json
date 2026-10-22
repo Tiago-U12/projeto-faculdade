@@ -14,6 +14,19 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  },
  {
+  "id": "c2-integral-riemann-slides",
+  "title": "Integral de Riemann, propriedades, TFC e mudança de variável (slides, 10 pp.)",
+  "kind": "aula-pdf",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-lista-subst",
+  "title": "Lista de Exercícios — Integrais por substituição (itens a–k), 28/09/2026",
+  "kind": "lista",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
   "id": "c2-taylor-slides",
   "title": "Polinômio de Taylor (slides, 15 pp.)",
   "kind": "aula-pdf",
