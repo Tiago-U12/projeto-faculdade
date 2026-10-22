@@ -1,0 +1,353 @@
+{
+ "semester": "2º semestre de 2026",
+ "disciplines": [
+  {
+   "id": "calculo2",
+   "name": "Cálculo II",
+   "short": "Cálculo II",
+   "subtitle": "Limites, derivadas e integrais",
+   "icon": "∫",
+   "accent": "mint",
+   "topics": [
+    {
+     "id": "derivadas",
+     "name": "Regras de derivação (revisão)",
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 5
+     },
+     "sourceIds": [
+      "c2-derivadas-slides",
+      "c2-derivadas-lista",
+      "c2-derivadas-tabela"
+     ],
+     "blurb": "Potência, soma, produto, quociente, cadeia, e^x, ln x, sen e cos."
+    },
+    {
+     "id": "taylor",
+     "name": "Linearização, Taylor e Maclaurin",
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 7
+     },
+     "sourceIds": [
+      "c2-taylor-slides",
+      "c2-taylor-lista"
+     ],
+     "blurb": "Aproximar funções por polinômios perto de um ponto."
+    },
+    {
+     "id": "maxmin",
+     "name": "Máximos, mínimos, concavidade e inflexão",
+     "quota": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sourceIds": [
+      "c2-maxmin-a3",
+      "c2-maxmin-a4"
+     ],
+     "blurb": "Sinal de f′ e f″, pontos críticos e comportamento da função."
+    },
+    {
+     "id": "lhopital",
+     "name": "Regra de L'Hôpital",
+     "quota": {
+      "facil": 15,
+      "medio": 15,
+      "dificil": 15
+     },
+     "sourceIds": [
+      "c2-lhopital-slides",
+      "c2-lhopital-lista"
+     ],
+     "blurb": "Formas 0/0, ∞/∞, outras indeterminações e taxas de crescimento.",
+     "examFocus": true
+    },
+    {
+     "id": "primitivas",
+     "name": "Antiderivadas e integrais indefinidas",
+     "quota": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 13
+     },
+     "sourceIds": [
+      "c2-programa",
+      "c2-derivadas-tabela"
+     ],
+     "blurb": "Primitivas, propriedades e integrais imediatas.",
+     "examFocus": true
+    },
+    {
+     "id": "substituicao",
+     "name": "Integração por substituição",
+     "quota": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 13
+     },
+     "sourceIds": [
+      "c2-lista-subst",
+      "c2-integral-riemann-slides"
+     ],
+     "blurb": "Mudança de variável em integrais indefinidas e definidas.",
+     "examFocus": true
+    },
+    {
+     "id": "integral-definida",
+     "name": "Integral definida, Riemann, TFC e áreas",
+     "quota": {
+      "facil": 13,
+      "medio": 13,
+      "dificil": 14
+     },
+     "sourceIds": [
+      "c2-lista-def-basica",
+      "c2-integral-riemann-slides"
+     ],
+     "blurb": "Somas de Riemann, Teorema Fundamental do Cálculo, propriedades e áreas.",
+     "examFocus": true
+    },
+    {
+     "id": "funcoes-2-var",
+     "name": "Funções de várias variáveis",
+     "quota": {
+      "facil": 5,
+      "medio": 5,
+      "dificil": 5
+     },
+     "sourceIds": [
+      "c2-f2v-intro"
+     ],
+     "blurb": "Domínio, valor numérico, curvas de nível e modelos de duas variáveis."
+    },
+    {
+     "id": "derivadas-parciais",
+     "name": "Derivadas parciais e derivada total",
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 7
+     },
+     "sourceIds": [
+      "c2-programa"
+     ],
+     "blurb": "Derivadas parciais de 1ª e 2ª ordem, derivada total."
+    },
+    {
+     "id": "integrais-duplas",
+     "name": "Integrais duplas",
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sourceIds": [
+      "c2-programa"
+     ],
+     "blurb": "Integrais iteradas sobre retângulos e regiões simples."
+    },
+    {
+     "id": "otimizacao",
+     "name": "Otimização com e sem restrições",
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sourceIds": [
+      "c2-programa"
+     ],
+     "blurb": "Pontos críticos de f(x,y) e multiplicadores de Lagrange."
+    }
+   ]
+  },
+  {
+   "id": "fullstack",
+   "name": "Desenvolvimento Web Full Stack",
+   "short": "Full Stack",
+   "subtitle": "Do HTML ao deploy",
+   "icon": "</>",
+   "accent": "purple",
+   "topics": [
+    {
+     "id": "html",
+     "name": "HTML semântico e Emmet",
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 6
+     },
+     "sourceIds": [
+      "fs-aula-01",
+      "fs-slides-aula01",
+      "fs-apostila-01-02"
+     ],
+     "blurb": "Tags semânticas, estrutura de página e abreviações Emmet."
+    },
+    {
+     "id": "css",
+     "name": "CSS: Flexbox, Grid e mobile-first",
+     "quota": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 8
+     },
+     "sourceIds": [
+      "fs-aula-02",
+      "fs-slides-aula02",
+      "fs-apostila-01-02"
+     ],
+     "blurb": "Layouts flexíveis, grades, variáveis CSS e media queries."
+    },
+    {
+     "id": "js-funcoes",
+     "name": "JavaScript: funções puras e arrays",
+     "quota": {
+      "facil": 10,
+      "medio": 9,
+      "dificil": 8
+     },
+     "sourceIds": [
+      "fs-aula-03"
+     ],
+     "blurb": "map, filter, reduce, sort sem mutação e funções utilitárias."
+    },
+    {
+     "id": "fetch-async",
+     "name": "Fetch, Promises e CORS",
+     "quota": {
+      "facil": 9,
+      "medio": 8,
+      "dificil": 9
+     },
+     "sourceIds": [
+      "fs-aula-04"
+     ],
+     "blurb": "Requisições assíncronas, async/await, estados e CORS."
+    },
+    {
+     "id": "classes-erros",
+     "name": "Classes, validação e erros customizados",
+     "quota": {
+      "facil": 7,
+      "medio": 7,
+      "dificil": 8
+     },
+     "sourceIds": [
+      "fs-aula-05"
+     ],
+     "blurb": "Classes JS, herança, super() e ErroValidacao."
+    },
+    {
+     "id": "react-componentes",
+     "name": "React: componentes, JSX e props",
+     "quota": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 8
+     },
+     "sourceIds": [
+      "fs-aula-06"
+     ],
+     "blurb": "Composição, props, listas com key e renderização condicional."
+    },
+    {
+     "id": "react-hooks-forms",
+     "name": "React: useState, useEffect e formulários",
+     "quota": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sourceIds": [
+      "fs-aula-07"
+     ],
+     "blurb": "Estado, efeitos colaterais, dependências e formulários controlados."
+    },
+    {
+     "id": "react-router",
+     "name": "React Router",
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sourceIds": [
+      "fs-aula-08"
+     ],
+     "blurb": "Rotas, parâmetros, Link e rota coringa."
+    },
+    {
+     "id": "express-rest",
+     "name": "API REST com Express",
+     "quota": {
+      "facil": 9,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sourceIds": [
+      "fs-aula-09"
+     ],
+     "blurb": "Rotas, verbos HTTP, status codes e middlewares."
+    },
+    {
+     "id": "mysql",
+     "name": "MySQL e persistência",
+     "quota": {
+      "facil": 8,
+      "medio": 9,
+      "dificil": 9
+     },
+     "sourceIds": [
+      "fs-aula-10"
+     ],
+     "blurb": "SQL, chaves estrangeiras, pool de conexões e mysql2."
+    },
+    {
+     "id": "jwt-auth",
+     "name": "Autenticação: JWT e bcrypt",
+     "quota": {
+      "facil": 8,
+      "medio": 8,
+      "dificil": 9
+     },
+     "sourceIds": [
+      "fs-aula-11"
+     ],
+     "blurb": "Hash de senha, tokens, header Authorization e middleware."
+    },
+    {
+     "id": "validacao-erros",
+     "name": "Validação e tratamento de erros na API",
+     "quota": {
+      "facil": 6,
+      "medio": 6,
+      "dificil": 6
+     },
+     "sourceIds": [
+      "fs-aula-12"
+     ],
+     "blurb": "Erros tipados e error handler central no Express 5."
+    },
+    {
+     "id": "deploy",
+     "name": "Deploy: Render, MySQL gerenciado e Netlify",
+     "quota": {
+      "facil": 5,
+      "medio": 6,
+      "dificil": 5
+     },
+     "sourceIds": [
+      "fs-aula-13"
+     ],
+     "blurb": "Variáveis de ambiente, CORS em produção e SPA redirects."
+    }
+   ]
+  }
+ ]
+}

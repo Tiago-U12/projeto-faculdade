@@ -1,0 +1,719 @@
+[
+ {
+  "id": "c2-lhopital-slides",
+  "origin": "materiais-locais/calculo2/Regra_LHopital.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "04965a3145a33d4475adf6793822a7395cc5ae1900ddc61210458a60e5cc6206",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Regra de L'Hôpital (slides, 18 pp.)",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "lhopital"
+  ]
+ },
+ {
+  "id": "c2-lhopital-lista",
+  "origin": "materiais-locais/calculo2/ListaLHopital.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "664e334c1514b69af97616041b3779a970e9ca725c1ddadba17e87d159d02692",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Lista de Exercícios · Regra de L'Hôpital (8 limites)",
+  "kind": "lista",
+  "disciplineId": "calculo2",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "lhopital"
+  ]
+ },
+ {
+  "id": "c2-integral-riemann-slides",
+  "origin": "materiais-locais/calculo2/IntegralDefinida_2809.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "6933c54f0685fd3dafdb6af097ad4f53bd5e94281c41a1b20df2840255caa140",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Integral de Riemann, propriedades, TFC e mudança de variável (slides, 10 pp.)",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "integral-definida",
+   "substituicao"
+  ],
+  "notes": "O nome do arquivo sugere \"Integral Definida\", mas o conteúdo é Riemann + TFC + mudança de variável."
+ },
+ {
+  "id": "c2-lista-def-basica",
+  "origin": "materiais-locais/calculo2/FECAP_Calculo_II_Riemann-1.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "308c126582915e27b1f402d8c71d44256349d3b2e0056b2fef596408589f6d0f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Lista de Exercícios — Integrais Definidas (28 itens), 28/09/2026",
+  "kind": "lista",
+  "disciplineId": "calculo2",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "integral-definida"
+  ],
+  "notes": "Conteúdo: 28 integrais definidas básicas (o nome do arquivo menciona Riemann)."
+ },
+ {
+  "id": "c2-lista-subst",
+  "origin": "materiais-locais/calculo2/FECAP_Calculo_II_IntegralSubstituicao.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "08618151bbba9f588687b0066c80902607e97127d2656692c051f90909cb1f86",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Lista de Exercícios — Integrais por substituição (itens a–k), 28/09/2026",
+  "kind": "lista",
+  "disciplineId": "calculo2",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "substituicao"
+  ]
+ },
+ {
+  "id": "c2-taylor-slides",
+  "origin": "materiais-locais/calculo2/Aula10082026_PolinomioTaylor.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "4d4c84437b48960523eae5a10305c6dc2e44be6fcb9a16bdcccd9f4f30f02afa",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Polinômio de Taylor (slides, 15 pp.)",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "taylor"
+  ]
+ },
+ {
+  "id": "c2-taylor-lista",
+  "origin": "materiais-locais/calculo2/2a Lista CB - Teorema de Taylor.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "d19affe698cf3a68a17fc28130d16cfcc3067bfc7bf1521bbf1a1fecd235cfe1",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "2ª Lista: Teorema de Taylor — MacLaurin",
+  "kind": "lista",
+  "disciplineId": "calculo2",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "taylor"
+  ]
+ },
+ {
+  "id": "c2-derivadas-slides",
+  "origin": "materiais-locais/calculo2/Slides Aula 0-1 - Revisão de Derivadas - Regras de Derivação.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "f7b0a988d6e7bd113dc38aa114195b35264470272fc414bb9805430e6a970829",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 0-1: Revisão de Derivadas — Regras de Derivação (slides)",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "derivadas"
+  ]
+ },
+ {
+  "id": "c2-derivadas-lista",
+  "origin": "materiais-locais/calculo2/Lista 0-1 CB - Derivadas - Regras de Derivação.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "ce315b6964c7823952860779fb50e79db5a1b725fc4b00fbf2126c4d5beffa9f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Lista 0-1: Derivadas — Regras de Derivação",
+  "kind": "lista",
+  "disciplineId": "calculo2",
+  "author": "Profa. Dra. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "derivadas"
+  ]
+ },
+ {
+  "id": "c2-derivadas-tabela",
+  "origin": "materiais-locais/calculo2/Aula 0-1 CB - Tabela de Derivadas.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "d7b4519de75236dd7f4565fff2661d2003f91fe5c2c8dac7b6f27a228030f2ee",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 0-1 — Tabela de Derivadas",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "derivadas",
+   "primitivas"
+  ]
+ },
+ {
+  "id": "c2-maxmin-a3",
+  "origin": "materiais-locais/calculo2/Slides Aula 3 CB - Máximos e Mínimos.pdf",
+  "accessed": false,
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 3: A Derivada e o Comportamento de uma Função — Máximos e Mínimos",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "maxmin"
+  ]
+ },
+ {
+  "id": "c2-maxmin-a4",
+  "origin": "materiais-locais/calculo2/Slides Aula 4 CB - Máximos e Mínimos.pdf",
+  "accessed": false,
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 4: A Derivada e o Comportamento de uma Função — Máximos e Mínimos (parte 2)",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "maxmin"
+  ]
+ },
+ {
+  "id": "c2-f2v-intro",
+  "origin": "materiais-locais/calculo2/Funcao2Var_Introducao.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "6f9ca897fe6867d3fa22671c4e996646d3679929e1ae89d4991b040f0319e7fa",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 12: Funções de Várias Variáveis — introdução",
+  "kind": "aula-pdf",
+  "disciplineId": "calculo2",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "funcoes-2-var"
+  ]
+ },
+ {
+  "id": "c2-programa",
+  "title": "TOP Cálculo II CCOMP (ementa, conteúdo programático e bibliografia)",
+  "kind": "programa",
+  "disciplineId": "calculo2",
+  "origin": "drive:1ZlJk9VlxlM3ld0rVr2BBfmRXjs2SEgKj",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "usage": "Define o programa da disciplina e a cobertura de assuntos.",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "topicIds": [
+   "primitivas",
+   "derivadas-parciais",
+   "integrais-duplas",
+   "otimizacao",
+   "funcoes-2-var"
+  ],
+  "notes": "Lido via Google Drive. Aviso da prova de 26/10/2026 (Moodle): L'Hôpital, integral indefinida, definida e substituição."
+ },
+ {
+  "id": "fs-aula-01",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_01/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "005d20786e406b26e416803c3f37684dedca7b801b2b73aa43d559ff3a091bbd",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 01 — HTML semântico com Emmet (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "html"
+  ]
+ },
+ {
+  "id": "fs-aula-02",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_02/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "f170343a7f0db7e3bb3bd4d5e28ddd651b59051150bf769d4a31c32701bff6e2",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 02 — CSS: Flexbox, Grid e mobile-first (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "css"
+  ]
+ },
+ {
+  "id": "fs-aula-03",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_03/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "c5e376895957a1750d830abc190709ab0981d5a06113f62d55f6421b3c501388",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 03 — Funções utilitárias sobre avaliações (JavaScript puro) (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "js-funcoes"
+  ]
+ },
+ {
+  "id": "fs-aula-04",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_04/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "43a03700469ad5ebbbfe2d5b35d7f7f9919092b5ae0862ff4576ad436f8c9f02",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 04 — Fetch de dados mockados (Promises, CORS) (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "fetch-async"
+  ]
+ },
+ {
+  "id": "fs-aula-05",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_05/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "7fef871f7e6a8a9b204e14bc6158c2db45d34b01fbb13a8c767bdd209d38937f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 05 — Classes de modelo com validação e erro customizado (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "classes-erros"
+  ]
+ },
+ {
+  "id": "fs-aula-06",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_06/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "52c8b5e4df744a61c8bb98984f4f5f3ac4d91bd099857a193cd1af02a7bb451f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 06 — Componentes React: LugarCard, ListaLugares, Estrelas (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "react-componentes"
+  ]
+ },
+ {
+  "id": "fs-aula-07",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_07/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "beb5c31b5c2cc5eeeeff398f22cfd010b38821f36f65d99afa6ca0b5f00a565f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 07 — Formulário controlado + useEffect (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "react-hooks-forms"
+  ]
+ },
+ {
+  "id": "fs-aula-08",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_08/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "99902161cd0879613930915b0fa414e34c0f8c20db7183e6cde2aebff9c73f0f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 08 — React Router: Home, Detalhe e NotFound (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "react-router"
+  ]
+ },
+ {
+  "id": "fs-aula-09",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_09/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "cd0a804070a5f5ebc80cef8ee988aaf2348549b910b3ebecac7f12307bca84c0",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 09 — API Express em memória (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "express-rest"
+  ]
+ },
+ {
+  "id": "fs-aula-10",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_10/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "8988496081f23b5cde3c3bc2e607def6b5344fe0210dda1cbc1afc643c7b4ecf",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 10 — Persistência real em MySQL (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "mysql"
+  ]
+ },
+ {
+  "id": "fs-aula-11",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_11/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "4b3329172a082ed8d1990116d230b78e87b66dd680d194f57223b8ebb94a28a5",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 11 — Autenticação com JWT e bcrypt (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "jwt-auth"
+  ]
+ },
+ {
+  "id": "fs-aula-12",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_12/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "fcdeea38e3c37de71cfb6d70c65412b4ab784b843b30b7e2795509a6c84066d3",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 12 — Validação centralizada + error handler (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "validacao-erros"
+  ]
+ },
+ {
+  "id": "fs-aula-13",
+  "origin": "materiais-locais/fullstack/Aulas_01_a_13/Aula_13/README.md",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "8f7910b21355f5956c9142b1b3177e5526361fc0fa83085b3b6864e1ee96a3a2",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Aula 13 — Deploy: Render + MySQL gerenciado + Netlify (README + código starter)",
+  "kind": "aula-readme",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "deploy"
+  ]
+ },
+ {
+  "id": "fs-apostila-01-02",
+  "origin": "materiais-locais/fullstack/Apostilas_e_Slides/Apostila_Aulas_01-02_HTML_Emmet_CSS.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "4b883fb31dd91e59673b929b435dcccf6c3ef1d4a1b13dfd42ba4b1f3edcc13f",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Apostila Aulas 01–02: HTML, Emmet e CSS (15 pp.)",
+  "kind": "aula-pdf",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "html",
+   "css"
+  ]
+ },
+ {
+  "id": "fs-slides-aula01",
+  "origin": "materiais-locais/fullstack/Apostilas_e_Slides/Aula01_HTML_Semantico_Emmet.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "40ae8fd68ec7f4f9846c1f5821b5a86949a0c717ad9a8978e4fc1a33f24c2a01",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Slides Aula 01: HTML Semântico e Emmet (31 pp.)",
+  "kind": "aula-pdf",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "html"
+  ]
+ },
+ {
+  "id": "fs-slides-aula02",
+  "origin": "materiais-locais/fullstack/Apostilas_e_Slides/Aula02_CSS_Flexbox_Grid.pdf",
+  "accessed": true,
+  "accessedAt": "2026-10-22",
+  "sha256": "32c12423410140e256707c8078988e77d2949f82a0abc08f970830aa06282d18",
+  "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
+  "title": "Slides Aula 02: CSS Flexbox e Grid (25 pp.)",
+  "kind": "aula-pdf",
+  "disciplineId": "fullstack",
+  "institution": "FECAP / Centro Universitário Álvares Penteado",
+  "topicIds": [
+   "css"
+  ]
+ },
+ {
+  "id": "ext-openstax-calc1",
+  "title": "OpenStax — Calculus Volume 1",
+  "kind": "externa-livro",
+  "disciplineId": "calculo2",
+  "origin": "https://openstax.org/books/calculus-volume-1",
+  "license": "CC BY-NC-SA 4.0 (verificar termos de uso)",
+  "usage": "Referência para aprofundamento; nenhum texto é copiado, questões são originais.",
+  "accessed": false,
+  "topicIds": [
+   "lhopital",
+   "primitivas",
+   "substituicao",
+   "integral-definida",
+   "maxmin",
+   "derivadas"
+  ]
+ },
+ {
+  "id": "ext-openstax-calc2",
+  "title": "OpenStax — Calculus Volume 2",
+  "kind": "externa-livro",
+  "disciplineId": "calculo2",
+  "origin": "https://openstax.org/books/calculus-volume-2",
+  "license": "CC BY-NC-SA 4.0 (verificar termos de uso)",
+  "usage": "Referência para Taylor/Maclaurin e integrais.",
+  "accessed": false,
+  "topicIds": [
+   "taylor",
+   "integral-definida"
+  ]
+ },
+ {
+  "id": "ext-openstax-calc3",
+  "title": "OpenStax — Calculus Volume 3",
+  "kind": "externa-livro",
+  "disciplineId": "calculo2",
+  "origin": "https://openstax.org/books/calculus-volume-3",
+  "license": "CC BY-NC-SA 4.0 (verificar termos de uso)",
+  "usage": "Referência para funções de várias variáveis, parciais, integrais duplas e Lagrange.",
+  "accessed": false,
+  "topicIds": [
+   "funcoes-2-var",
+   "derivadas-parciais",
+   "integrais-duplas",
+   "otimizacao"
+  ]
+ },
+ {
+  "id": "ext-mdn-html",
+  "title": "MDN Web Docs — HTML",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://developer.mozilla.org/pt-BR/docs/Web/HTML",
+  "license": "CC BY-SA 2.5 (conteúdo) — usado como referência",
+  "usage": "Referência para elaboração e verificação; sem cópia literal.",
+  "accessed": false,
+  "topicIds": [
+   "html"
+  ]
+ },
+ {
+  "id": "ext-mdn-css",
+  "title": "MDN Web Docs — CSS",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://developer.mozilla.org/pt-BR/docs/Web/CSS",
+  "license": "CC BY-SA 2.5 (conteúdo)",
+  "usage": "Referência para Flexbox, Grid, media queries.",
+  "accessed": false,
+  "topicIds": [
+   "css"
+  ]
+ },
+ {
+  "id": "ext-mdn-js",
+  "title": "MDN Web Docs — JavaScript",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript",
+  "license": "CC BY-SA 2.5 (conteúdo)",
+  "usage": "Referência para arrays, funções, classes, Promises.",
+  "accessed": false,
+  "topicIds": [
+   "js-funcoes",
+   "fetch-async",
+   "classes-erros"
+  ]
+ },
+ {
+  "id": "ext-mdn-fetch",
+  "title": "MDN Web Docs — Fetch API e CORS",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API",
+  "license": "CC BY-SA 2.5 (conteúdo)",
+  "usage": "Referência para fetch, Response.ok e CORS.",
+  "accessed": false,
+  "topicIds": [
+   "fetch-async",
+   "deploy"
+  ]
+ },
+ {
+  "id": "ext-react-dev",
+  "title": "React — documentação oficial (react.dev)",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://react.dev",
+  "license": "CC BY 4.0 (conteúdo da documentação)",
+  "usage": "Referência para componentes, hooks e formulários.",
+  "accessed": false,
+  "topicIds": [
+   "react-componentes",
+   "react-hooks-forms"
+  ]
+ },
+ {
+  "id": "ext-react-router",
+  "title": "React Router — documentação oficial",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://reactrouter.com",
+  "license": "MIT (projeto); verificar termos da documentação",
+  "usage": "Referência para rotas e parâmetros.",
+  "accessed": false,
+  "topicIds": [
+   "react-router"
+  ]
+ },
+ {
+  "id": "ext-express",
+  "title": "Express — documentação oficial (expressjs.com)",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://expressjs.com",
+  "license": "CC BY-SA 3.0 (documentação)",
+  "usage": "Referência para roteamento, middlewares e tratamento de erros.",
+  "accessed": false,
+  "topicIds": [
+   "express-rest",
+   "validacao-erros",
+   "jwt-auth"
+  ]
+ },
+ {
+  "id": "ext-mysql-ref",
+  "title": "MySQL 8.4 Reference Manual",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://dev.mysql.com/doc/refman/8.4/en/",
+  "license": "Direitos Oracle — somente referência (sem cópia)",
+  "usage": "Referência para SQL, FKs e AUTO_INCREMENT.",
+  "accessed": false,
+  "topicIds": [
+   "mysql"
+  ]
+ },
+ {
+  "id": "ext-mysql2",
+  "title": "mysql2 — documentação (sidorares.github.io/node-mysql2)",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://sidorares.github.io/node-mysql2/docs",
+  "license": "MIT (projeto)",
+  "usage": "Referência para pool, placeholders e insertId.",
+  "accessed": false,
+  "topicIds": [
+   "mysql"
+  ]
+ },
+ {
+  "id": "ext-rfc7519",
+  "title": "RFC 7519 — JSON Web Token (JWT)",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://datatracker.ietf.org/doc/html/rfc7519",
+  "license": "IETF Trust — uso livre para referência",
+  "usage": "Referência para claims e estrutura do JWT.",
+  "accessed": false,
+  "topicIds": [
+   "jwt-auth"
+  ]
+ },
+ {
+  "id": "ext-rfc9110",
+  "title": "RFC 9110 — HTTP Semantics",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://datatracker.ietf.org/doc/html/rfc9110",
+  "license": "IETF Trust — uso livre para referência",
+  "usage": "Referência para métodos e códigos de status HTTP.",
+  "accessed": false,
+  "topicIds": [
+   "express-rest",
+   "jwt-auth",
+   "validacao-erros"
+  ]
+ },
+ {
+  "id": "ext-nodejs-docs",
+  "title": "Node.js — documentação oficial",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://nodejs.org/docs/latest/api/",
+  "license": "MIT/CC-BY (documentação do projeto)",
+  "usage": "Referência para process.env e módulos.",
+  "accessed": false,
+  "topicIds": [
+   "express-rest",
+   "deploy"
+  ]
+ },
+ {
+  "id": "ext-render-docs",
+  "title": "Render — documentação oficial",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://render.com/docs",
+  "license": "Termos do fornecedor — somente referência",
+  "usage": "Referência para Web Services e variáveis de ambiente.",
+  "accessed": false,
+  "topicIds": [
+   "deploy"
+  ]
+ },
+ {
+  "id": "ext-netlify-docs",
+  "title": "Netlify — documentação oficial",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://docs.netlify.com",
+  "license": "Termos do fornecedor — somente referência",
+  "usage": "Referência para redirects de SPA e deploy.",
+  "accessed": false,
+  "topicIds": [
+   "deploy"
+  ]
+ },
+ {
+  "id": "ext-owasp-passwords",
+  "title": "OWASP Cheat Sheet — Password Storage",
+  "kind": "externa-oficial",
+  "disciplineId": "fullstack",
+  "origin": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+  "license": "CC BY-SA 4.0",
+  "usage": "Referência para hash de senha e bcrypt.",
+  "accessed": false,
+  "topicIds": [
+   "jwt-auth"
+  ]
+ }
+]
