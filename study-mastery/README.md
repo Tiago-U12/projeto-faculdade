@@ -1,35 +1,57 @@
-# Study Mastery v0.2 — Protótipo funcional e handoff
+# Study Mastery v0.3
+
+Plataforma de estudos universitária gratuita e mobile-first: questões, simulados, explicações e acompanhamento do aprendizado — **sem cadastro e sem chamadas de IA durante as sessões**. O estudante usa um banco de questões **previamente verificado e aprovado**, versionado em JSON; todo o progresso fica no próprio aparelho.
+
+> Estado real: veja [`PROGRESSO.md`](PROGRESSO.md) (contagens geradas do banco, sem arredondar). Meta: 600 questões aprovadas (100 fáceis + 100 médias + 100 difíceis por disciplina). Nada foi publicado na internet; o deploy depende da sua autorização.
 
 ## Executar
-`npm install && npm run dev` — abrir URL exibida pelo Vite. `npm run build` e `npm test` para validar. **A compilação não foi confirmada neste ambiente por indisponibilidade/timeout ao instalar dependências.**
 
-## Incluído
-- React + TypeScript + Vite, UI mobile-first, configuração por disciplina/assunto, profundidade, modos (aprender/simulado/revisão/misto — misto usa sorteio geral nesta etapa), sorteio sem reposição, alternativas embaralhadas com gabarito consistente, resultado e persistência local.
-- 50 questões originais importadas integralmente de `Quiz Fullstack.txt` para `src/data/legacy.json`, mantendo enunciados e índices. Marcadas `needs-review` porque precisam de verificação pedagógica; o interruptor na tela permite testá-las deliberadamente.
-- 4 questões iniciais de Cálculo II, com referências de origem, para demonstrar o formato. Apenas uma parte pequena do acervo foi transformada em perguntas. Questões adicionais precisam de validação humana.
-- Não há backend, autenticação, scraping, geração automática de questões ou sincronização com Google Drive ativos. Essas integrações estão na especificação.
+Requer Node 22+ (e Python 3 com `sympy`/`mpmath` apenas para o processo editorial).
 
-## Priorização para Codex / Claude Code
-1. Rodar npm install/build/test, corrigir problemas e adicionar testes de interface.
-2. Ajustar erro de lógica: `modo revisão` deve priorizar assuntos fracos **sem permitir que prepare() embaralhe a lista priorizada**; criar algoritmo com quotas e não repetir IDs.
-3. Remover o modo demonstração `includeLegacy` por padrão na publicação, validar/atualizar as 50 questões e incorporar explicações fundamentadas.
-4. Implementar matemática com KaTeX e LaTeX estruturado no schema, não parsing heurístico de texto solto.
-5. Exportar/importar progresso, filtros persistentes, acessibilidade WCAG, pwa e offline.
-6. Criar pipeline offline de ingestão autorizada de materiais, busca em referências licenciadas, elaboração de rascunhos, validação e aprovação, com fontes obrigatórias.
+```bash
+npm install
+npm run dev        # app em modo desenvolvimento
+npm run build      # build de produção (tsc + vite)
+npm test           # testes unitários e do pipeline
+npm run e2e        # E2E em Chromium (390 px); exige `npm run build` antes
+```
 
-## Arquitetura do banco
-Question: `id`, `disciplina`, `topic`, `stem`, `options[]`, `correctIndex`, `explanation`, `difficulty`, `scope`, `status`, `sourceRefs[]`. `eligible()` filtra assunto, escopo e aprovação; `prepare()` embaralha questões e alternativas, remapeia o gabarito. Acervo original e fontes estão em `src/data/`.
+## O que o estudante tem
 
-## Critérios de pronto v0.2
-- Aluno consegue selecionar disciplinas e assuntos, responder e corrigir sessão sem backend, ver feedback e progresso local.
-- Nunca inserir conteúdo de tópico não marcado.
-- Não fingir ter 20 questões quando só há menos disponíveis.
-- Nunca publicar uma pergunta marcada `needs-review` em produção.
+- Semestre → Disciplina → Assunto; **filtros estritos**: só aparecem questões dos assuntos marcados.
+- Profundidade cumulativa: *só aulas* → *aulas + aprofundamento* → *também desafios* (dos **mesmos** assuntos). A dificuldade (fácil/média/difícil) é um filtro independente.
+- Sessões de 5, 10 ou 20. Se houver menos questões elegíveis do que o pedido, o app avisa e usa só as existentes (nunca completa com outro assunto).
+- Quatro modos: **Aprender** (feedback imediato), **Simulado** (gabarito só no fim, navegação e troca de respostas), **Revisão** (erros primeiro, depois vencidas na repetição espaçada de Leitner, depois não vistas), **Misto** (assuntos e dificuldades intercalados).
+- Alternativas embaralhadas por ID estável (o gabarito nunca se perde); nenhuma questão repete na rodada; sessão em andamento é salva e retomável.
+- Explicação por alternativa (por que a sua está errada e por que a correta está certa), passo a passo, erros frequentes e a fonte exata (slide/página/exercício).
+- Fórmulas com KaTeX, código em blocos, tema claro/escuro, `prefers-reduced-motion`, navegação por teclado (1–4 / A–D, Enter), PWA offline.
+- Histórico local (localStorage), exportar/importar JSON (mesclar ou substituir), apagar dados.
 
-## Fontes do usuário
-- Documento de visão v0.1 e decisões desta conversa.
-- `Quiz Fullstack.txt` (React legado) e `quiz_fullstack.html` (legado).
-- PDFs do Moodle, biblioteca `Biblioteca IA Compartilhada / 03 - Estudos / 2º Semestre`.
+## Banco de questões e pipeline editorial
 
-## Design editável
-Figma: https://www.figma.com/design/lzLggq8DeRH3fMgWnsFbgQ
+O pipeline é **separado** do app. Estados: `draft → verified → approved` (ou `rejected`). Só `approved` é publicado.
+
+```bash
+npm run sm -- help
+npm run sm -- import [pasta] [--drive <idPasta>]   # inventário de materiais (PDF/MD/ZIP/Drive), hash, duplicatas, assuntos novos
+npm run sm -- ingest content/batches/lote.mjs      # carrega rascunhos
+npm run sm -- generate-drafts --discipline calculo2 --topic lhopital --difficulty medio --provider anthropic
+npm run sm -- validate                             # schema, LaTeX, fontes, duplicatas, SymPy+numérico, JS isolado
+npm run sm -- review sheet <prefixo>               # folha de revisão legível
+npm run sm -- review approve --all-verified --reviewer "Nome" --type human --attest-checklist
+npm run sm -- publish                              # só aprovadas → src/data/published
+npm run sm -- coverage-report --write              # cobertura por disciplina × dificuldade × assunto
+npm run progress                                   # regenera as contagens do PROGRESSO.md
+```
+
+Detalhes, garantias e limites: [`docs/PIPELINE.md`](docs/PIPELINE.md). Estrutura de dados e decisões: [`docs/IMPLEMENTACAO.md`](docs/IMPLEMENTACAO.md). Meta por assunto: [`content/taxonomy.json`](content/taxonomy.json).
+
+## Material da faculdade e direitos autorais
+
+Os PDFs e READMEs das aulas ficam em `materiais/` (ignorado pelo git) e o texto extraído em `content/extracted/` (também ignorado). **Nada disso é publicado**: o repositório guarda só metadados (título, autor, instituição, hash SHA-256, localizador). As questões são originais.
+
+## Segurança
+
+- Código de verificação de questões roda isolado: Python com whitelist de AST (sem atributos, imports ou chamadas arbitrárias) e Node com `--permission` (sem fs, processos ou workers), com tempo limite.
+- Chaves de API só via variáveis de ambiente do serviço de manutenção (`ANTHROPIC_API_KEY`, `GOOGLE_DRIVE_TOKEN`); nada é gravado no repositório.
+- O texto das questões é renderizado como texto React; só a saída do KaTeX vira HTML.
