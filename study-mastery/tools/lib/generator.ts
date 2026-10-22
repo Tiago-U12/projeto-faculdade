@@ -68,7 +68,7 @@ export interface GenOptions {
 const SYSTEM = `Você é um elaborador de questões universitárias em português do Brasil.
 Gere SOMENTE um array JSON (sem markdown, sem comentários) de questões de múltipla escolha ORIGINAIS.
 Cada item segue exatamente este formato:
-{"stem": string, "opts": [correta, errada1, errada2, errada3], "why": [motivo errada1, motivo errada2, motivo errada3],
+{"stem": string, "opts": [correta, [errada1, motivo1], [errada2, motivo2], [errada3, motivo3]],
  "exp": string (explicação didática da correta), "steps": [string] (passo a passo quando for cálculo/código), "mistakes": [string],
  "src": [[sourceId, localizador]], "verify": {"kind": "limit|derivative|integral|definite|expr|js|source", "params": {...}, "values": [v0,v1,v2,v3] (paralelos a opts) , "claims": [string]}}
 Regras: exatamente UMA alternativa correta, sempre a PRIMEIRA em opts; fórmulas em LaTeX entre $...$; nada de "todas as anteriores";
@@ -110,8 +110,9 @@ function parseJsonArray(text: string): unknown[] {
 export function validSpecShape(x: any): string | null {
   if (!x || typeof x !== 'object') return 'item não é objeto';
   if (typeof x.stem !== 'string' || !x.stem.trim()) return 'stem ausente';
-  if (!Array.isArray(x.opts) || x.opts.length !== 4 || x.opts.some((o: unknown) => typeof o !== 'string')) return 'opts deve ter 4 strings';
-  if (!Array.isArray(x.why) || x.why.length !== 3) return 'why deve ter 3 motivos';
+  if (!Array.isArray(x.opts) || x.opts.length !== 4 || typeof x.opts[0] !== 'string' || x.opts.slice(1).some((o: unknown) => typeof o !== 'string' && !(Array.isArray(o) && o.length === 2))) return 'opts deve ter 4 itens: a correta (string) e 3 distratores';
+  const paired = x.opts.slice(1).every((o: unknown) => Array.isArray(o) && o.length === 2 && o.every((t) => typeof t === 'string'));
+  if (!paired && (!Array.isArray(x.why) || x.why.length !== 3)) return 'why deve ter 3 motivos (ou distratores como pares [texto, motivo])';
   if (typeof x.exp !== 'string') return 'exp ausente';
   if (!Array.isArray(x.src) || !x.src.length) return 'src ausente';
   return null;

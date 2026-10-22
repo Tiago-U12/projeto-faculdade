@@ -20,6 +20,13 @@ function shingles(toks: string[], n = 2): Set<string> {
   return s;
 }
 
+/** Palavras do enunciado sem fórmulas ($…$) nem código: o que sobra é a linguagem natural. */
+export function proseTokens(text: string): string[] {
+  return tokens(text.replace(/```[\s\S]*?```/g, ' ').replace(/`[^`]*`/g, ' ').replace(/\$\$[\s\S]*?\$\$/g, ' ').replace(/\$[^$]*\$/g, ' '));
+}
+
+const MIN_PROSE = 6;
+
 export function jaccard(a: Set<string>, b: Set<string>): number {
   if (!a.size || !b.size) return 0;
   let inter = 0;
@@ -50,7 +57,8 @@ export interface DupPair {
 export function findDuplicates(qs: Question[], thresholds = { text: 0.62, masked: 0.8 }): DupPair[] {
   const info = qs.map((q) => {
     const full = q.stem + ' ' + q.options.map((o) => o.text).join(' ');
-    return { q, sh: shingles(tokens(q.stem)), shFull: shingles(tokens(full)), masked: numberMaskedSignature(q.stem), shape: expressionShape(q), exact: q.verification?.params ? JSON.stringify(q.verification.params).replace(/\s+/g, '') : null };
+    const prose = proseTokens(q.stem);
+    return { q, prose: prose.length, sh: shingles(prose), shFull: shingles(tokens(full)), masked: numberMaskedSignature(q.stem), shape: expressionShape(q), exact: q.verification?.params ? JSON.stringify(q.verification.params).replace(/\s+/g, '') : null };
   });
   const out: DupPair[] = [];
   for (let i = 0; i < info.length; i++) {
@@ -62,7 +70,10 @@ export function findDuplicates(qs: Question[], thresholds = { text: 0.62, masked
         out.push({ a: A.q.id, b: B.q.id, kind: 'expressao-igual', score: 1 });
         continue;
       }
-      const sTxt = Math.max(jaccard(A.sh, B.sh), jaccard(A.shFull, B.shFull));
+      // texto: só compara quando há linguagem natural suficiente; enunciados quase só de fórmulas
+      // são comparados pela forma da expressão (abaixo), não por tokens de símbolos
+      const enoughProse = A.prose >= MIN_PROSE && B.prose >= MIN_PROSE;
+      const sTxt = enoughProse ? Math.max(jaccard(A.sh, B.sh), jaccard(A.shFull, B.shFull)) : 0;
       if (sTxt >= thresholds.text) {
         out.push({ a: A.q.id, b: B.q.id, kind: 'texto', score: sTxt });
         continue;

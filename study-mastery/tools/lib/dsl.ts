@@ -13,10 +13,13 @@ export interface DraftSpec {
   diff: Difficulty;
   scope: Scope;
   stem: string;
-  /** a PRIMEIRA é a correta; as demais são distratores. A ordem final é permutada de forma determinística. */
-  opts: [string, string, string, string];
-  /** motivo de cada distrator, na ordem de opts[1..3] */
-  why: [string, string, string];
+  /**
+   * a PRIMEIRA é a correta; as demais são distratores. A ordem final é permutada de forma determinística.
+   * Forma recomendada: cada distrator como par [texto, motivo] (o motivo nunca se desalinha da alternativa).
+   */
+  opts: [string, string | [string, string], string | [string, string], string | [string, string]];
+  /** alternativa à forma de pares: motivo de cada distrator, na ordem de opts[1..3] */
+  why?: [string, string, string];
   exp: string;
   steps?: string[];
   mistakes?: string[];
@@ -42,13 +45,30 @@ export function contentHash(q: Question): string {
   return crypto.createHash('sha256').update(JSON.stringify(core)).digest('hex').slice(0, 16);
 }
 
+function normalizeOptions(spec: DraftSpec): { texts: string[]; whys: string[] } {
+  const texts: string[] = [];
+  const whys: string[] = [];
+  spec.opts.forEach((o, i) => {
+    if (Array.isArray(o)) {
+      if (i === 0) throw new Error(`${spec.id}: a alternativa correta (primeira) não leva motivo`);
+      texts.push(o[0]);
+      whys.push(o[1]);
+    } else {
+      texts.push(o);
+      if (i > 0) whys.push(spec.why?.[i - 1] ?? '');
+    }
+  });
+  return { texts, whys };
+}
+
 export function toQuestion(spec: DraftSpec, now = new Date().toISOString()): Question {
+  const { texts, whys } = normalizeOptions(spec);
   // permutação determinística: a resposta correta não fica sempre na mesma posição nos dados
   const perm = spec.fixedOrder ? [0, 1, 2, 3] : shuffle([0, 1, 2, 3], mulberry32(hashString(spec.id)));
-  const options = perm.map((origIdx, pos) => ({ id: LETTERS[pos], text: spec.opts[origIdx].trim() }));
+  const options = perm.map((origIdx, pos) => ({ id: LETTERS[pos], text: texts[origIdx].trim() }));
   const idOfOrig = (i: number) => LETTERS[perm.indexOf(i)];
   const wrong: Record<string, string> = {};
-  [1, 2, 3].forEach((i) => (wrong[idOfOrig(i)] = spec.why[i - 1].trim()));
+  [1, 2, 3].forEach((i) => (wrong[idOfOrig(i)] = whys[i - 1].trim()));
   const q: Question = {
     id: spec.id,
     disciplineId: spec.d,
