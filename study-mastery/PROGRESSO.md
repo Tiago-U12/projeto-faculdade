@@ -5,13 +5,13 @@ Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-22T23:20:49.376Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-22T23:26:15.107Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
-**Total aprovado: 123 de 600** (faltam 477).
+**Total aprovado: 163 de 600** (faltam 437).
 
 | Disciplina | Fácil | Média | Difícil | Total |
 |---|---:|---:|---:|---:|
-| Cálculo II | 41/100 | 41/100 | 41/100 | 123/300 |
+| Cálculo II | 54/100 | 54/100 | 55/100 | 163/300 |
 | Desenvolvimento Web Full Stack | 0/100 | 0/100 | 0/100 | 0/300 |
 
 #### Cálculo II — por assunto
@@ -24,13 +24,13 @@ _Gerado automaticamente em 2026-10-22T23:20:49.376Z por `npm run progress`. Só 
 | Regra de L'Hôpital ★ | 15/15 | 15/15 | 15/15 | 45/45 | sim |
 | Antiderivadas e integrais indefinidas ★ | 13/13 | 13/13 | 13/13 | 39/39 | sim |
 | Integração por substituição ★ | 13/13 | 13/13 | 13/13 | 39/39 | sim |
-| Integral definida, Riemann, TFC e áreas ★ | 0/13 | 0/13 | 0/14 | 0/40 | não |
+| Integral definida, Riemann, TFC e áreas ★ | 13/13 | 13/13 | 14/14 | 40/40 | sim |
 | Funções de várias variáveis | 0/5 | 0/5 | 0/5 | 0/15 | não |
 | Derivadas parciais e derivada total | 0/7 | 0/7 | 0/7 | 0/21 | não |
 | Integrais duplas | 0/6 | 0/6 | 0/6 | 0/18 | não |
 | Otimização com e sem restrições | 0/6 | 0/6 | 0/6 | 0/18 | não |
 
-Fluxo editorial (todas as questões da disciplina): aprovadas 123 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
+Fluxo editorial (todas as questões da disciplina): aprovadas 163 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
 
 #### Desenvolvimento Web Full Stack — por assunto
 
@@ -54,8 +54,8 @@ Fluxo editorial (todas as questões da disciplina): aprovadas 0 · verificadas a
 
 ★ = assunto cobrado na prova de 26/10/2026.
 
-Verificação das aprovadas: 6 por `source-review` · 2 por `sympy+mpmath (forma)` · 35 por `sympy+mpmath` · 3 por `sympy+mpmath (por alternativa)` · 6 por `sympy+independente` · 47 por `sympy+mpmath.diff` · 5 por `sympy+amostragem` · 19 por `sympy+mpmath.quad`.
-Revisão das aprovadas: 123 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
+Verificação das aprovadas: 37 por `sympy+mpmath.quad` · 21 por `sympy+independente` · 9 por `source-review` · 5 por `sympy+mpmath (por alternativa)` · 7 por `sympy+amostragem` · 2 por `sympy+mpmath (forma)` · 35 por `sympy+mpmath` · 47 por `sympy+mpmath.diff`.
+Revisão das aprovadas: 163 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
 <!-- CONTAGENS:FIM -->
 
 ## Estado por etapa (implementado × testado × planejado)
