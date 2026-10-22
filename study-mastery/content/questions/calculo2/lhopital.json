@@ -58,7 +58,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -157,7 +157,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath (forma)",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "quotient: lim f=0, lim g=0 → 0/0; checagem numérica ok"
    }
   },
@@ -255,7 +255,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -354,7 +354,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath (forma)",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "quotient: lim f=oo, lim g=oo → oo/oo; checagem numérica ok"
    }
   },
@@ -444,7 +444,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -529,7 +529,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -622,7 +622,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 3; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -712,7 +712,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -805,7 +805,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 5; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -895,7 +895,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -1020,7 +1020,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath (por alternativa)",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "a:quotient: lim f=oo, lim g=oo → oo/oo; c:quotient: lim f=1, lim g=oo → determinada; b:quotient: lim f=5, lim g=oo → determinada; d:quotient: lim f=oo, lim g=3 → determinada"
    }
   },
@@ -1115,7 +1115,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -1191,7 +1191,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -1284,7 +1284,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 3/5; checagem numérica ok (-:finite)"
    }
   },
@@ -1374,7 +1374,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:29:59.313Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -1472,7 +1472,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1/2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -1565,7 +1565,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "valor = 3; checagem independente ok"
    }
   },
@@ -1663,7 +1663,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (+:finite)"
    }
   },
@@ -1787,7 +1787,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath (por alternativa)",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "c:quotient: lim f=-oo, lim g=oo → oo/oo; b:quotient: lim f=0, lim g=0 → 0/0; d:quotient: lim f=0, lim g=1 → determinada; a:quotient: lim f=0, lim g=0 → 0/0"
    }
   },
@@ -1880,7 +1880,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -1975,7 +1975,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -2070,7 +2070,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1/2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -2165,7 +2165,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1/6; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -2255,7 +2255,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -2345,7 +2345,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -2435,7 +2435,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -2524,7 +2524,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 3/2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -2619,7 +2619,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (+:finite)"
    }
   },
@@ -2709,7 +2709,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (-:finite)"
    }
   },
@@ -2799,7 +2799,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:40:27.126Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1/2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -2897,7 +2897,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = E; checagem numérica ok (+:finite)"
    }
   },
@@ -2992,7 +2992,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = -1/2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -3087,7 +3087,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (+:finite)"
    }
   },
@@ -3177,7 +3177,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = exp(2); checagem numérica ok (-:finite)"
    }
   },
@@ -3267,7 +3267,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (+:finite)"
    }
   },
@@ -3362,7 +3362,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (-:finite)"
    }
   },
@@ -3456,7 +3456,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "valor = orig=1;lh=AccumBounds(0, 2); checagem independente ok"
    }
   },
@@ -3550,7 +3550,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1; checagem numérica ok (-:finite)"
    }
   },
@@ -3645,7 +3645,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 2; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -3740,7 +3740,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 1/3; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -3833,7 +3833,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = -1/6; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -3923,7 +3923,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = 0; checagem numérica ok (-:finite)"
    }
   },
@@ -4013,7 +4013,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = exp(-1/2); checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -4103,7 +4103,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "limite = exp(-1); checagem numérica ok (-:finite)"
    }
   },
@@ -4216,7 +4216,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath (por alternativa)",
-    "ranAt": "2026-10-22T22:43:56.119Z",
+    "ranAt": "2026-10-22T23:11:49.656Z",
     "details": "d:limite=oo; c:limite=0; a:limite=0; b:limite=0"
    }
   },

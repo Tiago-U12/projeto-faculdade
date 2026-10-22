@@ -2,7 +2,7 @@ import katex from 'katex';
 import { memo, useMemo } from 'react';
 import type { ReactNode } from 'react';
 
-const TOKEN = /(```[\s\S]*?```|`[^`\n]+`|\$\$[\s\S]+?\$\$|\$[^$\n]+?\$|\*\*[^*\n]+\*\*)/g;
+const TOKEN = /(```[\s\S]*?```|`[^`\n]+`|\$\$[\s\S]+?\$\$|\$[^$\n]+?\$|\*\*[^*\n]+\*\*|\*[^*\n]+\*)/g;
 const cache = new Map<string, string>();
 
 function tex(src: string, display: boolean): string {
@@ -32,6 +32,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     else if (p.startsWith('$$')) out.push(<span key={k} className="math-display" dangerouslySetInnerHTML={{ __html: tex(p.slice(2, -2), true) }} />);
     else if (p.startsWith('$')) out.push(<span key={k} className="math-inline" dangerouslySetInnerHTML={{ __html: tex(p.slice(1, -1), false) }} />);
     else if (p.startsWith('**')) out.push(<strong key={k}>{p.slice(2, -2)}</strong>);
+    else if (p.length > 2 && p.startsWith('*') && p.endsWith('*')) out.push(<em key={k}>{p.slice(1, -1)}</em>);
     else {
       p.split('\n').forEach((line, j, arr) => {
         out.push(line);

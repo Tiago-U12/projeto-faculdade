@@ -2586,5 +2586,2248 @@
   "status": "approved",
   "verifiedBy": "sympy+mpmath (por alternativa)",
   "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-001",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Definição",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que significa dizer que $F$ é uma antiderivada (primitiva) de $f$ em um intervalo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$F(x)=f'(x)$ para todo $x$ do intervalo"
+   },
+   {
+    "id": "b",
+    "text": "$F(x)=\\dfrac{f(x)}{x}$"
+   },
+   {
+    "id": "c",
+    "text": "$F'(x)=f(x)$ para todo $x$ do intervalo"
+   },
+   {
+    "id": "d",
+    "text": "$F(x)\\cdot f(x)=1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$F$ é primitiva de $f$ quando derivá-la devolve $f$: $F'(x)=f(x)$. Por isso toda primitiva pode ser conferida por derivação. Exemplo: $F(x)=x^2$ é primitiva de $f(x)=2x$.",
+   "wrong": {
+    "a": "Isso descreve $f$ como a *antiderivada* de $F$ — a relação está invertida: quem é derivada é $f$.",
+    "b": "Dividir por $x$ não tem relação com antiderivação; derivar $F$ é que deve devolver $f$.",
+    "d": "Isso diz que $F$ é o inverso multiplicativo de $f$, ideia diferente de primitiva."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.371Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-002",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Regra da potência",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int x^{5}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x^{6}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$5x^{4}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{6}}{5}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x^{6}}{6}+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Regra da potência: $\\displaystyle\\int x^{n}\\,dx=\\dfrac{x^{n+1}}{n+1}+C$ para $n\\neq-1$. Com $n=5$: $\\dfrac{x^6}{6}+C$. Para conferir, derive: $\\left(\\dfrac{x^6}{6}\\right)'=x^5$.",
+   "steps": [
+    "Some $1$ ao expoente: $5+1=6$.",
+    "Divida por $6$: $\\dfrac{x^6}{6}$.",
+    "Acrescente a constante $C$."
+   ],
+   "wrong": {
+    "b": "Isso é a *derivada* de $x^5$. Ao integrar, o expoente sobe uma unidade e divide-se por ele.",
+    "c": "O expoente sobe para $6$ e é o novo expoente (6) que divide, não o antigo.",
+    "a": "Falta dividir por $6$: a derivada de $x^6$ é $6x^5$, e não $x^5$."
+   },
+   "commonMistakes": [
+    "Derivar em vez de integrar; dividir pelo expoente antigo."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-003",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Constante",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é a integral indefinida $\\displaystyle\\int 7\\,dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{7x^{2}}{2}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$7x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$7+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Como $7=7x^{0}$, a regra da potência dá $7\\cdot\\dfrac{x^{1}}{1}=7x$. Conferindo: $(7x+C)'=7$.",
+   "steps": [
+    "Escreva $7=7x^{0}$.",
+    "Integre: $7\\cdot\\dfrac{x^{1}}{1}=7x$.",
+    "Some $C$."
+   ],
+   "wrong": {
+    "d": "A derivada de $7$ é $0$, não $7$; a constante $7$ precisa ser multiplicada por $x$.",
+    "b": "Isso seria a integral de $7x$; aqui o integrando é a constante $7=7x^{0}$.",
+    "a": "$0$ é a *derivada* de uma constante. A primitiva de uma constante não nula é uma reta."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de uma constante",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-004",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Linearidade",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int\\left(3x^{2}+2x\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3x^{3}+x^{2}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$6x+2+C$"
+   },
+   {
+    "id": "c",
+    "text": "$x^{3}+x^{2}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$x^{3}+2x^{2}+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A integral é linear: integra-se termo a termo. $\\displaystyle\\int3x^2dx=x^3$ e $\\displaystyle\\int2x\\,dx=x^2$. Logo, $x^3+x^2+C$.",
+   "steps": [
+    "$\\int 3x^{2}dx=3\\cdot\\dfrac{x^{3}}{3}=x^{3}$.",
+    "$\\int 2x\\,dx=2\\cdot\\dfrac{x^{2}}{2}=x^{2}$.",
+    "Some e acrescente $C$."
+   ],
+   "wrong": {
+    "b": "Esse é o resultado de *derivar* $3x^2+2x$.",
+    "d": "O termo $2x$ integra para $2\\cdot\\frac{x^2}{2}=x^2$; o coeficiente não dobra.",
+    "a": "$\\int3x^2\\,dx=3\\cdot\\frac{x^3}{3}=x^3$: o coeficiente $3$ cancela com a divisão por $3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-005",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Constante de integração",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Por que a integral indefinida de uma função traz sempre a constante $+C$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Porque funções que diferem por uma constante têm a mesma derivada: há uma família de primitivas"
+   },
+   {
+    "id": "b",
+    "text": "Porque a derivada de qualquer função inclui uma constante"
+   },
+   {
+    "id": "c",
+    "text": "Porque a constante $C$ corrige o erro de arredondamento do cálculo"
+   },
+   {
+    "id": "d",
+    "text": "Porque $C$ é sempre igual a $1$ nas integrais indefinidas"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Se $F'=f$, então $(F+C)'=f$ para qualquer constante $C$, pois a derivada de uma constante é zero. Assim, a integral indefinida descreve **todas** as primitivas: $\\displaystyle\\int f(x)\\,dx=F(x)+C$. Só uma condição inicial (como $F(1)=4$) escolhe um valor de $C$.",
+   "wrong": {
+    "c": "$C$ não tem relação com arredondamento: é um parâmetro exato da família de primitivas.",
+    "b": "É o contrário: a derivada de uma constante é $0$ e, por isso, a constante “some” ao derivar.",
+    "d": "$C$ pode ser qualquer número real; só fica determinado com uma condição inicial."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de uma constante",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-006",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Exponencial",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int e^{x}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$e^{x}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{x}\\ln x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{e^{x+1}}{x+1}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$xe^{x}+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Pela tabela de derivadas, $(e^{x})'=e^{x}$. Portanto $e^{x}$ é primitiva de si mesma: $\\displaystyle\\int e^{x}dx=e^{x}+C$.",
+   "steps": [
+    "Na tabela, $(e^{x})'=e^{x}$.",
+    "Logo, $e^{x}$ é primitiva de $e^{x}$.",
+    "Some $C$."
+   ],
+   "wrong": {
+    "c": "Essa fórmula é da regra da potência, que vale para $x^{n}$ (base variável) e não para $e^{x}$ (expoente variável).",
+    "d": "$(xe^x)'=e^x+xe^x\\neq e^x$: derivando, o resultado não volta ao integrando.",
+    "b": "$\\ln x$ não aparece; a derivada de $e^x\\ln x$ é $e^x\\ln x+\\frac{e^x}{x}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de eˣ",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-007",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Trigonométricas",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é $\\displaystyle\\int\\cos x\\,dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\cos x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\cos x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\sin x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\sin x+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Da tabela de derivadas, $(\\sin x)'=\\cos x$. Logo $\\displaystyle\\int\\cos x\\,dx=\\sin x+C$.",
+   "steps": [
+    "Procure a função cuja derivada é $\\cos x$.",
+    "Tabela: $(\\sin x)'=\\cos x$.",
+    "$\\int\\cos x\\,dx=\\sin x+C$."
+   ],
+   "wrong": {
+    "c": "$(-\\sin x)'=-\\cos x$: o sinal negativo faria a derivada ser $-\\cos x$.",
+    "b": "$(\\cos x)'=-\\sin x$, e não $\\cos x$.",
+    "a": "$(-\\cos x)'=\\sin x$: essa é a primitiva de $\\sin x$, e não de $\\cos x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas das funções trigonométricas",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-008",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Trigonométricas",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é $\\displaystyle\\int\\sin x\\,dx$? Cuidado com o sinal.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\cos x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\sin x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\sin x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\cos x+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Como $(\\cos x)'=-\\sin x$, vale $(-\\cos x)'=\\sin x$. Portanto $\\displaystyle\\int\\sin x\\,dx=-\\cos x+C$. O sinal negativo é o erro mais comum — confira sempre derivando.",
+   "steps": [
+    "Tabela: $(\\cos x)'=-\\sin x$.",
+    "Então $(-\\cos x)'=\\sin x$.",
+    "$\\int\\sin x\\,dx=-\\cos x+C$."
+   ],
+   "wrong": {
+    "a": "$(\\cos x)'=-\\sin x$; falta o sinal negativo para que a derivada seja $+\\sin x$.",
+    "c": "$(\\sin x)'=\\cos x$, e não $\\sin x$.",
+    "b": "$(-\\sin x)'=-\\cos x$, que não devolve o integrando."
+   },
+   "commonMistakes": [
+    "Esquecer o sinal negativo em $\\int\\sin x\\,dx$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas do seno e do cosseno",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-009",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Logaritmo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, qual é $\\displaystyle\\int\\frac{1}{x}\\,dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{\\ln x}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$x\\ln x-x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\ln x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{1}{x^{2}}+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A tabela diz $(\\ln x)'=\\dfrac1x$ para $x>0$. Logo $\\displaystyle\\int\\dfrac1x\\,dx=\\ln x+C$ (em geral, $\\ln|x|+C$). A regra da potência não serve aqui porque $n=-1$ faria o denominador $n+1$ ser zero.",
+   "steps": [
+    "Tabela: $(\\ln x)'=\\frac1x$ para $x>0$.",
+    "Logo $\\ln x$ é primitiva de $\\frac1x$.",
+    "$\\int\\frac1xdx=\\ln x+C$."
+   ],
+   "wrong": {
+    "b": "Derivando, $(x\\ln x-x)'=\\ln x$: essa é a primitiva de $\\ln x$, e não de $\\frac1x$ (a regra da potência não vale para $n=-1$).",
+    "d": "Esse é o resultado de *derivar* $\\frac1x$, e não de integrá-lo.",
+    "a": "$\\left(\\frac1{\\ln x}\\right)'=-\\frac{1}{x\\ln^2x}$, que não é $\\frac1x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x, x > 0",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-010",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Potência fracionária",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\sqrt{x}\\,dx$ (para $x\\ge0$).",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{3}{2}x^{3/2}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{2}{3}x^{3/2}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{2\\sqrt{x}}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x^{1/2+1}}{1/2}+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\sqrt x=x^{1/2}$. Regra da potência: $\\dfrac{x^{1/2+1}}{1/2+1}=\\dfrac{x^{3/2}}{3/2}=\\dfrac23x^{3/2}$. Conferindo: $\\left(\\frac23x^{3/2}\\right)'=\\frac23\\cdot\\frac32x^{1/2}=\\sqrt x$.",
+   "steps": [
+    "$\\sqrt x=x^{1/2}$.",
+    "Novo expoente: $\\frac12+1=\\frac32$.",
+    "Divida por $\\frac32$ (multiplique por $\\frac23$): $\\frac23x^{3/2}$."
+   ],
+   "wrong": {
+    "c": "Esse é o resultado de *derivar* $\\sqrt x$.",
+    "a": "Dividir por $\\frac32$ equivale a multiplicar por $\\frac23$; multiplicar por $\\frac32$ inverte a conta.",
+    "d": "Dividir por $\\frac12$ seria usar o expoente antigo; o certo é dividir pelo novo expoente $\\frac32$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-011",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Família de primitivas",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Se $F(x)=x^{3}+5$ e $G(x)=x^{3}-2$ são ambas primitivas de $f(x)=3x^{2}$, o que se pode dizer sobre $F-G$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "É constante: $F(x)-G(x)=7$ para todo $x$"
+   },
+   {
+    "id": "b",
+    "text": "Depende de $x$, pois $F$ e $G$ têm termos em $x^3$"
+   },
+   {
+    "id": "c",
+    "text": "Não pode ser calculada, pois $F$ e $G$ têm derivadas diferentes"
+   },
+   {
+    "id": "d",
+    "text": "É a função nula: $F=G$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$F(x)-G(x)=(x^3+5)-(x^3-2)=7$. Duas primitivas da mesma função diferem sempre por uma constante, porque $(F-G)'=f-f=0$. É por isso que a família de primitivas é $F(x)+C$.",
+   "steps": [
+    "$F-G=(x^{3}+5)-(x^{3}-2)$.",
+    "Os termos $x^{3}$ se cancelam.",
+    "$F-G=5+2=7$ (constante)."
+   ],
+   "wrong": {
+    "d": "$F$ e $G$ são diferentes ($F-G=7\\neq0$); só as derivadas coincidem.",
+    "b": "Os termos em $x^3$ cancelam na subtração, restando apenas a diferença das constantes.",
+    "c": "As duas têm a mesma derivada, $3x^2$: $(x^3+5)'=(x^3-2)'=3x^2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de uma constante",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-012",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Potência negativa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int\\frac{1}{x^{2}}\\,dx$ para $x>0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac{1}{x}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{1}{3x^{3}}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\ln x^{2}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{1}{x}+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Escreva $\\dfrac1{x^2}=x^{-2}$. Regra da potência: $\\dfrac{x^{-2+1}}{-2+1}=\\dfrac{x^{-1}}{-1}=-\\dfrac1x$. Conferindo: $\\left(-\\frac1x\\right)'=\\frac1{x^2}$.",
+   "steps": [
+    "$\\frac1{x^2}=x^{-2}$.",
+    "$\\dfrac{x^{-2+1}}{-2+1}=\\dfrac{x^{-1}}{-1}$.",
+    "$=-\\dfrac1x$."
+   ],
+   "wrong": {
+    "d": "$\\left(\\frac1x\\right)'=-\\frac{1}{x^2}$: falta o sinal negativo.",
+    "c": "$\\ln$ é a primitiva de $x^{-1}$; aqui o expoente é $-2$, e vale a regra da potência.",
+    "b": "Isso trataria $x^{-2}$ como $x^{2}$; o expoente é negativo e deve subir de $-2$ para $-1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-013",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Condição inicial",
+  "difficulty": "facil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A velocidade de uma partícula é $v(t)=6t$ (em m/s) e ela parte da posição $s(0)=2$ m. Qual é a posição $s(t)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$s(t)=6$"
+   },
+   {
+    "id": "b",
+    "text": "$s(t)=6t^{2}+2$"
+   },
+   {
+    "id": "c",
+    "text": "$s(t)=3t^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$s(t)=3t^{2}+2$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A posição é uma primitiva da velocidade: $s(t)=\\displaystyle\\int6t\\,dt=3t^2+C$. Com $s(0)=2$: $3\\cdot0+C=2$, logo $C=2$ e $s(t)=3t^2+2$.",
+   "steps": [
+    "$s(t)=\\int6t\\,dt=3t^{2}+C$.",
+    "$s(0)=C=2$.",
+    "$s(t)=3t^{2}+2$."
+   ],
+   "wrong": {
+    "b": "Ao integrar $6t$ divide-se por $2$: $\\int6t\\,dt=3t^2$.",
+    "c": "Falta usar a condição inicial: $s(0)=0$ nessa fórmula, mas deveria valer $2$.",
+    "a": "$6$ é a derivada de $6t$ (a aceleração); a posição é a primitiva da velocidade."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-014",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Linearidade",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\left(x^{3}-4x+\\frac{1}{x^{2}}\\right)dx$ para $x>0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{4}}{4}-2x^{2}-\\dfrac{1}{x}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$3x^{2}-4-\\dfrac{2}{x^{3}}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{4}}{4}-2x^{2}+\\dfrac{1}{x}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x^{4}}{4}-4x^{2}-\\dfrac{1}{x}+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Integre termo a termo: $\\int x^3dx=\\dfrac{x^4}{4}$, $\\int4x\\,dx=2x^2$ e $\\int x^{-2}dx=-x^{-1}=-\\dfrac1x$. Resultado: $\\dfrac{x^4}{4}-2x^2-\\dfrac1x+C$.",
+   "steps": [
+    "$\\int x^{3}dx=\\dfrac{x^{4}}{4}$.",
+    "$\\int(-4x)\\,dx=-2x^{2}$.",
+    "$\\int x^{-2}dx=-\\dfrac1x$."
+   ],
+   "wrong": {
+    "c": "O sinal do último termo: $\\int x^{-2}dx=-x^{-1}$, e não $+x^{-1}$.",
+    "d": "$\\int4x\\,dx=4\\cdot\\frac{x^2}{2}=2x^2$; o coeficiente $4$ não permanece.",
+    "b": "Esse é o resultado de derivar o integrando, e não de integrá-lo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-015",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Mistura de tabelas",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int\\left(2e^{x}-3\\sin x\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2e^{x}-3\\cos x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$2e^{x}+3\\sin x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$2e^{x}+3\\cos x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$e^{2x}+3\\cos x+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$\\displaystyle\\int2e^xdx=2e^x$ e $\\displaystyle\\int(-3\\sin x)\\,dx=-3\\cdot(-\\cos x)=3\\cos x$. Resultado: $2e^x+3\\cos x+C$.",
+   "steps": [
+    "$\\int2e^{x}dx=2e^{x}$.",
+    "$\\int\\sin x\\,dx=-\\cos x\\ \\Rightarrow\\ \\int(-3\\sin x)dx=3\\cos x$."
+   ],
+   "wrong": {
+    "a": "$\\int\\sin x\\,dx=-\\cos x$; o sinal de $-3\\sin x$ vira $+3\\cos x$, e não $-3\\cos x$.",
+    "b": "$\\sin x$ não é primitiva de $\\sin x$; a derivada de $\\sin x$ é $\\cos x$.",
+    "d": "$2e^x$ é um *múltiplo* de $e^x$, e a primitiva é $2e^x$; $e^{2x}$ é outra função."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas de eˣ, sen e cos",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-016",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Expandir antes de integrar",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int(x+1)^{2}\\,dx$ expandindo o quadrado antes de integrar.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{3}}{3}+x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{3}}{3}+1+C$"
+   },
+   {
+    "id": "c",
+    "text": "$2(x+1)+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x^{3}}{3}+x^{2}+x+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$(x+1)^2=x^2+2x+1$. Então $\\displaystyle\\int(x^2+2x+1)\\,dx=\\dfrac{x^3}{3}+x^2+x+C$. (Também vale $\\frac{(x+1)^3}{3}+C$ — as duas respostas diferem por uma constante.)",
+   "steps": [
+    "$(x+1)^{2}=x^{2}+2x+1$.",
+    "$\\int x^{2}dx=\\frac{x^3}{3}$, $\\int2x\\,dx=x^{2}$, $\\int1\\,dx=x$.",
+    "Some e acrescente $C$."
+   ],
+   "wrong": {
+    "b": "Isso integra $x^2+1$, ignorando o termo cruzado $2x$ do quadrado da soma.",
+    "c": "Esse é o resultado de *derivar* $(x+1)^2$.",
+    "a": "Falta o termo do meio: $(x+1)^2=x^2+2x+1$, e $\\int2x\\,dx=x^2$."
+   },
+   "commonMistakes": [
+    "“Integrar o quadrado como $(x+1)^3$ sem dividir por $3$.”"
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-017",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Dividir antes de integrar",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\frac{3x^{2}+5}{x}\\,dx$ para $x>0$. Dica: divida cada termo do numerador por $x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{3x^{2}}{2}+5\\ln x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{3}+5x}{\\frac{x^{2}}{2}}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{3x^{2}}{2}+5x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$3x+\\dfrac{5}{x}+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\dfrac{3x^2+5}{x}=3x+\\dfrac5x$. Então $\\displaystyle\\int\\left(3x+\\dfrac5x\\right)dx=\\dfrac{3x^2}{2}+5\\ln x+C$ (para $x>0$).",
+   "steps": [
+    "$\\dfrac{3x^{2}+5}{x}=3x+\\dfrac{5}{x}$.",
+    "$\\int3x\\,dx=\\dfrac{3x^2}{2}$.",
+    "$\\int\\dfrac5xdx=5\\ln x$."
+   ],
+   "wrong": {
+    "b": "Integrar numerador e denominador separadamente não é uma regra válida: $\\int\\frac fg\\neq\\frac{\\int f}{\\int g}$.",
+    "d": "$\\frac{5}{x}$ não é primitiva de $\\frac5x$: a primitiva de $\\frac1x$ é $\\ln x$.",
+    "c": "$\\frac5x$ tem primitiva $5\\ln x$, e não $5x$."
+   },
+   "commonMistakes": [
+    "Integrar numerador e denominador separadamente."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-018",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Reescrever com expoentes",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int\\sqrt{x}\\,(x+1)\\,dx$ para $x\\ge0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{2}{5}x^{5/2}+\\dfrac{2}{3}x^{3/2}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{3/2}}{3/2}\\cdot\\dfrac{x^{2}}{2}+\\dfrac{x^{3/2}}{3/2}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{5}{2}x^{5/2}+\\dfrac{3}{2}x^{3/2}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{2}{5}x^{5/2}+\\dfrac{2}{3}x^{1/2}+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Distribua: $\\sqrt x(x+1)=x^{3/2}+x^{1/2}$. Então $\\displaystyle\\int x^{3/2}dx=\\dfrac{x^{5/2}}{5/2}=\\dfrac25x^{5/2}$ e $\\displaystyle\\int x^{1/2}dx=\\dfrac23x^{3/2}$.",
+   "steps": [
+    "$\\sqrt{x}(x+1)=x^{3/2}+x^{1/2}$.",
+    "$\\int x^{3/2}dx=\\tfrac25x^{5/2}$.",
+    "$\\int x^{1/2}dx=\\tfrac23x^{3/2}$."
+   ],
+   "wrong": {
+    "b": "Multiplicar as primitivas de cada fator não funciona: primeiro distribua e depois integre termo a termo.",
+    "d": "$\\int x^{1/2}dx=\\frac23x^{3/2}$; o expoente sobe uma unidade.",
+    "c": "Dividir por $\\frac52$ é multiplicar por $\\frac25$ (não por $\\frac52$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-019",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Coeficiente constante",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\frac{1}{2x}\\,dx$ para $x>0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2\\ln x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\ln(2x)+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac12\\ln x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac14\\ln x+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O fator constante $\\dfrac12$ sai da integral: $\\displaystyle\\int\\dfrac1{2x}dx=\\dfrac12\\int\\dfrac1xdx=\\dfrac12\\ln x+C$. Conferindo: $\\left(\\tfrac12\\ln x\\right)'=\\dfrac1{2x}$.",
+   "steps": [
+    "Tire a constante: $\\frac{1}{2x}=\\frac12\\cdot\\frac1x$.",
+    "$\\int\\frac1xdx=\\ln x$.",
+    "Resultado: $\\frac12\\ln x+C$."
+   ],
+   "wrong": {
+    "b": "$\\left(\\ln(2x)\\right)'=\\frac{2}{2x}=\\frac1x$, que não é $\\frac{1}{2x}$.",
+    "a": "$(2\\ln x)'=\\frac2x$; o fator correto é $\\frac12$, não $2$.",
+    "d": "Dividiu por $2$ duas vezes: $\\left(\\frac14\\ln x\\right)'=\\frac1{4x}$, e não $\\frac1{2x}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-020",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Potência negativa",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é a primitiva de $f(x)=\\dfrac{1}{x^{3}}$ para $x>0$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\ln x^{3}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{1}{2x^{2}}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\dfrac{1}{3x^{2}}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{1}{2x^{2}}+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\dfrac1{x^3}=x^{-3}$. Então $\\displaystyle\\int x^{-3}dx=\\dfrac{x^{-2}}{-2}=-\\dfrac{1}{2x^2}$. Conferindo: $\\left(-\\frac12x^{-2}\\right)'=x^{-3}$.",
+   "steps": [
+    "$\\frac1{x^3}=x^{-3}$.",
+    "$\\dfrac{x^{-3+1}}{-3+1}=\\dfrac{x^{-2}}{-2}$.",
+    "$=-\\dfrac{1}{2x^{2}}$."
+   ],
+   "wrong": {
+    "c": "O denominador deve ser o *novo* expoente $-2$ (resultando em $-\\frac12$), e não $3$.",
+    "b": "Falta o sinal: $\\left(\\frac{1}{2x^2}\\right)'=-\\frac{1}{x^3}$.",
+    "a": "$\\ln$ só aparece quando o expoente é $-1$; aqui é $-3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-021",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Condição inicial",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Encontre a função $f$ tal que $f'(x)=3x^{2}-2$ e $f(1)=4$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f(x)=6x+4$"
+   },
+   {
+    "id": "b",
+    "text": "$f(x)=x^{3}-2x$"
+   },
+   {
+    "id": "c",
+    "text": "$f(x)=x^{3}-2x+5$"
+   },
+   {
+    "id": "d",
+    "text": "$f(x)=x^{3}-2x+4$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f(x)=\\int(3x^2-2)\\,dx=x^3-2x+C$. Usando $f(1)=4$: $1-2+C=4\\Rightarrow C=5$. Logo $f(x)=x^3-2x+5$.",
+   "steps": [
+    "$f(x)=x^{3}-2x+C$.",
+    "$f(1)=1-2+C=4$.",
+    "$C=5$."
+   ],
+   "wrong": {
+    "d": "Ao usar a condição, $C$ não é $4$: $f(1)=1-2+C=4$ dá $C=5$.",
+    "b": "Nessa função $f(1)=-1$, mas a condição pede $4$: falta determinar $C$.",
+    "a": "$6x$ é a derivada de $3x^2$; o problema pede a primitiva de $f'$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-022",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Mistura de tabelas",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, qual é $\\displaystyle\\int\\left(e^{x}+\\frac{1}{x}\\right)dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$e^{x}\\cdot\\ln x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{x}+\\ln x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$e^{x}-\\dfrac{1}{x^{2}}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{e^{x}}{x}+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Termo a termo: $\\int e^xdx=e^x$ e $\\int\\frac1xdx=\\ln x$ (para $x>0$). Resultado: $e^x+\\ln x+C$.",
+   "steps": [
+    "$\\int e^{x}dx=e^{x}$.",
+    "$\\int\\frac1xdx=\\ln x$ ($x>0$).",
+    "Some as duas e acrescente $C$."
+   ],
+   "wrong": {
+    "a": "A integral da soma é a soma das integrais, não o produto delas.",
+    "c": "$-\\frac1{x^2}$ é a derivada de $\\frac1x$; a primitiva de $\\frac1x$ é $\\ln x$.",
+    "d": "Dividir não é integrar: $\\left(\\frac{e^x}{x}\\right)'$ é bem diferente de $e^x+\\frac1x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas de eˣ e ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-023",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Verificar por derivação",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual das funções abaixo **não** é uma primitiva de $f(x)=2x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$F(x)=x^{2}+7$"
+   },
+   {
+    "id": "b",
+    "text": "$F(x)=x^{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$F(x)=x^{2}-3$"
+   },
+   {
+    "id": "d",
+    "text": "$F(x)=(x+1)^{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Derive cada candidata: $(x^2+7)'=2x$, $(x^2-3)'=2x$, $(x^2)'=2x$, mas $\\left((x+1)^2\\right)'=2(x+1)=2x+2\\neq2x$. Logo $(x+1)^2$ **não** é primitiva de $2x$ (note que $(x+1)^2=x^2+2x+1$ difere de $x^2$ por $2x+1$, que não é constante).",
+   "steps": [
+    "$(x^2+7)'=2x$ ✔, $(x^2-3)'=2x$ ✔, $(x^2)'=2x$ ✔.",
+    "$\\left((x+1)^2\\right)'=2x+2$ ✘."
+   ],
+   "wrong": {
+    "a": "$(x^2+7)'=2x$: é primitiva (difere de $x^2$ por uma constante).",
+    "c": "$(x^2-3)'=2x$: é primitiva.",
+    "b": "$(x^2)'=2x$: é primitiva."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-024",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Mistura de tabelas",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int(\\sin x+\\cos x)\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\cos x-\\sin x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\cos x+\\sin x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\cos x-\\sin x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\cos x+\\sin x+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\int\\sin x\\,dx=-\\cos x$ e $\\int\\cos x\\,dx=\\sin x$. Somando: $-\\cos x+\\sin x+C$. Conferindo: $(-\\cos x+\\sin x)'=\\sin x+\\cos x$.",
+   "steps": [
+    "$\\int\\sin x\\,dx=-\\cos x$.",
+    "$\\int\\cos x\\,dx=\\sin x$.",
+    "Some: $-\\cos x+\\sin x+C$."
+   ],
+   "wrong": {
+    "c": "Os dois sinais estão trocados: $(\\cos x-\\sin x)'=-\\sin x-\\cos x$.",
+    "d": "Derivando, $(\\cos x+\\sin x)'=-\\sin x+\\cos x$, que não é o integrando.",
+    "a": "$(-\\sin x)'=-\\cos x$: o sinal do termo em $\\sin x$ está errado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas do seno e do cosseno",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-025",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Operação inversa",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A função $F(x)=x\\ln x-x$ (para $x>0$) é uma primitiva de qual função $f$? Para descobrir, derive $F$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f(x)=\\ln x-1$"
+   },
+   {
+    "id": "b",
+    "text": "$f(x)=\\ln x$"
+   },
+   {
+    "id": "c",
+    "text": "$f(x)=x\\ln x$"
+   },
+   {
+    "id": "d",
+    "text": "$f(x)=\\dfrac1x$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Regra do produto: $(x\\ln x)'=\\ln x+x\\cdot\\dfrac1x=\\ln x+1$. Como $(-x)'=-1$, segue $F'(x)=\\ln x+1-1=\\ln x$. Logo $F$ é primitiva de $f(x)=\\ln x$ (e assim $\\int\\ln x\\,dx=x\\ln x-x+C$).",
+   "steps": [
+    "$(x\\ln x)'=\\ln x+1$ (regra do produto).",
+    "$(-x)'=-1$.",
+    "$F'(x)=\\ln x$."
+   ],
+   "wrong": {
+    "d": "$\\frac1x$ é a derivada de $\\ln x$; para $F=x\\ln x-x$ a derivada é $\\ln x+1-1=\\ln x$.",
+    "c": "Esse é o termo de $F$, não a derivada.",
+    "a": "O $-1$ da derivada de $-x$ cancela o $+1$ vindo da regra do produto em $x\\ln x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra do produto e derivada de ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-026",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Erro comum: produto",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um estudante calcula $\\displaystyle\\int x^{2}\\cdot x^{3}\\,dx$ multiplicando as primitivas: $\\dfrac{x^{3}}{3}\\cdot\\dfrac{x^{4}}{4}$. Qual é a resposta correta e o que está errado no procedimento?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$5x^{4}+C$; o correto é derivar o produto, não integrar"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{7}}{12}+C$; o produto das primitivas está correto"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{6}}{6}+C$; falta simplificar $x^{2}x^{3}=x^{5}$ antes de integrar"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x^{5}}{5}+C$; basta somar os expoentes e dividir por $5$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Não existe regra “a integral do produto é o produto das integrais”. Simplifique primeiro: $x^2\\cdot x^3=x^5$, e então $\\displaystyle\\int x^5dx=\\dfrac{x^6}{6}+C$. Conferir por derivação evidencia o erro: $\\left(\\dfrac{x^7}{12}\\right)'=\\dfrac{7x^6}{12}$, que não é $x^5$.",
+   "steps": [
+    "$x^{2}\\cdot x^{3}=x^{5}$.",
+    "$\\int x^{5}dx=\\dfrac{x^{6}}{6}+C$."
+   ],
+   "wrong": {
+    "b": "Esse é o produto das primitivas, mas a primitiva de um produto não é o produto das primitivas: $\\left(\\frac{x^7}{12}\\right)'=\\frac{7x^6}{12}\\neq x^5$.",
+    "d": "Após $x^2x^3=x^5$, ainda é preciso integrar: $\\int x^5dx=\\frac{x^6}{6}$, não $\\frac{x^5}{5}$.",
+    "a": "Derivar é a operação inversa; o enunciado pede a integral."
+   },
+   "commonMistakes": [
+    "Integrar fatores separadamente e multiplicar."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:13:27.372Z",
+  "updatedAt": "2026-10-22T23:14:03.984Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-027",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Expandir e dividir",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, calcule $\\displaystyle\\int\\frac{(x^{2}+1)^{2}}{x}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3x^{2}+2-\\dfrac{1}{x^{2}}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{4}}{4}+x^{2}+\\ln x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{4}}{4}+x^{2}+\\dfrac{1}{x}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x^{4}}{4}+\\dfrac{x^{2}}{2}+\\ln x+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Expanda: $(x^2+1)^2=x^4+2x^2+1$. Divida por $x$: $x^3+2x+\\dfrac1x$. Integre termo a termo: $\\dfrac{x^4}{4}+x^2+\\ln x+C$.",
+   "steps": [
+    "$(x^{2}+1)^{2}=x^{4}+2x^{2}+1$.",
+    "$\\dfrac{x^{4}+2x^{2}+1}{x}=x^{3}+2x+\\dfrac1x$.",
+    "$\\int\\left(x^{3}+2x+\\tfrac1x\\right)dx=\\dfrac{x^{4}}{4}+x^{2}+\\ln x$."
+   ],
+   "wrong": {
+    "d": "Esquece o fator $2$ do termo cruzado: $(x^2+1)^2=x^4+2x^2+1$, e $\\int 2x\\,dx=x^2$ (não $\\frac{x^2}{2}$).",
+    "c": "A primitiva de $\\frac1x$ é $\\ln x$; $\\frac1x$ é a derivada de $\\ln x$ — e não o contrário.",
+    "a": "Esse é o resultado de *derivar* $x^3+2x+\\frac1x$, e não de integrá-lo."
+   },
+   "commonMistakes": [
+    "Esquecer o termo cruzado ao expandir o quadrado."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.203Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-028",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Fatorar antes de integrar",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para $x\\neq-1$, determine $\\displaystyle\\int\\frac{x^{2}-1}{x+1}\\,dx$. Dica: fatore o numerador.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{2}}{2}-x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{2}}{2}+x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{3}/3-x}{x^{2}/2+x}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$x-1+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$x^2-1=(x-1)(x+1)$, então para $x\\neq-1$: $\\dfrac{x^2-1}{x+1}=x-1$. Logo $\\displaystyle\\int(x-1)\\,dx=\\dfrac{x^2}{2}-x+C$.",
+   "steps": [
+    "$\\dfrac{x^{2}-1}{x+1}=\\dfrac{(x-1)(x+1)}{x+1}=x-1$ (para $x\\neq-1$).",
+    "$\\int x\\,dx=\\dfrac{x^{2}}{2}$ e $\\int(-1)\\,dx=-x$.",
+    "Resultado: $\\dfrac{x^{2}}{2}-x+C$."
+   ],
+   "wrong": {
+    "b": "Erro de sinal: $x^2-1=(x-1)(x+1)$, então o quociente é $x-1$ e a primitiva leva $-x$.",
+    "c": "Integrar numerador e denominador separadamente não é válido: $\\int\\frac fg\\ne\\frac{\\int f}{\\int g}$.",
+    "d": "Essa é a *função já simplificada* (o integrando) e não a sua primitiva: falta integrar."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.203Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-029",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Identidades trigonométricas",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\tan^{2}x\\,dx$. Dica: use $1+\\tan^{2}x=\\sec^{2}x$ e lembre que $(\\tan x)'=\\sec^{2}x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\tan x+x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{\\tan^{3}x}{3}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\sec^{2}x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\tan x-x+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Pela identidade, $\\tan^2x=\\sec^2x-1$. Então $\\displaystyle\\int\\tan^2x\\,dx=\\int(\\sec^2x-1)\\,dx=\\tan x-x+C$. Conferindo: $(\\tan x-x)'=\\sec^2x-1=\\tan^2x$.",
+   "steps": [
+    "$\\tan^{2}x=\\sec^{2}x-1$.",
+    "$\\int\\sec^{2}x\\,dx=\\tan x$ e $\\int1\\,dx=x$.",
+    "Resultado: $\\tan x-x+C$."
+   ],
+   "wrong": {
+    "a": "Sinal trocado: $\\tan^2x=\\sec^2x-1$, então o termo $-1$ integra para $-x$.",
+    "b": "A regra da potência só vale para $\\int u^n\\,du$ com $du$ presente; derivando, $\\left(\\frac{\\tan^3x}{3}\\right)'=\\tan^2x\\sec^2x$.",
+    "c": "Derivando, $(\\sec^2x)'=2\\sec^2x\\tan x$, que não é $\\tan^2x$; $\\sec^2x$ é a derivada de $\\tan x$."
+   },
+   "commonMistakes": [
+    "Aplicar a regra da potência a $\\tan^2x$ como se fosse $x^2$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-030",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Identidades trigonométricas",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\sin^{2}x\\,dx$. Dica: use $\\sin^{2}x=\\dfrac{1-\\cos 2x}{2}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{\\sin^{3}x}{3}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x}{2}-\\dfrac{\\sin 2x}{4}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x}{2}+\\dfrac{\\sin 2x}{4}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{\\cos^{2}x}{2}+C$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\sin^2x=\\dfrac{1-\\cos2x}{2}$. Então $\\displaystyle\\int\\dfrac{1-\\cos2x}{2}dx=\\dfrac x2-\\dfrac12\\cdot\\dfrac{\\sin2x}{2}=\\dfrac x2-\\dfrac{\\sin2x}{4}+C$. Conferindo: $\\left(\\dfrac x2-\\dfrac{\\sin2x}{4}\\right)'=\\dfrac12-\\dfrac{\\cos2x}{2}=\\sin^2x$.",
+   "steps": [
+    "$\\sin^{2}x=\\dfrac12-\\dfrac{\\cos 2x}{2}$.",
+    "$\\int\\dfrac12dx=\\dfrac x2$.",
+    "$\\int\\dfrac{\\cos2x}{2}dx=\\dfrac{\\sin2x}{4}$ (fator $\\frac12$ da cadeia)."
+   ],
+   "wrong": {
+    "c": "O sinal do termo trigonométrico: $\\sin^2x=\\frac{1-\\cos2x}{2}$ traz $-\\frac{\\cos2x}{2}$, que integra para $-\\frac{\\sin2x}{4}$.",
+    "a": "Aplicar a regra da potência a $\\sin x$ ignora a derivada interna: $\\left(\\frac{\\sin^3x}{3}\\right)'=\\sin^2x\\cos x$.",
+    "d": "Derivando, $\\left(-\\frac{\\cos^2x}{2}\\right)'=\\sin x\\cos x$, que é $\\frac{\\sin2x}{2}$, e não $\\sin^2x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-031",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Segunda ordem com condições",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Uma função satisfaz $f''(x)=6x$, $f'(0)=1$ e $f(0)=2$. Qual é $f(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f(x)=x^{3}+x+2$"
+   },
+   {
+    "id": "b",
+    "text": "$f(x)=x^{3}+x$"
+   },
+   {
+    "id": "c",
+    "text": "$f(x)=3x^{2}+x+2$"
+   },
+   {
+    "id": "d",
+    "text": "$f(x)=x^{3}+2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Integre $f''$ para obter $f'$: $f'(x)=3x^2+C_1$; com $f'(0)=1$, $C_1=1$. Integre de novo: $f(x)=x^3+x+C_2$; com $f(0)=2$, $C_2=2$. Portanto $f(x)=x^3+x+2$.",
+   "steps": [
+    "$f'(x)=\\int6x\\,dx=3x^{2}+C_1$; $f'(0)=1\\Rightarrow C_1=1$.",
+    "$f(x)=\\int(3x^{2}+1)\\,dx=x^{3}+x+C_2$.",
+    "$f(0)=2\\Rightarrow C_2=2$."
+   ],
+   "wrong": {
+    "d": "Perdeu a condição de $f'(0)=1$: $f'(x)=3x^2+1$ e a segunda integral inclui o termo $x$.",
+    "c": "$3x^2$ é $f'$ sem a constante; falta integrar uma segunda vez para chegar em $f$.",
+    "b": "Falta a segunda constante: $f(0)=2$ exige o termo $+2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-032",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Primitiva por um ponto",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Dentre todas as primitivas de $f(x)=2x$, qual é a que passa pelo ponto $(1,\\,2)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$F(x)=x^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$F(x)=x^{2}+2$"
+   },
+   {
+    "id": "c",
+    "text": "$F(x)=x^{2}+1$"
+   },
+   {
+    "id": "d",
+    "text": "$F(x)=2x$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "As primitivas são $F(x)=x^2+C$. Impondo $F(1)=2$: $1+C=2$, então $C=1$. Logo $F(x)=x^2+1$.",
+   "steps": [
+    "$F(x)=\\int2x\\,dx=x^{2}+C$.",
+    "$F(1)=1+C=2$.",
+    "$C=1$."
+   ],
+   "wrong": {
+    "b": "Usou a ordenada $2$ como constante, mas $F(1)=1+2=3\\neq2$.",
+    "a": "$F(1)=1$, e não $2$: falta ajustar a constante.",
+    "d": "$2x$ é o próprio integrando, e não sua primitiva."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-033",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Operação inversa",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Sabe-se que $\\displaystyle\\int f(x)\\,dx=x^{3}+2x+C$. Qual é o valor de $f(0)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$3$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Se $F(x)=x^3+2x$ é primitiva de $f$, então $f=F'$: $f(x)=3x^2+2$. Logo $f(0)=2$. (Note: $F(0)=0$ é o valor da primitiva, não de $f$.)",
+   "steps": [
+    "$f(x)=F'(x)=3x^{2}+2$.",
+    "$f(0)=3\\cdot0+2=2$."
+   ],
+   "wrong": {
+    "c": "Confunde $f$ com a primitiva: $F(0)=0$, mas $f=F'$ e $f(0)=F'(0)=2$.",
+    "d": "O termo $3x^2$ de $f$ se anula em $x=0$; sobra apenas $2$.",
+    "b": "Nada na derivada de $x^3+2x$ produz o valor $1$ em $x=0$."
+   },
+   "commonMistakes": [
+    "Calcular $F(0)$ em vez de $F'(0)$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-034",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Reescrever raiz",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int\\sqrt{x^{3}}\\,dx$ para $x\\ge0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x^{5/2}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{3}{4}x^{4/3}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{2}{5}x^{5/2}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{3}{2}\\sqrt{x}+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$\\sqrt{x^3}=x^{3/2}$. Novo expoente: $\\frac32+1=\\frac52$. Então $\\displaystyle\\int x^{3/2}dx=\\dfrac{x^{5/2}}{5/2}=\\dfrac25x^{5/2}+C$.",
+   "steps": [
+    "$\\sqrt{x^{3}}=x^{3/2}$.",
+    "$\\dfrac{x^{3/2+1}}{3/2+1}=\\dfrac{x^{5/2}}{5/2}$.",
+    "$=\\dfrac25x^{5/2}$."
+   ],
+   "wrong": {
+    "a": "Falta dividir pelo novo expoente: $\\left(x^{5/2}\\right)'=\\frac52x^{3/2}$, e não $x^{3/2}$.",
+    "b": "Trata $\\sqrt{x^3}$ como $x^{1/3}$ (raiz cúbica); na verdade é $x^{3/2}$.",
+    "d": "Esse é o resultado de *derivar* $x^{3/2}$, e não de integrar."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-035",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Modelagem: aceleração → posição",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "A aceleração de um objeto é $a(t)=12t-6$. Em $t=0$ a velocidade é $v(0)=2$ e a posição é $s(0)=1$. Qual é a posição $s(t)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$s(t)=2t^{3}-3t^{2}+2t$"
+   },
+   {
+    "id": "b",
+    "text": "$s(t)=6t^{2}-6t+2$"
+   },
+   {
+    "id": "c",
+    "text": "$s(t)=2t^{3}-3t^{2}+2t+1$"
+   },
+   {
+    "id": "d",
+    "text": "$s(t)=2t^{3}-3t^{2}+t+1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Integre $a$ para obter $v$: $v(t)=6t^2-6t+C_1$ e, com $v(0)=2$, $C_1=2$. Integre $v$: $s(t)=2t^3-3t^2+2t+C_2$ e, com $s(0)=1$, $C_2=1$. Logo $s(t)=2t^3-3t^2+2t+1$.",
+   "steps": [
+    "$v(t)=\\int(12t-6)\\,dt=6t^{2}-6t+C_1$; $v(0)=2\\Rightarrow C_1=2$.",
+    "$s(t)=\\int(6t^{2}-6t+2)\\,dt=2t^{3}-3t^{2}+2t+C_2$.",
+    "$s(0)=1\\Rightarrow C_2=1$."
+   ],
+   "wrong": {
+    "b": "Essa é a velocidade $v(t)$; para a posição é preciso integrar mais uma vez.",
+    "a": "Falta a condição $s(0)=1$: nesta função $s(0)=0$.",
+    "d": "Usa $v(0)=1$ em vez de $v(0)=2$: o termo linear deve ser $2t$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-036",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Exponencial de outra base",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int3^{x}\\,dx$. Lembre que $\\dfrac{d}{dx}\\left(3^{x}\\right)=3^{x}\\ln 3$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{3^{x+1}}{x+1}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$3^{x}\\ln 3+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{3^{x}}{\\ln 3}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$3^{x}+C$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Como $(3^x)'=3^x\\ln3$, dividindo por $\\ln 3$ obtemos $\\left(\\dfrac{3^x}{\\ln3}\\right)'=3^x$. Portanto $\\displaystyle\\int3^xdx=\\dfrac{3^x}{\\ln3}+C$.",
+   "steps": [
+    "$\\left(3^{x}\\right)'=3^{x}\\ln 3$.",
+    "Divida por $\\ln3$: $\\left(\\dfrac{3^{x}}{\\ln3}\\right)'=3^{x}$.",
+    "$\\int3^{x}dx=\\dfrac{3^{x}}{\\ln 3}+C$."
+   ],
+   "wrong": {
+    "d": "Só vale para base $e$; para base $3$, derivar $3^x$ gera o fator $\\ln3$, que precisa ser compensado.",
+    "b": "Essa é a *derivada* de $3^x$; ao integrar o fator $\\ln 3$ divide.",
+    "a": "Essa é a regra da potência, válida para $x^n$ e não para $3^x$ (expoente variável)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de aˣ (generalização de eˣ)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-037",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Reescrever com expoentes",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, determine $\\displaystyle\\int\\frac{1+x}{\\sqrt{x}}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\sqrt{x}+\\dfrac{2}{3}x^{3/2}+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x+x^{2}/2}{2\\sqrt{x}}+C$"
+   },
+   {
+    "id": "c",
+    "text": "$2\\sqrt{x}+\\dfrac{3}{2}x^{3/2}+C$"
+   },
+   {
+    "id": "d",
+    "text": "$2\\sqrt{x}+\\dfrac{2}{3}x^{3/2}+C$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Separe: $\\dfrac{1+x}{\\sqrt x}=x^{-1/2}+x^{1/2}$. Então $\\displaystyle\\int x^{-1/2}dx=2\\sqrt x$ e $\\displaystyle\\int x^{1/2}dx=\\dfrac23x^{3/2}$. Resultado: $2\\sqrt x+\\dfrac23x^{3/2}+C$.",
+   "steps": [
+    "$\\dfrac{1+x}{\\sqrt{x}}=x^{-1/2}+x^{1/2}$.",
+    "$\\int x^{-1/2}dx=\\dfrac{x^{1/2}}{1/2}=2\\sqrt{x}$.",
+    "$\\int x^{1/2}dx=\\dfrac23x^{3/2}$."
+   ],
+   "wrong": {
+    "c": "Dividir por $\\frac32$ é multiplicar por $\\frac23$; o coeficiente de $x^{3/2}$ é $\\frac23$.",
+    "a": "$\\int x^{-1/2}dx=\\frac{x^{1/2}}{1/2}=2\\sqrt x$; faltou o fator $2$ do primeiro termo.",
+    "b": "Integrar numerador e denominador separadamente não é uma regra válida."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-038",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Quadrado da diferença",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, calcule $\\displaystyle\\int\\left(\\sqrt{x}-\\frac{1}{\\sqrt{x}}\\right)^{2}dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{2}}{2}-2x+\\ln x+C$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x^{2}}{2}-x+\\ln x+C$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x^{2}}{2}+2x+\\ln x+C$"
+   },
+   {
+    "id": "d",
+    "text": "$\\left(\\dfrac{2x^{3/2}}{3}-2\\sqrt{x}\\right)^{2}+C$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Expanda: $\\left(\\sqrt x-\\dfrac1{\\sqrt x}\\right)^2=x-2+\\dfrac1x$. Integrando: $\\dfrac{x^2}{2}-2x+\\ln x+C$.",
+   "steps": [
+    "$(a-b)^{2}=a^{2}-2ab+b^{2}$ com $a=\\sqrt x$ e $b=\\frac1{\\sqrt x}$.",
+    "$=x-2+\\dfrac1x$.",
+    "$\\int\\left(x-2+\\tfrac1x\\right)dx=\\dfrac{x^{2}}{2}-2x+\\ln x$."
+   ],
+   "wrong": {
+    "c": "O termo cruzado de $(a-b)^2$ é $-2ab$; aqui $-2\\sqrt x\\cdot\\frac1{\\sqrt x}=-2$, que integra para $-2x$.",
+    "b": "O termo cruzado vale $-2$ (não $-1$), então a integral é $-2x$.",
+    "d": "Não se eleva ao quadrado a primitiva: é preciso primeiro expandir o quadrado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-primitivas-039",
+  "disciplineId": "calculo2",
+  "topicId": "primitivas",
+  "subtopic": "Domínio",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Considere $f(x)=\\dfrac{1}{x}$ no intervalo $x<0$. Qual das funções abaixo é uma primitiva de $f$ nesse intervalo (em todo ponto onde está definida)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$F(x)=-\\ln|x|$"
+   },
+   {
+    "id": "b",
+    "text": "$F(x)=\\ln x$"
+   },
+   {
+    "id": "c",
+    "text": "$F(x)=\\dfrac{(\\ln|x|)^{2}}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$F(x)=\\ln|x|$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Para $x<0$, $|x|=-x$ e $\\dfrac{d}{dx}\\ln|x|=\\dfrac{d}{dx}\\ln(-x)=\\dfrac{-1}{-x}=\\dfrac1x$. Por isso a primitiva de $\\dfrac1x$ é $\\ln|x|+C$, que vale para $x>0$ e para $x<0$ (em cada intervalo, com sua própria constante). $\\ln x$ não é real para $x<0$.",
+   "steps": [
+    "Para $x<0$: $|x|=-x$.",
+    "$\\dfrac{d}{dx}\\ln(-x)=\\dfrac{1}{-x}\\cdot(-1)=\\dfrac1x$.",
+    "Logo $\\ln|x|$ é primitiva de $\\frac1x$ em $x<0$."
+   ],
+   "wrong": {
+    "b": "$\\ln x$ só está definido para $x>0$; no intervalo $x<0$ ela não existe como função real.",
+    "a": "$\\left(-\\ln|x|\\right)'=-\\frac1x$, o oposto de $f$.",
+    "c": "Derivando, $\\left(\\frac{(\\ln|x|)^2}{2}\\right)'=\\frac{\\ln|x|}{x}$, que não é $\\frac1x$."
+   },
+   "commonMistakes": [
+    "Escrever $\\ln x$ em vez de $\\ln|x|$ ao integrar $\\frac1x$ sem restringir o domínio."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático, item 3 (antiderivadas, propriedades operatórias, integrais imediatas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x, x > 0",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:15:24.204Z",
+  "updatedAt": "2026-10-22T23:15:44.106Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
  }
 ]

@@ -5,13 +5,13 @@ Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-22T22:44:23.260Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-22T23:15:51.309Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
-**Total aprovado: 45 de 600** (faltam 555).
+**Total aprovado: 84 de 600** (faltam 516).
 
 | Disciplina | Fácil | Média | Difícil | Total |
 |---|---:|---:|---:|---:|
-| Cálculo II | 15/100 | 15/100 | 15/100 | 45/300 |
+| Cálculo II | 28/100 | 28/100 | 28/100 | 84/300 |
 | Desenvolvimento Web Full Stack | 0/100 | 0/100 | 0/100 | 0/300 |
 
 #### Cálculo II — por assunto
@@ -22,7 +22,7 @@ _Gerado automaticamente em 2026-10-22T22:44:23.260Z por `npm run progress`. Só 
 | Linearização, Taylor e Maclaurin | 0/7 | 0/7 | 0/7 | 0/21 | não |
 | Máximos, mínimos, concavidade e inflexão | 0/9 | 0/9 | 0/9 | 0/27 | não |
 | Regra de L'Hôpital ★ | 15/15 | 15/15 | 15/15 | 45/45 | sim |
-| Antiderivadas e integrais indefinidas ★ | 0/13 | 0/13 | 0/13 | 0/39 | não |
+| Antiderivadas e integrais indefinidas ★ | 13/13 | 13/13 | 13/13 | 39/39 | sim |
 | Integração por substituição ★ | 0/13 | 0/13 | 0/13 | 0/39 | não |
 | Integral definida, Riemann, TFC e áreas ★ | 0/13 | 0/13 | 0/14 | 0/40 | não |
 | Funções de várias variáveis | 0/5 | 0/5 | 0/5 | 0/15 | não |
@@ -30,7 +30,7 @@ _Gerado automaticamente em 2026-10-22T22:44:23.260Z por `npm run progress`. Só 
 | Integrais duplas | 0/6 | 0/6 | 0/6 | 0/18 | não |
 | Otimização com e sem restrições | 0/6 | 0/6 | 0/6 | 0/18 | não |
 
-Fluxo editorial (todas as questões da disciplina): aprovadas 45 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
+Fluxo editorial (todas as questões da disciplina): aprovadas 84 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
 
 #### Desenvolvimento Web Full Stack — por assunto
 
@@ -54,8 +54,8 @@ Fluxo editorial (todas as questões da disciplina): aprovadas 0 · verificadas a
 
 ★ = assunto cobrado na prova de 26/10/2026.
 
-Verificação das aprovadas: 3 por `source-review` · 2 por `sympy+mpmath (forma)` · 35 por `sympy+mpmath` · 3 por `sympy+mpmath (por alternativa)` · 2 por `sympy+independente`.
-Revisão das aprovadas: 45 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
+Verificação das aprovadas: 5 por `source-review` · 2 por `sympy+mpmath (forma)` · 35 por `sympy+mpmath` · 3 por `sympy+mpmath (por alternativa)` · 3 por `sympy+independente` · 31 por `sympy+mpmath.diff` · 5 por `sympy+amostragem`.
+Revisão das aprovadas: 84 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
 <!-- CONTAGENS:FIM -->
 
 ## Estado por etapa (implementado × testado × planejado)

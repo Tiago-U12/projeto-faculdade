@@ -24,7 +24,8 @@ mp.mp.dps = 250
 resource.setrlimit(resource.RLIMIT_CPU, (50, 55))
 resource.setrlimit(resource.RLIMIT_AS, (3 * 1024**3, 3 * 1024**3))
 
-X, Y, Z, T, U, A, B, C, K, N, H, LAM = sp.symbols('x y z t u a b c k n h lambda_')
+X, Y, Z, T, U, A, B, C, K, N, H = sp.symbols('x y z t u a b c k n h', real=True)
+LAM = sp.Symbol('lambda_', real=True)
 SYMBOLS = {s.name: s for s in (X, Y, Z, T, U, A, B, C, K, N, H)}
 SYMBOLS['lam'] = LAM
 
@@ -475,20 +476,24 @@ def run(task):
         # candidatos F: cada um é primitiva de expr se F' == expr (a constante C é irrelevante)
         expr, var = parse(p['expr']), parse(p.get('var', 'x'))
         sym = sp.integrate(expr, var)
+        pts = [parse(q) for q in p['points']] if p.get('points') else None
         matches = []
         for oid, text in options.items():
             try:
                 F = parse(text)
                 dF = sp.diff(F, var)
-                if same_function(dF, expr, var):
+                if same_function(dF, expr, var, points=pts):
                     matches.append(oid)
             except Exception:
                 pass
+        if p.get('invert'):  # "qual NÃO é primitiva": a resposta é a única alternativa que falha
+            matches = [oid for oid in options if oid not in matches]
         ok_num = True
-        for oid in matches:  # checagem numérica independente: diferença finita de F
+        prim_ids = [oid for oid in options if (oid not in matches)] if p.get('invert') else matches
+        for oid in prim_ids:  # checagem numérica independente: diferença finita de F
             Ff = sp.lambdify(var, parse(options[oid]), modules='mpmath')
             ef = sp.lambdify(var, expr, modules='mpmath')
-            for pt in SAMPLE_POINTS[:4]:
+            for pt in (pts or SAMPLE_POINTS)[:4]:
                 x0 = mp.mpf(str(sp.N(pt, 40)))
                 try:
                     ok_num &= abs(mp.diff(Ff, x0) - ef(x0)) < 1e-8 * max(1, abs(ef(x0)))

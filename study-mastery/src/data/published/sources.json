@@ -19,5 +19,17 @@
   "kind": "aula-pdf",
   "author": "Profa. Paula Astorino",
   "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-derivadas-tabela",
+  "title": "Aula 0-1 — Tabela de Derivadas",
+  "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-programa",
+  "title": "TOP Cálculo II CCOMP (ementa, conteúdo programático e bibliografia)",
+  "kind": "programa",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
  }
 ]
