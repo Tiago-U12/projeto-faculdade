@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "fs-001",
+    "disciplina": "fullstack",
+    "topic": "HTML Semântico",
+    "stem": "Qual tag HTML5 deve ser usada para agrupar o conteúdo principal e exclusivo de uma página?",
+    "options": [
+      "<section>",
+      "<main>",
+      "<article>",
+      "<div>"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise as tags semânticas do HTML5, focando na finalidade da tag <main>.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-002",
+    "disciplina": "fullstack",
+    "topic": "HTML Semântico",
+    "stem": "Qual é a principal vantagem de usar tags semânticas ao invés de uma 'sopa de divs'?",
+    "options": [
+      "O código renderiza mais rápido",
+      "Melhora a acessibilidade e o SEO",
+      "Aplica estilos CSS automaticamente",
+      "Reduz o tamanho do arquivo HTML"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude o impacto do HTML semântico na acessibilidade (leitores de tela) e SEO (motores de busca).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-003",
+    "disciplina": "fullstack",
+    "topic": "HTML Semântico",
+    "stem": "Qual tag é mais apropriada para um conteúdo independente e autocontido, como um post de blog ou o card de um lugar?",
+    "options": [
+      "<section>",
+      "<div>",
+      "<article>",
+      "<aside>"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise a diferença entre <article> (conteúdo independente) e <section> (agrupamento temático).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-004",
+    "disciplina": "fullstack",
+    "topic": "HTML Semântico",
+    "stem": "Para que serve a tag <aside> no HTML5?",
+    "options": [
+      "Para rodapés de página",
+      "Para menus de navegação principais",
+      "Para conteúdo tangencial ou lateral (como resumos ou barras laterais)",
+      "Para destacar textos em negrito"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude a tag <aside> e como ela se relaciona com o conteúdo principal da página.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-005",
+    "disciplina": "fullstack",
+    "topic": "CSS Flexbox/Grid",
+    "stem": "No Flexbox, qual propriedade permite que os itens quebrem para a próxima linha quando não há espaço suficiente?",
+    "options": [
+      "flex-direction",
+      "flex-wrap",
+      "align-items",
+      "justify-content"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise a propriedade 'flex-wrap' do CSS Flexbox e seus valores (nowrap, wrap, wrap-reverse).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-006",
+    "disciplina": "fullstack",
+    "topic": "CSS Flexbox/Grid",
+    "stem": "O que a propriedade 'gap' faz em um container Flexbox ou Grid?",
+    "options": [
+      "Define a margem externa do container",
+      "Define o espaçamento interno (padding) do container",
+      "Define o espaçamento consistente entre os itens filhos",
+      "Define a largura máxima dos itens filhos"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude como o 'gap' simplifica o espaçamento entre elementos filhos sem usar margens complexas.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-007",
+    "disciplina": "fullstack",
+    "topic": "CSS Flexbox/Grid",
+    "stem": "O que significa a abordagem 'mobile-first' no CSS?",
+    "options": [
+      "Escrever CSS apenas para celulares",
+      "Usar @media (max-width) para telas menores",
+      "Começar o estilo padrão para telas pequenas e usar @media (min-width) para adicionar complexidade em telas maiores",
+      "Fazer o design no celular antes do computador"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise a estratégia 'mobile-first' e o uso de Media Queries com 'min-width'.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-008",
+    "disciplina": "fullstack",
+    "topic": "CSS Flexbox/Grid",
+    "stem": "Em CSS Grid, como definimos uma estrutura de duas colunas, sendo a primeira o dobro do tamanho da segunda?",
+    "options": [
+      "grid-template-columns: 2fr 1fr;",
+      "grid-template-columns: 66% 33%;",
+      "grid-template-columns: 200px 100px;",
+      "grid-template-columns: 2vw 1vw;"
+    ],
+    "correctIndex": 0,
+    "explanation": "Estude a unidade 'fr' (fraction) do CSS Grid para criar layouts proporcionais fluidos.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-009",
+    "disciplina": "fullstack",
+    "topic": "CSS Flexbox/Grid",
+    "stem": "Para centralizar um item horizontalmente e verticalmente em um container flexível com altura definida, quais propriedades usamos no container?",
+    "options": [
+      "align-content: center; justify-items: center;",
+      "display: flex; justify-content: center; align-items: center;",
+      "margin: auto;",
+      "text-align: center; vertical-align: middle;"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise o alinhamento de itens no eixo principal e transversal do Flexbox.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-010",
+    "disciplina": "fullstack",
+    "topic": "JS Funções",
+    "stem": "O que caracteriza uma 'função pura' em JavaScript?",
+    "options": [
+      "Ela sempre altera o DOM diretamente",
+      "Ela não recebe parâmetros",
+      "Dado o mesmo input, sempre retorna o mesmo output e não tem efeitos colaterais",
+      "Ela só pode ser escrita usando Arrow Functions"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude o conceito de funções puras e efeitos colaterais (side-effects) em programação funcional.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-011",
+    "disciplina": "fullstack",
+    "topic": "JS Funções",
+    "stem": "Qual método de array é ideal para calcular um valor único a partir de uma lista, como a soma de notas?",
+    "options": [
+      "map()",
+      "filter()",
+      "forEach()",
+      "reduce()"
+    ],
+    "correctIndex": 3,
+    "explanation": "Revise o método Array.prototype.reduce() e como usá-lo com um valor inicial.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-012",
+    "disciplina": "fullstack",
+    "topic": "JS Funções",
+    "stem": "O que acontece se você chamar um reduce() em um array vazio sem passar um 'initialValue'?",
+    "options": [
+      "Retorna 0",
+      "Retorna undefined",
+      "Lança um TypeError",
+      "Retorna null"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude os casos de borda do método reduce(), sempre lembrando de fornecer um initialValue (ex: 0).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-013",
+    "disciplina": "fullstack",
+    "topic": "JS Funções",
+    "stem": "Qual método cria um NOVO array contendo apenas os elementos que passam em um teste específico?",
+    "options": [
+      "map()",
+      "filter()",
+      "find()",
+      "slice()"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise a diferença entre filter() (retorna array) e find() (retorna o primeiro elemento).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-014",
+    "disciplina": "fullstack",
+    "topic": "JS Funções",
+    "stem": "Para não modificar um array original ao ordená-lo, o que devemos fazer antes de chamar sort()?",
+    "options": [
+      "Chamar reverse()",
+      "Usar Object.freeze()",
+      "Fazer uma cópia do array (ex: [...array] ou array.slice())",
+      "Passar 'true' como parâmetro no sort()"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude a imutabilidade no JavaScript e como métodos como sort() e reverse() mutam o array original.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-015",
+    "disciplina": "fullstack",
+    "topic": "Fetch API",
+    "stem": "Ao usar a Fetch API, o que 'resposta.ok' indica?",
+    "options": [
+      "Que o JSON foi parseado com sucesso",
+      "Que a requisição teve um status HTTP na faixa 200-299",
+      "Que a URL existe",
+      "Que a conexão com a internet está ativa"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude as propriedades do objeto Response na Fetch API, especialmente 'ok' e 'status'.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-016",
+    "disciplina": "fullstack",
+    "topic": "Fetch API",
+    "stem": "O fetch() rejeita a Promise automaticamente se a API retornar um erro 404 ou 500?",
+    "options": [
+      "Sim, a Promise cai no bloco catch",
+      "Não, a Promise resolve normalmente e devemos checar resposta.ok",
+      "Sim, mas apenas para erros 500",
+      "Depende da configuração de CORS"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise como o fetch() lida com erros HTTP. Ele só rejeita em falhas de rede reais.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-017",
+    "disciplina": "fullstack",
+    "topic": "Fetch API",
+    "stem": "Para transformar a resposta de um fetch em um objeto JavaScript utilizável, qual método usamos?",
+    "options": [
+      "JSON.parse(resposta)",
+      "resposta.text()",
+      "resposta.json()",
+      "resposta.toObject()"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude o método .json() do objeto Response, lembrando que ele também retorna uma Promise.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-018",
+    "disciplina": "fullstack",
+    "topic": "Fetch API",
+    "stem": "Qual palavra-chave usamos para esperar a resolução de uma Promise dentro de uma função?",
+    "options": [
+      "wait",
+      "yield",
+      "defer",
+      "await"
+    ],
+    "correctIndex": 3,
+    "explanation": "Revise a sintaxe async/await para lidar com código assíncrono de forma procedural.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-019",
+    "disciplina": "fullstack",
+    "topic": "Classes JS e Erros",
+    "stem": "Ao criar uma classe de Erro customizada (ex: class ErroValidacao extends Error), o que DEVE ser chamado na primeira linha do construtor?",
+    "options": [
+      "this.name = 'ErroValidacao'",
+      "super()",
+      "throw new Error()",
+      "this.message = message"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude herança de classes no JS. A função super() chama o construtor da classe pai.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-020",
+    "disciplina": "fullstack",
+    "topic": "Classes JS e Erros",
+    "stem": "Qual operador nos diz se um objeto foi instanciado a partir de uma classe específica?",
+    "options": [
+      "typeof",
+      "is",
+      "instanceof",
+      "hasOwnProperty"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise o operador 'instanceof', muito útil para checar tipos de erros em blocos catch.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-021",
+    "disciplina": "fullstack",
+    "topic": "Classes JS e Erros",
+    "stem": "Qual o propósito principal de se criar um ErroValidacao customizado?",
+    "options": [
+      "Melhorar a performance da aplicação",
+      "Permitir anexar dados extras (como o nome do campo com erro) além da mensagem",
+      "Esconder a stack trace do erro",
+      "Evitar o uso de blocos try/catch"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude a criação de classes de Erro ricas para carregar meta-dados úteis para o front-end.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-022",
+    "disciplina": "fullstack",
+    "topic": "Classes JS e Erros",
+    "stem": "Como disparamos manualmente uma exceção no código JavaScript?",
+    "options": [
+      "raise new Error()",
+      "throw new Error()",
+      "return new Error()",
+      "catch new Error()"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise a palavra-chave 'throw' para lançar exceções na execução do programa.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-023",
+    "disciplina": "fullstack",
+    "topic": "React Componentes",
+    "stem": "Em React, o que são 'Dumb Components' (ou componentes puramente de apresentação)?",
+    "options": [
+      "Componentes que não têm estilo CSS",
+      "Componentes que recebem dados via props e apenas renderizam a UI, sem gerenciar estado ou requisições",
+      "Componentes que não usam JSX",
+      "Componentes deprecados do React 15"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude o padrão de componentes de apresentação x componentes lógicos (containers).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-024",
+    "disciplina": "fullstack",
+    "topic": "React Componentes",
+    "stem": "Ao renderizar uma lista de elementos com o método .map() em JSX, o que o React exige que cada elemento possua?",
+    "options": [
+      "Uma classe CSS",
+      "Um id numérico estrito",
+      "Uma prop 'key' única entre os irmãos",
+      "Um evento onClick"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise o conceito de 'keys' no React e por que elas são vitais para o algoritmo de reconciliação.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-025",
+    "disciplina": "fullstack",
+    "topic": "React Componentes",
+    "stem": "Como um componente React filho se comunica com o componente pai?",
+    "options": [
+      "Alterando as props diretamente",
+      "Usando document.getElementById()",
+      "Chamando uma função de callback passada pelo pai via props",
+      "Usando localStorage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude o fluxo de dados unidirecional do React e a elevação de estado (lifting state up).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-026",
+    "disciplina": "fullstack",
+    "topic": "React Componentes",
+    "stem": "Por que não devemos evitar explodir um objeto em vários props soltos quando o componente precisa de todos eles (ex: <LugarCard lugar={lugar} />)?",
+    "options": [
+      "Porque é proibido pelo React",
+      "Para manter o código mais limpo e agrupar dados fortemente relacionados",
+      "Porque gasta mais memória",
+      "Porque quebra o CSS"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude boas práticas de passagem de props. Passar o objeto inteiro faz sentido se o componente usa a maioria dos campos.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-027",
+    "disciplina": "fullstack",
+    "topic": "React useEffect",
+    "stem": "Se o array de dependências de um useEffect for deixado VAZIO ([]), quando a função de efeito será executada?",
+    "options": [
+      "Em todas as renderizações",
+      "Nunca será executada",
+      "Apenas uma vez, logo após a montagem inicial do componente",
+      "Sempre que qualquer estado mudar"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise as regras do array de dependências do useEffect, focando no efeito de montagem [].",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-028",
+    "disciplina": "fullstack",
+    "topic": "React Forms",
+    "stem": "O que é um formulário 'controlado' no React?",
+    "options": [
+      "Um formulário protegido por senha",
+      "Um formulário onde os valores dos inputs são controlados pelo estado (state) do React",
+      "Um formulário gerado automaticamente",
+      "Um formulário que não aceita inputs de teclado"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude componentes controlados. Lembre-se: o React é a 'fonte da verdade' via propriedade 'value'.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-029",
+    "disciplina": "fullstack",
+    "topic": "React Forms",
+    "stem": "Qual método devemos chamar no evento de submissão (onSubmit) de um form para evitar que a página recarregue?",
+    "options": [
+      "evento.stop()",
+      "evento.stopPropagation()",
+      "evento.preventDefault()",
+      "evento.halt()"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise a manipulação de eventos nativos, especificamente o 'preventDefault()' em formulários.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-030",
+    "disciplina": "fullstack",
+    "topic": "React useEffect",
+    "stem": "Como fazemos a 'limpeza' (cleanup) de um efeito, útil para cancelar requests ou limpar timers?",
+    "options": [
+      "Passando um segundo array",
+      "Retornando uma função a partir da função de efeito",
+      "Usando useCleanup()",
+      "Não é possível fazer isso"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude a função de retorno (cleanup function) do useEffect para evitar vazamentos de memória (memory leaks).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-031",
+    "disciplina": "fullstack",
+    "topic": "React Forms",
+    "stem": "Como atualizamos o estado de um input text controlado toda vez que o usuário digita?",
+    "options": [
+      "Com ref.current.value",
+      "No evento onChange, usando evento.target.value",
+      "No evento onKeyPress",
+      "No useEffect"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise a união das propriedades 'value' e 'onChange' para criar formulários controlados.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-032",
+    "disciplina": "fullstack",
+    "topic": "React Router",
+    "stem": "Qual componente do React Router usamos para criar links entre rotas sem recarregar a página?",
+    "options": [
+      "<a href>",
+      "<Navigate>",
+      "<Link to>",
+      "<RouterLink>"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude o componente <Link> do React Router DOM e como ele previne o recarregamento total da página (SPA).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-033",
+    "disciplina": "fullstack",
+    "topic": "React Router",
+    "stem": "Como lemos o parâmetro dinâmico de uma rota como '/lugares/:id' dentro de um componente?",
+    "options": [
+      "window.location.id",
+      "useParams()",
+      "useRouteMatch()",
+      "req.params.id"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise o hook useParams() para acessar dados dinâmicos das URLs em seus componentes.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-034",
+    "disciplina": "fullstack",
+    "topic": "React Router",
+    "stem": "O que o caminho (path) '*' representa no React Router?",
+    "options": [
+      "A página inicial",
+      "Todas as rotas autenticadas",
+      "Uma rota 'coringa' (catch-all), geralmente usada para páginas 404",
+      "Erro 500 do servidor"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude rotas coringas no React Router para lidar com URLs inexistentes de forma amigável.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-035",
+    "disciplina": "fullstack",
+    "topic": "React Router",
+    "stem": "Se quisermos que o <Cabecalho /> apareça em TODAS as rotas, onde devemos colocá-lo?",
+    "options": [
+      "Dentro de cada componente de página",
+      "Fora do componente <Routes>, mas dentro do <BrowserRouter>",
+      "No index.html",
+      "Dentro de uma tag <Route> exclusiva"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise a estrutura de layout do React Router. Elementos fixos ficam fora de <Routes>.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-036",
+    "disciplina": "fullstack",
+    "topic": "Express",
+    "stem": "Para que o Express consiga interpretar corpos de requisições no formato JSON, qual middleware nativo devemos usar?",
+    "options": [
+      "app.use(json.parser)",
+      "app.use(express.json())",
+      "app.set('json', true)",
+      "app.json()"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude middlewares globais no Express. O 'express.json()' é vital para rotas POST e PUT/PATCH.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-037",
+    "disciplina": "fullstack",
+    "topic": "Express",
+    "stem": "Como acessamos parâmetros de rota (ex: /lugares/:id) em um handler do Express?",
+    "options": [
+      "req.body.id",
+      "req.query.id",
+      "req.params.id",
+      "res.locals.id"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise as partes do objeto 'req': req.body (corpo), req.query (URL query string) e req.params (parâmetros de rota).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-038",
+    "disciplina": "fullstack",
+    "topic": "Express",
+    "stem": "Se quisermos retornar o status 201 (Created) com um JSON, qual a sintaxe correta no Express?",
+    "options": [
+      "res.status(201).json(dados)",
+      "res.send(201, dados)",
+      "res.json(dados, 201)",
+      "return 201"
+    ],
+    "correctIndex": 0,
+    "explanation": "Estude o encadeamento de métodos no objeto de resposta (res) do Express.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-039",
+    "disciplina": "fullstack",
+    "topic": "Express",
+    "stem": "Qual a porta padrão utilizada localmente neste curso para rodar a API Express?",
+    "options": [
+      "8080",
+      "5173",
+      "3000",
+      "3333"
+    ],
+    "correctIndex": 3,
+    "explanation": "Familiarize-se com as portas. Vite usa 5173 e nosso Node costuma rodar na 3333 ou 3000.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-040",
+    "disciplina": "fullstack",
+    "topic": "MySQL",
+    "stem": "No Node.js (mysql2/promise), por que devemos usar '?' (placeholders) em nossas queries SQL ao invés de concatenar strings?",
+    "options": [
+      "Para deixar o código mais curto",
+      "Para evitar ataques de SQL Injection",
+      "Para melhorar a velocidade do banco",
+      "Porque strings concatenadas quebram o driver"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude o perigo gravíssimo do SQL Injection e como placeholders parametrizados resolvem esse problema.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-041",
+    "disciplina": "fullstack",
+    "topic": "MySQL",
+    "stem": "Qual cláusula no SQL garante que se um registro for apagado, seus registros dependentes também sejam?",
+    "options": [
+      "DELETE CASCADE",
+      "DROP RELATIONS",
+      "ON DELETE CASCADE",
+      "REMOVE CHILDREN"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise a definição de Foreign Keys (Chaves Estrangeiras) e as constraints de deleção em bancos relacionais.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-042",
+    "disciplina": "fullstack",
+    "topic": "MySQL",
+    "stem": "O que é um Connection Pool (pool.query) no contexto de banco de dados?",
+    "options": [
+      "Um conjunto de tabelas temporárias",
+      "Um cache de resultados",
+      "Uma reserva de conexões abertas reutilizáveis, evitando o custo de conectar e desconectar a todo momento",
+      "Um banco de dados em memória RAM"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude como os Connection Pools otimizam a performance de aplicações web conectadas a banco de dados.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-043",
+    "disciplina": "fullstack",
+    "topic": "MySQL",
+    "stem": "Ao fazer um INSERT com AUTO_INCREMENT via mysql2, como acessamos o ID gerado para o novo registro?",
+    "options": [
+      "resultado.newId",
+      "resultado.insertId",
+      "resultado[0].id",
+      "Fazendo um novo SELECT MAX(id)"
+    ],
+    "correctIndex": 1,
+    "explanation": "Revise o objeto de resposta de queries de modificação (INSERT/UPDATE/DELETE) na biblioteca mysql2.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-044",
+    "disciplina": "fullstack",
+    "topic": "JWT",
+    "stem": "O que o bcrypt faz e por que é irreversível?",
+    "options": [
+      "Ele criptografa a senha para descriptografar depois",
+      "Ele cria um Hash da senha utilizando um algoritmo de mão única (one-way)",
+      "Ele converte a senha em Base64",
+      "Ele checa a complexidade da senha"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude a diferença entre Criptografia (mão dupla) e Hashing (mão única). Senhas devem ser sempre 'hasheadas'.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-045",
+    "disciplina": "fullstack",
+    "topic": "JWT",
+    "stem": "Qual formato de cabeçalho (header) é o padrão para enviar um token JWT do cliente para a API?",
+    "options": [
+      "Token: <jwt>",
+      "Authorization: Bearer <jwt>",
+      "X-Auth: <jwt>",
+      "Cookie: jwt=<jwt>"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude os padrões HTTP, especificamente o esquema 'Bearer' no header 'Authorization'.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-046",
+    "disciplina": "fullstack",
+    "topic": "JWT",
+    "stem": "Um token JWT assinado esconde os dados de quem o lê (payload criptografado)?",
+    "options": [
+      "Sim, apenas o servidor consegue ler o conteúdo",
+      "Não, o conteúdo (payload) é apenas codificado em Base64 e pode ser lido por qualquer um. Apenas a assinatura é secreta",
+      "Sim, requer uma chave RSA para abrir",
+      "Depende do navegador"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cuidado com o payload do JWT! Não coloque informações sensíveis lá, apenas identificadores (id, email).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-047",
+    "disciplina": "fullstack",
+    "topic": "JWT",
+    "stem": "Como validamos se um token JWT foi alterado ou expirou no back-end?",
+    "options": [
+      "Comparando com o banco de dados",
+      "Através da função jwt.verify(), passando o segredo (JWT_SECRET)",
+      "Verificando o tamanho da string",
+      "Decodificando em Base64 e checando a data"
+    ],
+    "correctIndex": 1,
+    "explanation": "Estude como o jwt.verify valida a assinatura criptográfica e as claims (como 'exp' - expiração).",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-048",
+    "disciplina": "fullstack",
+    "topic": "Error Handlers",
+    "stem": "Qual é a assinatura de parâmetros obrigatória para que o Express reconheça um middleware como 'Tratador de Erros'?",
+    "options": [
+      "(req, res, next)",
+      "(erro, req, res)",
+      "(erro, req, res, next)",
+      "(req, res, erro, next)"
+    ],
+    "correctIndex": 2,
+    "explanation": "Revise middlewares de erro no Express. Ter exatos 4 parâmetros é a regra mágica para ativá-los.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-049",
+    "disciplina": "fullstack",
+    "topic": "Error Handlers",
+    "stem": "A partir do Express 5, o que acontece se uma Promise for rejeitada dentro de uma rota assíncrona?",
+    "options": [
+      "O aplicativo trava",
+      "O Express ignora silenciosamente",
+      "O Express encaminha a rejeição automaticamente para o Error Handler",
+      "É obrigatório usar try/catch e chamar next(erro)"
+    ],
+    "correctIndex": 2,
+    "explanation": "Estude a grande vantagem do Express 5: o roteamento nativo de rejeições de Promises.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  },
+  {
+    "id": "fs-050",
+    "disciplina": "fullstack",
+    "topic": "Error Handlers",
+    "stem": "Por que centralizar o tratamento de erros em um middleware (Error Handler) é uma boa prática?",
+    "options": [
+      "Porque reduz duplicação de código (res.status.json) e garante um formato de resposta consistente para toda a API",
+      "Para deixar o código mais lento, priorizando segurança",
+      "Para forçar todas as rotas a retornarem status 200",
+      "Porque o Node não aceita try/catch nas rotas"
+    ],
+    "correctIndex": 0,
+    "explanation": "Estude arquitetura de APIs. Error handlers garantem que nunca vazemos stack traces para o usuário.",
+    "difficulty": "intermediario",
+    "scope": "aula",
+    "status": "needs-review",
+    "sourceRefs": [
+      "legado-fullstack-v01"
+    ]
+  }
+]

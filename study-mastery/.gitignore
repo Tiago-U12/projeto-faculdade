@@ -1,0 +1,9 @@
+node_modules
+dist
+*.log
+materiais/
+content/extracted/
+content/.cache/
+.env
+.env.*
+__pycache__/
