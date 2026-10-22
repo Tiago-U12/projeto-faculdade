@@ -38,7 +38,7 @@ FUNCS = {
     'expand': sp.expand, 'factor': sp.factor, 'Matrix': sp.Matrix, 'hessian': sp.hessian, 'Tuple': sp.Tuple, 'Sum': sp.Sum,
     'summation': sp.summation, 'sign': sp.sign, 'floor': sp.floor, 'ceiling': sp.ceiling, 'Max': sp.Max, 'Min': sp.Min,
     'Eq': sp.Eq, 'atan2': sp.atan2, 'det': sp.det, 'Symbol': sp.Symbol, 'symbols': sp.symbols,
-    'FiniteSet': sp.FiniteSet, 'str': str, 'round': round, 'len': len, 'sorted': sorted, 'list': list, 'tuple': tuple, 'set': set, 'float': float, 'int': int,
+    'FiniteSet': sp.FiniteSet, 'str': str, 'round': round, 'sum': sum, 'range': range, 'len': len, 'sorted': sorted, 'list': list, 'tuple': tuple, 'set': set, 'float': float, 'int': int,
     'subs': lambda e, *a: e.subs(*a),
 }
 CONSTS = {'pi': pi, 'E': E, 'e': E, 'oo': oo, 'inf': oo, 'I': sp.I, 'zoo': zoo, 'nan': nan, 'True': True, 'False': False}
