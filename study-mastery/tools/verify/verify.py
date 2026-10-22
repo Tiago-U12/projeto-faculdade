@@ -37,7 +37,7 @@ FUNCS = {
     'expand': sp.expand, 'factor': sp.factor, 'Matrix': sp.Matrix, 'hessian': sp.hessian, 'Tuple': sp.Tuple, 'Sum': sp.Sum,
     'summation': sp.summation, 'sign': sp.sign, 'floor': sp.floor, 'ceiling': sp.ceiling, 'Max': sp.Max, 'Min': sp.Min,
     'Eq': sp.Eq, 'atan2': sp.atan2, 'det': sp.det, 'Symbol': sp.Symbol, 'symbols': sp.symbols,
-    'FiniteSet': sp.FiniteSet, 'len': len, 'sorted': sorted, 'list': list, 'tuple': tuple, 'set': set, 'float': float, 'int': int,
+    'FiniteSet': sp.FiniteSet, 'str': str, 'round': round, 'len': len, 'sorted': sorted, 'list': list, 'tuple': tuple, 'set': set, 'float': float, 'int': int,
     'subs': lambda e, *a: e.subs(*a),
 }
 CONSTS = {'pi': pi, 'E': E, 'e': E, 'oo': oo, 'inf': oo, 'I': sp.I, 'zoo': zoo, 'nan': nan, 'True': True, 'False': False}
@@ -171,22 +171,27 @@ def mp_eval(expr, var, x):
 
 
 def numeric_limit(expr, var, at, direction):
-    """Estimativa numérica independente do SymPy (mpmath, 250 dígitos): sequências que se aproximam do ponto."""
-    ks = (6, 12, 24, 48, 96) if at in (oo, -oo) else (6, 9, 12, 16, 20)
+    """Estimativa numérica independente do SymPy (mpmath, 250 dígitos): sequências que se aproximam do ponto.
+    No infinito usa x até 1e96; se a expressão estourar (ex.: exp(1e96)), recua para x até 1e6."""
+    sequences = [(6, 12, 24, 48, 96), (1, 2, 3, 4, 5, 6)] if at in (oo, -oo) else [(6, 9, 12, 16, 20)]
     results = {}
     sides = ['+', '-'] if direction == '+-' else [direction]
     for side in sides:
         seq = []
-        for k in ks:
-            h = mp.mpf(10) ** (-k)
-            try:
-                if at in (oo, -oo):
-                    x = (mp.mpf(1) / h if at == oo else -mp.mpf(1) / h)
-                else:
-                    x = mp.mpf(str(sp.N(at, 60))) + (h if side == '+' else -h)
-                seq.append(mp_eval(expr, var, x))
-            except Exception:
-                seq.append(None)
+        for ks in sequences:
+            seq = []
+            for k in ks:
+                h = mp.mpf(10) ** (-k)
+                try:
+                    if at in (oo, -oo):
+                        x = (mp.mpf(1) / h if at == oo else -mp.mpf(1) / h)
+                    else:
+                        x = mp.mpf(str(sp.N(at, 60))) + (h if side == '+' else -h)
+                    seq.append(mp_eval(expr, var, x))
+                except Exception:
+                    seq.append(None)
+            if len([v for v in seq if v is not None]) >= 4:
+                break
         results[side] = seq
     return results
 
