@@ -163,7 +163,7 @@
  {
   "id": "c2-maxmin-a3",
   "origin": "materiais-locais/calculo2/Slides Aula 3 CB - Máximos e Mínimos.pdf",
-  "accessed": false,
+  "accessed": true,
   "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
   "title": "Aula 3: A Derivada e o Comportamento de uma Função — Máximos e Mínimos",
   "kind": "aula-pdf",
@@ -172,12 +172,14 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado",
   "topicIds": [
    "maxmin"
-  ]
+  ],
+  "accessedAt": "2026-10-22",
+  "sha256": "f8494d77d3225c9819361e3734078f984e5c99102a9f479386dcc9241495b8f9"
  },
  {
   "id": "c2-maxmin-a4",
   "origin": "materiais-locais/calculo2/Slides Aula 4 CB - Máximos e Mínimos.pdf",
-  "accessed": false,
+  "accessed": true,
   "usage": "Material de aula da faculdade: base conceitual; enunciados originais não são copiados.",
   "title": "Aula 4: A Derivada e o Comportamento de uma Função — Máximos e Mínimos (parte 2)",
   "kind": "aula-pdf",
@@ -186,7 +188,9 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado",
   "topicIds": [
    "maxmin"
-  ]
+  ],
+  "accessedAt": "2026-10-22",
+  "sha256": "125111b987ec906e91ce4559881d057ab2e85d2d5ce7ebb3c86e58ec77237c69"
  },
  {
   "id": "c2-f2v-intro",

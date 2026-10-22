@@ -1,5 +1,996 @@
 [
  {
+  "id": "c2-derivadas-001",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra da potência",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=x^{13}$. Qual é $f'(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{14}}{14}$"
+   },
+   {
+    "id": "b",
+    "text": "$13x^{13}$"
+   },
+   {
+    "id": "c",
+    "text": "$13x^{12}$"
+   },
+   {
+    "id": "d",
+    "text": "$12x^{13}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Regra da potência: $(x^{n})'=n\\,x^{n-1}$. Com $n=13$: $f'(x)=13x^{12}$.",
+   "steps": [
+    "Expoente vira coeficiente: $13$.",
+    "Expoente diminui uma unidade: $13-1=12$.",
+    "$f'(x)=13x^{12}$."
+   ],
+   "wrong": {
+    "a": "Essa é a *primitiva* (integral) de $x^{13}$, e não a derivada.",
+    "b": "O expoente deve diminuir uma unidade: $13-1=12$.",
+    "d": "O coeficiente é o expoente original ($13$) e o novo expoente é $12$; os dois estão trocados."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 1",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.343Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-002",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Raiz e valor da derivada",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=\\sqrt{x}$. Calcule $f'(2)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{\\sqrt2}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac14$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{\\sqrt2}{4}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f(x)=x^{1/2}$, então $f'(x)=\\dfrac12x^{-1/2}=\\dfrac{1}{2\\sqrt x}$. Em $x=2$: $f'(2)=\\dfrac{1}{2\\sqrt2}=\\dfrac{\\sqrt2}{4}$.",
+   "steps": [
+    "$f(x)=x^{1/2}$.",
+    "$f'(x)=\\dfrac12x^{-1/2}=\\dfrac{1}{2\\sqrt{x}}$.",
+    "$f'(2)=\\dfrac{1}{2\\sqrt2}=\\dfrac{\\sqrt{2}}{4}$."
+   ],
+   "wrong": {
+    "c": "Usou $\\frac{1}{2x}$ no lugar de $\\frac{1}{2\\sqrt x}$: a raiz permanece no denominador.",
+    "b": "Esqueceu o fator $\\frac12$: $f'(x)=\\frac{1}{2\\sqrt x}$ e não $\\frac1{\\sqrt x}$.",
+    "a": "$\\frac12$ é o coeficiente da fórmula, mas ainda falta dividir por $\\sqrt x=\\sqrt2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 2",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-003",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Constante multiplicativa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Encontre a derivada de $f(x)=\\pi x^{2}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x$"
+   },
+   {
+    "id": "b",
+    "text": "$2\\pi x$"
+   },
+   {
+    "id": "c",
+    "text": "$2\\pi x+x^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\pi x$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\pi$ é um número, logo $(\\pi x^2)'=\\pi\\cdot(x^2)'=\\pi\\cdot2x=2\\pi x$. A derivada de uma constante vezes uma função é a constante vezes a derivada.",
+   "steps": [
+    "Constante sai: $\\pi\\,(x^{2})'$.",
+    "$(x^{2})'=2x$.",
+    "$f'(x)=2\\pi x$."
+   ],
+   "wrong": {
+    "a": "$\\pi$ é uma constante multiplicativa e permanece: $(c\\,g)'=c\\,g'$.",
+    "d": "Esqueceu o expoente: a derivada de $x^2$ é $2x$, e não $x$.",
+    "c": "$\\pi$ é constante (derivada $0$); não há termo extra pela “derivada de $\\pi$”."
+   },
+   "commonMistakes": [
+    "Tratar $\\pi$ como variável e aplicar a regra do produto."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 4",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do produto de uma constante por uma função",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-004",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Potência negativa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $f'(x)$ sendo $f(x)=\\dfrac{1}{x^{5}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac{5}{x^{6}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{5}{x^{6}}$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\dfrac{5}{x^{4}}$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{1}{5x^{4}}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Escreva $f(x)=x^{-5}$. Então $f'(x)=-5x^{-6}=-\\dfrac{5}{x^{6}}$.",
+   "steps": [
+    "$f(x)=x^{-5}$.",
+    "$f'(x)=-5\\,x^{-5-1}$.",
+    "$=-\\dfrac{5}{x^{6}}$."
+   ],
+   "wrong": {
+    "d": "Fez “subir expoente e dividir” (integração); em derivação o expoente vira coeficiente.",
+    "b": "Faltou o sinal negativo: o expoente de $x^{-5}$ é $-5$, que passa a coeficiente.",
+    "c": "O novo expoente é $-5-1=-6$, e não $-4$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 5",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-005",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Soma e constante",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine a derivada de $f(x)=3x^{2}+6x-10$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3x+6$"
+   },
+   {
+    "id": "b",
+    "text": "$6x+6$"
+   },
+   {
+    "id": "c",
+    "text": "$6x-10$"
+   },
+   {
+    "id": "d",
+    "text": "$6x+6-10$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Derive termo a termo: $(3x^2)'=6x$, $(6x)'=6$ e $(-10)'=0$. Logo $f'(x)=6x+6$.",
+   "steps": [
+    "$(3x^{2})'=6x$.",
+    "$(6x)'=6$.",
+    "$(-10)'=0$ ⇒ $f'(x)=6x+6$."
+   ],
+   "wrong": {
+    "c": "A derivada de $6x$ é $6$ e a de $-10$ (constante) é $0$; o $-10$ não permanece.",
+    "a": "A derivada de $3x^2$ é $6x$ (expoente × coeficiente), e não $3x$.",
+    "d": "A derivada de uma constante é $0$: o termo $-10$ desaparece."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 7a",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da soma e da constante",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-006",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Exponencial e logaritmo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, qual é a derivada de $f(x)=3e^{x}-2\\ln x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3e^{x}+\\dfrac{2}{x}$"
+   },
+   {
+    "id": "b",
+    "text": "$3e^{x}-\\dfrac{2}{x}$"
+   },
+   {
+    "id": "c",
+    "text": "$3e^{x}-2x$"
+   },
+   {
+    "id": "d",
+    "text": "$3xe^{x-1}-\\dfrac{2}{x}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Da tabela: $(e^x)'=e^x$ e $(\\ln x)'=\\dfrac1x$ ($x>0$). Logo $f'(x)=3e^x-2\\cdot\\dfrac1x=3e^x-\\dfrac2x$.",
+   "steps": [
+    "$(3e^{x})'=3e^{x}$.",
+    "$(-2\\ln x)'=-\\dfrac{2}{x}$.",
+    "$f'(x)=3e^{x}-\\dfrac{2}{x}$."
+   ],
+   "wrong": {
+    "d": "$e^x$ não segue a regra da potência: $(e^x)'=e^x$.",
+    "c": "$(\\ln x)'=\\frac1x$, e não $x$.",
+    "a": "O sinal do segundo termo se mantém: $(-2\\ln x)'=-\\frac2x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas de eˣ e ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-007",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra do produto",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $f'(x)$ para $f(x)=(2x+1)(3x^{2}+6)$ usando a regra do produto.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(2)(6x)+(2x+1)(3x^{2}+6)$"
+   },
+   {
+    "id": "b",
+    "text": "$2\\,(3x^{2}+6)=6x^{2}+12$"
+   },
+   {
+    "id": "c",
+    "text": "$18x^{2}+6x+12$"
+   },
+   {
+    "id": "d",
+    "text": "$6x\\cdot2=12x$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$u=2x+1$, $v=3x^2+6$, $u'=2$, $v'=6x$. $f'=u'v+uv'=2(3x^2+6)+(2x+1)(6x)=6x^2+12+12x^2+6x=18x^2+6x+12$.",
+   "steps": [
+    "$u'v=2(3x^{2}+6)=6x^{2}+12$.",
+    "$uv'=(2x+1)\\cdot6x=12x^{2}+6x$.",
+    "Soma: $18x^{2}+6x+12$."
+   ],
+   "wrong": {
+    "d": "A derivada do produto não é o produto das derivadas: $(uv)'=u'v+uv'$.",
+    "b": "Faltou o segundo termo $u\\,v'=(2x+1)\\cdot6x$.",
+    "a": "Misturou: o segundo termo usa $v'=6x$, e não $v$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 9",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do produto",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-008",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra do quociente",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=\\dfrac{x^{2}}{x^{2}+5}$. Qual é $f'(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{2x}{2x}=1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{4x^{3}+10x}{(x^{2}+5)^{2}}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{10x}{(x^{2}+5)^{2}}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{10x}{x^{2}+5}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$u=x^2$, $v=x^2+5$. $f'=\\dfrac{u'v-uv'}{v^2}=\\dfrac{2x(x^2+5)-x^2\\cdot2x}{(x^2+5)^2}=\\dfrac{10x}{(x^2+5)^2}$.",
+   "steps": [
+    "$u'v=2x(x^{2}+5)=2x^{3}+10x$.",
+    "$uv'=x^{2}\\cdot2x=2x^{3}$.",
+    "$\\dfrac{2x^{3}+10x-2x^{3}}{(x^{2}+5)^{2}}=\\dfrac{10x}{(x^{2}+5)^{2}}$."
+   ],
+   "wrong": {
+    "a": "Dividir as derivadas de numerador e denominador não é a regra do quociente.",
+    "b": "Somou em vez de subtrair os termos do numerador: $u'v-uv'$.",
+    "d": "O denominador da regra do quociente é elevado ao quadrado: $v^2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 13",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do quociente",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-009",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Produto com potência negativa",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine a derivada de $f(x)=\\left(x^{3}-8\\right)\\left(\\dfrac{2}{x}-1\\right)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$4x-3x^{2}-\\dfrac{16}{x^{2}}$"
+   },
+   {
+    "id": "b",
+    "text": "$3x^{2}\\cdot\\left(-\\dfrac{2}{x^{2}}\\right)=-6$"
+   },
+   {
+    "id": "c",
+    "text": "$4x-3x^{2}+\\dfrac{16}{x^{2}}$"
+   },
+   {
+    "id": "d",
+    "text": "$3x^{2}\\left(\\dfrac2x-1\\right)$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Expanda: $f(x)=2x^2-x^3-\\dfrac{16}{x}+8$. Derivando termo a termo: $4x-3x^2+\\dfrac{16}{x^2}$. (Pela regra do produto o resultado é o mesmo: $3x^2\\!\\left(\\frac2x-1\\right)+(x^3-8)\\!\\left(-\\frac2{x^2}\\right)$.)",
+   "steps": [
+    "$f(x)=2x^{2}-x^{3}-16x^{-1}+8$.",
+    "$(2x^{2})'=4x$, $(-x^{3})'=-3x^{2}$.",
+    "$(-16x^{-1})'=+16x^{-2}=\\dfrac{16}{x^{2}}$."
+   ],
+   "wrong": {
+    "b": "Multiplicou as derivadas dos fatores; a regra do produto soma $u'v+uv'$.",
+    "a": "O termo $-\\frac{16}{x}$ tem derivada $+\\frac{16}{x^2}$ (sinais: $-16\\cdot(-1)x^{-2}$).",
+    "d": "É só $u'v$; falta o termo $u\\,v'$ com $v'=-\\frac{2}{x^2}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 14",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do produto",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-010",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra do quociente",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine a derivada de $f(x)=\\dfrac{2x+4}{3x-1}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac{14}{(3x-1)^{2}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{12x+10}{(3x-1)^{2}}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{2}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{14}{(3x-1)^{2}}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$u=2x+4$, $v=3x-1$: $f'=\\dfrac{u'v-uv'}{v^2}=\\dfrac{2(3x-1)-3(2x+4)}{(3x-1)^2}=\\dfrac{6x-2-6x-12}{(3x-1)^2}=-\\dfrac{14}{(3x-1)^2}$.",
+   "steps": [
+    "$u'v=2(3x-1)=6x-2$.",
+    "$uv'=3(2x+4)=6x+12$.",
+    "$\\dfrac{6x-2-6x-12}{(3x-1)^{2}}=-\\dfrac{14}{(3x-1)^{2}}$."
+   ],
+   "wrong": {
+    "d": "Erro de sinal: $u'v-uv'=2(3x-1)-3(2x+4)=-14$.",
+    "c": "Dividiu as derivadas ($\\frac{2}{3}$); a regra do quociente é mais elaborada.",
+    "b": "Somou os produtos em vez de subtrair: $2(3x-1)+3(2x+4)=12x+10$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 15",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do quociente",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-011",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra da cadeia",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule a derivada de $f(x)=\\left(3x^{2}+1\\right)^{5}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$5\\left(6x\\right)^{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$30x\\left(3x^{2}+1\\right)^{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$5\\left(3x^{2}+1\\right)^{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\left(3x^{2}+1\\right)^{5}\\cdot6x$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Regra da cadeia (externo–interno): $\\dfrac{dy}{dx}=g'(u)\\cdot u'$ com $u=3x^2+1$ e $g(u)=u^5$. Então $f'(x)=5u^4\\cdot6x=30x(3x^2+1)^4$.",
+   "steps": [
+    "Externa: $u^{5}\\to5u^{4}$.",
+    "Interna: $u=3x^{2}+1\\to u'=6x$.",
+    "$f'(x)=5u^{4}\\cdot6x=30x(3x^{2}+1)^{4}$."
+   ],
+   "wrong": {
+    "c": "Esqueceu o fator da derivada interna: $\\left(3x^2+1\\right)'=6x$.",
+    "a": "A potência atua sobre a expressão inteira $3x^2+1$, e não sobre $6x$.",
+    "d": "O expoente deve diminuir ($5\\to4$) e o $5$ passar a coeficiente: $5\\cdot6x=30x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra da cadeia e regra do externo-interno",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-012",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Reta tangente",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a equação da reta tangente ao gráfico de $f(x)=x^{3}-3x$ no ponto de abscissa $x=2$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$y=9x+2$"
+   },
+   {
+    "id": "b",
+    "text": "$y=9x-16$"
+   },
+   {
+    "id": "c",
+    "text": "$y=9(x-2)$"
+   },
+   {
+    "id": "d",
+    "text": "$y=3x^{2}-3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-3$, logo o coeficiente angular é $f'(2)=9$. O ponto é $(2,f(2))=(2,2)$. Então $y-2=9(x-2)\\Rightarrow y=9x-16$.",
+   "steps": [
+    "$f(2)=8-6=2$.",
+    "$f'(2)=3\\cdot4-3=9$.",
+    "$y-2=9(x-2)\\Rightarrow y=9x-16$."
+   ],
+   "wrong": {
+    "a": "Usou $f(2)=2$ como coeficiente linear; a reta é $y-f(2)=f'(2)(x-2)$, que dá $9x-16$.",
+    "d": "Essa é a função derivada $f'(x)$, e não a equação da reta.",
+    "c": "Esqueceu o ponto: $y-f(2)=9(x-2)$, com $f(2)=2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-slides",
+    "locator": "slides (derivada como coeficiente angular da tangente)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-013",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Produto + cadeia",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Derive $f(x)=x^{2}e^{3x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x\\,e^{3x}$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{3x}\\left(x^{2}+2x\\right)$"
+   },
+   {
+    "id": "c",
+    "text": "$e^{3x}\\left(3x^{2}+2x\\right)$"
+   },
+   {
+    "id": "d",
+    "text": "$6x\\,e^{3x}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Regra do produto: $(uv)'=u'v+uv'$ com $u=x^2$ e $v=e^{3x}$, $v'=3e^{3x}$ (cadeia). Então $f'(x)=2xe^{3x}+x^2\\cdot3e^{3x}=e^{3x}(3x^2+2x)$.",
+   "steps": [
+    "$u'=2x$, $v=e^{3x}$, $v'=3e^{3x}$.",
+    "$f'=2xe^{3x}+3x^{2}e^{3x}$.",
+    "Fator comum: $e^{3x}(3x^{2}+2x)$."
+   ],
+   "wrong": {
+    "a": "Só derivou o fator $x^2$; falta o termo $x^2\\cdot(e^{3x})'$.",
+    "b": "A derivada de $e^{3x}$ é $3e^{3x}$ (regra da cadeia): faltou o $3$ no termo $3x^2$.",
+    "d": "Multiplicou as derivadas dos dois fatores; a regra do produto soma duas parcelas."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra do produto, regra da cadeia e derivada de eˣ",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-slides",
+    "locator": "slides",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-014",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Cadeia com logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a derivada de $f(x)=\\ln\\!\\left(x^{2}+1\\right)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x\\ln\\!\\left(x^{2}+1\\right)$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{2x}{x^{2}+1}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{x^{2}+1}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\ln(2x)$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$(\\ln u)'=\\dfrac{u'}{u}$. Com $u=x^2+1$ e $u'=2x$: $f'(x)=\\dfrac{2x}{x^2+1}$.",
+   "steps": [
+    "$u=x^{2}+1$, $u'=2x$.",
+    "$(\\ln u)'=\\dfrac{u'}{u}$.",
+    "$f'(x)=\\dfrac{2x}{x^{2}+1}$."
+   ],
+   "wrong": {
+    "c": "Esqueceu a derivada interna $\\left(x^2+1\\right)'=2x$ no numerador.",
+    "a": "A derivada do logaritmo é $\\frac{1}{(\\cdot)}$, e não um produto com o próprio $\\ln$.",
+    "d": "Derivar $\\ln$ não devolve outro logaritmo: $(\\ln u)'=\\frac{u'}{u}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x e regra da cadeia",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-015",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Função elevada a função",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, qual é a derivada de $f(x)=x^{x}$? (Dica: $x^{x}=e^{x\\ln x}$; a tabela traz a derivada de $f(x)^{g(x)}$.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x^{x}\\left(\\ln x+1\\right)$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{x}\\left(\\ln x+1\\right)$"
+   },
+   {
+    "id": "c",
+    "text": "$x\\cdot x^{x-1}=x^{x}$"
+   },
+   {
+    "id": "d",
+    "text": "$x^{x}\\ln x$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f(x)=e^{x\\ln x}$. Pela cadeia: $f'(x)=e^{x\\ln x}\\cdot(x\\ln x)'$. E $(x\\ln x)'=\\ln x+x\\cdot\\dfrac1x=\\ln x+1$. Logo $f'(x)=x^x(\\ln x+1)$.",
+   "steps": [
+    "$x^{x}=e^{x\\ln x}$.",
+    "$(x\\ln x)'=\\ln x+1$ (regra do produto).",
+    "$f'(x)=x^{x}(\\ln x+1)$."
+   ],
+   "wrong": {
+    "c": "Aplicou a regra da potência como se o expoente fosse constante; aqui o expoente também varia.",
+    "d": "Esqueceu o termo $1$ que vem de $(x\\ln x)'=\\ln x+x\\cdot\\frac1x$.",
+    "b": "A base não vira $e$: o fator exponencial é $x^{x}=e^{x\\ln x}$."
+   },
+   "commonMistakes": [
+    "Usar $(x^{n})'=nx^{n-1}$ com $n=x$ (o expoente não é constante)."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de f(x)^g(x)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-016",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Segunda derivada",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, calcule a segunda derivada $f''(x)$ de $f(x)=x^{3}\\ln x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6x\\ln x+2x$"
+   },
+   {
+    "id": "b",
+    "text": "$6x\\ln x+5x$"
+   },
+   {
+    "id": "c",
+    "text": "$6x\\ln x+3x$"
+   },
+   {
+    "id": "d",
+    "text": "$6\\ln x+5$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2\\ln x+x^3\\cdot\\dfrac1x=3x^2\\ln x+x^2$. Derivando de novo: $f''(x)=6x\\ln x+3x^2\\cdot\\dfrac1x+2x=6x\\ln x+3x+2x=6x\\ln x+5x$.",
+   "steps": [
+    "$f'(x)=3x^{2}\\ln x+x^{2}$.",
+    "$(3x^{2}\\ln x)'=6x\\ln x+3x$.",
+    "$(x^{2})'=2x$ ⇒ $f''(x)=6x\\ln x+5x$."
+   ],
+   "wrong": {
+    "c": "Perdeu um termo: $f'=3x^2\\ln x+x^2$ e a derivada de $x^2$ é $2x$, somando $3x+2x=5x$.",
+    "a": "Só contou a derivada de $x^2$; falta o termo $3x$ vindo de $3x^2\\cdot\\frac1x$.",
+    "d": "Derivou $x^3$ como se fosse constante $6$; a regra do produto mantém potências de $x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra do produto e derivada de ln x",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath.diff",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-derivadas-017",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Definição de derivada",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Pela definição, $f'(a)=\\displaystyle\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$. Para $f(x)=x^{3}$ e $a=2$, qual é o valor de $\\displaystyle\\lim_{h\\to0}\\frac{(2+h)^{3}-8}{h}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$8$"
+   },
+   {
+    "id": "d",
+    "text": "$12$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O limite é exatamente $f'(2)$ com $f(x)=x^3$. Como $f'(x)=3x^2$, $f'(2)=12$. Diretamente: $(2+h)^3-8=12h+6h^2+h^3$, e dividindo por $h$: $12+6h+h^2\\to12$.",
+   "steps": [
+    "$(2+h)^{3}=8+12h+6h^{2}+h^{3}$.",
+    "$\\dfrac{12h+6h^{2}+h^{3}}{h}=12+6h+h^{2}$.",
+    "$\\lim_{h\\to0}(12+6h+h^{2})=12$."
+   ],
+   "wrong": {
+    "c": "$8=f(2)$ é o valor da função, e não da derivada.",
+    "b": "O limite tem a forma $\\frac00$, que é indeterminada; expandindo $(2+h)^3$ o resultado é $12$.",
+    "a": "Usou $f'(x)=3x$ em vez de $3x^2$: $3\\cdot2=6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-slides",
+    "locator": "slides (a derivada como limite do quociente de Newton)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath",
+  "reviewedBy": "ai-assisted"
+ },
+ {
   "id": "c2-integral-definida-001",
   "disciplineId": "calculo2",
   "topicId": "integral-definida",
@@ -4816,6 +5807,1510 @@
   "reviewedBy": "ai-assisted"
  },
  {
+  "id": "c2-maxmin-001",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Intervalos de crescimento",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{2}-6x+8$, em qual intervalo $f$ é crescente?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x>6$"
+   },
+   {
+    "id": "b",
+    "text": "$x>3$"
+   },
+   {
+    "id": "c",
+    "text": "$x<3$"
+   },
+   {
+    "id": "d",
+    "text": "$x>-3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=2x-6$, que se anula em $x=3$. Para $x>3$, $f'(x)>0$ (por exemplo $f'(4)=2$) e, pelo critério da aula, $f$ é crescente. Para $x<3$, $f'<0$ e $f$ decresce.",
+   "steps": [
+    "$f'(x)=2x-6$.",
+    "$f'(x)=0\\iff x=3$.",
+    "$f'(4)=2>0$ e $f'(2)=-2<0$ ⇒ $f$ cresce em $x>3$."
+   ],
+   "wrong": {
+    "c": "Nesse intervalo $f'(x)=2x-6<0$, ou seja, a função *decresce*.",
+    "d": "Trocou o sinal ao resolver $2x-6=0$: a raiz de $f'$ é $x=+3$.",
+    "a": "Esqueceu de dividir por $2$ em $2x=6$: o sinal de $f'$ muda em $x=3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "critério f' > 0 ⇒ crescente",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.023Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-002",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Pontos críticos",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quais são os pontos críticos (onde $f'(x)=0$) de $f(x)=x^{3}-12x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=-2\\sqrt3$, $x=0$ e $x=2\\sqrt3$"
+   },
+   {
+    "id": "b",
+    "text": "apenas $x=2$"
+   },
+   {
+    "id": "c",
+    "text": "$x=-2$ e $x=2$"
+   },
+   {
+    "id": "d",
+    "text": "$x=-4$ e $x=4$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=3x^{2}-12$. Então $3x^2-12=0\\Rightarrow x^2=4\\Rightarrow x=\\pm2$.",
+   "steps": [
+    "$f'(x)=3x^{2}-12$.",
+    "$3x^{2}=12\\Rightarrow x^{2}=4$.",
+    "$x=\\pm2$."
+   ],
+   "wrong": {
+    "a": "Essas são as raízes de $f(x)=0$. Pontos críticos vêm de $f'(x)=0$.",
+    "d": "Parou em $x^2=4$ e tomou $4$ e $-4$ sem extrair a raiz quadrada.",
+    "b": "A equação $3x^2=12$ tem duas soluções: $x=2$ e também $x=-2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "f'(x) = 0: candidatos a máximo/mínimo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.029Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-003",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Teste da 2ª derivada",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{2}-6x+5$, o ponto $x=3$ é crítico. Qual é a classificação desse ponto?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de máximo"
+   },
+   {
+    "id": "b",
+    "text": "ponto de inflexão"
+   },
+   {
+    "id": "c",
+    "text": "ponto de mínimo, pois $f''(3)=2>0$"
+   },
+   {
+    "id": "d",
+    "text": "não é possível classificar"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=2x-6$ e $f'(3)=0$. Como $f''(x)=2$, temos $f''(3)=2>0$, logo $x=3$ é ponto de mínimo (de valor $f(3)=-4$).",
+   "steps": [
+    "$f'(3)=0$.",
+    "$f''(x)=2\\Rightarrow f''(3)=2>0$.",
+    "$f''>0$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "a": "O máximo exigiria $f''(3)<0$; aqui $f''(x)=2>0$ (parábola voltada para cima).",
+    "b": "Inflexão exigiria $f''(3)=0$, mas $f''(3)=2\\neq0$.",
+    "d": "Como $f''(3)\\neq0$, o teste da segunda derivada decide: é mínimo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "quadro de critérios: f'' > 0 ⇒ mínimo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.029Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-004",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Valor mínimo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor mínimo de $f(x)=x^{2}-6x+10$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$-6$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$10$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=2x-6=0\\Rightarrow x=3$, e $f''=2>0$ (mínimo). O valor mínimo é $f(3)=9-18+10=1$.",
+   "steps": [
+    "$f'(x)=2x-6=0\\Rightarrow x=3$.",
+    "$f''(x)=2>0$: mínimo.",
+    "$f(3)=9-18+10=1$."
+   ],
+   "wrong": {
+    "a": "$x=3$ é o *ponto* de mínimo (abscissa); o *valor* mínimo é $f(3)$.",
+    "d": "$10$ é $f(0)$, o termo independente — não é o mínimo.",
+    "b": "$-6$ é só o coeficiente de $x$; falta calcular $f$ no ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo de parábola: sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-005",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Sinal da derivada",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Se $f'(x)<0$ para todo $x$ de um intervalo, o que se pode afirmar sobre $f$ nesse intervalo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f$ é crescente"
+   },
+   {
+    "id": "b",
+    "text": "$f$ é constante"
+   },
+   {
+    "id": "c",
+    "text": "$f$ tem um máximo em cada ponto"
+   },
+   {
+    "id": "d",
+    "text": "$f$ é decrescente"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Pelo critério da aula: $f'(x)>0$ ⇒ $f$ crescente; $f'(x)<0$ ⇒ $f$ decrescente. Se $f'<0$ em todo o intervalo, o gráfico desce da esquerda para a direita.",
+   "steps": [
+    "$f'<0$ ⇒ taxa de variação negativa.",
+    "Taxa negativa em todo o intervalo ⇒ $f$ decrescente."
+   ],
+   "wrong": {
+    "a": "Crescimento corresponde a $f'(x)>0$.",
+    "b": "Função constante tem $f'(x)=0$, não $f'<0$.",
+    "c": "Máximos ocorrem onde $f'$ se anula e muda de sinal, não onde $f'$ é sempre negativa."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "f'(x) > 0: crescente; f'(x) < 0: decrescente",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "quadro de critérios",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-006",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Ponto de máximo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual valor de $x$ a função $f(x)=-x^{2}+4x$ atinge seu máximo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=0$"
+   },
+   {
+    "id": "b",
+    "text": "$x=-2$"
+   },
+   {
+    "id": "c",
+    "text": "$x=4$"
+   },
+   {
+    "id": "d",
+    "text": "$x=2$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=-2x+4=0\\Rightarrow x=2$. Como $f''(x)=-2<0$, $x=2$ é ponto de máximo, com valor $f(2)=4$.",
+   "steps": [
+    "$f'(x)=-2x+4$.",
+    "$f'(x)=0\\Rightarrow x=2$.",
+    "$f''=-2<0$ ⇒ máximo em $x=2$."
+   ],
+   "wrong": {
+    "c": "$f(2)=4$ é o *valor* máximo; $4$ também é raiz de $f$, mas $f'(4)=-4\\neq0$.",
+    "b": "$f'(-2)=8\\neq0$; resolveu $-2x+4=0$ com o sinal trocado.",
+    "a": "$0$ é raiz de $f$, mas $f'(0)=4\\neq0$: não é ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "f'' < 0 ⇒ ponto de máximo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-007",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Receita máxima",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A receita (em reais) de uma loja é $R(q)=100q-q^{2}$, em que $q$ é a quantidade vendida. Para qual $q$ a receita é máxima?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$q=50$"
+   },
+   {
+    "id": "b",
+    "text": "$q=25$"
+   },
+   {
+    "id": "c",
+    "text": "$q=2500$"
+   },
+   {
+    "id": "d",
+    "text": "$q=100$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$R'(q)=100-2q=0\\Rightarrow q=50$. Como $R''=-2<0$, é máximo. A receita máxima vale $R(50)=2500$.",
+   "steps": [
+    "$R'(q)=100-2q$.",
+    "$R'(q)=0\\Rightarrow q=50$.",
+    "$R''=-2<0$ ⇒ máximo."
+   ],
+   "wrong": {
+    "d": "Em $q=100$ a receita é $R(100)=0$: é raiz de $R$, não o máximo.",
+    "c": "$2500$ é a receita máxima $R(50)$, não a quantidade.",
+    "b": "$R'(q)=100-2q$ se anula em $q=50$, não em $25$ (esqueceu o fator $2$ da derivada)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "aplicação do critério da 1ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-008",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Classificação em função cúbica",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Os pontos críticos de $f(x)=x^{3}-3x$ são $x=-1$ e $x=1$. Como se classifica $x=-1$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de máximo local"
+   },
+   {
+    "id": "b",
+    "text": "o teste é inconclusivo"
+   },
+   {
+    "id": "c",
+    "text": "ponto de mínimo local"
+   },
+   {
+    "id": "d",
+    "text": "ponto de inflexão"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f'(x)=3x^{2}-3$ e $f''(x)=6x$. Em $x=-1$: $f''(-1)=-6<0$, portanto máximo local, com $f(-1)=2$.",
+   "steps": [
+    "$f''(x)=6x$.",
+    "$f''(-1)=-6<0$.",
+    "$f''<0$ ⇒ máximo local em $x=-1$."
+   ],
+   "wrong": {
+    "c": "$f''(x)=6x$ e $f''(-1)=-6<0$: é máximo, não mínimo (o mínimo local é $x=1$).",
+    "d": "Inflexão exigiria $f''(-1)=0$, mas $f''(-1)=-6$.",
+    "b": "Como $f''(-1)=-6\\neq0$, o teste decide."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-009",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Tabela de sinais",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Sabe-se que $f'(x)=(x-1)(x-5)$. Em qual valor de $x$ a função $f$ tem um máximo local?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=-1$"
+   },
+   {
+    "id": "b",
+    "text": "$x=1$"
+   },
+   {
+    "id": "c",
+    "text": "$x=5$"
+   },
+   {
+    "id": "d",
+    "text": "$x=3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'=0$ em $x=1$ e $x=5$. Sinais: $f'(0)=5>0$, $f'(3)=-4<0$ e $f'(6)=5>0$. Em $x=1$ a derivada passa de $+$ para $-$ (f cresce e depois decresce): máximo local. Em $x=5$ passa de $-$ para $+$: mínimo local.",
+   "steps": [
+    "Raízes de $f'$: $1$ e $5$.",
+    "$f'(0)>0$, $f'(3)<0$, $f'(6)>0$.",
+    "$+\\to-$ em $x=1$ ⇒ máximo."
+   ],
+   "wrong": {
+    "c": "Em $x=5$, $f'$ passa de negativa para positiva: é *mínimo* local.",
+    "d": "$x=3$ é o ponto médio das raízes, onde $f'$ vale $-4$; não é raiz de $f'$.",
+    "a": "$f'(-1)=12\\neq0$. A raiz do fator $(x-1)$ é $x=+1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "quadro de sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-010",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Valor do máximo local",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $f$ no ponto de máximo local de $f(x)=x^{3}-27x+10$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$10$"
+   },
+   {
+    "id": "b",
+    "text": "$-3$"
+   },
+   {
+    "id": "c",
+    "text": "$64$"
+   },
+   {
+    "id": "d",
+    "text": "$-44$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-27=0\\Rightarrow x=\\pm3$. $f''(x)=6x$: $f''(-3)=-18<0$ (máximo) e $f''(3)=18>0$ (mínimo). Valor do máximo: $f(-3)=-27+81+10=64$.",
+   "steps": [
+    "$f'(x)=3x^{2}-27\\Rightarrow x=\\pm3$.",
+    "$f''(-3)=-18<0$ ⇒ máximo em $x=-3$.",
+    "$f(-3)=-27+81+10=64$."
+   ],
+   "wrong": {
+    "d": "É o valor no *mínimo* local ($x=3$): $f(3)=27-81+10=-44$.",
+    "b": "$-3$ é a abscissa do máximo; o enunciado pede o valor de $f$ nesse ponto.",
+    "a": "$10$ é $f(0)$; $x=0$ não é ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "exemplo de cúbica com dois pontos críticos",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-011",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Mínimo em cúbica",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=4x^{3}+3x^{2}-18x+1$, em qual valor de $x$ ocorre o mínimo local?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=1$"
+   },
+   {
+    "id": "b",
+    "text": "$x=-\\dfrac32$"
+   },
+   {
+    "id": "c",
+    "text": "$x=-1$"
+   },
+   {
+    "id": "d",
+    "text": "$x=\\dfrac32$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f'(x)=12x^2+6x-18=6(2x^2+x-3)=6(2x+3)(x-1)$, com raízes $x=-\\frac32$ e $x=1$. $f''(x)=24x+6$: $f''(-\\frac32)=-30<0$ (máximo) e $f''(1)=30>0$ (mínimo). O mínimo local é em $x=1$.",
+   "steps": [
+    "$f'(x)=6(2x+3)(x-1)$.",
+    "Raízes: $x=-\\frac32$ e $x=1$.",
+    "$f''(1)=30>0$ ⇒ mínimo em $x=1$."
+   ],
+   "wrong": {
+    "b": "Em $x=-\\frac32$, $f''=24x+6=-30<0$: é *máximo* local.",
+    "c": "$f'(-1)=-12\\neq0$: não é ponto crítico. Da fatoração $f'=6(2x+3)(x-1)$ saem $-\\frac32$ e $1$.",
+    "d": "$f'(\\frac32)=12\\cdot\\frac94+9-18=18\\neq0$: trocou o sinal da raiz $-\\frac32$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo 2: raízes racionais de f' e quadro de f''",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-012",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Raiz dupla de f'",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $g(x)=x^{3}+3x^{2}+3x+5$. Sobre o ponto $x=-1$ (onde $g'(-1)=0$), é correto afirmar:",
+  "options": [
+   {
+    "id": "a",
+    "text": "é ponto de mínimo local, pois $g'(-1)=0$"
+   },
+   {
+    "id": "b",
+    "text": "é inflexão, pois $g''(-1)=0$ e $g'$ não muda de sinal"
+   },
+   {
+    "id": "c",
+    "text": "é ponto de máximo local, pois $g'(-1)=0$ e $g''$ muda de sinal"
+   },
+   {
+    "id": "d",
+    "text": "não é ponto crítico"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$g'(x)=3x^2+6x+3=3(x+1)^2$ e $g''(x)=6(x+1)$. Em $x=-1$: $g'(-1)=0$ e $g''(-1)=0$. Como $g'(x)\\ge0$ em toda parte, $g$ é crescente e não tem máximo nem mínimo: $x=-1$ é um ponto de inflexão (análogo ao exemplo 3 dos slides).",
+   "steps": [
+    "$g'(x)=3(x+1)^{2}$ (raiz dupla).",
+    "$g''(x)=6(x+1)\\Rightarrow g''(-1)=0$.",
+    "$g'\\ge0$ sempre ⇒ sem extremo ⇒ inflexão."
+   ],
+   "wrong": {
+    "c": "$g'(x)=3(x+1)^2\\ge0$ não muda de sinal: $g$ não deixa de crescer, então não há máximo.",
+    "a": "Mínimo exigiria $g'$ passar de $-$ para $+$; aqui $g'\\ge0$ dos dois lados.",
+    "d": "$g'(-1)=3(0)^2=0$: é ponto crítico, mas sem extremo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo 3: derivada com raiz dupla; f'' = 0 ⇒ inflexão",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-013",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Intervalos de decrescimento",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual intervalo a função $f(x)=x^{3}-3x^{2}-9x+2$ é decrescente?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-3<x<1$"
+   },
+   {
+    "id": "b",
+    "text": "$-1<x<3$"
+   },
+   {
+    "id": "c",
+    "text": "$1<x<3$"
+   },
+   {
+    "id": "d",
+    "text": "$x<-1$ ou $x>3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-6x-9=3(x^2-2x-3)=3(x+1)(x-3)$. A parábola $f'$ abre para cima, então $f'<0$ entre as raízes $-1$ e $3$: $f$ decresce em $-1<x<3$ e cresce fora desse intervalo.",
+   "steps": [
+    "$f'(x)=3(x+1)(x-3)$.",
+    "Raízes: $-1$ e $3$; $f'(0)=-9<0$.",
+    "$f'<0$ em $(-1,3)$ ⇒ $f$ decrescente."
+   ],
+   "wrong": {
+    "d": "Nessas regiões $f'>0$: a função *cresce*. O decrescimento é entre as raízes.",
+    "a": "Trocou os sinais das raízes de $f'$, que são $-1$ e $3$.",
+    "c": "Fatorou $x^2-2x-3$ como $(x-1)(x-3)$; o correto é $(x+1)(x-3)$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-014",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Lucro máximo",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O lucro (em milhares de reais) de uma fábrica é $L(q)=-q^{2}+60q-200$, em que $q$ é a produção em milhares de unidades. Qual é o lucro máximo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$700$"
+   },
+   {
+    "id": "b",
+    "text": "$900$"
+   },
+   {
+    "id": "c",
+    "text": "$30$"
+   },
+   {
+    "id": "d",
+    "text": "$-200$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$L'(q)=-2q+60=0\\Rightarrow q=30$, e $L''=-2<0$. Lucro máximo: $L(30)=-900+1800-200=700$ (mil reais).",
+   "steps": [
+    "$L'(q)=-2q+60=0\\Rightarrow q=30$.",
+    "$L''=-2<0$ ⇒ máximo.",
+    "$L(30)=-900+1800-200=700$."
+   ],
+   "wrong": {
+    "c": "$30$ é a produção ótima $q$, não o lucro.",
+    "b": "Esqueceu o custo fixo: $-900+1800=900$ ignora o termo $-200$.",
+    "d": "É $L(0)$ (nenhuma produção): prejuízo do custo fixo, não o máximo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "aplicação: função objetivo quadrática",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-015",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Otimização com restrição",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um produtor tem $80$ m de tela para cercar um terreno retangular encostado em um rio reto; o lado junto ao rio não precisa de cerca. Qual é a maior área possível, em m²?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$400$"
+   },
+   {
+    "id": "b",
+    "text": "$800$"
+   },
+   {
+    "id": "c",
+    "text": "$20$"
+   },
+   {
+    "id": "d",
+    "text": "$1600$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Sejam $x$ os dois lados perpendiculares ao rio e $80-2x$ o lado paralelo. Área: $A(x)=x(80-2x)=80x-2x^2$. $A'(x)=80-4x=0\\Rightarrow x=20$, $A''=-4<0$ (máximo). Lados $20$ e $40$: $A=20\\cdot40=800$ m².",
+   "steps": [
+    "$A(x)=x(80-2x)$.",
+    "$A'(x)=80-4x=0\\Rightarrow x=20$.",
+    "$A(20)=20\\cdot40=800$."
+   ],
+   "wrong": {
+    "a": "Considerou os quatro lados cercados (quadrado $20\\times20$); aqui o rio dispensa um lado.",
+    "d": "$40\\times40$ usaria $120$ m de tela (três lados), mais do que os $80$ m disponíveis.",
+    "c": "$20$ m é a largura ótima $x$, não a área."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "critério da 1ª derivada aplicado a modelo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-016",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Extremos em intervalo fechado",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor máximo absoluto de $f(x)=x^{3}-6x^{2}+9x$ no intervalo $[0,5]$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$4$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$20$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$: pontos críticos $x=1$ e $x=3$. Candidatos: $f(0)=0$, $f(1)=4$, $f(3)=0$, $f(5)=125-150+45=20$. O maior valor é $20$, atingido na extremidade $x=5$.",
+   "steps": [
+    "$f'(x)=3(x-1)(x-3)$ ⇒ $x=1,3$.",
+    "$f(0)=0$, $f(1)=4$, $f(3)=0$, $f(5)=20$.",
+    "Máximo absoluto: $20$."
+   ],
+   "wrong": {
+    "a": "$4=f(1)$ é o máximo *local*; o valor nas extremidades, $f(5)=20$, é maior.",
+    "b": "$0$ é o valor mínimo ($f(0)=f(3)=0$), não o máximo.",
+    "c": "$3$ é a abscissa do outro ponto crítico, não um valor da função."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "pontos críticos e comportamento da função",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-017",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Preço que maximiza a receita",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A demanda de um produto é $p=200-2q$ (preço $p$ em reais, quantidade $q$). Para maximizar a receita $R=p\\cdot q$, qual preço deve ser praticado?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$200$ reais"
+   },
+   {
+    "id": "b",
+    "text": "$5000$ reais"
+   },
+   {
+    "id": "c",
+    "text": "$50$ reais"
+   },
+   {
+    "id": "d",
+    "text": "$100$ reais"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$R(q)=q(200-2q)=200q-2q^2$. $R'(q)=200-4q=0\\Rightarrow q=50$ ($R''=-4<0$). Preço: $p=200-2\\cdot50=100$. A receita máxima é $50\\cdot100=5000$.",
+   "steps": [
+    "$R(q)=200q-2q^{2}$.",
+    "$R'(q)=200-4q=0\\Rightarrow q=50$.",
+    "$p=200-2(50)=100$."
+   ],
+   "wrong": {
+    "c": "$50$ é a *quantidade* ótima $q$; o preço correspondente é $200-2\\cdot50=100$.",
+    "b": "$5000$ é a receita máxima $R(50)$, não o preço.",
+    "a": "$200$ é o preço com demanda zero ($q=0$): receita nula."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "aplicação econômica: receita",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-018",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Custo médio mínimo",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O custo total de produzir $q$ unidades é $C(q)=q^{2}+3600$. Qual quantidade minimiza o custo médio $\\overline{C}(q)=C(q)/q$ ($q>0$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$q=30$"
+   },
+   {
+    "id": "b",
+    "text": "$q=3600$"
+   },
+   {
+    "id": "c",
+    "text": "$q=120$"
+   },
+   {
+    "id": "d",
+    "text": "$q=60$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\overline{C}(q)=q+\\dfrac{3600}{q}$, então $\\overline{C}'(q)=1-\\dfrac{3600}{q^2}=0\\Rightarrow q^2=3600\\Rightarrow q=60$ ($q>0$). Como $\\overline{C}''=\\dfrac{7200}{q^3}>0$, é mínimo; o custo médio mínimo é $\\overline{C}(60)=120$.",
+   "steps": [
+    "$\\overline{C}(q)=q+3600/q$.",
+    "$\\overline{C}'(q)=1-3600/q^{2}=0\\Rightarrow q=60$.",
+    "$\\overline{C}''>0$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "c": "$120$ é o *valor* do custo médio mínimo, $\\overline{C}(60)=60+60$.",
+    "b": "$3600$ é o custo fixo; $\\overline{C}'(3600)\\neq0$.",
+    "a": "$\\overline{C}'(30)=1-\\frac{3600}{900}=-3\\neq0$: ainda decrescente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-019",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Teste da 2ª derivada inconclusivo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{4}$ temos $f'(0)=0$ e $f''(0)=0$. Qual é a conclusão correta sobre $x=0$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "não é ponto crítico"
+   },
+   {
+    "id": "b",
+    "text": "mínimo local: $f''$ é inconclusiva, mas $f'$ vai de $-$ a $+$"
+   },
+   {
+    "id": "c",
+    "text": "é ponto de máximo local, pois $f'(0)=0$"
+   },
+   {
+    "id": "d",
+    "text": "é ponto de inflexão, pois vale $f''(0)=0$ nesse ponto"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f''(0)=0$ não decide: o teste só conclui quando $f''\\neq0$. Analisando $f'(x)=4x^3$: negativa para $x<0$ e positiva para $x>0$, ou seja, $f$ decresce e depois cresce — mínimo local (e global) em $x=0$. Atenção: no quadro resumido dos slides, $f''=0$ aparece associado à inflexão, o que vale em exemplos como $x^3$; aqui $f''$ não troca de sinal, então não há inflexão.",
+   "steps": [
+    "$f''(0)=0$: teste inconclusivo.",
+    "$f'(x)=4x^{3}$: $f'(-1)<0$ e $f'(1)>0$.",
+    "$-\\to+$ ⇒ mínimo local."
+   ],
+   "wrong": {
+    "d": "$f''(x)=12x^2\\ge0$ não muda de sinal: a concavidade não muda, logo não há inflexão. $f''(0)=0$ é apenas condição necessária.",
+    "c": "$f(x)=x^4\\ge0=f(0)$: nenhum valor próximo é maior que $f(0)$ — é mínimo.",
+    "a": "$f'(0)=4\\cdot0^3=0$: é ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "quadro de critérios (caso f'' = 0)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-020",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Máximo de produto polinomial-exponencial",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor máximo de $f(x)=x\\,e^{-x}$ em $\\mathbb{R}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{2e}$"
+   },
+   {
+    "id": "b",
+    "text": "$e$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac1e$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=e^{-x}-xe^{-x}=(1-x)e^{-x}$, que se anula só em $x=1$. $f'>0$ para $x<1$ e $f'<0$ para $x>1$: máximo. Como $f(x)\\to-\\infty$ ($x\\to-\\infty$) e $f(x)\\to0$ ($x\\to+\\infty$), é também o máximo global: $f(1)=e^{-1}=\\frac1e$.",
+   "steps": [
+    "$f'(x)=(1-x)e^{-x}=0\\Rightarrow x=1$.",
+    "$f'$: $+$ antes de $1$ e $-$ depois ⇒ máximo.",
+    "$f(1)=e^{-1}$."
+   ],
+   "wrong": {
+    "b": "Trocou o sinal do expoente: $f(1)=1\\cdot e^{-1}=\\frac1e$, e não $e^{1}$.",
+    "c": "$x=1$ é a abscissa do máximo; o valor é $f(1)=e^{-1}$.",
+    "a": "É a metade do máximo: o único ponto crítico é $x=1$, onde $f(1)=\\frac1e$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-021",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Máximo com logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, a função $f(x)=\\dfrac{\\ln x}{x}$ atinge o máximo em qual valor de $x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=e^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$x=1$"
+   },
+   {
+    "id": "c",
+    "text": "$x=e$"
+   },
+   {
+    "id": "d",
+    "text": "$x=\\dfrac1e$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Pela regra do quociente, $f'(x)=\\dfrac{\\frac1x\\cdot x-\\ln x\\cdot1}{x^2}=\\dfrac{1-\\ln x}{x^2}$. $f'=0\\iff\\ln x=1\\iff x=e$. Para $x<e$, $f'>0$; para $x>e$, $f'<0$ — máximo, com $f(e)=\\frac1e$.",
+   "steps": [
+    "$f'(x)=\\dfrac{1-\\ln x}{x^{2}}$.",
+    "$f'(x)=0\\iff x=e$.",
+    "$+\\to-$ ⇒ máximo em $x=e$."
+   ],
+   "wrong": {
+    "b": "$x=1$ é a raiz de $f$ ($\\ln1=0$); $f'(1)=1\\neq0$.",
+    "d": "$\\frac1e$ é o *valor* do máximo, $f(e)=\\frac1e$.",
+    "a": "$f'(x)=\\frac{1-\\ln x}{x^2}$ se anula em $\\ln x=1$, e não em $\\ln x=2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-022",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Pontos de inflexão",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Quais são as abscissas dos pontos de inflexão do gráfico de $f(x)=e^{-x^{2}}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=\\pm1$"
+   },
+   {
+    "id": "b",
+    "text": "$x=\\pm\\sqrt2$"
+   },
+   {
+    "id": "c",
+    "text": "$x=0$"
+   },
+   {
+    "id": "d",
+    "text": "$x=\\pm\\dfrac{\\sqrt2}{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=-2xe^{-x^2}$ e $f''(x)=(4x^2-2)e^{-x^2}$. $f''=0\\iff x^2=\\frac12\\iff x=\\pm\\frac{\\sqrt2}{2}$. Em cada um desses pontos $f''$ muda de sinal (positiva fora, negativa entre eles), logo a concavidade muda: são pontos de inflexão.",
+   "steps": [
+    "$f''(x)=(4x^{2}-2)e^{-x^{2}}$.",
+    "$4x^{2}-2=0\\Rightarrow x=\\pm\\frac{\\sqrt2}{2}$.",
+    "$f''$ muda de sinal ⇒ inflexão."
+   ],
+   "wrong": {
+    "a": "$f''(x)=(4x^2-2)e^{-x^2}$ se anula em $x^2=\\frac12$, e não em $x^2=1$.",
+    "c": "Em $x=0$ ocorre o *máximo* de $f$ ($f'(0)=0$, $f''(0)=-2<0$), não inflexão.",
+    "b": "Inverteu a equação $4x^2=2$: $x^2=\\frac12$, não $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "f'' = 0 e mudança de concavidade",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-023",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Inflexão versus extremo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Em qual das funções abaixo $x=0$ é ponto de inflexão (a concavidade muda de sinal em $x=0$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f(x)=-x^{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$f(x)=x^{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$f(x)=x^{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$f(x)=x^{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Em $f(x)=x^3$, $f''(x)=6x$ é negativa para $x<0$ e positiva para $x>0$: a concavidade muda em $0$. Nas outras três, $f''$ é $12x^2$, $-12x^2$ e $30x^4$: anulam-se em $0$ mas não trocam de sinal, então $x=0$ é extremo (não inflexão), mesmo com $f''(0)=0$.",
+   "steps": [
+    "Calcule $f''$ de cada função.",
+    "Procure a troca de sinal de $f''$ em $x=0$.",
+    "Só $x^{3}$: $6x$ vai de $-$ a $+$."
+   ],
+   "wrong": {
+    "c": "$f''(x)=12x^2\\ge0$: concavidade sempre para cima; $x=0$ é mínimo.",
+    "a": "$f''(x)=-12x^2\\le0$: concavidade sempre para baixo; $x=0$ é máximo.",
+    "b": "$f''(x)=30x^4\\ge0$: não muda de sinal; $x=0$ é mínimo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "f'' = 0: ponto de inflexão (só quando f'' muda de sinal)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath (por alternativa)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-024",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Parâmetro e existência de extremos",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para quais valores de $k$ a função $f(x)=x^{3}+kx$ possui um ponto de máximo local e um de mínimo local?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$k=0$"
+   },
+   {
+    "id": "b",
+    "text": "$k<0$"
+   },
+   {
+    "id": "c",
+    "text": "todo $k$ real"
+   },
+   {
+    "id": "d",
+    "text": "$k>0$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2+k=0\\iff x^2=-\\frac k3$. Há duas raízes reais distintas (e $f'$ troca de sinal em ambas, dando um máximo e um mínimo) se e somente se $-\\frac k3>0$, isto é, $k<0$. Se $k=0$ há uma raiz dupla (sem extremo) e se $k>0$ não há raiz real.",
+   "steps": [
+    "$f'(x)=3x^{2}+k$.",
+    "$3x^{2}+k=0\\Rightarrow x^{2}=-k/3$.",
+    "Duas raízes reais ⇔ $-k/3>0\\iff k<0$."
+   ],
+   "wrong": {
+    "d": "Com $k>0$, $f'(x)=3x^2+k>0$ sempre: $f$ é crescente e não tem extremos.",
+    "a": "Com $k=0$, $f=x^3$: $x=0$ é crítico, mas é inflexão — não há extremo.",
+    "c": "Para $k\\ge0$ não há extremos locais."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "pontos críticos como raízes de f'",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo 3: raiz dupla de f' (sem extremo)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-025",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Volume máximo de caixa",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "De uma chapa quadrada de $12$ cm de lado, recortam-se quadrados de lado $x$ nos quatro cantos e dobram-se as abas para formar uma caixa sem tampa. Qual é o volume máximo da caixa, em cm³?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$108$"
+   },
+   {
+    "id": "b",
+    "text": "$144$"
+   },
+   {
+    "id": "c",
+    "text": "$128$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A base é $(12-2x)\\times(12-2x)$ e a altura $x$: $V(x)=x(12-2x)^2$, com $0<x<6$. $V'(x)=(12-2x)^2-4x(12-2x)=(12-2x)(12-6x)$. Raízes: $x=6$ (volume $0$) e $x=2$. Em $x=2$, $V'$ passa de $+$ para $-$: máximo, com $V(2)=2\\cdot8^2=128$.",
+   "steps": [
+    "$V(x)=x(12-2x)^{2}$.",
+    "$V'(x)=(12-2x)(12-6x)=0\\Rightarrow x=2$ (em $0<x<6$).",
+    "$V(2)=2\\cdot64=128$."
+   ],
+   "wrong": {
+    "a": "Corresponde a $x=3$: $V(3)=3\\cdot6^2=108$. Não é o máximo.",
+    "b": "$144=12^2$ é a área da chapa, não o volume.",
+    "d": "$x=2$ é o recorte ótimo, não o volume."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "modelagem e critério da 1ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-026",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Distância mínima a uma curva",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é a menor distância do ponto $(0,1)$ à parábola $y=x^{2}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{\\sqrt2}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac34$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{\\sqrt3}{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O quadrado da distância de $(x,x^2)$ a $(0,1)$ é $D(x)=x^2+(x^2-1)^2=x^4-x^2+1$. $D'(x)=4x^3-2x=2x(2x^2-1)=0\\Rightarrow x=0$ ou $x=\\pm\\frac{\\sqrt2}{2}$. $D(0)=1$ e $D(\\pm\\frac{\\sqrt2}{2})=\\frac14-\\frac12+1=\\frac34$. O menor valor de $D$ é $\\frac34$, logo a menor distância é $\\sqrt{3/4}=\\dfrac{\\sqrt3}{2}$.",
+   "steps": [
+    "$D(x)=x^{4}-x^{2}+1$.",
+    "$D'(x)=2x(2x^{2}-1)=0\\Rightarrow x=0,\\ \\pm\\frac{\\sqrt2}{2}$.",
+    "$D_{\\min}=\\frac34\\Rightarrow d=\\frac{\\sqrt3}{2}$."
+   ],
+   "wrong": {
+    "a": "É a distância ao ponto $(0,0)$ ($x=0$), que é *máximo* local da distância, não o mínimo.",
+    "c": "$\\frac34$ é o *quadrado* da menor distância; falta extrair a raiz.",
+    "b": "É a abscissa $x=\\frac{\\sqrt2}{2}$ do ponto mais próximo, não a distância."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "candidatos: pontos críticos e comparação de valores",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-maxmin-027",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Determinação de parâmetros por extremos",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "A função $f(x)=x^{3}+ax^{2}+bx$ ($a$ e $b$ constantes) tem um máximo local em $x=-1$ e um mínimo local em $x=3$. Calcule $a+b$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6$"
+   },
+   {
+    "id": "b",
+    "text": "$-6$"
+   },
+   {
+    "id": "c",
+    "text": "$12$"
+   },
+   {
+    "id": "d",
+    "text": "$-12$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=3x^2+2ax+b$. Como $f'(-1)=0$ e $f'(3)=0$: $3-2a+b=0$ e $27+6a+b=0$. Subtraindo, $24+8a=0\\Rightarrow a=-3$ e então $b=-9$. Conferindo: $f''(x)=6x+2a=6x-6$, com $f''(-1)=-12<0$ (máximo) e $f''(3)=12>0$ (mínimo). Logo $a+b=-12$.",
+   "steps": [
+    "$f'(-1)=3-2a+b=0$ e $f'(3)=27+6a+b=0$.",
+    "Subtração: $24+8a=0\\Rightarrow a=-3$; $b=-9$.",
+    "Teste: $f''(-1)<0$, $f''(3)>0$ ⇒ $a+b=-12$."
+   ],
+   "wrong": {
+    "b": "Corresponde a $a=3$, $b=-9$. Com $a=3$, $f'(-1)=3-6-9\\neq0$: o sinal de $a$ está trocado.",
+    "a": "Corresponde a $a=-3$, $b=9$. Com $b=9$, $f'(-1)=3+6+9\\neq0$.",
+    "c": "Corresponde a $a=3$, $b=9$. Nenhum dos dois satisfaz $f'(-1)=f'(3)=0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada (conferência de máximo e mínimo)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
   "id": "c2-primitivas-001",
   "disciplineId": "calculo2",
   "topicId": "primitivas",
@@ -9256,6 +11751,1175 @@
   "updatedAt": "2026-10-22T23:20:38.175Z",
   "status": "approved",
   "verifiedBy": "sympy+mpmath.quad",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-001",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Polinômio de Maclaurin",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule o polinômio de Taylor de 3ª ordem de $f(x)=x^{2}+1$ em torno de $x=0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$P_3(x)=1+2x$"
+   },
+   {
+    "id": "b",
+    "text": "$P_3(x)=x^{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$P_3(x)=1+x+x^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$P_3(x)=1+x^{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f(0)=1$, $f'(x)=2x\\Rightarrow f'(0)=0$, $f''(x)=2\\Rightarrow\\frac{f''(0)}{2!}=1$ e $f'''=0$. Logo $P_3(x)=1+0\\cdot x+1\\cdot x^2+0\\cdot x^3=1+x^2$. (Um polinômio de grau $\\le3$ coincide com o seu próprio Taylor.)",
+   "steps": [
+    "$f(0)=1$.",
+    "$f'(0)=0$ e $\\dfrac{f''(0)}{2!}=1$.",
+    "$f'''(0)=0$ ⇒ $P_{3}(x)=1+x^{2}$."
+   ],
+   "wrong": {
+    "a": "Esse é o polinômio de 1ª ordem (reta tangente); o de 3ª ordem inclui o termo $\\frac{f''(0)}{2}x^2=x^2$.",
+    "c": "O coeficiente de $x$ é $f'(0)=0$ (pois $f'(x)=2x$), e não $1$.",
+    "b": "Faltou o termo constante $f(0)=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-lista",
+    "locator": "item 1",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6 (coeficientes e fatoriais)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.136Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-002",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Conceito",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que é o polinômio de Maclaurin de uma função $f$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O polinômio de Taylor de $f$ centrado em $x=0$"
+   },
+   {
+    "id": "b",
+    "text": "Um polinômio que coincide com $f$ em todos os pontos"
+   },
+   {
+    "id": "c",
+    "text": "O polinômio de Taylor centrado em $x=1$"
+   },
+   {
+    "id": "d",
+    "text": "A derivada de $f$ em $x=0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O polinômio de Taylor de ordem $n$ em torno de $a$ é $\\sum_{k=0}^{n}\\dfrac{f^{(k)}(a)}{k!}(x-a)^k$. Quando o centro é $a=0$, ele é chamado de polinômio de **Maclaurin**: $f(0)+f'(0)x+\\dfrac{f''(0)}{2!}x^2+\\cdots$.",
+   "wrong": {
+    "c": "O centro $x=a$ é arbitrário no Taylor; o nome Maclaurin é reservado ao caso $a=0$.",
+    "b": "O polinômio só aproxima $f$ perto do centro; em geral não coincide com $f$ fora dele.",
+    "d": "A derivada em $0$ é apenas um número ($c_1$); o polinômio usa todos os coeficientes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6 (centrado em 0; “e se centrar em a?”)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-programa",
+    "locator": "bloco 1: Polinômio de Taylor e Maclaurin",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.136Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-003",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Linearização",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A linearização de $f(x)=\\sqrt{x}$ em torno de $a=4$ é o polinômio de Taylor de 1ª ordem. Qual é ela?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$L(x)=2+\\dfrac{x}{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$L(x)=2+\\dfrac{x-4}{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$L(x)=\\dfrac{x-4}{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$L(x)=2+\\dfrac{x-4}{2}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$L(x)=f(a)+f'(a)(x-a)$. Com $f(4)=2$ e $f'(x)=\\dfrac1{2\\sqrt x}\\Rightarrow f'(4)=\\dfrac14$: $L(x)=2+\\dfrac{x-4}{4}$. Perto de $x=4$, $\\sqrt x\\approx L(x)$ (ex.: $\\sqrt{4{,}2}\\approx2{,}05$).",
+   "steps": [
+    "$f(4)=2$.",
+    "$f'(x)=\\dfrac{1}{2\\sqrt{x}}\\Rightarrow f'(4)=\\dfrac14$.",
+    "$L(x)=2+\\dfrac14(x-4)$."
+   ],
+   "wrong": {
+    "d": "$f'(4)=\\frac{1}{2\\sqrt4}=\\frac14$, e não $\\frac12$.",
+    "c": "Faltou o termo $f(4)=2$ (valor da função no ponto).",
+    "a": "O termo linear usa $(x-a)=(x-4)$, e não $x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 4 (mesmo valor, mesma inclinação)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 13 (linearização de 1ª ordem)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.136Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-004",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Coeficientes",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No polinômio de Maclaurin de $f(x)=e^{x}$, qual é o coeficiente de $x^{2}$ (ou seja, $\\dfrac{f''(0)}{2!}$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac14$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Todas as derivadas de $e^x$ valem $e^0=1$ em $x=0$. O coeficiente de $x^2$ é $\\dfrac{f''(0)}{2!}=\\dfrac12$. Por isso $e^x\\approx1+x+\\dfrac{x^2}{2}+\\cdots$.",
+   "steps": [
+    "$f''(x)=e^{x}\\Rightarrow f''(0)=1$.",
+    "$c_{2}=\\dfrac{f''(0)}{2!}=\\dfrac12$."
+   ],
+   "wrong": {
+    "c": "$f''(0)=1$, mas o coeficiente divide por $2!=2$.",
+    "d": "Multiplicou por $2!$ em vez de dividir.",
+    "b": "Dividiu por $2^2$ em vez de por $2!$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–7 (c₂ = f″(0)/2; eˣ)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-005",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série de eˣ",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $e^{x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+x+x^{2}+x^{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Como $f^{(k)}(0)=1$, o termo de ordem $k$ é $\\dfrac{x^k}{k!}$: $P_3(x)=1+x+\\dfrac{x^2}{2!}+\\dfrac{x^3}{3!}=1+x+\\dfrac{x^2}{2}+\\dfrac{x^3}{6}$.",
+   "steps": [
+    "$f^{(k)}(0)=1$ para todo $k$.",
+    "Termos: $1,\\ x,\\ \\dfrac{x^{2}}{2!},\\ \\dfrac{x^{3}}{3!}$."
+   ],
+   "wrong": {
+    "a": "Esqueceu os fatoriais: eles “limpam” a sobra das derivadas ($2!=2$, $3!=6$).",
+    "c": "O denominador do termo cúbico é $3!=6$, e não $3$.",
+    "b": "Faltou o termo constante $f(0)=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7 (eˣ: o exemplo mais amigável)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-006",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Aproximar e",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Somando os três primeiros termos da série de $e^{x}$ em $x=1$ ($1+1+\\tfrac{1}{2!}$), que valor se obtém como aproximação de $e$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac52=2{,}5$"
+   },
+   {
+    "id": "b",
+    "text": "$3$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac83\\approx2{,}67$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$1+1+\\dfrac12=2{,}5$. A tabela da aula mostra o erro caindo rapidamente ao acrescentar termos: $2{,}5\\to2{,}667\\to2{,}708\\to\\cdots\\to e=2{,}71828\\ldots$",
+   "steps": [
+    "Termo de ordem $0$: $1$.",
+    "Termo de ordem $1$: $x=1$; ordem $2$: $\\dfrac{1}{2!}=\\dfrac12$.",
+    "Soma: $1+1+\\dfrac12=\\dfrac52$."
+   ],
+   "wrong": {
+    "b": "Somou $1+1+1$, esquecendo que o terceiro termo é $\\frac1{2!}=\\frac12$.",
+    "c": "Isso inclui o quarto termo $\\frac1{3!}$; o enunciado pede só três termos.",
+    "d": "Contou apenas dois termos ($1+1$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 8 (Vendo convergir: calculando e)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-007",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série do seno",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $\\sin x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "b",
+    "text": "$x-\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$1-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$x-\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\sin x=x-\\dfrac{x^3}{3!}+\\dfrac{x^5}{5!}-\\cdots$. Só aparecem potências ímpares, porque o seno é função ímpar ($\\sin(-x)=-\\sin x$): os coeficientes pares são zero.",
+   "steps": [
+    "Derivadas de $\\sin$ em $0$: $0,\\ 1,\\ 0,\\ -1$.",
+    "Divida por $k!$: $0,\\ 1,\\ 0,\\ -\\dfrac{1}{6}$.",
+    "$P_{3}(x)=x-\\dfrac{x^{3}}{6}$."
+   ],
+   "wrong": {
+    "a": "Os sinais alternam: o termo cúbico é negativo, pois $f'''(0)=-\\cos0=-1$.",
+    "b": "O denominador é $3!=6$, e não $3$.",
+    "c": "Esse é o polinômio de $\\cos x$; o seno tem só potências ímpares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9 (sin x: o padrão se repete)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-008",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Taylor em torno de a ≠ 0",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule o polinômio de Taylor de 2ª ordem de $f(x)=\\ln x$ em torno de $x=1$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$P_2(x)=(x-1)-\\dfrac{(x-1)^{2}}{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$P_2(x)=(x-1)+\\dfrac{(x-1)^{2}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$P_2(x)=x-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$P_2(x)=1-\\dfrac{(x-1)^{2}}{2}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f(1)=0$, $f'(x)=\\frac1x\\Rightarrow f'(1)=1$, $f''(x)=-\\frac1{x^2}\\Rightarrow\\dfrac{f''(1)}{2!}=-\\dfrac12$. Logo $P_2(x)=(x-1)-\\dfrac{(x-1)^2}{2}$.",
+   "steps": [
+    "$f(1)=0$, $f'(1)=1$.",
+    "$f''(1)=-1\\Rightarrow\\dfrac{f''(1)}{2!}=-\\dfrac12$.",
+    "$P_{2}(x)=(x-1)-\\dfrac{(x-1)^{2}}{2}$."
+   ],
+   "wrong": {
+    "b": "$f''(x)=-\\frac1{x^2}$, então $f''(1)=-1$ e o termo quadrático é negativo.",
+    "c": "Está centrado em $0$ (e $\\ln$ não existe em $0$); para o centro $a=1$ usam-se potências de $(x-1)$.",
+    "d": "O termo constante é $f(1)=\\ln1=0$, e não $1$; e falta o termo linear $f'(1)(x-1)=x-1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-lista",
+    "locator": "item 2",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 6 (E se centrar em a?)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-009",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Taylor em torno de a ≠ 0",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Reescreva $f(x)=x^{3}-2x^{2}+1$ em potências de $(x-5)$: qual é o seu polinômio de Taylor de 3ª ordem centrado em $x=5$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$76+55(x-5)+13(x-5)^{2}+(x-5)^{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$76+55(x-5)+13(x-5)^{2}+6(x-5)^{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$76+55(x-5)+26(x-5)^{2}+(x-5)^{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$76+55(x-5)+13(x-5)^{2}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f(5)=125-50+1=76$; $f'(x)=3x^2-4x\\Rightarrow f'(5)=55$; $f''(x)=6x-4\\Rightarrow f''(5)=26\\Rightarrow\\dfrac{26}{2!}=13$; $f'''=6\\Rightarrow\\dfrac{6}{3!}=1$. Logo $P_3(x)=76+55(x-5)+13(x-5)^2+(x-5)^3$ (que é o próprio $f$ reescrito em potências de $x-5$).",
+   "steps": [
+    "$f(5)=76$, $f'(5)=55$.",
+    "$\\dfrac{f''(5)}{2!}=\\dfrac{26}{2}=13$.",
+    "$\\dfrac{f'''(5)}{3!}=\\dfrac66=1$."
+   ],
+   "wrong": {
+    "c": "Esqueceu de dividir $f''(5)=26$ por $2!$: o coeficiente é $13$.",
+    "b": "Esqueceu de dividir $f'''=6$ por $3!$: o coeficiente cúbico é $1$.",
+    "d": "Isso é o polinômio de 2ª ordem; o pedido é de 3ª ordem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-lista",
+    "locator": "item 3",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-010",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série do cosseno",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 4ª ordem de $\\cos x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x-\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "b",
+    "text": "$1-\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$1-\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{24}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{24}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O cosseno é par, então só há potências pares, com sinais alternados: $\\cos x=1-\\dfrac{x^2}{2!}+\\dfrac{x^4}{4!}-\\cdots$. Até a 4ª ordem: $1-\\dfrac{x^2}{2}+\\dfrac{x^4}{24}$.",
+   "steps": [
+    "Derivadas em $0$: $1,\\ 0,\\ -1,\\ 0,\\ 1$.",
+    "Divida por $k!$: $1,\\ 0,\\ -\\tfrac12,\\ 0,\\ \\tfrac1{24}$."
+   ],
+   "wrong": {
+    "b": "O denominador do termo de 4ª ordem é $4!=24$, e não $4$.",
+    "d": "Os sinais alternam: $\\cos x=1-\\frac{x^2}{2!}+\\frac{x^4}{4!}-\\cdots$.",
+    "a": "Esse é o polinômio de $\\sin x$; o cosseno só tem potências pares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9 (padrão do seno e relação com paridade)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-011",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Aplicação numérica",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Usando $\\sin x\\approx x-\\dfrac{x^{3}}{6}$, qual é o valor aproximado de $\\sin(0{,}1)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0{,}1$"
+   },
+   {
+    "id": "b",
+    "text": "$0{,}0998333$"
+   },
+   {
+    "id": "c",
+    "text": "$0{,}0996667$"
+   },
+   {
+    "id": "d",
+    "text": "$0{,}1001667$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$x=0{,}1$: $x^3=0{,}001$, então $0{,}1-\\dfrac{0{,}001}{6}=0{,}1-0{,}000166667=0{,}0998333$. O valor “verdadeiro” $\\sin(0{,}1)=0{,}0998334\\ldots$ difere só na 7ª casa: perto do centro, poucos termos bastam.",
+   "steps": [
+    "$x^{3}=0{,}1^{3}=0{,}001$.",
+    "$\\dfrac{x^{3}}{6}\\approx0{,}000166667$.",
+    "$0{,}1-0{,}000166667\\approx0{,}0998333$."
+   ],
+   "wrong": {
+    "a": "Usou só o primeiro termo ($\\sin x\\approx x$); o termo $-\\frac{x^3}{6}$ corrige $0{,}1\\to0{,}09983$.",
+    "d": "Erro de sinal: o termo cúbico é subtraído, e não somado.",
+    "c": "Dividiu por $3$ em vez de $3!=6$: $0{,}1-\\frac{0{,}001}{3}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 9–10 (poucos termos, perto do centro)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-012",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Composição",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=e^{2x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+2x+x^{2}+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+2x+2x^{2}+\\dfrac{4}{3}x^{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$2+2x+2x^{2}+2x^{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Substituindo $x\\to2x$ em $e^x=\\sum\\frac{x^k}{k!}$: $e^{2x}=1+2x+\\dfrac{(2x)^2}{2}+\\dfrac{(2x)^3}{6}=1+2x+2x^2+\\dfrac43x^3$. (Conferência: $f^{(k)}(0)=2^k$.)",
+   "steps": [
+    "$f^{(k)}(x)=2^{k}e^{2x}\\Rightarrow f^{(k)}(0)=2^{k}$.",
+    "Coeficientes: $\\dfrac{2^{k}}{k!}$: $1,\\ 2,\\ 2,\\ \\dfrac43$."
+   ],
+   "wrong": {
+    "d": "Esse é o de $e^{x}$; com $e^{2x}$ cada $x$ é substituído por $2x$.",
+    "a": "Os termos $(2x)^k/k!$ são $\\frac{4x^2}{2}=2x^2$ e $\\frac{8x^3}{6}=\\frac43x^3$.",
+    "c": "O termo constante é $f(0)=e^0=1$, e não $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7 (eˣ)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-013",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série geométrica",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\dfrac{1}{1-x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1-x+x^{2}-x^{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$1+x+2x^{2}+6x^{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x+x^{2}+x^{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f^{(k)}(x)=\\dfrac{k!}{(1-x)^{k+1}}$, logo $f^{(k)}(0)=k!$ e o coeficiente é $\\dfrac{k!}{k!}=1$. Assim $\\dfrac1{1-x}\\approx1+x+x^2+x^3$ (soma da progressão geométrica).",
+   "steps": [
+    "$f^{(k)}(0)=k!$.",
+    "Coeficientes: $\\dfrac{k!}{k!}=1$.",
+    "$P_{3}(x)=1+x+x^{2}+x^{3}$."
+   ],
+   "wrong": {
+    "a": "Os sinais alternados são do desenvolvimento de $\\frac1{1+x}$; aqui todas as derivadas em $0$ são positivas.",
+    "b": "Esse é o de $e^x$; para $\\frac{1}{1-x}$, $f^{(k)}(0)=k!$, que cancela com o fatorial.",
+    "c": "Esqueceu de dividir $f^{(k)}(0)=k!$ por $k!$: os coeficientes são todos $1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6 (de onde vêm os fatoriais)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-014",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Raiz",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 2ª ordem de $f(x)=\\sqrt{1+x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+x-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+\\dfrac{x}{2}-\\dfrac{x^{2}}{8}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x}{2}-\\dfrac{x^{2}}{8}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+\\dfrac{x}{2}+\\dfrac{x^{2}}{8}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f(0)=1$; $f'(x)=\\dfrac{1}{2}(1+x)^{-1/2}\\Rightarrow f'(0)=\\dfrac12$; $f''(x)=-\\dfrac14(1+x)^{-3/2}\\Rightarrow\\dfrac{f''(0)}{2!}=-\\dfrac18$. Logo $P_2(x)=1+\\dfrac x2-\\dfrac{x^2}{8}$ (boa para $\\sqrt{1{,}1}\\approx1{,}0488$).",
+   "steps": [
+    "$f(0)=1$.",
+    "$f'(0)=\\dfrac12$.",
+    "$\\dfrac{f''(0)}{2!}=\\dfrac{-1/4}{2}=-\\dfrac18$."
+   ],
+   "wrong": {
+    "d": "$f''(x)=-\\frac14(1+x)^{-3/2}$ é negativa: o termo quadrático é $-\\frac{x^2}{8}$.",
+    "a": "$f'(0)=\\frac{1}{2\\sqrt1}=\\frac12$, e não $1$.",
+    "c": "Faltou o termo constante $f(0)=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-015",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\ln(1+x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$x-\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "d",
+    "text": "$x-\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=\\dfrac1{1+x}$, $f''(x)=-\\dfrac1{(1+x)^2}$, $f'''(x)=\\dfrac2{(1+x)^3}$. Em $0$: $0,\\ 1,\\ -1,\\ 2$. Coeficientes $\\dfrac{f^{(k)}(0)}{k!}$: $0,\\ 1,\\ -\\dfrac12,\\ \\dfrac13$. Logo $P_3(x)=x-\\dfrac{x^2}2+\\dfrac{x^3}3$.",
+   "steps": [
+    "$f(0)=0$, $f'(0)=1$.",
+    "$\\dfrac{f''(0)}{2!}=-\\dfrac12$.",
+    "$\\dfrac{f'''(0)}{3!}=\\dfrac{2}{6}=\\dfrac13$."
+   ],
+   "wrong": {
+    "a": "Os sinais alternam: $f''(0)=-1$.",
+    "c": "$f'''(0)=2$ e $\\frac{2}{3!}=\\frac13$, e não $\\frac16$.",
+    "b": "$f(0)=\\ln1=0$: não há termo constante."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-016",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Taylor para calcular limites",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Use $\\cos x=1-\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{24}-\\cdots$ para calcular $\\displaystyle\\lim_{x\\to0}\\frac{\\cos x-1+\\tfrac{x^{2}}{2}}{x^{4}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{24}$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\dfrac{1}{24}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{12}$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\cos x-1+\\dfrac{x^2}{2}=\\left(1-\\dfrac{x^2}{2}+\\dfrac{x^4}{24}-\\cdots\\right)-1+\\dfrac{x^2}{2}=\\dfrac{x^4}{24}-\\dfrac{x^6}{720}+\\cdots$. Dividindo por $x^4$: $\\dfrac1{24}-\\dfrac{x^2}{720}+\\cdots\\to\\dfrac1{24}$. (Com L’Hôpital seriam quatro aplicações.)",
+   "steps": [
+    "Cancelar $1$ e $-\\frac{x^{2}}{2}$ com $-1+\\frac{x^{2}}{2}$.",
+    "Sobra $\\dfrac{x^{4}}{24}-\\dfrac{x^{6}}{720}+\\cdots$.",
+    "$\\dfrac{1}{24}-\\dfrac{x^{2}}{720}+\\cdots\\to\\dfrac{1}{24}$."
+   ],
+   "wrong": {
+    "b": "O primeiro termo que sobra após cancelar $1-\\frac{x^2}{2}$ é $+\\frac{x^4}{24}$, positivo.",
+    "d": "O numerador vai a zero tão rápido quanto $x^4$ (ordem do denominador), então o limite não é nulo.",
+    "c": "O fatorial correto é $4!=24$, e não $12$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 6 e 9",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 6 (L’Hôpital e Taylor de 1ª ordem)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+mpmath",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-017",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Coeficiente específico",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o coeficiente de $x^{5}$ no polinômio de Maclaurin de $\\sin x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac15$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{1}{24}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{120}$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{1}{120}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O coeficiente de $x^k$ é $\\dfrac{f^{(k)}(0)}{k!}$. As derivadas de $\\sin$ em $0$ ciclam $0,1,0,-1,0,1,\\ldots$; a 5ª derivada em $0$ vale $1$. Logo o coeficiente é $\\dfrac{1}{5!}=\\dfrac1{120}$.",
+   "steps": [
+    "$f^{(5)}(x)=\\cos x\\Rightarrow f^{(5)}(0)=1$.",
+    "$\\dfrac{f^{(5)}(0)}{5!}=\\dfrac{1}{120}$."
+   ],
+   "wrong": {
+    "d": "O sinal do termo em $x^5$ é positivo: $\\sin x=x-\\frac{x^3}{3!}+\\frac{x^5}{5!}-\\cdots$.",
+    "b": "O fatorial correto é $5!=120$ (e $4!=24$ aparece no cosseno).",
+    "a": "Dividiu pelo expoente em vez de pelo fatorial."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+independente",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-018",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Quão longe do centro?",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Pela aula, ao aproximar $e^{x}$ por um polinômio de Maclaurin com poucos termos, como se compara a qualidade em $x=0{,}1$ e em $x=5$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Perto do centro ($x=0{,}1$) poucos termos bastam; longe ($x=5$) são necessários muitos mais"
+   },
+   {
+    "id": "b",
+    "text": "A qualidade é a mesma em qualquer $x$, pois o polinômio é o mesmo"
+   },
+   {
+    "id": "c",
+    "text": "Não há como saber sem calcular $e^{5}$ exatamente"
+   },
+   {
+    "id": "d",
+    "text": "Longe do centro ($x=5$) a aproximação é melhor, pois $x^k$ é maior"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Na aula: em $x=0{,}1$, três termos ($1+0{,}1+0{,}005$) já dão 4 casas corretas; em $x=1$ são ~6 termos para 3 casas; em $x=5$ são necessários muitos termos. “Perto do centro é barato e preciso; longe é caro” — o resto/raio de convergência fica para depois.",
+   "wrong": {
+    "b": "O erro cresce com a distância ao centro; por isso a aula diz “perto do centro = barato e preciso; longe = caro”.",
+    "d": "Termos maiores não significam aproximação melhor: o resto é que cresce com a distância.",
+    "c": "A aula mostra o comportamento geral: a precisão depende da distância ao centro e do número de termos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 10 (A ressalva honesta)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-019",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Tangente",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\tan x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x-\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x^{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$x+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$x+\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'=\\sec^2x$, $f''=2\\sec^2x\\tan x$, $f'''=2\\sec^4x+4\\sec^2x\\tan^2x$. Em $0$: $0,\\ 1,\\ 0,\\ 2$. Coeficientes: $0,\\ 1,\\ 0,\\ \\dfrac{2}{3!}=\\dfrac13$. Logo $\\tan x\\approx x+\\dfrac{x^3}{3}$.",
+   "steps": [
+    "$f'(0)=\\sec^{2}0=1$.",
+    "$f''(0)=0$.",
+    "$f'''(0)=2\\Rightarrow\\dfrac{2}{3!}=\\dfrac13$."
+   ],
+   "wrong": {
+    "a": "Diferente do seno, o termo cúbico da tangente é positivo: $f'''(0)=2$.",
+    "d": "$f'''(0)=2$ e $\\frac{2}{3!}=\\frac13$, e não $\\frac16$.",
+    "b": "$f(0)=\\tan 0=0$ e a função é ímpar: só há potências ímpares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-020",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Composição",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Substituindo $u=x^{2}$ na série de $e^{u}$, qual é o polinômio de Maclaurin de 4ª ordem de $f(x)=e^{x^{2}}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+2x+2x^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x^{2}+\\dfrac{x^{4}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}+\\dfrac{x^{4}}{24}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x^{2}+x^{4}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "De $e^u=1+u+\\dfrac{u^2}{2!}+\\cdots$ com $u=x^2$: $e^{x^2}=1+x^2+\\dfrac{x^4}{2}+\\cdots$. A função é par, então só há potências pares; até a 4ª ordem: $1+x^2+\\dfrac{x^4}{2}$.",
+   "steps": [
+    "$e^{u}=1+u+\\dfrac{u^{2}}{2}+\\cdots$.",
+    "Com $u=x^{2}$: $1+x^{2}+\\dfrac{x^{4}}{2}+\\cdots$."
+   ],
+   "wrong": {
+    "d": "O termo de ordem 2 em $u$ é $\\frac{u^2}{2!}=\\frac{x^4}{2}$ (esqueceu o fatorial).",
+    "c": "Essa é a série de $e^x$ (com $x$, e não com $x^2$).",
+    "a": "Isso é a série de $e^{2x}$; aqui o expoente é $x^2$, e só aparecem potências pares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "c2-taylor-021",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Produto de funções",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\sin x\\cos x$? (Dica: $\\sin x\\cos x=\\tfrac12\\sin 2x$.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x-\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$x-\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$x-\\dfrac{2x^{3}}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$x-\\dfrac{4x^{3}}{3}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$\\sin x\\cos x=\\dfrac12\\sin2x=\\dfrac12\\left(2x-\\dfrac{(2x)^3}{6}+\\cdots\\right)=x-\\dfrac{8x^3}{12}+\\cdots=x-\\dfrac{2x^3}{3}+\\cdots$.",
+   "steps": [
+    "$\\sin x\\cos x=\\tfrac12\\sin 2x$.",
+    "$\\sin 2x=2x-\\dfrac{(2x)^{3}}{6}$.",
+    "$\\tfrac12\\left(2x-\\tfrac{8x^{3}}{6}\\right)=x-\\dfrac{2x^{3}}{3}$."
+   ],
+   "wrong": {
+    "b": "Esse é o polinômio de $\\sin x$; aqui $\\frac12\\sin2x$ troca $x$ por $2x$ e multiplica por $\\frac12$.",
+    "a": "$\\frac12\\cdot\\frac{(2x)^3}{6}=\\frac{8x^3}{12}=\\frac{2x^3}{3}$, e não $\\frac{x^3}{3}$.",
+    "d": "Esqueceu o fator $\\frac12$ da identidade: $\\frac12\\cdot\\frac{8x^3}{6}=\\frac{2x^3}{3}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "status": "approved",
+  "verifiedBy": "sympy+amostragem+mpmath.taylor",
   "reviewedBy": "ai-assisted"
  }
 ]

@@ -1,0 +1,2407 @@
+[
+ {
+  "id": "c2-maxmin-001",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Intervalos de crescimento",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{2}-6x+8$, em qual intervalo $f$ é crescente?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x>6$"
+   },
+   {
+    "id": "b",
+    "text": "$x>3$"
+   },
+   {
+    "id": "c",
+    "text": "$x<3$"
+   },
+   {
+    "id": "d",
+    "text": "$x>-3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=2x-6$, que se anula em $x=3$. Para $x>3$, $f'(x)>0$ (por exemplo $f'(4)=2$) e, pelo critério da aula, $f$ é crescente. Para $x<3$, $f'<0$ e $f$ decresce.",
+   "steps": [
+    "$f'(x)=2x-6$.",
+    "$f'(x)=0\\iff x=3$.",
+    "$f'(4)=2>0$ e $f'(2)=-2<0$ ⇒ $f$ cresce em $x>3$."
+   ],
+   "wrong": {
+    "c": "Nesse intervalo $f'(x)=2x-6<0$, ou seja, a função *decresce*.",
+    "d": "Trocou o sinal ao resolver $2x-6=0$: a raiz de $f'$ é $x=+3$.",
+    "a": "Esqueceu de dividir por $2$ em $2x=6$: o sinal de $f'$ muda em $x=3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "critério f' > 0 ⇒ crescente",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.023Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'x>3' if (solve(diff(x**2-6*x+8,x),x)==[3] and subs(diff(x**2-6*x+8,x),x,4)>0 and subs(diff(x**2-6*x+8,x),x,2)<0) else 'x<3'",
+    "numeric": "'x>3'"
+   },
+   "optionValues": {
+    "b": "'x>3'",
+    "c": "'x<3'",
+    "d": "'x>-3'",
+    "a": "'x>6'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = x>3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-002",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Pontos críticos",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quais são os pontos críticos (onde $f'(x)=0$) de $f(x)=x^{3}-12x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=-2\\sqrt3$, $x=0$ e $x=2\\sqrt3$"
+   },
+   {
+    "id": "b",
+    "text": "apenas $x=2$"
+   },
+   {
+    "id": "c",
+    "text": "$x=-2$ e $x=2$"
+   },
+   {
+    "id": "d",
+    "text": "$x=-4$ e $x=4$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=3x^{2}-12$. Então $3x^2-12=0\\Rightarrow x^2=4\\Rightarrow x=\\pm2$.",
+   "steps": [
+    "$f'(x)=3x^{2}-12$.",
+    "$3x^{2}=12\\Rightarrow x^{2}=4$.",
+    "$x=\\pm2$."
+   ],
+   "wrong": {
+    "a": "Essas são as raízes de $f(x)=0$. Pontos críticos vêm de $f'(x)=0$.",
+    "d": "Parou em $x^2=4$ e tomou $4$ e $-4$ sem extrair a raiz quadrada.",
+    "b": "A equação $3x^2=12$ tem duas soluções: $x=2$ e também $x=-2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "f'(x) = 0: candidatos a máximo/mínimo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.029Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sorted(solve(diff(x**3-12*x,x),x))",
+    "numeric": "[-2, 2]"
+   },
+   "optionValues": {
+    "c": "[-2, 2]",
+    "a": "[-2*sqrt(3), 0, 2*sqrt(3)]",
+    "d": "[-4, 4]",
+    "b": "[2]"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = [-2, 2]; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-003",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Teste da 2ª derivada",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{2}-6x+5$, o ponto $x=3$ é crítico. Qual é a classificação desse ponto?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de máximo"
+   },
+   {
+    "id": "b",
+    "text": "ponto de inflexão"
+   },
+   {
+    "id": "c",
+    "text": "ponto de mínimo, pois $f''(3)=2>0$"
+   },
+   {
+    "id": "d",
+    "text": "não é possível classificar"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=2x-6$ e $f'(3)=0$. Como $f''(x)=2$, temos $f''(3)=2>0$, logo $x=3$ é ponto de mínimo (de valor $f(3)=-4$).",
+   "steps": [
+    "$f'(3)=0$.",
+    "$f''(x)=2\\Rightarrow f''(3)=2>0$.",
+    "$f''>0$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "a": "O máximo exigiria $f''(3)<0$; aqui $f''(x)=2>0$ (parábola voltada para cima).",
+    "b": "Inflexão exigiria $f''(3)=0$, mas $f''(3)=2\\neq0$.",
+    "d": "Como $f''(3)\\neq0$, o teste da segunda derivada decide: é mínimo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "quadro de critérios: f'' > 0 ⇒ mínimo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.029Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'min' if (subs(diff(x**2-6*x+5,x),x,3)==0 and subs(diff(x**2-6*x+5,x,2),x,3)>0) else 'outro'",
+    "numeric": "'min'"
+   },
+   "optionValues": {
+    "c": "'min'",
+    "a": "'max'",
+    "b": "'inflexao'",
+    "d": "'inconclusivo'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = min; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-004",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Valor mínimo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor mínimo de $f(x)=x^{2}-6x+10$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$-6$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$10$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=2x-6=0\\Rightarrow x=3$, e $f''=2>0$ (mínimo). O valor mínimo é $f(3)=9-18+10=1$.",
+   "steps": [
+    "$f'(x)=2x-6=0\\Rightarrow x=3$.",
+    "$f''(x)=2>0$: mínimo.",
+    "$f(3)=9-18+10=1$."
+   ],
+   "wrong": {
+    "a": "$x=3$ é o *ponto* de mínimo (abscissa); o *valor* mínimo é $f(3)$.",
+    "d": "$10$ é $f(0)$, o termo independente — não é o mínimo.",
+    "b": "$-6$ é só o coeficiente de $x$; falta calcular $f$ no ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo de parábola: sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x**2-6*x+10,x,solve(diff(x**2-6*x+10,x),x)[0])",
+    "numeric": "1"
+   },
+   "optionValues": {
+    "c": "1",
+    "a": "3",
+    "d": "10",
+    "b": "-6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 1; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-005",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Sinal da derivada",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Se $f'(x)<0$ para todo $x$ de um intervalo, o que se pode afirmar sobre $f$ nesse intervalo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f$ é crescente"
+   },
+   {
+    "id": "b",
+    "text": "$f$ é constante"
+   },
+   {
+    "id": "c",
+    "text": "$f$ tem um máximo em cada ponto"
+   },
+   {
+    "id": "d",
+    "text": "$f$ é decrescente"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Pelo critério da aula: $f'(x)>0$ ⇒ $f$ crescente; $f'(x)<0$ ⇒ $f$ decrescente. Se $f'<0$ em todo o intervalo, o gráfico desce da esquerda para a direita.",
+   "steps": [
+    "$f'<0$ ⇒ taxa de variação negativa.",
+    "Taxa negativa em todo o intervalo ⇒ $f$ decrescente."
+   ],
+   "wrong": {
+    "a": "Crescimento corresponde a $f'(x)>0$.",
+    "b": "Função constante tem $f'(x)=0$, não $f'<0$.",
+    "c": "Máximos ocorrem onde $f'$ se anula e muda de sinal, não onde $f'$ é sempre negativa."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "f'(x) > 0: crescente; f'(x) < 0: decrescente",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "quadro de critérios",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Aula 4: “f'(x) > 0 — y = f(x) crescente no intervalo; f'(x) < 0 — y = f(x) decrescente no intervalo”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-006",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Ponto de máximo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual valor de $x$ a função $f(x)=-x^{2}+4x$ atinge seu máximo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=0$"
+   },
+   {
+    "id": "b",
+    "text": "$x=-2$"
+   },
+   {
+    "id": "c",
+    "text": "$x=4$"
+   },
+   {
+    "id": "d",
+    "text": "$x=2$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=-2x+4=0\\Rightarrow x=2$. Como $f''(x)=-2<0$, $x=2$ é ponto de máximo, com valor $f(2)=4$.",
+   "steps": [
+    "$f'(x)=-2x+4$.",
+    "$f'(x)=0\\Rightarrow x=2$.",
+    "$f''=-2<0$ ⇒ máximo em $x=2$."
+   ],
+   "wrong": {
+    "c": "$f(2)=4$ é o *valor* máximo; $4$ também é raiz de $f$, mas $f'(4)=-4\\neq0$.",
+    "b": "$f'(-2)=8\\neq0$; resolveu $-2x+4=0$ com o sinal trocado.",
+    "a": "$0$ é raiz de $f$, mas $f'(0)=4\\neq0$: não é ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "f'' < 0 ⇒ ponto de máximo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "solve(diff(-x**2+4*x,x),x)[0]",
+    "numeric": "2"
+   },
+   "optionValues": {
+    "d": "2",
+    "c": "4",
+    "b": "-2",
+    "a": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-007",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Receita máxima",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A receita (em reais) de uma loja é $R(q)=100q-q^{2}$, em que $q$ é a quantidade vendida. Para qual $q$ a receita é máxima?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$q=50$"
+   },
+   {
+    "id": "b",
+    "text": "$q=25$"
+   },
+   {
+    "id": "c",
+    "text": "$q=2500$"
+   },
+   {
+    "id": "d",
+    "text": "$q=100$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$R'(q)=100-2q=0\\Rightarrow q=50$. Como $R''=-2<0$, é máximo. A receita máxima vale $R(50)=2500$.",
+   "steps": [
+    "$R'(q)=100-2q$.",
+    "$R'(q)=0\\Rightarrow q=50$.",
+    "$R''=-2<0$ ⇒ máximo."
+   ],
+   "wrong": {
+    "d": "Em $q=100$ a receita é $R(100)=0$: é raiz de $R$, não o máximo.",
+    "c": "$2500$ é a receita máxima $R(50)$, não a quantidade.",
+    "b": "$R'(q)=100-2q$ se anula em $q=50$, não em $25$ (esqueceu o fator $2$ da derivada)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "aplicação do critério da 1ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "solve(diff(100*x-x**2,x),x)[0]",
+    "numeric": "50"
+   },
+   "optionValues": {
+    "a": "50",
+    "d": "100",
+    "c": "2500",
+    "b": "25"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 50; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-008",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Classificação em função cúbica",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Os pontos críticos de $f(x)=x^{3}-3x$ são $x=-1$ e $x=1$. Como se classifica $x=-1$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de máximo local"
+   },
+   {
+    "id": "b",
+    "text": "o teste é inconclusivo"
+   },
+   {
+    "id": "c",
+    "text": "ponto de mínimo local"
+   },
+   {
+    "id": "d",
+    "text": "ponto de inflexão"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f'(x)=3x^{2}-3$ e $f''(x)=6x$. Em $x=-1$: $f''(-1)=-6<0$, portanto máximo local, com $f(-1)=2$.",
+   "steps": [
+    "$f''(x)=6x$.",
+    "$f''(-1)=-6<0$.",
+    "$f''<0$ ⇒ máximo local em $x=-1$."
+   ],
+   "wrong": {
+    "c": "$f''(x)=6x$ e $f''(-1)=-6<0$: é máximo, não mínimo (o mínimo local é $x=1$).",
+    "d": "Inflexão exigiria $f''(-1)=0$, mas $f''(-1)=-6$.",
+    "b": "Como $f''(-1)=-6\\neq0$, o teste decide."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'max' if (subs(diff(x**3-3*x,x),x,-1)==0 and subs(diff(x**3-3*x,x,2),x,-1)<0) else 'outro'",
+    "numeric": "'max'"
+   },
+   "optionValues": {
+    "a": "'max'",
+    "c": "'min'",
+    "d": "'inflexao'",
+    "b": "'inconclusivo'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = max; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-009",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Tabela de sinais",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Sabe-se que $f'(x)=(x-1)(x-5)$. Em qual valor de $x$ a função $f$ tem um máximo local?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=-1$"
+   },
+   {
+    "id": "b",
+    "text": "$x=1$"
+   },
+   {
+    "id": "c",
+    "text": "$x=5$"
+   },
+   {
+    "id": "d",
+    "text": "$x=3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'=0$ em $x=1$ e $x=5$. Sinais: $f'(0)=5>0$, $f'(3)=-4<0$ e $f'(6)=5>0$. Em $x=1$ a derivada passa de $+$ para $-$ (f cresce e depois decresce): máximo local. Em $x=5$ passa de $-$ para $+$: mínimo local.",
+   "steps": [
+    "Raízes de $f'$: $1$ e $5$.",
+    "$f'(0)>0$, $f'(3)<0$, $f'(6)>0$.",
+    "$+\\to-$ em $x=1$ ⇒ máximo."
+   ],
+   "wrong": {
+    "c": "Em $x=5$, $f'$ passa de negativa para positiva: é *mínimo* local.",
+    "d": "$x=3$ é o ponto médio das raízes, onde $f'$ vale $-4$; não é raiz de $f'$.",
+    "a": "$f'(-1)=12\\neq0$. A raiz do fator $(x-1)$ é $x=+1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "quadro de sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "1 if (subs((x-1)*(x-5),x,0)>0 and subs((x-1)*(x-5),x,3)<0 and subs((x-1)*(x-5),x,6)>0) else 5",
+    "numeric": "1"
+   },
+   "optionValues": {
+    "b": "1",
+    "c": "5",
+    "d": "3",
+    "a": "-1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 1; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-010",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Valor do máximo local",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $f$ no ponto de máximo local de $f(x)=x^{3}-27x+10$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$10$"
+   },
+   {
+    "id": "b",
+    "text": "$-3$"
+   },
+   {
+    "id": "c",
+    "text": "$64$"
+   },
+   {
+    "id": "d",
+    "text": "$-44$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-27=0\\Rightarrow x=\\pm3$. $f''(x)=6x$: $f''(-3)=-18<0$ (máximo) e $f''(3)=18>0$ (mínimo). Valor do máximo: $f(-3)=-27+81+10=64$.",
+   "steps": [
+    "$f'(x)=3x^{2}-27\\Rightarrow x=\\pm3$.",
+    "$f''(-3)=-18<0$ ⇒ máximo em $x=-3$.",
+    "$f(-3)=-27+81+10=64$."
+   ],
+   "wrong": {
+    "d": "É o valor no *mínimo* local ($x=3$): $f(3)=27-81+10=-44$.",
+    "b": "$-3$ é a abscissa do máximo; o enunciado pede o valor de $f$ nesse ponto.",
+    "a": "$10$ é $f(0)$; $x=0$ não é ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "exemplo de cúbica com dois pontos críticos",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "[subs(x**3-27*x+10,x,c) for c in solve(diff(x**3-27*x+10,x),x) if subs(diff(x**3-27*x+10,x,2),x,c)<0][0]",
+    "numeric": "64"
+   },
+   "optionValues": {
+    "c": "64",
+    "d": "-44",
+    "b": "-3",
+    "a": "10"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 64; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-011",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Mínimo em cúbica",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=4x^{3}+3x^{2}-18x+1$, em qual valor de $x$ ocorre o mínimo local?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=1$"
+   },
+   {
+    "id": "b",
+    "text": "$x=-\\dfrac32$"
+   },
+   {
+    "id": "c",
+    "text": "$x=-1$"
+   },
+   {
+    "id": "d",
+    "text": "$x=\\dfrac32$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f'(x)=12x^2+6x-18=6(2x^2+x-3)=6(2x+3)(x-1)$, com raízes $x=-\\frac32$ e $x=1$. $f''(x)=24x+6$: $f''(-\\frac32)=-30<0$ (máximo) e $f''(1)=30>0$ (mínimo). O mínimo local é em $x=1$.",
+   "steps": [
+    "$f'(x)=6(2x+3)(x-1)$.",
+    "Raízes: $x=-\\frac32$ e $x=1$.",
+    "$f''(1)=30>0$ ⇒ mínimo em $x=1$."
+   ],
+   "wrong": {
+    "b": "Em $x=-\\frac32$, $f''=24x+6=-30<0$: é *máximo* local.",
+    "c": "$f'(-1)=-12\\neq0$: não é ponto crítico. Da fatoração $f'=6(2x+3)(x-1)$ saem $-\\frac32$ e $1$.",
+    "d": "$f'(\\frac32)=12\\cdot\\frac94+9-18=18\\neq0$: trocou o sinal da raiz $-\\frac32$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo 2: raízes racionais de f' e quadro de f''",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "[c for c in solve(diff(4*x**3+3*x**2-18*x+1,x),x) if subs(diff(4*x**3+3*x**2-18*x+1,x,2),x,c)>0][0]",
+    "numeric": "1"
+   },
+   "optionValues": {
+    "a": "1",
+    "b": "-3/2",
+    "c": "-1",
+    "d": "3/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 1; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-012",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Raiz dupla de f'",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $g(x)=x^{3}+3x^{2}+3x+5$. Sobre o ponto $x=-1$ (onde $g'(-1)=0$), é correto afirmar:",
+  "options": [
+   {
+    "id": "a",
+    "text": "é ponto de mínimo local, pois $g'(-1)=0$"
+   },
+   {
+    "id": "b",
+    "text": "é inflexão, pois $g''(-1)=0$ e $g'$ não muda de sinal"
+   },
+   {
+    "id": "c",
+    "text": "é ponto de máximo local, pois $g'(-1)=0$ e $g''$ muda de sinal"
+   },
+   {
+    "id": "d",
+    "text": "não é ponto crítico"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$g'(x)=3x^2+6x+3=3(x+1)^2$ e $g''(x)=6(x+1)$. Em $x=-1$: $g'(-1)=0$ e $g''(-1)=0$. Como $g'(x)\\ge0$ em toda parte, $g$ é crescente e não tem máximo nem mínimo: $x=-1$ é um ponto de inflexão (análogo ao exemplo 3 dos slides).",
+   "steps": [
+    "$g'(x)=3(x+1)^{2}$ (raiz dupla).",
+    "$g''(x)=6(x+1)\\Rightarrow g''(-1)=0$.",
+    "$g'\\ge0$ sempre ⇒ sem extremo ⇒ inflexão."
+   ],
+   "wrong": {
+    "c": "$g'(x)=3(x+1)^2\\ge0$ não muda de sinal: $g$ não deixa de crescer, então não há máximo.",
+    "a": "Mínimo exigiria $g'$ passar de $-$ para $+$; aqui $g'\\ge0$ dos dois lados.",
+    "d": "$g'(-1)=3(0)^2=0$: é ponto crítico, mas sem extremo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo 3: derivada com raiz dupla; f'' = 0 ⇒ inflexão",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'inflexao' if (subs(diff(x**3+3*x**2+3*x+5,x),x,-1)==0 and subs(diff(x**3+3*x**2+3*x+5,x,2),x,-1)==0 and subs(diff(x**3+3*x**2+3*x+5,x),x,-2)>0 and subs(diff(x**3+3*x**2+3*x+5,x),x,0)>0) else 'outro'",
+    "numeric": "'inflexao'"
+   },
+   "optionValues": {
+    "b": "'inflexao'",
+    "c": "'max'",
+    "a": "'min'",
+    "d": "'naocritico'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = inflexao; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-013",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Intervalos de decrescimento",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual intervalo a função $f(x)=x^{3}-3x^{2}-9x+2$ é decrescente?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-3<x<1$"
+   },
+   {
+    "id": "b",
+    "text": "$-1<x<3$"
+   },
+   {
+    "id": "c",
+    "text": "$1<x<3$"
+   },
+   {
+    "id": "d",
+    "text": "$x<-1$ ou $x>3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-6x-9=3(x^2-2x-3)=3(x+1)(x-3)$. A parábola $f'$ abre para cima, então $f'<0$ entre as raízes $-1$ e $3$: $f$ decresce em $-1<x<3$ e cresce fora desse intervalo.",
+   "steps": [
+    "$f'(x)=3(x+1)(x-3)$.",
+    "Raízes: $-1$ e $3$; $f'(0)=-9<0$.",
+    "$f'<0$ em $(-1,3)$ ⇒ $f$ decrescente."
+   ],
+   "wrong": {
+    "d": "Nessas regiões $f'>0$: a função *cresce*. O decrescimento é entre as raízes.",
+    "a": "Trocou os sinais das raízes de $f'$, que são $-1$ e $3$.",
+    "c": "Fatorou $x^2-2x-3$ como $(x-1)(x-3)$; o correto é $(x+1)(x-3)$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'(-1,3)' if (sorted(solve(diff(x**3-3*x**2-9*x+2,x),x))==[-1,3] and subs(diff(x**3-3*x**2-9*x+2,x),x,0)<0 and subs(diff(x**3-3*x**2-9*x+2,x),x,-2)>0 and subs(diff(x**3-3*x**2-9*x+2,x),x,4)>0) else 'outro'",
+    "numeric": "'(-1,3)'"
+   },
+   "optionValues": {
+    "b": "'(-1,3)'",
+    "d": "'(-oo,-1)u(3,oo)'",
+    "a": "'(-3,1)'",
+    "c": "'(1,3)'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = (-1,3); checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-014",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Lucro máximo",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O lucro (em milhares de reais) de uma fábrica é $L(q)=-q^{2}+60q-200$, em que $q$ é a produção em milhares de unidades. Qual é o lucro máximo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$700$"
+   },
+   {
+    "id": "b",
+    "text": "$900$"
+   },
+   {
+    "id": "c",
+    "text": "$30$"
+   },
+   {
+    "id": "d",
+    "text": "$-200$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$L'(q)=-2q+60=0\\Rightarrow q=30$, e $L''=-2<0$. Lucro máximo: $L(30)=-900+1800-200=700$ (mil reais).",
+   "steps": [
+    "$L'(q)=-2q+60=0\\Rightarrow q=30$.",
+    "$L''=-2<0$ ⇒ máximo.",
+    "$L(30)=-900+1800-200=700$."
+   ],
+   "wrong": {
+    "c": "$30$ é a produção ótima $q$, não o lucro.",
+    "b": "Esqueceu o custo fixo: $-900+1800=900$ ignora o termo $-200$.",
+    "d": "É $L(0)$ (nenhuma produção): prejuízo do custo fixo, não o máximo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "aplicação: função objetivo quadrática",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(-x**2+60*x-200,x,solve(diff(-x**2+60*x-200,x),x)[0])",
+    "numeric": "700"
+   },
+   "optionValues": {
+    "a": "700",
+    "c": "30",
+    "b": "900",
+    "d": "-200"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 700; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-015",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Otimização com restrição",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um produtor tem $80$ m de tela para cercar um terreno retangular encostado em um rio reto; o lado junto ao rio não precisa de cerca. Qual é a maior área possível, em m²?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$400$"
+   },
+   {
+    "id": "b",
+    "text": "$800$"
+   },
+   {
+    "id": "c",
+    "text": "$20$"
+   },
+   {
+    "id": "d",
+    "text": "$1600$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Sejam $x$ os dois lados perpendiculares ao rio e $80-2x$ o lado paralelo. Área: $A(x)=x(80-2x)=80x-2x^2$. $A'(x)=80-4x=0\\Rightarrow x=20$, $A''=-4<0$ (máximo). Lados $20$ e $40$: $A=20\\cdot40=800$ m².",
+   "steps": [
+    "$A(x)=x(80-2x)$.",
+    "$A'(x)=80-4x=0\\Rightarrow x=20$.",
+    "$A(20)=20\\cdot40=800$."
+   ],
+   "wrong": {
+    "a": "Considerou os quatro lados cercados (quadrado $20\\times20$); aqui o rio dispensa um lado.",
+    "d": "$40\\times40$ usaria $120$ m de tela (três lados), mais do que os $80$ m disponíveis.",
+    "c": "$20$ m é a largura ótima $x$, não a área."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "critério da 1ª derivada aplicado a modelo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x*(80-2*x),x,solve(diff(x*(80-2*x),x),x)[0])",
+    "numeric": "20*40"
+   },
+   "optionValues": {
+    "b": "800",
+    "a": "400",
+    "d": "1600",
+    "c": "20"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 800; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-016",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Extremos em intervalo fechado",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor máximo absoluto de $f(x)=x^{3}-6x^{2}+9x$ no intervalo $[0,5]$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$4$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$20$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$: pontos críticos $x=1$ e $x=3$. Candidatos: $f(0)=0$, $f(1)=4$, $f(3)=0$, $f(5)=125-150+45=20$. O maior valor é $20$, atingido na extremidade $x=5$.",
+   "steps": [
+    "$f'(x)=3(x-1)(x-3)$ ⇒ $x=1,3$.",
+    "$f(0)=0$, $f(1)=4$, $f(3)=0$, $f(5)=20$.",
+    "Máximo absoluto: $20$."
+   ],
+   "wrong": {
+    "a": "$4=f(1)$ é o máximo *local*; o valor nas extremidades, $f(5)=20$, é maior.",
+    "b": "$0$ é o valor mínimo ($f(0)=f(3)=0$), não o máximo.",
+    "c": "$3$ é a abscissa do outro ponto crítico, não um valor da função."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "pontos críticos e comportamento da função",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sorted([subs(x**3-6*x**2+9*x,x,c) for c in [0,5]+solve(diff(x**3-6*x**2+9*x,x),x)])[-1]",
+    "numeric": "20"
+   },
+   "optionValues": {
+    "d": "20",
+    "a": "4",
+    "b": "0",
+    "c": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 20; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-017",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Preço que maximiza a receita",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A demanda de um produto é $p=200-2q$ (preço $p$ em reais, quantidade $q$). Para maximizar a receita $R=p\\cdot q$, qual preço deve ser praticado?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$200$ reais"
+   },
+   {
+    "id": "b",
+    "text": "$5000$ reais"
+   },
+   {
+    "id": "c",
+    "text": "$50$ reais"
+   },
+   {
+    "id": "d",
+    "text": "$100$ reais"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$R(q)=q(200-2q)=200q-2q^2$. $R'(q)=200-4q=0\\Rightarrow q=50$ ($R''=-4<0$). Preço: $p=200-2\\cdot50=100$. A receita máxima é $50\\cdot100=5000$.",
+   "steps": [
+    "$R(q)=200q-2q^{2}$.",
+    "$R'(q)=200-4q=0\\Rightarrow q=50$.",
+    "$p=200-2(50)=100$."
+   ],
+   "wrong": {
+    "c": "$50$ é a *quantidade* ótima $q$; o preço correspondente é $200-2\\cdot50=100$.",
+    "b": "$5000$ é a receita máxima $R(50)$, não o preço.",
+    "a": "$200$ é o preço com demanda zero ($q=0$): receita nula."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "aplicação econômica: receita",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(200-2*x,x,solve(diff(x*(200-2*x),x),x)[0])",
+    "numeric": "100"
+   },
+   "optionValues": {
+    "d": "100",
+    "c": "50",
+    "b": "5000",
+    "a": "200"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 100; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-018",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Custo médio mínimo",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O custo total de produzir $q$ unidades é $C(q)=q^{2}+3600$. Qual quantidade minimiza o custo médio $\\overline{C}(q)=C(q)/q$ ($q>0$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$q=30$"
+   },
+   {
+    "id": "b",
+    "text": "$q=3600$"
+   },
+   {
+    "id": "c",
+    "text": "$q=120$"
+   },
+   {
+    "id": "d",
+    "text": "$q=60$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\overline{C}(q)=q+\\dfrac{3600}{q}$, então $\\overline{C}'(q)=1-\\dfrac{3600}{q^2}=0\\Rightarrow q^2=3600\\Rightarrow q=60$ ($q>0$). Como $\\overline{C}''=\\dfrac{7200}{q^3}>0$, é mínimo; o custo médio mínimo é $\\overline{C}(60)=120$.",
+   "steps": [
+    "$\\overline{C}(q)=q+3600/q$.",
+    "$\\overline{C}'(q)=1-3600/q^{2}=0\\Rightarrow q=60$.",
+    "$\\overline{C}''>0$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "c": "$120$ é o *valor* do custo médio mínimo, $\\overline{C}(60)=60+60$.",
+    "b": "$3600$ é o custo fixo; $\\overline{C}'(3600)\\neq0$.",
+    "a": "$\\overline{C}'(30)=1-\\frac{3600}{900}=-3\\neq0$: ainda decrescente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "[c for c in solve(diff(x+3600/x,x),x) if c>0][0]",
+    "numeric": "60"
+   },
+   "optionValues": {
+    "d": "60",
+    "c": "120",
+    "b": "3600",
+    "a": "30"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 60; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-019",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Teste da 2ª derivada inconclusivo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{4}$ temos $f'(0)=0$ e $f''(0)=0$. Qual é a conclusão correta sobre $x=0$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "não é ponto crítico"
+   },
+   {
+    "id": "b",
+    "text": "mínimo local: $f''$ é inconclusiva, mas $f'$ vai de $-$ a $+$"
+   },
+   {
+    "id": "c",
+    "text": "é ponto de máximo local, pois $f'(0)=0$"
+   },
+   {
+    "id": "d",
+    "text": "é ponto de inflexão, pois vale $f''(0)=0$ nesse ponto"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f''(0)=0$ não decide: o teste só conclui quando $f''\\neq0$. Analisando $f'(x)=4x^3$: negativa para $x<0$ e positiva para $x>0$, ou seja, $f$ decresce e depois cresce — mínimo local (e global) em $x=0$. Atenção: no quadro resumido dos slides, $f''=0$ aparece associado à inflexão, o que vale em exemplos como $x^3$; aqui $f''$ não troca de sinal, então não há inflexão.",
+   "steps": [
+    "$f''(0)=0$: teste inconclusivo.",
+    "$f'(x)=4x^{3}$: $f'(-1)<0$ e $f'(1)>0$.",
+    "$-\\to+$ ⇒ mínimo local."
+   ],
+   "wrong": {
+    "d": "$f''(x)=12x^2\\ge0$ não muda de sinal: a concavidade não muda, logo não há inflexão. $f''(0)=0$ é apenas condição necessária.",
+    "c": "$f(x)=x^4\\ge0=f(0)$: nenhum valor próximo é maior que $f(0)$ — é mínimo.",
+    "a": "$f'(0)=4\\cdot0^3=0$: é ponto crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "quadro de critérios (caso f'' = 0)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'min' if (subs(diff(x**4,x),x,0)==0 and subs(diff(x**4,x,2),x,0)==0 and subs(diff(x**4,x),x,-1)<0 and subs(diff(x**4,x),x,1)>0) else 'outro'",
+    "numeric": "'min'"
+   },
+   "optionValues": {
+    "b": "'min'",
+    "d": "'inflexao'",
+    "c": "'max'",
+    "a": "'naocritico'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = min; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-020",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Máximo de produto polinomial-exponencial",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor máximo de $f(x)=x\\,e^{-x}$ em $\\mathbb{R}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{2e}$"
+   },
+   {
+    "id": "b",
+    "text": "$e$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac1e$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=e^{-x}-xe^{-x}=(1-x)e^{-x}$, que se anula só em $x=1$. $f'>0$ para $x<1$ e $f'<0$ para $x>1$: máximo. Como $f(x)\\to-\\infty$ ($x\\to-\\infty$) e $f(x)\\to0$ ($x\\to+\\infty$), é também o máximo global: $f(1)=e^{-1}=\\frac1e$.",
+   "steps": [
+    "$f'(x)=(1-x)e^{-x}=0\\Rightarrow x=1$.",
+    "$f'$: $+$ antes de $1$ e $-$ depois ⇒ máximo.",
+    "$f(1)=e^{-1}$."
+   ],
+   "wrong": {
+    "b": "Trocou o sinal do expoente: $f(1)=1\\cdot e^{-1}=\\frac1e$, e não $e^{1}$.",
+    "c": "$x=1$ é a abscissa do máximo; o valor é $f(1)=e^{-1}$.",
+    "a": "É a metade do máximo: o único ponto crítico é $x=1$, onde $f(1)=\\frac1e$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x*exp(-x),x,solve(diff(x*exp(-x),x),x)[0])",
+    "numeric": "0.36787944117144233"
+   },
+   "optionValues": {
+    "d": "exp(-1)",
+    "b": "E",
+    "c": "1",
+    "a": "exp(-1)/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = exp(-1); checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-021",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Máximo com logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, a função $f(x)=\\dfrac{\\ln x}{x}$ atinge o máximo em qual valor de $x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=e^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$x=1$"
+   },
+   {
+    "id": "c",
+    "text": "$x=e$"
+   },
+   {
+    "id": "d",
+    "text": "$x=\\dfrac1e$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Pela regra do quociente, $f'(x)=\\dfrac{\\frac1x\\cdot x-\\ln x\\cdot1}{x^2}=\\dfrac{1-\\ln x}{x^2}$. $f'=0\\iff\\ln x=1\\iff x=e$. Para $x<e$, $f'>0$; para $x>e$, $f'<0$ — máximo, com $f(e)=\\frac1e$.",
+   "steps": [
+    "$f'(x)=\\dfrac{1-\\ln x}{x^{2}}$.",
+    "$f'(x)=0\\iff x=e$.",
+    "$+\\to-$ ⇒ máximo em $x=e$."
+   ],
+   "wrong": {
+    "b": "$x=1$ é a raiz de $f$ ($\\ln1=0$); $f'(1)=1\\neq0$.",
+    "d": "$\\frac1e$ é o *valor* do máximo, $f(e)=\\frac1e$.",
+    "a": "$f'(x)=\\frac{1-\\ln x}{x^2}$ se anula em $\\ln x=1$, e não em $\\ln x=2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "sinais de y' e variação de y",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "solve(diff(log(x)/x,x),x)[0]",
+    "numeric": "2.718281828459045"
+   },
+   "optionValues": {
+    "c": "E",
+    "b": "1",
+    "d": "exp(-1)",
+    "a": "E**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = E; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-022",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Pontos de inflexão",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Quais são as abscissas dos pontos de inflexão do gráfico de $f(x)=e^{-x^{2}}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x=\\pm1$"
+   },
+   {
+    "id": "b",
+    "text": "$x=\\pm\\sqrt2$"
+   },
+   {
+    "id": "c",
+    "text": "$x=0$"
+   },
+   {
+    "id": "d",
+    "text": "$x=\\pm\\dfrac{\\sqrt2}{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=-2xe^{-x^2}$ e $f''(x)=(4x^2-2)e^{-x^2}$. $f''=0\\iff x^2=\\frac12\\iff x=\\pm\\frac{\\sqrt2}{2}$. Em cada um desses pontos $f''$ muda de sinal (positiva fora, negativa entre eles), logo a concavidade muda: são pontos de inflexão.",
+   "steps": [
+    "$f''(x)=(4x^{2}-2)e^{-x^{2}}$.",
+    "$4x^{2}-2=0\\Rightarrow x=\\pm\\frac{\\sqrt2}{2}$.",
+    "$f''$ muda de sinal ⇒ inflexão."
+   ],
+   "wrong": {
+    "a": "$f''(x)=(4x^2-2)e^{-x^2}$ se anula em $x^2=\\frac12$, e não em $x^2=1$.",
+    "c": "Em $x=0$ ocorre o *máximo* de $f$ ($f'(0)=0$, $f''(0)=-2<0$), não inflexão.",
+    "b": "Inverteu a equação $4x^2=2$: $x^2=\\frac12$, não $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "f'' = 0 e mudança de concavidade",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sorted(solve(diff(exp(-x**2),x,2),x))",
+    "numeric": "[-0.7071067811865476, 0.7071067811865476]"
+   },
+   "optionValues": {
+    "d": "[-sqrt(2)/2, sqrt(2)/2]",
+    "a": "[-1, 1]",
+    "c": "[0]",
+    "b": "[-sqrt(2), sqrt(2)]"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = [-sqrt(2)/2, sqrt(2)/2]; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-023",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Inflexão versus extremo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Em qual das funções abaixo $x=0$ é ponto de inflexão (a concavidade muda de sinal em $x=0$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$f(x)=-x^{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$f(x)=x^{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$f(x)=x^{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$f(x)=x^{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Em $f(x)=x^3$, $f''(x)=6x$ é negativa para $x<0$ e positiva para $x>0$: a concavidade muda em $0$. Nas outras três, $f''$ é $12x^2$, $-12x^2$ e $30x^4$: anulam-se em $0$ mas não trocam de sinal, então $x=0$ é extremo (não inflexão), mesmo com $f''(0)=0$.",
+   "steps": [
+    "Calcule $f''$ de cada função.",
+    "Procure a troca de sinal de $f''$ em $x=0$.",
+    "Só $x^{3}$: $6x$ vai de $-$ a $+$."
+   ],
+   "wrong": {
+    "c": "$f''(x)=12x^2\\ge0$: concavidade sempre para cima; $x=0$ é mínimo.",
+    "a": "$f''(x)=-12x^2\\le0$: concavidade sempre para baixo; $x=0$ é máximo.",
+    "b": "$f''(x)=30x^4\\ge0$: não muda de sinal; $x=0$ é mínimo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "f'' = 0: ponto de inflexão (só quando f'' muda de sinal)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "target": "v",
+    "perOption": {
+     "d": {
+      "expr": "'v' if subs(diff(x**3,x,2),x,-1)*subs(diff(x**3,x,2),x,1)<0 else 'f'",
+      "numeric": "'v' if (-6)*(6)<0 else 'f'"
+     },
+     "c": {
+      "expr": "'v' if subs(diff(x**4,x,2),x,-1)*subs(diff(x**4,x,2),x,1)<0 else 'f'",
+      "numeric": "'v' if (12)*(12)<0 else 'f'"
+     },
+     "a": {
+      "expr": "'v' if subs(diff(-x**4,x,2),x,-1)*subs(diff(-x**4,x,2),x,1)<0 else 'f'",
+      "numeric": "'v' if (-12)*(-12)<0 else 'f'"
+     },
+     "b": {
+      "expr": "'v' if subs(diff(x**6,x,2),x,-1)*subs(diff(x**6,x,2),x,1)<0 else 'f'",
+      "numeric": "'v' if (30)*(30)<0 else 'f'"
+     }
+    }
+   },
+   "optionValues": {
+    "d": "v",
+    "c": "f",
+    "a": "f",
+    "b": "f"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "d:valor=v; c:valor=f; a:valor=f; b:valor=f"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-024",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Parâmetro e existência de extremos",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para quais valores de $k$ a função $f(x)=x^{3}+kx$ possui um ponto de máximo local e um de mínimo local?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$k=0$"
+   },
+   {
+    "id": "b",
+    "text": "$k<0$"
+   },
+   {
+    "id": "c",
+    "text": "todo $k$ real"
+   },
+   {
+    "id": "d",
+    "text": "$k>0$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2+k=0\\iff x^2=-\\frac k3$. Há duas raízes reais distintas (e $f'$ troca de sinal em ambas, dando um máximo e um mínimo) se e somente se $-\\frac k3>0$, isto é, $k<0$. Se $k=0$ há uma raiz dupla (sem extremo) e se $k>0$ não há raiz real.",
+   "steps": [
+    "$f'(x)=3x^{2}+k$.",
+    "$3x^{2}+k=0\\Rightarrow x^{2}=-k/3$.",
+    "Duas raízes reais ⇔ $-k/3>0\\iff k<0$."
+   ],
+   "wrong": {
+    "d": "Com $k>0$, $f'(x)=3x^2+k>0$ sempre: $f$ é crescente e não tem extremos.",
+    "a": "Com $k=0$, $f=x^3$: $x=0$ é crítico, mas é inflexão — não há extremo.",
+    "c": "Para $k\\ge0$ não há extremos locais."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "pontos críticos como raízes de f'",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "exemplo 3: raiz dupla de f' (sem extremo)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'k<0' if [len(solve(3*x**2+k0,x)) for k0 in [-6,0,6]]==[2,1,0] else 'outro'",
+    "numeric": "'k<0'"
+   },
+   "optionValues": {
+    "b": "'k<0'",
+    "d": "'k>0'",
+    "a": "'k=0'",
+    "c": "'todok'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = k<0; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-025",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Volume máximo de caixa",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "De uma chapa quadrada de $12$ cm de lado, recortam-se quadrados de lado $x$ nos quatro cantos e dobram-se as abas para formar uma caixa sem tampa. Qual é o volume máximo da caixa, em cm³?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$108$"
+   },
+   {
+    "id": "b",
+    "text": "$144$"
+   },
+   {
+    "id": "c",
+    "text": "$128$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A base é $(12-2x)\\times(12-2x)$ e a altura $x$: $V(x)=x(12-2x)^2$, com $0<x<6$. $V'(x)=(12-2x)^2-4x(12-2x)=(12-2x)(12-6x)$. Raízes: $x=6$ (volume $0$) e $x=2$. Em $x=2$, $V'$ passa de $+$ para $-$: máximo, com $V(2)=2\\cdot8^2=128$.",
+   "steps": [
+    "$V(x)=x(12-2x)^{2}$.",
+    "$V'(x)=(12-2x)(12-6x)=0\\Rightarrow x=2$ (em $0<x<6$).",
+    "$V(2)=2\\cdot64=128$."
+   ],
+   "wrong": {
+    "a": "Corresponde a $x=3$: $V(3)=3\\cdot6^2=108$. Não é o máximo.",
+    "b": "$144=12^2$ é a área da chapa, não o volume.",
+    "d": "$x=2$ é o recorte ótimo, não o volume."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "modelagem e critério da 1ª derivada",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x*(12-2*x)**2,x,[c for c in solve(diff(x*(12-2*x)**2,x),x) if 0<c<6][0])",
+    "numeric": "128"
+   },
+   "optionValues": {
+    "c": "128",
+    "a": "108",
+    "b": "144",
+    "d": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = 128; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-026",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Distância mínima a uma curva",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é a menor distância do ponto $(0,1)$ à parábola $y=x^{2}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{\\sqrt2}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac34$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{\\sqrt3}{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O quadrado da distância de $(x,x^2)$ a $(0,1)$ é $D(x)=x^2+(x^2-1)^2=x^4-x^2+1$. $D'(x)=4x^3-2x=2x(2x^2-1)=0\\Rightarrow x=0$ ou $x=\\pm\\frac{\\sqrt2}{2}$. $D(0)=1$ e $D(\\pm\\frac{\\sqrt2}{2})=\\frac14-\\frac12+1=\\frac34$. O menor valor de $D$ é $\\frac34$, logo a menor distância é $\\sqrt{3/4}=\\dfrac{\\sqrt3}{2}$.",
+   "steps": [
+    "$D(x)=x^{4}-x^{2}+1$.",
+    "$D'(x)=2x(2x^{2}-1)=0\\Rightarrow x=0,\\ \\pm\\frac{\\sqrt2}{2}$.",
+    "$D_{\\min}=\\frac34\\Rightarrow d=\\frac{\\sqrt3}{2}$."
+   ],
+   "wrong": {
+    "a": "É a distância ao ponto $(0,0)$ ($x=0$), que é *máximo* local da distância, não o mínimo.",
+    "c": "$\\frac34$ é o *quadrado* da menor distância; falta extrair a raiz.",
+    "b": "É a abscissa $x=\\frac{\\sqrt2}{2}$ do ponto mais próximo, não a distância."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a3",
+    "locator": "candidatos: pontos críticos e comparação de valores",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sqrt(sorted([subs(x**4-x**2+1,x,c) for c in solve(diff(x**4-x**2+1,x),x)])[0])",
+    "numeric": "0.8660254037844386"
+   },
+   "optionValues": {
+    "d": "sqrt(3)/2",
+    "a": "1",
+    "c": "3/4",
+    "b": "sqrt(2)/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = sqrt(3)/2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-maxmin-027",
+  "disciplineId": "calculo2",
+  "topicId": "maxmin",
+  "subtopic": "Determinação de parâmetros por extremos",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "A função $f(x)=x^{3}+ax^{2}+bx$ ($a$ e $b$ constantes) tem um máximo local em $x=-1$ e um mínimo local em $x=3$. Calcule $a+b$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6$"
+   },
+   {
+    "id": "b",
+    "text": "$-6$"
+   },
+   {
+    "id": "c",
+    "text": "$12$"
+   },
+   {
+    "id": "d",
+    "text": "$-12$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=3x^2+2ax+b$. Como $f'(-1)=0$ e $f'(3)=0$: $3-2a+b=0$ e $27+6a+b=0$. Subtraindo, $24+8a=0\\Rightarrow a=-3$ e então $b=-9$. Conferindo: $f''(x)=6x+2a=6x-6$, com $f''(-1)=-12<0$ (máximo) e $f''(3)=12>0$ (mínimo). Logo $a+b=-12$.",
+   "steps": [
+    "$f'(-1)=3-2a+b=0$ e $f'(3)=27+6a+b=0$.",
+    "Subtração: $24+8a=0\\Rightarrow a=-3$; $b=-9$.",
+    "Teste: $f''(-1)<0$, $f''(3)>0$ ⇒ $a+b=-12$."
+   ],
+   "wrong": {
+    "b": "Corresponde a $a=3$, $b=-9$. Com $a=3$, $f'(-1)=3-6-9\\neq0$: o sinal de $a$ está trocado.",
+    "a": "Corresponde a $a=-3$, $b=9$. Com $b=9$, $f'(-1)=3+6+9\\neq0$.",
+    "c": "Corresponde a $a=3$, $b=9$. Nenhum dos dois satisfaz $f'(-1)=f'(3)=0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-maxmin-a4",
+    "locator": "critério da 2ª derivada (conferência de máximo e mínimo)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:38:51.030Z",
+  "updatedAt": "2026-10-22T23:39:43.646Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "solve([subs(3*x**2+2*a*x+b,x,-1),subs(3*x**2+2*a*x+b,x,3)],[a,b])[a]+solve([subs(3*x**2+2*a*x+b,x,-1),subs(3*x**2+2*a*x+b,x,3)],[a,b])[b]",
+    "numeric": "-12"
+   },
+   "optionValues": {
+    "d": "-12",
+    "b": "-6",
+    "a": "6",
+    "c": "12"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:39:37.229Z",
+    "details": "valor = -12; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:39:43.646Z",
+   "notes": "Máximos e mínimos: revisão da ficha completa; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

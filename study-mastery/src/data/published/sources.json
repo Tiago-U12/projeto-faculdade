@@ -40,9 +40,44 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  },
  {
+  "id": "c2-taylor-lista",
+  "title": "2ª Lista: Teorema de Taylor — MacLaurin",
+  "kind": "lista",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-derivadas-slides",
+  "title": "Aula 0-1: Revisão de Derivadas — Regras de Derivação (slides)",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-derivadas-lista",
+  "title": "Lista 0-1: Derivadas — Regras de Derivação",
+  "kind": "lista",
+  "author": "Profa. Dra. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
   "id": "c2-derivadas-tabela",
   "title": "Aula 0-1 — Tabela de Derivadas",
   "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-maxmin-a3",
+  "title": "Aula 3: A Derivada e o Comportamento de uma Função — Máximos e Mínimos",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-maxmin-a4",
+  "title": "Aula 4: A Derivada e o Comportamento de uma Função — Máximos e Mínimos (parte 2)",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  },
  {
