@@ -114,7 +114,7 @@ export function staticCheck(q: Question, tax: Taxonomy, sources: SourceRecord[],
         const ids = new Set(q.options?.map((o) => o.id));
         const keys = Object.keys(v.optionValues ?? {});
         if (keys.length !== 4 || keys.some((k) => !ids.has(k))) add('error', 'verification-values', 'optionValues deve cobrir as 4 alternativas');
-        if ((['limit', 'form', 'definite', 'derivative', 'integral', 'expr', 'function'].includes(v.kind)) && !(ex?.steps?.length)) add('error', 'steps', 'questões de cálculo exigem resolução passo a passo (explanation.steps)');
+        if ((['limit', 'form', 'definite', 'double', 'derivative', 'integral', 'expr', 'function'].includes(v.kind)) && !(ex?.steps?.length)) add('error', 'steps', 'questões de cálculo exigem resolução passo a passo (explanation.steps)');
       } else if (!v.claims?.length) add('error', 'claims', 'kind=source exige claims (afirmações conferidas na fonte)');
     }
   }

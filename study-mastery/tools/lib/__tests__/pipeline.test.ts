@@ -96,6 +96,16 @@ describe('validate: verificação de verdade (SymPy + numérico, JS isolado)', (
     expect(twoRight.verification!.result!.details).toMatch(/alternativas que satisfazem/);
   }, 60000);
 
+  it('integral dupla: valor exato, quadratura aninhada e Fubini (ordem original sem primitiva elementar)', async () => {
+    const seg = (v: string, lo: string, hi: string) => ({ var: v, lo, hi });
+    const good = mk(limitSpec({ id: 'c2-lhopital-010', opts: ['$\\frac{e-1}{3}$', '$e-1$', '$\\frac{e-1}{2}$', '$\\frac13$'], verify: { kind: 'double', params: { expr: 'exp(x**3)', inner: seg('x', 'sqrt(y)', '1'), outer: seg('y', '0', '1'), swap: { inner: seg('y', '0', 'x**2'), outer: seg('x', '0', '1') }, exactFrom: 'swap' }, values: ['(E-1)/3', 'E-1', '(E-1)/2', '1/3'] } }));
+    const bad = mk(limitSpec({ id: 'c2-lhopital-011', opts: ['$e-1$', '$\\frac{e-1}{3}$', '$\\frac{e-1}{2}$', '$\\frac13$'], verify: { kind: 'double', params: { expr: 'exp(x**3)', inner: seg('x', 'sqrt(y)', '1'), outer: seg('y', '0', '1'), swap: { inner: seg('y', '0', 'x**2'), outer: seg('x', '0', '1') }, exactFrom: 'swap' }, values: ['E-1', '(E-1)/3', '(E-1)/2', '1/3'] } }));
+    await validateAll([good, bad], TAX, SOURCES);
+    expect(good.status).toBe('verified');
+    expect(good.verification!.result!.details).toMatch(/quadratura ok/);
+    expect(bad.status).toBe('draft');
+  }, 60000);
+
   it('rejeita expressões inseguras (sem executar nada)', async () => {
     const q = mk(limitSpec({ id: 'c2-lhopital-004', verify: { kind: 'limit', params: { expr: "__import__('os').system('touch /tmp/pwned_sm')", at: '0' }, values: ['1', '0', 'oo', 'DNE'] } }));
     await validateAll([q], TAX, SOURCES);

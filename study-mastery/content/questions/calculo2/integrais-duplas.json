@@ -1,0 +1,1773 @@
+[
+ {
+  "id": "c2-integrais-duplas-001",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Integrando constante",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\iint_R 6\\,dA$, em que $R=[0,2]\\times[0,3]$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$12$"
+   },
+   {
+    "id": "b",
+    "text": "$18$"
+   },
+   {
+    "id": "c",
+    "text": "$6$"
+   },
+   {
+    "id": "d",
+    "text": "$36$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Para integrando constante, $\\iint_R c\\,dA=c\\cdot\\text{área}(R)$. A área de $R$ é $2\\cdot3=6$, então o valor é $6\\cdot6=36$. Em forma iterada: $\\int_0^2\\int_0^3 6\\,dy\\,dx=\\int_0^2 18\\,dx=36$.",
+   "steps": [
+    "$\\int_0^3 6\\,dy=18$.",
+    "$\\int_0^2 18\\,dx=36$."
+   ],
+   "wrong": {
+    "c": "Esse é só o valor do integrando; falta multiplicar pela área de $R$ ($2\\cdot3=6$).",
+    "a": "Integrou apenas em $x$ ($6\\cdot2$); falta a integral em $y$, de comprimento $3$.",
+    "b": "Integrou apenas em $y$ ($6\\cdot3$); falta a integral em $x$, de comprimento $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.393Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "6",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "3"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "d": "36",
+    "c": "6",
+    "a": "12",
+    "b": "18"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 36 ≈ 36.0000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-002",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Integral iterada simples",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^1\\!\\int_0^2 (x+y)\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$5$"
+   },
+   {
+    "id": "b",
+    "text": "$2$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$3$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Integral interna (em $y$, com $x$ constante): $\\int_0^2(x+y)\\,dy=2x+2$. Externa: $\\int_0^1(2x+2)\\,dx=\\left[x^2+2x\\right]_0^1=3$.",
+   "steps": [
+    "$\\int_0^2(x+y)\\,dy=2x+2$.",
+    "$\\int_0^1(2x+2)\\,dx=1+2$.",
+    "Resultado: $3$."
+   ],
+   "wrong": {
+    "a": "$\\int_0^2(x+y)\\,dy=2x+\\frac{y^2}{2}\\big|_0^2=2x+2$; usar $y^2=4$ sem dividir por $2$ dá $2x+4$ e o resultado errado $5$.",
+    "c": "Esse é só o efeito do termo $x$ ($\\iint x\\,dA=1$); falta a contribuição de $y$.",
+    "b": "Esse é só o efeito do termo $y$ ($\\iint y\\,dA=2$); falta a contribuição de $x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x+y",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "2"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "d": "3",
+    "a": "5",
+    "c": "1",
+    "b": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 3 ≈ 3.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-003",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Retângulo com produto",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_1^2\\!\\int_0^1 xy\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac34$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac14$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac38$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac32$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\int_0^1xy\\,dy=x\\cdot\\frac12$. Depois $\\int_1^2\\frac x2\\,dx=\\frac12\\cdot\\left[\\frac{x^2}{2}\\right]_1^2=\\frac12\\cdot\\frac32=\\frac34$.",
+   "steps": [
+    "$\\int_0^1 xy\\,dy=\\dfrac{x}{2}$.",
+    "$\\int_1^2\\dfrac{x}{2}\\,dx=\\dfrac12\\cdot\\dfrac32$.",
+    "$=\\dfrac34$."
+   ],
+   "wrong": {
+    "d": "Esqueceu o fator $\\frac12$ de $\\int_0^1y\\,dy=\\frac12$.",
+    "c": "Dividiu por $2$ a mais: $\\int_1^2x\\,dx=\\frac32$ (e não $\\frac34$).",
+    "b": "Usou os limites $0$ a $1$ para $x$; o enunciado dá $1$ a $2$ ($\\int_1^2x\\,dx=\\frac32$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x*y",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "1"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "1",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "a": "3/4",
+    "d": "3/2",
+    "c": "3/8",
+    "b": "1/4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 3/4 ≈ 0.750000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-004",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Área por integral dupla",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Use uma integral dupla para calcular a área da região $D=\\{(x,y):0\\le x\\le4,\\ 0\\le y\\le x\\}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$8$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$16$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{64}{3}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\text{área}(D)=\\iint_D dA=\\int_0^4\\!\\int_0^x dy\\,dx=\\int_0^4x\\,dx=\\left[\\frac{x^2}{2}\\right]_0^4=8$ (triângulo de base $4$ e altura $4$).",
+   "steps": [
+    "$\\int_0^x dy=x$.",
+    "$\\int_0^4x\\,dx=\\dfrac{4^{2}}{2}$.",
+    "$=8$."
+   ],
+   "wrong": {
+    "c": "Esse é o quadrado $4\\times4$; $D$ é só o triângulo abaixo da diagonal.",
+    "b": "$\\int_0^4dx=4$ ignora a integral interna, que fornece a altura $x$.",
+    "d": "Integrou $x^2$ no final; a integral interna $\\int_0^x dy=x$ leva a $\\int_0^4x\\,dx$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "1",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "x"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "4"
+    }
+   },
+   "optionValues": {
+    "a": "8",
+    "c": "16",
+    "b": "4",
+    "d": "64/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 8 ≈ 8.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-005",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Integrando só de x",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^1\\!\\int_0^2 3x^{2}\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$2$"
+   },
+   {
+    "id": "c",
+    "text": "$12$"
+   },
+   {
+    "id": "d",
+    "text": "$6$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Como $3x^2$ não depende de $y$: $\\int_0^23x^2\\,dy=6x^2$. Depois $\\int_0^16x^2\\,dx=\\left[2x^3\\right]_0^1=2$.",
+   "steps": [
+    "$\\int_0^2 3x^{2}\\,dy=6x^{2}$.",
+    "$\\int_0^1 6x^{2}\\,dx=2x^{3}\\big|_0^1$.",
+    "$=2$."
+   ],
+   "wrong": {
+    "a": "Esse é $\\int_0^13x^2\\,dx$; falta multiplicar pelo comprimento $2$ do intervalo de $y$.",
+    "d": "$\\int_0^23x^2\\,dy=6x^2$ ainda depende de $x$; falta integrar em $x$ ($\\int_0^16x^2\\,dx=2$).",
+    "c": "Integrou em $y$ duas vezes (fator $2\\cdot2$) e esqueceu o $\\frac13$ de $\\int x^2\\,dx$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "3*x**2",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "2"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "b": "2",
+    "a": "1",
+    "d": "6",
+    "c": "12"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 2 ≈ 2.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-006",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Integral separável",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\iint_R xy\\,dA$, com $R=[0,2]\\times[0,3]$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac92$"
+   },
+   {
+    "id": "c",
+    "text": "$9$"
+   },
+   {
+    "id": "d",
+    "text": "$6$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Como $R$ é um retângulo e o integrando é produto de uma função de $x$ por uma de $y$: $\\iint_Rxy\\,dA=\\int_0^2x\\,dx\\cdot\\int_0^3y\\,dy=2\\cdot\\frac92=9$.",
+   "steps": [
+    "$\\int_0^2x\\,dx=2$.",
+    "$\\int_0^3y\\,dy=\\dfrac92$.",
+    "Produto: $9$."
+   ],
+   "wrong": {
+    "d": "Tratou $\\int x\\,dx$ como $x$ e $\\int y\\,dy$ como $y$ (sem os fatores $\\frac12$): $2\\cdot3$.",
+    "b": "Só a parte em $y$: $\\int_0^3y\\,dy=\\frac92$; falta o fator $\\int_0^2x\\,dx=2$.",
+    "a": "Só a parte em $x$: $\\int_0^2x\\,dx=2$; falta o fator $\\int_0^3y\\,dy=\\frac92$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x*y",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "3"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "c": "9",
+    "d": "6",
+    "b": "9/2",
+    "a": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 9 ≈ 9.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-007",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Região triangular",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^1\\!\\int_0^x (x+3y)\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac5{12}$"
+   },
+   {
+    "id": "b",
+    "text": "$2$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac56$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac43$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Interna: $\\int_0^x(x+3y)\\,dy=x\\cdot x+\\frac{3x^2}{2}=\\frac52x^2$. Externa: $\\int_0^1\\frac52x^2\\,dx=\\frac52\\cdot\\frac13=\\frac56$.",
+   "steps": [
+    "$\\int_0^x (x+3y)\\,dy=\\dfrac{5}{2}x^{2}$.",
+    "$\\int_0^1\\dfrac52x^{2}\\,dx=\\dfrac52\\cdot\\dfrac13$.",
+    "$=\\dfrac56$."
+   ],
+   "wrong": {
+    "b": "Usou $y$ de $0$ a $1$ (retângulo); aqui o limite superior de $y$ é $x$.",
+    "d": "$\\int_0^x 3y\\,dy=\\frac{3x^2}{2}$; sem o $\\frac12$ a interna vira $4x^2$ e o resultado sai $\\frac43$.",
+    "a": "Dividiu por $2$ a mais ao integrar $\\frac52x^2$ em $x$ ($\\int_0^1\\frac52x^2\\,dx=\\frac56$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x+3*y",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "x"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "c": "5/6",
+    "b": "2",
+    "d": "4/3",
+    "a": "5/12"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 5/6 ≈ 0.833333333333; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-008",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Região sob uma parábola",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\iint_D x\\,dA$, em que $D=\\{(x,y):0\\le x\\le2,\\ 0\\le y\\le x^{2}\\}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$8$"
+   },
+   {
+    "id": "b",
+    "text": "$16$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac83$"
+   },
+   {
+    "id": "d",
+    "text": "$4$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Interna: $\\int_0^{x^2}x\\,dy=x\\cdot x^2=x^3$. Externa: $\\int_0^2x^3\\,dx=\\left[\\frac{x^4}{4}\\right]_0^2=\\frac{16}{4}=4$.",
+   "steps": [
+    "$\\int_0^{x^{2}}x\\,dy=x^{3}$.",
+    "$\\int_0^2x^{3}\\,dx=\\dfrac{x^{4}}{4}\\Big|_0^2$.",
+    "$=4$."
+   ],
+   "wrong": {
+    "c": "Esse é $\\iint_D1\\,dA=\\int_0^2x^2\\,dx$, a área de $D$; esqueceu o integrando $x$.",
+    "b": "$\\int_0^2x^3\\,dx=\\frac{x^4}{4}\\big|_0^2=4$; sem dividir por $4$ dá $16$.",
+    "a": "Dividiu por $2$ em vez de $4$ ao integrar $x^3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "x**2"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "d": "4",
+    "c": "8/3",
+    "b": "16",
+    "a": "8"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 4 ≈ 4.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-009",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Área entre curvas",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é a área da região limitada por $y=x^{2}$ (abaixo) e $y=x$ (acima), para $0\\le x\\le1$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac56$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac16$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\text{área}=\\int_0^1\\!\\int_{x^2}^{x}dy\\,dx=\\int_0^1(x-x^2)\\,dx=\\frac12-\\frac13=\\frac16$.",
+   "steps": [
+    "$\\int_{x^{2}}^{x}dy=x-x^{2}$.",
+    "$\\int_0^1(x-x^{2})\\,dx=\\dfrac12-\\dfrac13$.",
+    "$=\\dfrac16$."
+   ],
+   "wrong": {
+    "a": "Esse é $\\int_0^1x^2\\,dx$, a área sob a parábola; é preciso subtrair da área sob a reta.",
+    "b": "Esse é $\\int_0^1x\\,dx$, a área sob a reta; é preciso descontar a parte sob a parábola.",
+    "c": "Somou as duas áreas ($\\frac12+\\frac13$) em vez de subtrair."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.394Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "1",
+    "inner": {
+     "var": "y",
+     "lo": "x**2",
+     "hi": "x"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "d": "1/6",
+    "a": "1/3",
+    "b": "1/2",
+    "c": "5/6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 1/6 ≈ 0.166666666667; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-010",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Integrando polinomial",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^2\\!\\int_0^1 (3x^{2}y+2)\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6$"
+   },
+   {
+    "id": "b",
+    "text": "$8$"
+   },
+   {
+    "id": "c",
+    "text": "$4$"
+   },
+   {
+    "id": "d",
+    "text": "$12$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Interna: $\\int_0^1(3x^2y+2)\\,dy=\\frac32x^2+2$. Externa: $\\int_0^2\\left(\\frac32x^2+2\\right)dx=\\left[\\frac{x^3}{2}+2x\\right]_0^2=4+4=8$.",
+   "steps": [
+    "$\\int_0^1 (3x^{2}y+2)\\,dy=\\dfrac32x^{2}+2$.",
+    "$\\int_0^2\\left(\\dfrac32x^{2}+2\\right)dx=4+4$.",
+    "$=8$."
+   ],
+   "wrong": {
+    "c": "Esse valor vem só do termo $3x^2y$; falta a contribuição da constante $2$ (que dá $2\\cdot2=4$).",
+    "d": "Esqueceu o fator $\\frac12$ de $\\int_0^1y\\,dy$ no termo $3x^2y$: $3x^2$ em vez de $\\frac32x^2$.",
+    "a": "Somou $2$ ao resultado em vez de integrar a constante sobre a região: $4+2=6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "3*x**2*y+2",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "1"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "b": "8",
+    "c": "4",
+    "d": "12",
+    "a": "6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 8 ≈ 8.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-011",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Volume sob um plano",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o volume do sólido sob o plano $z=6-x-y$ e acima do retângulo $R=[0,2]\\times[0,3]$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$27$"
+   },
+   {
+    "id": "b",
+    "text": "$21$"
+   },
+   {
+    "id": "c",
+    "text": "$36$"
+   },
+   {
+    "id": "d",
+    "text": "$30$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$V=\\int_0^2\\!\\int_0^3(6-x-y)\\,dy\\,dx$. Interna: $18-3x-\\frac92=\\frac{27}{2}-3x$. Externa: $\\int_0^2\\left(\\frac{27}{2}-3x\\right)dx=27-6=21$.",
+   "steps": [
+    "$\\int_0^3(6-x-y)\\,dy=\\dfrac{27}{2}-3x$.",
+    "$\\int_0^2\\left(\\dfrac{27}{2}-3x\\right)dx=27-6$.",
+    "$V=21$."
+   ],
+   "wrong": {
+    "c": "Esse é o volume do prisma de altura constante $6$ (ignorou os termos $-x$ e $-y$).",
+    "a": "Desconsiderou o termo $-x$: $\\int_0^2(13{,}5)\\,dx=27$.",
+    "d": "Desconsiderou o termo $-y$: $\\int_0^2(18-3x)\\,dx=30$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "6-x-y",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "3"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "b": "21",
+    "c": "36",
+    "a": "27",
+    "d": "30"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 21 ≈ 21.0000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-012",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Integrando trigonométrico",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^1\\!\\int_0^{\\pi/2} x\\sin y\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac12$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O integrando é produto de uma função de $x$ por uma de $y$: $\\int_0^1x\\,dx\\cdot\\int_0^{\\pi/2}\\sin y\\,dy=\\frac12\\cdot\\left[-\\cos y\\right]_0^{\\pi/2}=\\frac12\\cdot1=\\frac12$.",
+   "steps": [
+    "$\\int_0^{\\pi/2}\\sin y\\,dy=-\\cos y\\big|_0^{\\pi/2}=1$.",
+    "$\\int_0^1x\\,dx=\\dfrac12$.",
+    "Produto: $\\dfrac12$."
+   ],
+   "wrong": {
+    "c": "$\\int_0^{\\pi/2}\\sin y\\,dy=1$, mas ainda falta $\\int_0^1x\\,dx=\\frac12$.",
+    "b": "Tomou só $-\\cos\\frac\\pi2=0$ e esqueceu o termo $+\\cos0=1$ da primitiva.",
+    "d": "Trocou o sinal: $\\int\\sin y\\,dy=-\\cos y$ (e não $+\\cos y$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x*sin(y)",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "pi/2"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "a": "1/2",
+    "c": "1",
+    "b": "0",
+    "d": "-1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 1/2 ≈ 0.500000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-013",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Inversão da ordem de integração",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^1\\!\\int_x^1 e^{y^{2}}\\,dy\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$e-1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{e-1}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac e2$"
+   },
+   {
+    "id": "d",
+    "text": "não é possível calcular, pois $e^{y^2}$ não tem primitiva elementar"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A região é $0\\le x\\le y\\le1$. Invertendo a ordem: $\\int_0^1\\!\\int_0^{y}e^{y^2}\\,dx\\,dy=\\int_0^1y\\,e^{y^2}\\,dy=\\left[\\frac{e^{y^2}}{2}\\right]_0^1=\\frac{e-1}{2}$.",
+   "steps": [
+    "Região: $0\\le x\\le y\\le1$.",
+    "$\\int_0^{y}dx=y$ ⇒ $\\int_0^1 y\\,e^{y^{2}}\\,dy$.",
+    "$=\\dfrac{e^{y^{2}}}{2}\\Big|_0^1=\\dfrac{e-1}{2}$."
+   ],
+   "wrong": {
+    "a": "Esqueceu o fator $\\frac12$ da primitiva de $y\\,e^{y^2}$ ($\\frac{e^{y^2}}2$).",
+    "c": "Perdeu o termo $-\\frac12$: $\\left[\\frac{e^{y^2}}{2}\\right]_0^1=\\frac{e-1}{2}$.",
+    "d": "Realmente não tem, mas a ordem de integração pode ser invertida (teorema de Fubini) e o valor sai em forma fechada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "exp(y**2)",
+    "inner": {
+     "var": "y",
+     "lo": "x",
+     "hi": "1"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    },
+    "swap": {
+     "inner": {
+      "var": "x",
+      "lo": "0",
+      "hi": "y"
+     },
+     "outer": {
+      "var": "y",
+      "lo": "0",
+      "hi": "1"
+     }
+    },
+    "exactFrom": "swap"
+   },
+   "optionValues": {
+    "b": "(E-1)/2",
+    "a": "E-1",
+    "c": "E/2",
+    "d": "'nao'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = -1/2 + E/2 ≈ 0.859140914230; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-014",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Inversão de ordem (raiz)",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_0^1\\!\\int_{\\sqrt y}^{1} e^{x^{3}}\\,dx\\,dy$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$e-1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{e-1}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{e-1}{2}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A região é $0\\le y\\le x^2$, $0\\le x\\le1$ (pois $x\\ge\\sqrt y\\iff y\\le x^2$). Invertendo: $\\int_0^1\\!\\int_0^{x^2}e^{x^3}\\,dy\\,dx=\\int_0^1x^2e^{x^3}\\,dx$. Com $u=x^3$: $=\\frac13\\left[e^{u}\\right]_0^1=\\frac{e-1}{3}$.",
+   "steps": [
+    "Região: $0\\le y\\le x^{2}$, $0\\le x\\le1$.",
+    "$\\int_0^{x^{2}}dy=x^{2}$ ⇒ $\\int_0^1x^{2}e^{x^{3}}\\,dx$.",
+    "$u=x^{3}$: $\\dfrac{e-1}{3}$."
+   ],
+   "wrong": {
+    "a": "Esqueceu o fator $\\frac13$ vindo da substituição $u=x^3$.",
+    "d": "Usou $\\frac12$ em vez de $\\frac13$ (a derivada de $x^3$ é $3x^2$, logo o fator é $\\frac13$).",
+    "c": "Esse é $\\int_0^1x^2\\,dx$; ainda falta a exponencial: $\\int_0^1x^2e^{x^3}\\,dx=\\frac{e-1}{3}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "exp(x**3)",
+    "inner": {
+     "var": "x",
+     "lo": "sqrt(y)",
+     "hi": "1"
+    },
+    "outer": {
+     "var": "y",
+     "lo": "0",
+     "hi": "1"
+    },
+    "swap": {
+     "inner": {
+      "var": "y",
+      "lo": "0",
+      "hi": "x**2"
+     },
+     "outer": {
+      "var": "x",
+      "lo": "0",
+      "hi": "1"
+     }
+    },
+    "exactFrom": "swap"
+   },
+   "optionValues": {
+    "b": "(E-1)/3",
+    "a": "E-1",
+    "d": "(E-1)/2",
+    "c": "1/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = -1/3 + E/3 ≈ 0.572760609486; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-015",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Região triangular com integrando linear",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Seja $D$ o triângulo de vértices $(0,0)$, $(2,0)$ e $(0,2)$. Calcule $\\displaystyle\\iint_D (x+2y)\\,dA$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac43$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac83$"
+   },
+   {
+    "id": "c",
+    "text": "$4$"
+   },
+   {
+    "id": "d",
+    "text": "$12$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O triângulo é $0\\le x\\le2$, $0\\le y\\le2-x$. Interna: $\\int_0^{2-x}(x+2y)\\,dy=x(2-x)+(2-x)^2=4-2x$. Externa: $\\int_0^2(4-2x)\\,dx=8-4=4$. (Partes: $\\iint x\\,dA=\\frac43$ e $\\iint2y\\,dA=\\frac83$.)",
+   "steps": [
+    "Limites: $0\\le y\\le2-x$.",
+    "$\\int_0^{2-x}(x+2y)\\,dy=4-2x$.",
+    "$\\int_0^2(4-2x)\\,dx=4$."
+   ],
+   "wrong": {
+    "d": "Integrou sobre o quadrado $[0,2]\\times[0,2]$; o triângulo tem $0\\le y\\le2-x$.",
+    "a": "Esse é apenas $\\iint_D x\\,dA$; falta a parte $2y$.",
+    "b": "Esse é apenas $\\iint_D 2y\\,dA$; falta a parte $x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x+2*y",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "2-x"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "c": "4",
+    "d": "12",
+    "a": "4/3",
+    "b": "8/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 4 ≈ 4.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-016",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Valor médio de uma função",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O valor médio de $f$ em uma região $R$ é $\\dfrac{1}{\\text{área}(R)}\\iint_Rf\\,dA$. Qual é o valor médio de $f(x,y)=xy$ em $R=[0,2]\\times[0,3]$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac92$"
+   },
+   {
+    "id": "c",
+    "text": "$9$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac32$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\iint_Rxy\\,dA=\\int_0^2x\\,dx\\int_0^3y\\,dy=2\\cdot\\frac92=9$ e a área de $R$ é $6$. Valor médio: $\\frac96=\\frac32$.",
+   "steps": [
+    "$\\iint_R xy\\,dA=9$.",
+    "Área de $R$: $2\\cdot3=6$.",
+    "Média: $9/6=\\dfrac32$."
+   ],
+   "wrong": {
+    "c": "Esse é $\\iint_Rxy\\,dA$; falta dividir pela área ($6$).",
+    "b": "Dividiu por $2$ (largura) em vez da área $2\\cdot3=6$.",
+    "a": "Dividiu por $3$ (altura) em vez da área $2\\cdot3=6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x*y/6",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "3"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "2"
+    }
+   },
+   "optionValues": {
+    "d": "3/2",
+    "c": "9",
+    "b": "9/2",
+    "a": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 3/2 ≈ 1.50000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-017",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Separação e substituição",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\iint_R xy\\,e^{x^{2}+y^{2}}\\,dA$, com $R=[0,1]\\times[0,1]$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(e-1)^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{(e-1)^{2}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{(e-1)^{2}}{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{e-1}{2}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$xy\\,e^{x^2+y^2}=\\bigl(x\\,e^{x^2}\\bigr)\\bigl(y\\,e^{y^2}\\bigr)$ e $R$ é retângulo, logo a integral é o produto de duas integrais iguais: $\\int_0^1xe^{x^2}dx=\\left[\\frac{e^{x^2}}{2}\\right]_0^1=\\frac{e-1}{2}$. Resultado: $\\left(\\frac{e-1}{2}\\right)^2=\\frac{(e-1)^2}{4}$.",
+   "steps": [
+    "Fatore: $(x e^{x^{2}})(y e^{y^{2}})$.",
+    "Cada integral: $\\dfrac{e-1}{2}$.",
+    "Produto: $\\dfrac{(e-1)^{2}}{4}$."
+   ],
+   "wrong": {
+    "d": "Calculou só um dos dois fatores; o integrando é produto de $x\\,e^{x^2}$ por $y\\,e^{y^2}$.",
+    "b": "Só um dos dois fatores $\\frac12$ foi aplicado; cada substituição ($u=x^2$ e $v=y^2$) contribui com $\\frac12$.",
+    "a": "Esqueceu os dois fatores $\\frac12$ das substituições $u=x^2$ e $v=y^2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "x*y*exp(x**2+y**2)",
+    "inner": {
+     "var": "y",
+     "lo": "0",
+     "hi": "1"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "0",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "c": "(E-1)**2/4",
+    "d": "(E-1)/2",
+    "b": "(E-1)**2/2",
+    "a": "(E-1)**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = -E/4 + 1/4 + E*(-1 + E)/4 ≈ 0.738123110503; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integrais-duplas-018",
+  "disciplineId": "calculo2",
+  "topicId": "integrais-duplas",
+  "subtopic": "Volume sob paraboloide",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o volume do sólido sob $z=4-x^{2}-y^{2}$ e acima do quadrado $R=[-1,1]\\times[-1,1]$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$16$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{40}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{32}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac83$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$V=\\iint_R(4-x^2-y^2)\\,dA=16-\\iint x^2\\,dA-\\iint y^2\\,dA$. Como $\\iint_Rx^2\\,dA=\\int_{-1}^1x^2dx\\cdot2=\\frac23\\cdot2=\\frac43$ (e igual para $y^2$), $V=16-\\frac83=\\frac{40}{3}$.",
+   "steps": [
+    "$\\iint_R 4\\,dA=16$.",
+    "$\\iint_R x^{2}\\,dA=\\iint_R y^{2}\\,dA=\\dfrac43$.",
+    "$V=16-\\dfrac83=\\dfrac{40}{3}$."
+   ],
+   "wrong": {
+    "a": "Esse é o volume do prisma de altura $4$ sobre $R$ (área $4$); ignorou $-x^2-y^2$.",
+    "c": "Subtraiu $\\frac{16}{3}$ em vez de $\\frac83$: cada $\\iint x^2\\,dA$ vale $\\frac43$, e há dois termos.",
+    "d": "Esse é só o que deve ser *subtraído* dos $16$ ($\\frac43+\\frac43$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: integrais duplas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:51:02.395Z",
+  "updatedAt": "2026-10-22T23:51:51.934Z",
+  "verification": {
+   "kind": "double",
+   "params": {
+    "expr": "4-x**2-y**2",
+    "inner": {
+     "var": "y",
+     "lo": "-1",
+     "hi": "1"
+    },
+    "outer": {
+     "var": "x",
+     "lo": "-1",
+     "hi": "1"
+    }
+   },
+   "optionValues": {
+    "b": "40/3",
+    "a": "16",
+    "c": "32/3",
+    "d": "8/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad(aninhada)",
+    "ranAt": "2026-10-22T23:51:14.592Z",
+    "details": "valor = 40/3 ≈ 13.3333333333; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:51:51.934Z",
+   "notes": "Integrais duplas: ficha revisada; SymPy + quadratura aninhada mpmath; Fubini nas inversões de ordem",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

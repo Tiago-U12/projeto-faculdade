@@ -34,7 +34,7 @@ function run(cmd: string, args: string[], input: string | null, timeoutMs: numbe
   });
 }
 
-const needsPython = (k: string) => ['limit', 'form', 'derivative', 'integral', 'definite', 'expr', 'function'].includes(k);
+const needsPython = (k: string) => ['limit', 'form', 'derivative', 'integral', 'definite', 'double', 'expr', 'function'].includes(k);
 
 /** Verificação simbólica/numérica em lote (um processo Python por lote). */
 export async function verifyMath(qs: Question[], batchSize = 25): Promise<VerifyOutcome[]> {

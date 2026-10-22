@@ -404,6 +404,24 @@ def compare_scalar_options(truth, options, correct):
     return matches
 
 
+def iterated(expr, inner, outer):
+    """Integral iterada exata (SymPy): inner/outer = {var, lo, hi}; limites internos podem depender da variável externa."""
+    iv, ov = parse(inner['var']), parse(outer['var'])
+    return sp.integrate(sp.integrate(expr, (iv, parse(inner['lo']), parse(inner['hi']))), (ov, parse(outer['lo']), parse(outer['hi'])))
+
+
+def iterated_numeric(expr, inner, outer):
+    """Integral iterada por quadratura aninhada (mpmath), independente do SymPy."""
+    iv, ov = parse(inner['var']), parse(outer['var'])
+    f = sp.lambdify((ov, iv), expr, modules='mpmath')
+    lo_i = sp.lambdify(ov, parse(inner['lo']), modules='mpmath')
+    hi_i = sp.lambdify(ov, parse(inner['hi']), modules='mpmath')
+    lo_o = mp.mpf(str(sp.N(parse(outer['lo']), 40)))
+    hi_o = mp.mpf(str(sp.N(parse(outer['hi']), 40)))
+    with mp.workdps(20):  # quadratura aninhada em 250 dígitos seria proibitiva; 20 dígitos bastam para conferir
+        return mp.quad(lambda u: mp.quad(lambda v: f(u, v), [lo_i(u), hi_i(u)]), [lo_o, hi_o])
+
+
 def run(task):
     kind, p, options, correct = task['kind'], task.get('params') or {}, task.get('optionValues') or {}, task['correctOptionId']
     if kind == 'source':
@@ -446,6 +464,28 @@ def run(task):
         matches = compare_scalar_options(truth, options, correct)
         method = 'sympy+mpmath.quad'
         details = f'valor = {truth} ≈ {sp.N(truth, 12)}; quadratura {"ok" if ok_num else "DIVERGENTE"}'
+    elif kind == 'double':
+        expr = parse(p['expr'])
+        # exactFrom='swap': quando a ordem dada não tem primitiva elementar, o valor exato vem da ordem invertida (Fubini)
+        # e a quadratura numérica aninhada continua sendo feita na ordem ORIGINAL (checagem independente).
+        truth = iterated(expr, p['swap']['inner'], p['swap']['outer']) if p.get('exactFrom') == 'swap' else iterated(expr, p['inner'], p['outer'])
+        if truth.has(sp.Integral):
+            errors.append('SymPy não resolveu a integral dupla')
+        nv = iterated_numeric(expr, p['inner'], p['outer'])
+        tv = complex(sp.N(truth, 30)) if not truth.has(sp.Integral) else None
+        ok_num = tv is not None and abs(tv - complex(nv)) < 1e-7 * max(1, abs(tv))
+        if not ok_num:
+            errors.append(f'quadratura numérica aninhada ({nv}) discorda do SymPy ({truth})')
+        swap_note = ''
+        if p.get('swap') and p.get('exactFrom') != 'swap':  # Fubini: a ordem de integração invertida deve dar o mesmo valor
+            sw = iterated(expr, p['swap']['inner'], p['swap']['outer'])
+            ok_sw = abs(complex(sp.N(sw, 30)) - complex(sp.N(truth, 30))) < 1e-9 * max(1, abs(tv or 1))
+            if not ok_sw:
+                errors.append(f'ordem invertida dá {sw}, diferente de {truth}')
+            swap_note = f'; ordem invertida {"ok" if ok_sw else "DIVERGENTE"}'
+        matches = compare_scalar_options(truth, options, correct)
+        method = 'sympy+mpmath.quad(aninhada)'
+        details = f'valor = {truth} ≈ {sp.N(truth, 12)}; quadratura {"ok" if ok_num else "DIVERGENTE"}{swap_note}'
     elif kind == 'derivative':
         expr = parse(p['expr'])
         wrt = [parse(w) for w in p['wrt']] if p.get('wrt') else [parse(p.get('var', 'x'))] * int(p.get('order', 1))
