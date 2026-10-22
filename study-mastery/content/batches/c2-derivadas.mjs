@@ -1,0 +1,171 @@
+// Lote c2-derivadas — Regras de derivação (revisão): 6 fáceis (001–006), 6 médias (007–012), 5 difíceis (013–017).
+// Base: slides da aula 0-1, lista 0-1 (itens 1–15, lidos por renderização) e tabela de derivadas.
+import { m } from '../../tools/lib/dsl.ts';
+
+const DS = 'c2-derivadas-slides';
+const DL = 'c2-derivadas-lista';
+const DT = 'c2-derivadas-tabela';
+const R = (n, o) => ({ d: 'calculo2', topic: 'derivadas', ...o, id: `c2-derivadas-${String(n).padStart(3, '0')}` });
+const der = (expr, values, extra = {}) => ({ kind: 'derivative', params: { expr, var: 'x', ...extra }, values });
+
+export default [
+  R(1, {
+    diff: 'facil', scope: 'aula', sub: 'Regra da potência',
+    stem: m`Seja $f(x)=x^{13}$. Qual é $f'(x)$?`,
+    opts: [m`$13x^{12}$`, [m`$\dfrac{x^{14}}{14}$`, m`Essa é a *primitiva* (integral) de $x^{13}$, e não a derivada.`], [m`$13x^{13}$`, m`O expoente deve diminuir uma unidade: $13-1=12$.`], [m`$12x^{13}$`, m`O coeficiente é o expoente original ($13$) e o novo expoente é $12$; os dois estão trocados.`]],
+    exp: m`Regra da potência: $(x^{n})'=n\,x^{n-1}$. Com $n=13$: $f'(x)=13x^{12}$.`,
+    steps: [m`Expoente vira coeficiente: $13$.`, m`Expoente diminui uma unidade: $13-1=12$.`, m`$f'(x)=13x^{12}$.`],
+    src: [[DL, 'item 1'], [DT, 'derivada da potência']],
+    verify: der('x**13', ['13*x**12', 'x**14/14', '13*x**13', '12*x**13']),
+  }),
+  R(2, {
+    diff: 'facil', scope: 'aula', sub: 'Raiz e valor da derivada',
+    stem: m`Seja $f(x)=\sqrt{x}$. Calcule $f'(2)$.`,
+    opts: [m`$\dfrac{\sqrt2}{4}$`, [m`$\dfrac14$`, m`Usou $\frac{1}{2x}$ no lugar de $\frac{1}{2\sqrt x}$: a raiz permanece no denominador.`], [m`$\dfrac{\sqrt2}{2}$`, m`Esqueceu o fator $\frac12$: $f'(x)=\frac{1}{2\sqrt x}$ e não $\frac1{\sqrt x}$.`], [m`$\dfrac12$`, m`$\frac12$ é o coeficiente da fórmula, mas ainda falta dividir por $\sqrt x=\sqrt2$.`]],
+    exp: m`$f(x)=x^{1/2}$, então $f'(x)=\dfrac12x^{-1/2}=\dfrac{1}{2\sqrt x}$. Em $x=2$: $f'(2)=\dfrac{1}{2\sqrt2}=\dfrac{\sqrt2}{4}$.`,
+    steps: [m`$f(x)=x^{1/2}$.`, m`$f'(x)=\dfrac12x^{-1/2}=\dfrac{1}{2\sqrt{x}}$.`, m`$f'(2)=\dfrac{1}{2\sqrt2}=\dfrac{\sqrt{2}}{4}$.`],
+    src: [[DL, 'item 2'], [DT, 'derivada da potência']],
+    verify: der('sqrt(x)', ['sqrt(2)/4', '1/4', 'sqrt(2)/2', '1/2'], { at: '2' }),
+  }),
+  R(3, {
+    diff: 'facil', scope: 'aula', sub: 'Constante multiplicativa',
+    stem: m`Encontre a derivada de $f(x)=\pi x^{2}$.`,
+    opts: [m`$2\pi x$`, [m`$2x$`, m`$\pi$ é uma constante multiplicativa e permanece: $(c\,g)'=c\,g'$.`], [m`$\pi x$`, m`Esqueceu o expoente: a derivada de $x^2$ é $2x$, e não $x$.`], [m`$2\pi x+x^{2}$`, m`$\pi$ é constante (derivada $0$); não há termo extra pela “derivada de $\pi$”.`]],
+    exp: m`$\pi$ é um número, logo $(\pi x^2)'=\pi\cdot(x^2)'=\pi\cdot2x=2\pi x$. A derivada de uma constante vezes uma função é a constante vezes a derivada.`,
+    steps: [m`Constante sai: $\pi\,(x^{2})'$.`, m`$(x^{2})'=2x$.`, m`$f'(x)=2\pi x$.`],
+    mistakes: [m`Tratar $\pi$ como variável e aplicar a regra do produto.`],
+    src: [[DL, 'item 4'], [DT, 'derivada do produto de uma constante por uma função']],
+    verify: der('pi*x**2', ['2*pi*x', '2*x', 'pi*x', '2*pi*x+x**2']),
+  }),
+  R(4, {
+    diff: 'facil', scope: 'aula', sub: 'Potência negativa',
+    stem: m`Calcule $f'(x)$ sendo $f(x)=\dfrac{1}{x^{5}}$.`,
+    opts: [m`$-\dfrac{5}{x^{6}}$`, [m`$-\dfrac{1}{5x^{4}}$`, m`Fez “subir expoente e dividir” (integração); em derivação o expoente vira coeficiente.`], [m`$\dfrac{5}{x^{6}}$`, m`Faltou o sinal negativo: o expoente de $x^{-5}$ é $-5$, que passa a coeficiente.`], [m`$-\dfrac{5}{x^{4}}$`, m`O novo expoente é $-5-1=-6$, e não $-4$.`]],
+    exp: m`Escreva $f(x)=x^{-5}$. Então $f'(x)=-5x^{-6}=-\dfrac{5}{x^{6}}$.`,
+    steps: [m`$f(x)=x^{-5}$.`, m`$f'(x)=-5\,x^{-5-1}$.`, m`$=-\dfrac{5}{x^{6}}$.`],
+    src: [[DL, 'item 5'], [DT, 'derivada da potência']],
+    verify: der('1/x**5', ['-5/x**6', '-1/(5*x**4)', '5/x**6', '-5/x**4']),
+  }),
+  R(5, {
+    diff: 'facil', scope: 'aula', sub: 'Soma e constante',
+    stem: m`Determine a derivada de $f(x)=3x^{2}+6x-10$.`,
+    opts: [m`$6x+6$`, [m`$6x-10$`, m`A derivada de $6x$ é $6$ e a de $-10$ (constante) é $0$; o $-10$ não permanece.`], [m`$3x+6$`, m`A derivada de $3x^2$ é $6x$ (expoente × coeficiente), e não $3x$.`], [m`$6x+6-10$`, m`A derivada de uma constante é $0$: o termo $-10$ desaparece.`]],
+    exp: m`Derive termo a termo: $(3x^2)'=6x$, $(6x)'=6$ e $(-10)'=0$. Logo $f'(x)=6x+6$.`,
+    steps: [m`$(3x^{2})'=6x$.`, m`$(6x)'=6$.`, m`$(-10)'=0$ ⇒ $f'(x)=6x+6$.`],
+    src: [[DL, 'item 7a'], [DT, 'derivada da soma e da constante']],
+    verify: der('3*x**2+6*x-10', ['6*x+6', '6*x-10', '3*x+6', '6*x-4']),
+  }),
+  R(6, {
+    diff: 'facil', scope: 'aula', sub: 'Exponencial e logaritmo',
+    stem: m`Para $x>0$, qual é a derivada de $f(x)=3e^{x}-2\ln x$?`,
+    opts: [m`$3e^{x}-\dfrac{2}{x}$`, [m`$3xe^{x-1}-\dfrac{2}{x}$`, m`$e^x$ não segue a regra da potência: $(e^x)'=e^x$.`], [m`$3e^{x}-2x$`, m`$(\ln x)'=\frac1x$, e não $x$.`], [m`$3e^{x}+\dfrac{2}{x}$`, m`O sinal do segundo termo se mantém: $(-2\ln x)'=-\frac2x$.`]],
+    exp: m`Da tabela: $(e^x)'=e^x$ e $(\ln x)'=\dfrac1x$ ($x>0$). Logo $f'(x)=3e^x-2\cdot\dfrac1x=3e^x-\dfrac2x$.`,
+    steps: [m`$(3e^{x})'=3e^{x}$.`, m`$(-2\ln x)'=-\dfrac{2}{x}$.`, m`$f'(x)=3e^{x}-\dfrac{2}{x}$.`],
+    src: [[DT, 'derivadas de eˣ e ln x']],
+    verify: der('3*exp(x)-2*log(x)', ['3*exp(x)-2/x', '3*x*exp(x-1)-2/x', '3*exp(x)-2*x', '3*exp(x)+2/x']),
+  }),
+
+  // ---------------- MÉDIAS ----------------
+  R(7, {
+    diff: 'medio', scope: 'aula', sub: 'Regra do produto',
+    stem: m`Calcule $f'(x)$ para $f(x)=(2x+1)(3x^{2}+6)$ usando a regra do produto.`,
+    opts: [m`$18x^{2}+6x+12$`, [m`$6x\cdot2=12x$`, m`A derivada do produto não é o produto das derivadas: $(uv)'=u'v+uv'$.`], [m`$2\,(3x^{2}+6)=6x^{2}+12$`, m`Faltou o segundo termo $u\,v'=(2x+1)\cdot6x$.`], [m`$(2)(6x)+(2x+1)(3x^{2}+6)$`, m`Misturou: o segundo termo usa $v'=6x$, e não $v$.`]],
+    exp: m`$u=2x+1$, $v=3x^2+6$, $u'=2$, $v'=6x$. $f'=u'v+uv'=2(3x^2+6)+(2x+1)(6x)=6x^2+12+12x^2+6x=18x^2+6x+12$.`,
+    steps: [m`$u'v=2(3x^{2}+6)=6x^{2}+12$.`, m`$uv'=(2x+1)\cdot6x=12x^{2}+6x$.`, m`Soma: $18x^{2}+6x+12$.`],
+    src: [[DL, 'item 9'], [DT, 'derivada do produto']],
+    verify: der('(2*x+1)*(3*x**2+6)', ['18*x**2+6*x+12', '12*x', '6*x**2+12', '2*(3*x**2+6)+(2*x+1)*(3*x**2+6)']),
+  }),
+  R(8, {
+    diff: 'medio', scope: 'aula', sub: 'Regra do quociente',
+    stem: m`Seja $f(x)=\dfrac{x^{2}}{x^{2}+5}$. Qual é $f'(x)$?`,
+    opts: [m`$\dfrac{10x}{(x^{2}+5)^{2}}$`, [m`$\dfrac{2x}{2x}=1$`, m`Dividir as derivadas de numerador e denominador não é a regra do quociente.`], [m`$\dfrac{4x^{3}+10x}{(x^{2}+5)^{2}}$`, m`Somou em vez de subtrair os termos do numerador: $u'v-uv'$.`], [m`$\dfrac{10x}{x^{2}+5}$`, m`O denominador da regra do quociente é elevado ao quadrado: $v^2$.`]],
+    exp: m`$u=x^2$, $v=x^2+5$. $f'=\dfrac{u'v-uv'}{v^2}=\dfrac{2x(x^2+5)-x^2\cdot2x}{(x^2+5)^2}=\dfrac{10x}{(x^2+5)^2}$.`,
+    steps: [m`$u'v=2x(x^{2}+5)=2x^{3}+10x$.`, m`$uv'=x^{2}\cdot2x=2x^{3}$.`, m`$\dfrac{2x^{3}+10x-2x^{3}}{(x^{2}+5)^{2}}=\dfrac{10x}{(x^{2}+5)^{2}}$.`],
+    src: [[DL, 'item 13'], [DT, 'derivada do quociente']],
+    verify: der('x**2/(x**2+5)', ['10*x/(x**2+5)**2', '1', '(4*x**3+10*x)/(x**2+5)**2', '10*x/(x**2+5)']),
+  }),
+  R(9, {
+    diff: 'medio', scope: 'aula', sub: 'Produto com potência negativa',
+    stem: m`Determine a derivada de $f(x)=\left(x^{3}-8\right)\left(\dfrac{2}{x}-1\right)$.`,
+    opts: [m`$4x-3x^{2}+\dfrac{16}{x^{2}}$`, [m`$3x^{2}\cdot\left(-\dfrac{2}{x^{2}}\right)=-6$`, m`Multiplicou as derivadas dos fatores; a regra do produto soma $u'v+uv'$.`], [m`$4x-3x^{2}-\dfrac{16}{x^{2}}$`, m`O termo $-\frac{16}{x}$ tem derivada $+\frac{16}{x^2}$ (sinais: $-16\cdot(-1)x^{-2}$).`], [m`$3x^{2}\left(\dfrac2x-1\right)$`, m`É só $u'v$; falta o termo $u\,v'$ com $v'=-\frac{2}{x^2}$.`]],
+    exp: m`Expanda: $f(x)=2x^2-x^3-\dfrac{16}{x}+8$. Derivando termo a termo: $4x-3x^2+\dfrac{16}{x^2}$. (Pela regra do produto o resultado é o mesmo: $3x^2\!\left(\frac2x-1\right)+(x^3-8)\!\left(-\frac2{x^2}\right)$.)`,
+    steps: [m`$f(x)=2x^{2}-x^{3}-16x^{-1}+8$.`, m`$(2x^{2})'=4x$, $(-x^{3})'=-3x^{2}$.`, m`$(-16x^{-1})'=+16x^{-2}=\dfrac{16}{x^{2}}$.`],
+    src: [[DL, 'item 14'], [DT, 'derivada do produto']],
+    verify: der('(x**3-8)*(2/x-1)', ['4*x-3*x**2+16/x**2', '-6', '4*x-3*x**2-16/x**2', '3*x**2*(2/x-1)']),
+  }),
+  R(10, {
+    diff: 'medio', scope: 'aula', sub: 'Regra do quociente',
+    stem: m`Determine a derivada de $f(x)=\dfrac{2x+4}{3x-1}$.`,
+    opts: [m`$-\dfrac{14}{(3x-1)^{2}}$`, [m`$\dfrac{14}{(3x-1)^{2}}$`, m`Erro de sinal: $u'v-uv'=2(3x-1)-3(2x+4)=-14$.`], [m`$\dfrac{2}{3}$`, m`Dividiu as derivadas ($\frac{2}{3}$); a regra do quociente é mais elaborada.`], [m`$\dfrac{12x+10}{(3x-1)^{2}}$`, m`Somou os produtos em vez de subtrair: $2(3x-1)+3(2x+4)=12x+10$.`]],
+    exp: m`$u=2x+4$, $v=3x-1$: $f'=\dfrac{u'v-uv'}{v^2}=\dfrac{2(3x-1)-3(2x+4)}{(3x-1)^2}=\dfrac{6x-2-6x-12}{(3x-1)^2}=-\dfrac{14}{(3x-1)^2}$.`,
+    steps: [m`$u'v=2(3x-1)=6x-2$.`, m`$uv'=3(2x+4)=6x+12$.`, m`$\dfrac{6x-2-6x-12}{(3x-1)^{2}}=-\dfrac{14}{(3x-1)^{2}}$.`],
+    src: [[DL, 'item 15'], [DT, 'derivada do quociente']],
+    verify: der('(2*x+4)/(3*x-1)', ['-14/(3*x-1)**2', '14/(3*x-1)**2', '2/3', '(12*x+10)/(3*x-1)**2']),
+  }),
+  R(11, {
+    diff: 'medio', scope: 'aula', sub: 'Regra da cadeia',
+    stem: m`Calcule a derivada de $f(x)=\left(3x^{2}+1\right)^{5}$.`,
+    opts: [m`$30x\left(3x^{2}+1\right)^{4}$`, [m`$5\left(3x^{2}+1\right)^{4}$`, m`Esqueceu o fator da derivada interna: $\left(3x^2+1\right)'=6x$.`], [m`$5\left(6x\right)^{4}$`, m`A potência atua sobre a expressão inteira $3x^2+1$, e não sobre $6x$.`], [m`$\left(3x^{2}+1\right)^{5}\cdot6x$`, m`O expoente deve diminuir ($5\to4$) e o $5$ passar a coeficiente: $5\cdot6x=30x$.`]],
+    exp: m`Regra da cadeia (externo–interno): $\dfrac{dy}{dx}=g'(u)\cdot u'$ com $u=3x^2+1$ e $g(u)=u^5$. Então $f'(x)=5u^4\cdot6x=30x(3x^2+1)^4$.`,
+    steps: [m`Externa: $u^{5}\to5u^{4}$.`, m`Interna: $u=3x^{2}+1\to u'=6x$.`, m`$f'(x)=5u^{4}\cdot6x=30x(3x^{2}+1)^{4}$.`],
+    src: [[DT, 'regra da cadeia e regra do externo-interno']],
+    verify: der('(3*x**2+1)**5', ['30*x*(3*x**2+1)**4', '5*(3*x**2+1)**4', '5*(6*x)**4', '6*x*(3*x**2+1)**5']),
+  }),
+  R(12, {
+    diff: 'medio', scope: 'aprofundamento', sub: 'Reta tangente',
+    stem: m`Qual é a equação da reta tangente ao gráfico de $f(x)=x^{3}-3x$ no ponto de abscissa $x=2$?`,
+    opts: [m`$y=9x-16$`, [m`$y=9x+2$`, m`Usou $f(2)=2$ como coeficiente linear; a reta é $y-f(2)=f'(2)(x-2)$, que dá $9x-16$.`], [m`$y=3x^{2}-3$`, m`Essa é a função derivada $f'(x)$, e não a equação da reta.`], [m`$y=9(x-2)$`, m`Esqueceu o ponto: $y-f(2)=9(x-2)$, com $f(2)=2$.`]],
+    exp: m`$f'(x)=3x^2-3$, logo o coeficiente angular é $f'(2)=9$. O ponto é $(2,f(2))=(2,2)$. Então $y-2=9(x-2)\Rightarrow y=9x-16$.`,
+    steps: [m`$f(2)=8-6=2$.`, m`$f'(2)=3\cdot4-3=9$.`, m`$y-2=9(x-2)\Rightarrow y=9x-16$.`],
+    src: [[DS, 'slides (derivada como coeficiente angular da tangente)', 'aprofundamento']],
+    verify: { kind: 'function', params: { expr: 'subs(x**3-3*x,x,2) + subs(diff(x**3-3*x,x),x,2)*(x-2)', var: 'x' }, values: ['9*x-16', '9*x+2', '3*x**2-3', '9*(x-2)'] },
+  }),
+
+  // ---------------- DIFÍCEIS ----------------
+  R(13, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Produto + cadeia',
+    stem: m`Derive $f(x)=x^{2}e^{3x}$.`,
+    opts: [m`$e^{3x}\left(3x^{2}+2x\right)$`, [m`$2x\,e^{3x}$`, m`Só derivou o fator $x^2$; falta o termo $x^2\cdot(e^{3x})'$.`], [m`$e^{3x}\left(x^{2}+2x\right)$`, m`A derivada de $e^{3x}$ é $3e^{3x}$ (regra da cadeia): faltou o $3$ no termo $3x^2$.`], [m`$6x\,e^{3x}$`, m`Multiplicou as derivadas dos dois fatores; a regra do produto soma duas parcelas.`]],
+    exp: m`Regra do produto: $(uv)'=u'v+uv'$ com $u=x^2$ e $v=e^{3x}$, $v'=3e^{3x}$ (cadeia). Então $f'(x)=2xe^{3x}+x^2\cdot3e^{3x}=e^{3x}(3x^2+2x)$.`,
+    steps: [m`$u'=2x$, $v=e^{3x}$, $v'=3e^{3x}$.`, m`$f'=2xe^{3x}+3x^{2}e^{3x}$.`, m`Fator comum: $e^{3x}(3x^{2}+2x)$.`],
+    src: [[DT, 'regra do produto, regra da cadeia e derivada de eˣ'], [DS, 'slides', 'aprofundamento']],
+    verify: der('x**2*exp(3*x)', ['exp(3*x)*(3*x**2+2*x)', '2*x*exp(3*x)', 'exp(3*x)*(x**2+2*x)', '6*x*exp(3*x)']),
+  }),
+  R(14, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Cadeia com logaritmo',
+    stem: m`Qual é a derivada de $f(x)=\ln\!\left(x^{2}+1\right)$?`,
+    opts: [m`$\dfrac{2x}{x^{2}+1}$`, [m`$\dfrac{1}{x^{2}+1}$`, m`Esqueceu a derivada interna $\left(x^2+1\right)'=2x$ no numerador.`], [m`$2x\ln\!\left(x^{2}+1\right)$`, m`A derivada do logaritmo é $\frac{1}{(\cdot)}$, e não um produto com o próprio $\ln$.`], [m`$\ln(2x)$`, m`Derivar $\ln$ não devolve outro logaritmo: $(\ln u)'=\frac{u'}{u}$.`]],
+    exp: m`$(\ln u)'=\dfrac{u'}{u}$. Com $u=x^2+1$ e $u'=2x$: $f'(x)=\dfrac{2x}{x^2+1}$.`,
+    steps: [m`$u=x^{2}+1$, $u'=2x$.`, m`$(\ln u)'=\dfrac{u'}{u}$.`, m`$f'(x)=\dfrac{2x}{x^{2}+1}$.`],
+    src: [[DT, 'derivada de ln x e regra da cadeia']],
+    verify: der('log(x**2+1)', ['2*x/(x**2+1)', '1/(x**2+1)', '2*x*log(x**2+1)', 'log(2*x)']),
+  }),
+  R(15, {
+    diff: 'dificil', scope: 'desafio', sub: 'Função elevada a função',
+    stem: m`Para $x>0$, qual é a derivada de $f(x)=x^{x}$? (Dica: $x^{x}=e^{x\ln x}$; a tabela traz a derivada de $f(x)^{g(x)}$.)`,
+    opts: [m`$x^{x}\left(\ln x+1\right)$`, [m`$x\cdot x^{x-1}=x^{x}$`, m`Aplicou a regra da potência como se o expoente fosse constante; aqui o expoente também varia.`], [m`$x^{x}\ln x$`, m`Esqueceu o termo $1$ que vem de $(x\ln x)'=\ln x+x\cdot\frac1x$.`], [m`$e^{x}\left(\ln x+1\right)$`, m`A base não vira $e$: o fator exponencial é $x^{x}=e^{x\ln x}$.`]],
+    exp: m`$f(x)=e^{x\ln x}$. Pela cadeia: $f'(x)=e^{x\ln x}\cdot(x\ln x)'$. E $(x\ln x)'=\ln x+x\cdot\dfrac1x=\ln x+1$. Logo $f'(x)=x^x(\ln x+1)$.`,
+    steps: [m`$x^{x}=e^{x\ln x}$.`, m`$(x\ln x)'=\ln x+1$ (regra do produto).`, m`$f'(x)=x^{x}(\ln x+1)$.`],
+    mistakes: [m`Usar $(x^{n})'=nx^{n-1}$ com $n=x$ (o expoente não é constante).`],
+    src: [[DT, 'derivada de f(x)^g(x)']],
+    verify: der('x**x', ['x**x*(log(x)+1)', 'x**x', 'x**x*log(x)', 'exp(x)*(log(x)+1)']),
+  }),
+  R(16, {
+    diff: 'dificil', scope: 'desafio', sub: 'Segunda derivada',
+    stem: m`Para $x>0$, calcule a segunda derivada $f''(x)$ de $f(x)=x^{3}\ln x$.`,
+    opts: [m`$6x\ln x+5x$`, [m`$6x\ln x+3x$`, m`Perdeu um termo: $f'=3x^2\ln x+x^2$ e a derivada de $x^2$ é $2x$, somando $3x+2x=5x$.`], [m`$6x\ln x+2x$`, m`Só contou a derivada de $x^2$; falta o termo $3x$ vindo de $3x^2\cdot\frac1x$.`], [m`$6\ln x+5$`, m`Derivou $x^3$ como se fosse constante $6$; a regra do produto mantém potências de $x$.`]],
+    exp: m`$f'(x)=3x^2\ln x+x^3\cdot\dfrac1x=3x^2\ln x+x^2$. Derivando de novo: $f''(x)=6x\ln x+3x^2\cdot\dfrac1x+2x=6x\ln x+3x+2x=6x\ln x+5x$.`,
+    steps: [m`$f'(x)=3x^{2}\ln x+x^{2}$.`, m`$(3x^{2}\ln x)'=6x\ln x+3x$.`, m`$(x^{2})'=2x$ ⇒ $f''(x)=6x\ln x+5x$.`],
+    src: [[DT, 'regra do produto e derivada de ln x']],
+    verify: der('x**3*log(x)', ['6*x*log(x)+5*x', '6*x*log(x)+3*x', '6*x*log(x)+2*x', '6*log(x)+5'], { order: 2 }),
+  }),
+  R(17, {
+    diff: 'dificil', scope: 'aula', sub: 'Definição de derivada',
+    stem: m`Pela definição, $f'(a)=\displaystyle\lim_{h\to0}\frac{f(a+h)-f(a)}{h}$. Para $f(x)=x^{3}$ e $a=2$, qual é o valor de $\displaystyle\lim_{h\to0}\frac{(2+h)^{3}-8}{h}$?`,
+    opts: [m`$12$`, [m`$8$`, m`$8=f(2)$ é o valor da função, e não da derivada.`], [m`$0$`, m`O limite tem a forma $\frac00$, que é indeterminada; expandindo $(2+h)^3$ o resultado é $12$.`], [m`$6$`, m`Usou $f'(x)=3x$ em vez de $3x^2$: $3\cdot2=6$.`]],
+    exp: m`O limite é exatamente $f'(2)$ com $f(x)=x^3$. Como $f'(x)=3x^2$, $f'(2)=12$. Diretamente: $(2+h)^3-8=12h+6h^2+h^3$, e dividindo por $h$: $12+6h+h^2\to12$.`,
+    steps: [m`$(2+h)^{3}=8+12h+6h^{2}+h^{3}$.`, m`$\dfrac{12h+6h^{2}+h^{3}}{h}=12+6h+h^{2}$.`, m`$\lim_{h\to0}(12+6h+h^{2})=12$.`],
+    src: [[DS, 'slides (a derivada como limite do quociente de Newton)']],
+    verify: { kind: 'limit', params: { expr: '((2+h)**3-8)/h', var: 'h', at: '0', dir: '+-' }, values: ['12', '8', '0', '6'] },
+  }),
+];

@@ -40,6 +40,7 @@ FUNCS = {
     'Eq': sp.Eq, 'atan2': sp.atan2, 'det': sp.det, 'Symbol': sp.Symbol, 'symbols': sp.symbols,
     'FiniteSet': sp.FiniteSet, 'str': str, 'round': round, 'sum': sum, 'range': range, 'len': len, 'sorted': sorted, 'list': list, 'tuple': tuple, 'set': set, 'float': float, 'int': int,
     'subs': lambda e, *a: e.subs(*a),
+    'taylor': lambda e, v, a, n: sp.series(e, v, a, n + 1).removeO(),
 }
 CONSTS = {'pi': pi, 'E': E, 'e': E, 'oo': oo, 'inf': oo, 'I': sp.I, 'zoo': zoo, 'nan': nan, 'True': True, 'False': False}
 ALLOWED_NODES = (
@@ -146,17 +147,22 @@ SAMPLE_POINTS = [Rational(1, 3), Rational(7, 5), Rational(11, 4), Rational(5, 2)
 
 
 def same_function(f, g, var, points=None, tol=1e-8, allow_const=False):
-    """Igualdade de funções por amostragem numérica (+ simplificação simbólica quando possível)."""
+    """Igualdade de funções por amostragem numérica (+ simplificação simbólica quando possível).
+    Outras variáveis livres (ex.: y em ∂f/∂x) são amostradas em valores racionais diferentes."""
     try:
         if sp.simplify(f - g) == 0:
             return True
     except Exception:
         pass
     pts = points or SAMPLE_POINTS
+    others = sorted((f - g).free_symbols - {var}, key=str)
     vals = []
-    for p in pts:
+    for idx, p in enumerate(pts):
+        m = {var: p}
+        for j, s_ in enumerate(others):
+            m[s_] = SAMPLE_POINTS[(idx + j + 2) % len(SAMPLE_POINTS)]
         try:
-            fv, gv = complex(sp.N(f.subs(var, p), 25)), complex(sp.N(g.subs(var, p), 25))
+            fv, gv = complex(sp.N(f.subs(m), 25)), complex(sp.N(g.subs(m), 25))
         except Exception:
             continue
         if any(v != v or abs(v) == float('inf') for v in (fv, gv)):
@@ -166,7 +172,7 @@ def same_function(f, g, var, points=None, tol=1e-8, allow_const=False):
         return False
     if allow_const:
         return all(abs(v - vals[0]) <= tol * max(1, abs(vals[0])) for v in vals)
-    return all(abs(v) <= tol * max(1.0, abs(v)) and abs(v) <= tol for v in vals)
+    return all(abs(v) <= tol for v in vals)
 
 
 # ---------- tipos de verificação ----------
@@ -441,27 +447,31 @@ def run(task):
         method = 'sympy+mpmath.quad'
         details = f'valor = {truth} ≈ {sp.N(truth, 12)}; quadratura {"ok" if ok_num else "DIVERGENTE"}'
     elif kind == 'derivative':
-        expr, var = parse(p['expr']), parse(p.get('var', 'x'))
-        order = int(p.get('order', 1))
-        truth = sp.diff(expr, var, order)
-        if 'at' in p:
-            at = parse(p['at'])
-            truth = truth.subs(var, at)
-            h = mp.mpf(10) ** -12
-            fx = sp.lambdify(var, expr, modules='mpmath')
-            x0 = mp.mpf(str(sp.N(at, 40)))
-            num_d = mp.diff(fx, x0, order)
-            ok_num = abs(complex(sp.N(truth, 30)) - complex(num_d)) < 1e-8 * max(1, abs(num_d))
+        expr = parse(p['expr'])
+        wrt = [parse(w) for w in p['wrt']] if p.get('wrt') else [parse(p.get('var', 'x'))] * int(p.get('order', 1))
+        var = wrt[0]
+        truth = sp.diff(expr, *wrt)
+        all_syms = sorted(expr.free_symbols | set(wrt), key=str)
+        fx = sp.lambdify(all_syms, expr, modules='mpmath')
+        orders = tuple(sum(1 for w in wrt if w == s_) for s_ in all_syms)
+        at = {parse(k): parse(v) for k, v in (p.get('at') or {}).items()} if isinstance(p.get('at'), dict) else None
+        if 'at' in p and not isinstance(p.get('at'), dict):
+            at = {var: parse(p['at'])}
+        ok_num = True
+        if at is not None:
+            pt = {s_: at.get(s_, SAMPLE_POINTS[(i + 1) % len(SAMPLE_POINTS)]) for i, s_ in enumerate(all_syms)}
+            truth = truth.subs(pt)
+            x0 = tuple(mp.mpf(str(sp.N(pt[s_], 40))) for s_ in all_syms)
+            nd = mp.diff(fx, x0, orders)
+            ok_num = abs(complex(sp.N(truth, 30)) - complex(nd)) < 1e-8 * max(1, abs(nd))
             matches = compare_scalar_options(truth, options, correct)
         else:
-            # derivada numérica (mpmath) em pontos de amostra
-            fx = sp.lambdify(var, expr, modules='mpmath')
-            ok_num = True
-            for pt in SAMPLE_POINTS[:4]:
-                x0 = mp.mpf(str(sp.N(pt, 40)))
+            for k in range(4):
+                pt = {s_: SAMPLE_POINTS[(i + k + 1) % len(SAMPLE_POINTS)] for i, s_ in enumerate(all_syms)}
                 try:
-                    nd = mp.diff(fx, x0, order)
-                    sv = complex(sp.N(truth.subs(var, pt), 30))
+                    x0 = tuple(mp.mpf(str(sp.N(pt[s_], 40))) for s_ in all_syms)
+                    nd = mp.diff(fx, x0, orders)
+                    sv = complex(sp.N(truth.subs(pt), 30))
                     ok_num &= abs(sv - complex(nd)) < 1e-8 * max(1, abs(sv))
                 except Exception:
                     pass
@@ -474,7 +484,7 @@ def run(task):
                 except Exception:
                     pass
         if not ok_num:
-            errors.append('derivada numérica discorda do SymPy')
+            errors.append('derivada numérica (mpmath) discorda do SymPy')
         method = 'sympy+mpmath.diff'
         details = f'derivada = {truth}; checagem numérica {"ok" if ok_num else "DIVERGENTE"}'
     elif kind == 'integral':
@@ -537,6 +547,18 @@ def run(task):
         truth = parse(p['expr'])
         var = parse(p.get('var', 'x'))
         ok_num = True
+        notes = ''
+        if p.get('numericTaylor'):
+            # checagem independente: coeficientes de Taylor por diferenciação numérica (mpmath), sem SymPy
+            nt = p['numericTaylor']
+            f0 = sp.lambdify(var, parse(nt['f']), modules='mpmath')
+            a0 = mp.mpf(str(sp.N(parse(nt['at']), 40)))
+            coeffs = mp.taylor(f0, a0, int(nt['order']))
+            poly = sum(sp.Float(str(c), 30) * (var - sp.Float(str(a0), 30)) ** k for k, c in enumerate(coeffs))
+            ok_num = same_function(truth, poly, var, tol=1e-7)
+            notes = f'; coeficientes numéricos (mpmath.taylor) {"ok" if ok_num else "DIVERGENTES"}'
+            if not ok_num:
+                errors.append('coeficientes de Taylor numéricos discordam do SymPy')
         matches = []
         for oid, text in options.items():
             try:
@@ -544,8 +566,8 @@ def run(task):
                     matches.append(oid)
             except Exception:
                 pass
-        method = 'sympy+amostragem'
-        details = f'função de referência = {truth}'
+        method = 'sympy+amostragem' + ('+mpmath.taylor' if p.get('numericTaylor') else '')
+        details = f'função de referência = {truth}{notes}'
     else:
         return dict(ok=False, method=kind, details=f'kind desconhecido: {kind}', errors=[f'kind desconhecido: {kind}'])
 
