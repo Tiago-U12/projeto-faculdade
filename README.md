@@ -26,3 +26,10 @@ Há ajustes de fonte, contraste, espaçamento, aparência e idioma no cabeçalho
 [Abrir o protótipo jogável](https://tiago-u12.github.io/projeto-faculdade/aysha-park/) · [Código e instruções](aysha-park/README.md)
 
 Aventura de exploração com Aysha, Jenny e Tico, mantida em `aysha-park/`, com código, arte provisória e comandos próprios. O protótipo tem uma área e uma missão para coletar três frutas.
+
+
+## Dungeon Cooked — jogo web 2D
+
+[Jogar no navegador](https://tiago-u12.github.io/projeto-faculdade/dungeon-cooked/) · [Código e instruções](dungeon-cooked/README.md)
+
+Jogo de culinária com um chef fantasma que reabre a taberna da dungeon, mantido em `dungeon-cooked/`. Tem campanha de sete noites com três finais, modos Tranquilo e Desafio, 12 receitas, 8 clientes, loja de melhorias e salvamento no navegador. Funciona offline: `npm run build` gera um HTML único que abre direto do disco. O endereço acima passa a funcionar quando esta pasta chegar ao `main` e o fluxo de publicação rodar.
