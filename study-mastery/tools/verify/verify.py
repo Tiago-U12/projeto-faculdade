@@ -107,20 +107,25 @@ def same_value(a, b, tol=1e-9):
     """Igualdade de valores (escalares, ±oo, listas/conjuntos de escalares)."""
     if isinstance(a, str) or isinstance(b, str):
         return str(a).strip().lower() == str(b).strip().lower()
-    if isinstance(a, (list, tuple, set, frozenset, sp.FiniteSet, sp.Tuple)) or isinstance(b, (list, tuple, set, frozenset, sp.FiniteSet, sp.Tuple)):
+    seq_types = (list, tuple, sp.Tuple)
+    set_types = (set, frozenset, sp.FiniteSet)
+    if isinstance(a, seq_types) and isinstance(b, seq_types):  # sequências: comparação ORDENADA
+        return len(a) == len(b) and all(same_value(x, y, tol) for x, y in zip(a, b))
+    if isinstance(a, set_types) or isinstance(b, set_types):  # conjuntos: sem ordem
         try:
             la, lb = list(a), list(b)
         except TypeError:
             return False
         if len(la) != len(lb):
             return False
-        # compara como multiconjunto, tentando todas as combinações por ordenação numérica
         try:
             sa = sorted(la, key=lambda v: (num(v) or 0).real)
             sb = sorted(lb, key=lambda v: (num(v) or 0).real)
         except Exception:
             sa, sb = la, lb
         return all(same_value(x, y, tol) for x, y in zip(sa, sb))
+    if isinstance(a, seq_types) or isinstance(b, seq_types):
+        return False
     if a in (oo, -oo, zoo) or b in (oo, -oo, zoo):
         return a == b
     if is_nan(a) or is_nan(b):
