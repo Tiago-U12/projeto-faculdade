@@ -118,6 +118,12 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  },
  {
+  "id": "fs-aula-05",
+  "title": "Aula 05 — Classes de modelo com validação e erro customizado (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
   "id": "fs-apostila-01-02",
   "title": "Apostila Aulas 01–02: HTML, Emmet e CSS (15 pp.)",
   "kind": "aula-pdf",

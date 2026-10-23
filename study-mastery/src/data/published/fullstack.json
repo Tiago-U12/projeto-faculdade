@@ -1,5 +1,1105 @@
 [
  {
+  "id": "fs-classes-erros-001",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "ErroValidacao",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nconst erro = new ErroValidacao(\"nota inválida\", \"nota\");\nconsole.log(erro.name, erro.campo, erro instanceof Error);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ErroValidacao undefined true`"
+   },
+   {
+    "id": "b",
+    "text": "`ErroValidacao nota false`"
+   },
+   {
+    "id": "c",
+    "text": "`Error nota true`"
+   },
+   {
+    "id": "d",
+    "text": "`ErroValidacao nota true`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A classe chama `super(mensagem)`, define `this.name = \"ErroValidacao\"` e guarda o campo em `this.campo`. Como estende `Error`, o objeto também é uma instância de `Error`. Saída: `ErroValidacao nota true`. É a classe pedida em `js/erro-validacao.js`.",
+   "wrong": {
+    "c": "A classe define `this.name = \"ErroValidacao\"`; sem isso o nome herdado seria `Error`.",
+    "a": "O segundo parâmetro do construtor é guardado em `this.campo` (aqui `\"nota\"`).",
+    "b": "`ErroValidacao` estende `Error`, então `erro instanceof Error` é `true`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "1. js/erro-validacao.js — ErroValidacao: super, this.name e this.campo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-002",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "super() antes de this",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n    super(mensagem);\n  }\n}\ntry {\n  new ErroValidacao(\"x\", \"nota\");\n} catch (e) {\n  console.log(e.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`TypeError`"
+   },
+   {
+    "id": "b",
+    "text": "`ReferenceError`"
+   },
+   {
+    "id": "c",
+    "text": "`SyntaxError`"
+   },
+   {
+    "id": "d",
+    "text": "`ErroValidacao`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Em uma classe que estende outra, `this` só existe depois de `super(...)`. Acessar `this` antes lança `ReferenceError` (“Must call super constructor in derived class before accessing 'this'”). Por isso a aula insiste: “`super(...)` como a primeira linha do construtor”.",
+   "wrong": {
+    "d": "O objeto nem chega a ser criado: o erro ocorre ao usar `this` antes do `super()`, e quem é lançado é um `ReferenceError`.",
+    "a": "O erro específico para usar `this` antes de `super()` é `ReferenceError`.",
+    "c": "O código é sintaticamente válido; o problema só aparece em tempo de execução."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "1. ErroValidacao: super(...) como a primeira linha do construtor, antes de usar this",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-003",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "instanceof",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nconst erro = new ErroValidacao(\"x\", \"nome\");\nconsole.log(erro instanceof ErroValidacao, erro instanceof Error, erro instanceof TypeError);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`false true false`"
+   },
+   {
+    "id": "b",
+    "text": "`true true true`"
+   },
+   {
+    "id": "c",
+    "text": "`true true false`"
+   },
+   {
+    "id": "d",
+    "text": "`true false false`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`instanceof` percorre a cadeia de protótipos: o objeto é um `ErroValidacao` e, por herança, um `Error`; mas não é um `TypeError` (classe irmã). Saída: `true true false`. É assim que se distingue erro de validação de outros erros no `catch`.",
+   "wrong": {
+    "d": "Uma subclasse de `Error` também é instância de `Error` (herança).",
+    "b": "`TypeError` é outra subclasse de `Error`, sem relação com `ErroValidacao`.",
+    "a": "`erro` foi criado com `new ErroValidacao`, logo é instância dela."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "erro customizado que estende Error e carrega o nome do campo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-004",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Nome padrão do erro",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroSimples extends Error {}\nconst e = new ErroSimples(\"falhou\");\nconsole.log(e.name, e.message);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ErroSimples falhou`"
+   },
+   {
+    "id": "b",
+    "text": "`Error undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`Error falhou`"
+   },
+   {
+    "id": "d",
+    "text": "`undefined falhou`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Sem construtor próprio, a subclasse usa o de `Error`: `message` vira `\"falhou\"`, mas `name` continua sendo o valor herdado `\"Error\"`. É por isso que a aula manda definir `this.name = \"ErroValidacao\"` — para o erro se identificar corretamente.",
+   "wrong": {
+    "a": "O `name` não é preenchido automaticamente com o nome da classe; é herdado de `Error` (`\"Error\"`) até ser definido.",
+    "d": "`name` existe em todo `Error` (valor padrão `\"Error\"`).",
+    "b": "A mensagem passada ao `new` é guardada em `message` pelo construtor herdado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "1. defina this.name = \"ErroValidacao\" (por padrão, herdaria o nome genérico \"Error\")",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-005",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Number.isInteger",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(Number.isInteger(5), Number.isInteger(4.5), Number.isInteger(\"5\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true false true`"
+   },
+   {
+    "id": "b",
+    "text": "`false false false`"
+   },
+   {
+    "id": "c",
+    "text": "`true false false`"
+   },
+   {
+    "id": "d",
+    "text": "`true true false`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`Number.isInteger(x)` é `true` só quando `x` é do tipo número *e* inteiro: `5` sim; `4.5` não (decimal); `\"5\"` não (é string). É a verificação da regra “nota precisa ser um inteiro de 1 a 5” da classe `Avaliacao`.",
+   "wrong": {
+    "a": "`Number.isInteger` não converte tipos: a string `\"5\"` não é um número inteiro.",
+    "d": "`4.5` tem parte decimal, portanto não é inteiro.",
+    "b": "`5` é um número inteiro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "4. Avaliacao: nota precisa ser um NÚMERO INTEIRO entre 1 e 5 (dica: Number.isInteger)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-006",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Validação da nota",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst notaValida = (n) => Number.isInteger(n) && n >= 1 && n <= 5;\nconsole.log([0, 3, 4.5, 6].map(notaValida));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[true,true,false,true]`"
+   },
+   {
+    "id": "b",
+    "text": "`[false,true,false,true]`"
+   },
+   {
+    "id": "c",
+    "text": "`[false,true,true,false]`"
+   },
+   {
+    "id": "d",
+    "text": "`[false,true,false,false]`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A regra exige inteiro *e* entre 1 e 5: `0` (fora) → falso; `3` → verdadeiro; `4.5` (decimal) → falso; `6` (fora) → falso. Resultado: `[false,true,false,false]`. A aula pede que `new Avaliacao(1, 0, ...)`, `6` e `4.5` lancem `ErroValidacao`.",
+   "wrong": {
+    "c": "`4.5` está entre 1 e 5, mas não é inteiro: a regra do domínio rejeita decimais.",
+    "a": "`0` e `6` estão fora do intervalo de 1 a 5 e são rejeitados.",
+    "b": "`6` passa de 5, então é inválido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "critérios de aceite: nota 0, 6 e 4.5 lançam ErroValidacao",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-007",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Regex de e-mail",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst emailValido = (s) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s);\nconsole.log(emailValido(\"marina@example.com\"), emailValido(\"nao-e-um-email\"), emailValido(\"a@b\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true false false`"
+   },
+   {
+    "id": "b",
+    "text": "`true false true`"
+   },
+   {
+    "id": "c",
+    "text": "`false false false`"
+   },
+   {
+    "id": "d",
+    "text": "`true true false`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A regex exige: algo sem espaços/`@`, depois `@`, algo, um ponto e algo mais. `marina@example.com` passa; `nao-e-um-email` não tem `@`; `a@b` não tem o ponto. Resultado: `true false false` — a validação “simples” sugerida no starter da classe `Usuario`.",
+   "wrong": {
+    "b": "`\"a@b\"` não tem ponto depois do @, e a regex exige `\\.` seguido de mais caracteres.",
+    "d": "`\"nao-e-um-email\"` não contém `@`, então é inválido.",
+    "c": "`\"marina@example.com\"` segue o formato esperado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "3. Usuario: email com regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-008",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Texto do erro",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nconsole.log(String(new ErroValidacao(\"falhou\", \"nome\")));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ErroValidacao: falhou`"
+   },
+   {
+    "id": "b",
+    "text": "`falhou`"
+   },
+   {
+    "id": "c",
+    "text": "`ErroValidacao: nome`"
+   },
+   {
+    "id": "d",
+    "text": "`Error: falhou`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`Error.prototype.toString` devolve “`name: message`”. Como a classe define `name` como `\"ErroValidacao\"` e a mensagem foi `\"falhou\"`, o resultado é `ErroValidacao: falhou`; o campo (`\"nome\"`) fica em `erro.campo`.",
+   "wrong": {
+    "d": "A conversão para texto usa o `name` atual do objeto, que a classe define como `\"ErroValidacao\"`.",
+    "b": "`String(erro)` inclui o nome do erro seguido de dois-pontos e da mensagem.",
+    "c": "A mensagem é o primeiro argumento (`\"falhou\"`); `\"nome\"` é o campo, guardado à parte em `campo`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "ErroValidacao(mensagem, campo): mensagem + nome do campo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.022Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-009",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Tratar ErroValidacao no catch",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nfunction criar(nota) {\n  if (!Number.isInteger(nota)) throw new ErroValidacao(\"nota inválida\", \"nota\");\n  return nota;\n}\nfor (const n of [5, 4.5]) {\n  try {\n    console.log(\"ok\", criar(n));\n  } catch (e) {\n    console.log(e instanceof ErroValidacao ? \"validação:\" + e.campo : \"outro\");\n  }\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ok 5` e depois `outro`"
+   },
+   {
+    "id": "b",
+    "text": "`ok 5` e depois `ok 4.5`"
+   },
+   {
+    "id": "c",
+    "text": "`ok 5` e depois `validação:nota`"
+   },
+   {
+    "id": "d",
+    "text": "Apenas `validação:nota`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Para `5`, `criar` retorna e imprime `ok 5`. Para `4.5` lança `ErroValidacao` com campo `\"nota\"`; o `catch` usa `instanceof` para reconhecer o tipo e imprime `validação:nota`. É o uso do campo no formulário da Aula 07: destacar o campo errado sem ler o texto da mensagem.",
+   "wrong": {
+    "b": "`4.5` não é inteiro: a função lança `ErroValidacao` e o `catch` é executado.",
+    "a": "O erro lançado é um `ErroValidacao`, então o `instanceof` é verdadeiro.",
+    "d": "Para `5` a função retorna normalmente e imprime `ok 5`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "ErroValidacao carrega o campo que falhou (permite destacar o campo errado em um formulário)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-010",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Ordem das validações",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nclass Lugar {\n  constructor(nome, categoria) {\n    if (typeof nome !== \"string\" || nome.length < 2) throw new ErroValidacao(\"nome inválido\", \"nome\");\n    if (typeof categoria !== \"string\" || categoria === \"\") throw new ErroValidacao(\"categoria inválida\", \"categoria\");\n    this.nome = nome;\n    this.categoria = categoria;\n  }\n}\ntry {\n  new Lugar(\"C\", \"\");\n} catch (e) {\n  console.log(e.campo);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nada, porque o objeto é criado mesmo assim"
+   },
+   {
+    "id": "b",
+    "text": "`nome,categoria`"
+   },
+   {
+    "id": "c",
+    "text": "`nome`"
+   },
+   {
+    "id": "d",
+    "text": "`categoria`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Os campos são validados na ordem do código; `\"C\"` tem menos de 2 caracteres, então o primeiro `throw` dispara com campo `\"nome\"` e o construtor termina ali. Por isso a aula pede para validar “nesta ordem, antes de atribuir qualquer coisa a `this`”.",
+   "wrong": {
+    "d": "A primeira validação que falha interrompe o construtor com `throw`; a da categoria nem é avaliada.",
+    "b": "Cada `throw` encerra a execução; só um erro é lançado por vez.",
+    "a": "O `throw` impede a criação do objeto."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "2. Lugar: valide, nesta ordem, nome, categoria, cidade, descricao",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-011",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "instanceof em relações entre classes",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nclass Lugar {\n  constructor(nome) { this.nome = nome; }\n}\nclass Avaliacao {\n  constructor(nota, lugar) {\n    if (!(lugar instanceof Lugar)) throw new ErroValidacao(\"lugar inválido\", \"lugar\");\n    this.nota = nota;\n    this.lugar = lugar;\n  }\n}\ntry {\n  new Avaliacao(5, { nome: \"Café Aroma\" });\n  console.log(\"criou\");\n} catch (e) {\n  console.log(e.name, e.campo);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`TypeError lugar`"
+   },
+   {
+    "id": "b",
+    "text": "`criou`"
+   },
+   {
+    "id": "c",
+    "text": "`ErroValidacao lugar`"
+   },
+   {
+    "id": "d",
+    "text": "`ErroValidacao nota`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`{ nome: \"Café Aroma\" }` é um objeto simples, não foi criado por `new Lugar(...)`; então `lugar instanceof Lugar` é falso e o construtor de `Avaliacao` lança `ErroValidacao` no campo `\"lugar\"`. A aula exige que `lugar` seja instância de `Lugar` e `usuario` de `Usuario`.",
+   "wrong": {
+    "b": "Um objeto literal com a mesma forma não é uma *instância* de `Lugar`; `instanceof` compara a cadeia de protótipos.",
+    "a": "Quem lança é o código da classe: um `ErroValidacao`, não um `TypeError`.",
+    "d": "O campo que falha é `lugar`; a nota (`5`) é válida."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "4. Avaliacao: lugar precisa ser uma instância de Lugar (lugar instanceof Lugar)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-012",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Senha nunca em texto puro",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Na classe `Usuario` da Aula 05, qual é a prática correta sobre a senha?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Guardar a senha em um campo `senha` para conferir no login"
+   },
+   {
+    "id": "b",
+    "text": "Guardar a senha criptografada com uma chave que o servidor conhece"
+   },
+   {
+    "id": "c",
+    "text": "Não validar o campo, pois a senha é secreta"
+   },
+   {
+    "id": "d",
+    "text": "Guardar apenas um hash no campo `senhaHash` — nunca a senha em texto puro"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A classe `Usuario` valida `senhaHash` (string não vazia) e o nome do campo já deixa claro que o valor guardado é um *hash*. O hash de verdade chega na Aula 11 com bcrypt; “nunca guarde a senha em texto puro”.",
+   "wrong": {
+    "a": "A aula proíbe guardar a senha em texto puro; o campo se chama `senhaHash` para deixar isso explícito.",
+    "b": "Para senhas usa-se *hash* (sem volta), com bcrypt (aula 11); criptografia reversível não é a prática indicada.",
+    "c": "A classe valida que `senhaHash` é uma string não vazia."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "3. Usuario: NUNCA guarde a senha em texto puro; senhaHash",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-013",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "throw de valores que não são Error",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\ntry {\n  throw \"falhou\";\n} catch (e) {\n  console.log(typeof e, e instanceof Error);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined false`"
+   },
+   {
+    "id": "b",
+    "text": "`string true`"
+   },
+   {
+    "id": "c",
+    "text": "`object true`"
+   },
+   {
+    "id": "d",
+    "text": "`string false`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "JavaScript permite lançar qualquer valor, mas lançar string perde `name`, `message` e `stack`. Por isso a aula lança objetos da classe `ErroValidacao` (que estende `Error`), que carregam informação útil e permitem usar `instanceof`.",
+   "wrong": {
+    "c": "O `throw` lança exatamente o valor dado; aqui uma string, que não é um objeto `Error`.",
+    "b": "Strings não são instâncias de `Error`.",
+    "a": "O valor capturado é a própria string `\"falhou\"`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "erro customizado em vez de um Error genérico",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-014",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Normalizar e-mail",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst email = \"Marina@Example.COM\";\nconsole.log(email.toLowerCase() === \"marina@example.com\", email === \"marina@example.com\");\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true true`"
+   },
+   {
+    "id": "b",
+    "text": "`false true`"
+   },
+   {
+    "id": "c",
+    "text": "`true false`"
+   },
+   {
+    "id": "d",
+    "text": "`false false`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`toLowerCase()` transforma tudo em minúsculas, então a primeira comparação é `true`; a original, com letras maiúsculas, é diferente (`false`). O starter de `Usuario` sugere “pode normalizar para minúsculas” para evitar duplicidade de contas por diferença de caixa.",
+   "wrong": {
+    "a": "A comparação de strings diferencia maiúsculas de minúsculas; sem normalizar, `email === \"marina@...\"` é falso.",
+    "d": "Depois de `toLowerCase()` o texto fica igual a `\"marina@example.com\"`.",
+    "b": "É o contrário: só a versão normalizada coincide."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "3. Usuario: this.email (dica: pode normalizar para minúsculas)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-015",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Propriedades enumeráveis do erro",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nconst erro = new ErroValidacao(\"nota inválida\", \"nota\");\nconsole.log(Object.keys(erro));\nconsole.log(Object.hasOwn(erro, \"message\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[\"name\",\"campo\"]` e depois `false`"
+   },
+   {
+    "id": "b",
+    "text": "`[\"name\",\"campo\"]` e depois `true`"
+   },
+   {
+    "id": "c",
+    "text": "`[\"campo\"]` e depois `true`"
+   },
+   {
+    "id": "d",
+    "text": "`[\"message\",\"name\",\"campo\"]` e depois `true`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "As atribuições do construtor (`this.name` e `this.campo`) criam propriedades próprias enumeráveis: `[\"name\",\"campo\"]`. Já `message` é definida pelo construtor de `Error` como própria, porém não enumerável (e `stack` também). Por isso `Object.hasOwn(erro, \"message\")` é `true` e ainda assim `message` fica fora de `Object.keys` e do `JSON.stringify`.",
+   "wrong": {
+    "d": "`message` existe como propriedade própria do erro, mas é *não enumerável*, então `Object.keys` não a lista.",
+    "a": "Quando se passa uma mensagem ao construtor, ela é criada como propriedade própria (não herdada).",
+    "c": "`this.name = ...` é uma atribuição no objeto: cria uma propriedade própria *enumerável*, que aparece em `Object.keys`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "ErroValidacao: this.name e this.campo atribuídos no construtor",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-016",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Serialização de erros",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nconsole.log(JSON.stringify(new ErroValidacao(\"nota inválida\", \"nota\")));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`{\"message\":\"nota inválida\",\"campo\":\"nota\"}`"
+   },
+   {
+    "id": "b",
+    "text": "`\"ErroValidacao: nota inválida\"`"
+   },
+   {
+    "id": "c",
+    "text": "`{\"name\":\"ErroValidacao\",\"campo\":\"nota\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`{}`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`JSON.stringify` inclui apenas propriedades *próprias e enumeráveis*. `message` e `stack` de um `Error` são não enumeráveis, mas `this.name` e `this.campo`, atribuídos no construtor, são enumeráveis. Resultado: `{\"name\":\"ErroValidacao\",\"campo\":\"nota\"}`. Em uma API, devolva explicitamente `{ erro: e.message, campo: e.campo }`.",
+   "wrong": {
+    "a": "`message` de um `Error` não é enumerável, então o `JSON.stringify` o omite.",
+    "d": "As propriedades criadas por atribuição no construtor (`this.name`, `this.campo`) são enumeráveis e aparecem no JSON.",
+    "b": "`JSON.stringify` não usa `toString` para objetos; serializa as propriedades enumeráveis próprias."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "ErroValidacao carrega o campo (útil para devolver ao cliente)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-017",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Herança de erros",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nclass ErroNota extends ErroValidacao {\n  constructor(mensagem) {\n    super(mensagem, \"nota\");\n  }\n}\nconst e = new ErroNota(\"nota fora do intervalo\");\nconsole.log(e.name, e.campo, e instanceof ErroNota, e instanceof ErroValidacao);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ErroNota nota true true`"
+   },
+   {
+    "id": "b",
+    "text": "`ErroValidacao nota true true`"
+   },
+   {
+    "id": "c",
+    "text": "`ErroValidacao undefined true true`"
+   },
+   {
+    "id": "d",
+    "text": "`ErroValidacao nota true false`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`ErroNota` reaproveita o construtor do pai: `super(mensagem, \"nota\")` define `campo` e `name = \"ErroValidacao\"`. Como a subclasse não redefine `name`, ele permanece `\"ErroValidacao\"`. O objeto é instância de `ErroNota` e de `ErroValidacao` (e de `Error`).",
+   "wrong": {
+    "a": "O `name` é definido no construtor de `ErroValidacao` e a subclasse não o sobrescreve: continua `\"ErroValidacao\"`.",
+    "c": "A subclasse passa `\"nota\"` como campo no `super(mensagem, \"nota\")`.",
+    "d": "Uma subclasse também é instância da classe pai."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "ErroValidacao estende Error; classes lançam ErroValidacao",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-018",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Objeto inválido não existe",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nclass ErroValidacao extends Error {\n  constructor(mensagem, campo) {\n    super(mensagem);\n    this.name = \"ErroValidacao\";\n    this.campo = campo;\n  }\n}\nclass Lugar {\n  constructor(nome) {\n    if (typeof nome !== \"string\" || nome.length < 2) throw new ErroValidacao(\"nome inválido\", \"nome\");\n    this.nome = nome;\n  }\n}\nlet lugar;\ntry {\n  lugar = new Lugar(\"C\");\n} catch (e) {\n  console.log(e.campo);\n}\nconsole.log(lugar);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`nome` e depois `undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`nome` e depois `Lugar {}`"
+   },
+   {
+    "id": "c",
+    "text": "Apenas `nome`"
+   },
+   {
+    "id": "d",
+    "text": "Apenas `undefined`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Como a validação roda *antes* de atribuir qualquer coisa a `this` e o construtor lança, o `new` é abortado: a atribuição `lugar = ...` nunca acontece e `lugar` continua `undefined`. Garantia central da Aula 05: “um objeto inválido não deve conseguir existir”.",
+   "wrong": {
+    "b": "Quando o construtor lança, a expressão `new` não retorna objeto algum; a variável nunca recebe valor.",
+    "c": "Depois do `catch` o código continua e o segundo `console.log` também imprime algo (`undefined`).",
+    "d": "O `catch` é executado e imprime o campo com falha antes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "um objeto inválido não deve conseguir existir",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-019",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "isInteger versus coerção",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(Number.isInteger(5.0), Number.isInteger(\"5\"), Number.isNaN(\"abc\"), isNaN(\"abc\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true false true true`"
+   },
+   {
+    "id": "b",
+    "text": "`false false false true`"
+   },
+   {
+    "id": "c",
+    "text": "`true false false true`"
+   },
+   {
+    "id": "d",
+    "text": "`true true false false`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`5.0` é o número 5 (inteiro). `Number.isInteger(\"5\")` é falso (não converte). `Number.isNaN(\"abc\")` é falso (a string não é o valor `NaN`), enquanto o `isNaN` global converte para número antes (`Number(\"abc\")` → `NaN`) e dá verdadeiro. Para validar notas prefira as versões “estritas” de `Number`.",
+   "wrong": {
+    "a": "`Number.isNaN(\"abc\")` não converte: só é `true` para o valor `NaN` em si; uma string não é `NaN`.",
+    "b": "`5.0` é o mesmo número que `5` em JavaScript, portanto é inteiro.",
+    "d": "`Number.isInteger(\"5\")` é `false` (não converte) e o `isNaN` global converte `\"abc\"` em `NaN`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "Avaliacao: nota número inteiro (dica: Number.isInteger)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-020",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Getter sem setter",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\n\"use strict\";\nclass Avaliacao {\n  constructor(nota) { this._nota = nota; }\n  get nota() { return this._nota; }\n}\nconst a = new Avaliacao(5);\ntry {\n  a.nota = 1;\n} catch (e) {\n  console.log(e.name);\n}\nconsole.log(a.nota);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ReferenceError` e depois `5`"
+   },
+   {
+    "id": "b",
+    "text": "`TypeError` e depois `5`"
+   },
+   {
+    "id": "c",
+    "text": "`1` apenas"
+   },
+   {
+    "id": "d",
+    "text": "Apenas `5`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Uma propriedade definida só com `get` é somente leitura. Em modo estrito (`\"use strict\"` ou módulos ES), atribuir a ela lança `TypeError`; fora do modo estrito a atribuição é ignorada silenciosamente. O valor continua `5`. É um jeito de proteger dados do domínio depois de validados no construtor.",
+   "wrong": {
+    "c": "Sem setter, a atribuição não altera o valor (e em modo estrito ainda lança erro).",
+    "a": "Atribuir a uma propriedade só com getter lança `TypeError`, não `ReferenceError`.",
+    "d": "Em modo estrito a atribuição lança `TypeError`, que o `catch` imprime."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "classes de modelo: o formato dos dados vira responsabilidade das próprias classes",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-021",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Object.freeze",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\n\"use strict\";\nconst lugar = Object.freeze({ nome: \"Café Aroma\" });\ntry {\n  lugar.nome = \"Outro\";\n} catch (e) {\n  console.log(e.name);\n}\nconsole.log(lugar.nome);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Apenas `Outro`"
+   },
+   {
+    "id": "b",
+    "text": "`TypeError` e depois `Café Aroma`"
+   },
+   {
+    "id": "c",
+    "text": "Nada é impresso por erro no `catch`"
+   },
+   {
+    "id": "d",
+    "text": "`TypeError` e depois `Outro`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`Object.freeze` impede alterar, adicionar ou remover propriedades. Em modo estrito, tentar atribuir lança `TypeError` (fora dele, falha em silêncio). O nome permanece `Café Aroma`. Congelar objetos já validados ajuda a manter o domínio consistente.",
+   "wrong": {
+    "a": "Um objeto congelado não aceita novas atribuições; o valor original permanece.",
+    "d": "Com o objeto congelado, a propriedade não é alterada.",
+    "c": "O `console.log` do final sempre executa e imprime o nome atual."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "classes validam e garantem formato dos dados",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-classes-erros-022",
+  "disciplineId": "fullstack",
+  "topicId": "classes-erros",
+  "subtopic": "Limites da regex de e-mail",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst emailValido = (s) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s);\nconsole.log(emailValido(\"a@b..c\"), emailValido(\"a@@b.com\"), emailValido(\"a b@c.de\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true true false`"
+   },
+   {
+    "id": "b",
+    "text": "`true false true`"
+   },
+   {
+    "id": "c",
+    "text": "`false false false`"
+   },
+   {
+    "id": "d",
+    "text": "`true false false`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A regex sugerida é “simples”: aceita formatos esquisitos como `a@b..c` (válida para ela), mas rejeita dois `@` e espaços. Serve para barrar erros óbvios; a validação definitiva de um e-mail é enviar uma mensagem de confirmação. Resultado: `true false false`.",
+   "wrong": {
+    "c": "A regex simples aceita `\"a@b..c\"`: depois do `@` vem `b`, um ponto e então `.c` (o terceiro grupo aceita qualquer caractere exceto espaço e `@`).",
+    "a": "`\"a@@b.com\"` tem dois `@` seguidos; o grupo depois do `@` não aceita outro `@`.",
+    "b": "`\"a b@c.de\"` tem espaço, que o primeiro grupo não aceita."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-05",
+    "locator": "3. Usuario: regex simples já é suficiente",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:16:18.023Z",
+  "updatedAt": "2026-10-23T01:16:45.007Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
   "id": "fs-css-001",
   "disciplineId": "fullstack",
   "topicId": "css",
