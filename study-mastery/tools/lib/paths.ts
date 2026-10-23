@@ -15,3 +15,4 @@ export const IMPORT_MANIFEST = path.join(CONTENT, 'import-manifest.json');
 export const PUBLISH_DIR = process.env.SM_PUBLISH_DIR ? path.resolve(process.env.SM_PUBLISH_DIR) : path.join(ROOT, 'src', 'data', 'published');
 export const VERIFY_PY = path.join(ROOT, 'tools', 'verify', 'verify.py');
 export const JS_PRELOAD = path.join(ROOT, 'tools', 'verify', 'js-preload.cjs');
+export const SANDBOX_DIR = path.join(ROOT, 'tools', 'sandbox');

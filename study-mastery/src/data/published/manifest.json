@@ -1,15 +1,20 @@
 {
  "schemaVersion": 1,
- "bankVersion": "2026.10.23-df6a99b0",
- "generatedAt": "2026-10-23T00:53:47.902Z",
+ "bankVersion": "2026.10.23-990f60dd",
+ "generatedAt": "2026-10-23T01:01:01.710Z",
  "totals": {
-  "approved": 300
+  "approved": 320
  },
  "byDiscipline": {
   "calculo2": {
    "facil": 100,
    "medio": 100,
    "dificil": 100
+  },
+  "fullstack": {
+   "facil": 7,
+   "medio": 7,
+   "dificil": 6
   }
  }
 }

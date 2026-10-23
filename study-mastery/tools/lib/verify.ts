@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import type { Question } from '../../src/types';
-import { JS_PRELOAD, VERIFY_PY } from './paths';
+import { JS_PRELOAD, SANDBOX_DIR, VERIFY_PY } from './paths';
 
 export interface VerifyOutcome {
   id: string;
@@ -86,23 +86,110 @@ export async function verifyJs(q: Question): Promise<VerifyOutcome> {
     } catch {
       return { id: q.id, ok: false, method: 'js-exec', details: 'saída inválida do executor', errors: [`executor falhou: ${(r.stderr || r.stdout).slice(0, 300)}`] };
     }
-    const actual = normOut(outText);
-    const matches = Object.entries(v.optionValues ?? {}).filter(([, val]) => normOut(val.replace(/\\n/g, '\n')) === actual).map(([id]) => id);
-    const errors: string[] = [];
-    if (matches.length !== 1 || matches[0] !== q.correctOptionId) errors.push(`saída real «${actual.slice(0, 80)}» corresponde a ${matches.length ? matches.join(',') : 'nenhuma alternativa'} (esperado apenas ${q.correctOptionId})`);
-    return { id: q.id, ok: errors.length === 0, method: 'js-exec (node --permission)', details: `saída: ${actual.slice(0, 120).replace(/\n/g, ' ⏎ ')}`, errors };
+    return compareOutput(q, v.optionValues ?? {}, outText, 'js-exec (node --permission)');
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
 }
 
+
+function compareOutput(q: Question, optionValues: Record<string, string>, outText: string, method: string): VerifyOutcome {
+  const actual = normOut(outText);
+  const matches = Object.entries(optionValues).filter(([, val]) => normOut(val.replace(/\\n/g, '\n')) === actual).map(([id]) => id);
+  const errors: string[] = [];
+  if (matches.length !== 1 || matches[0] !== q.correctOptionId) errors.push(`saída real «${actual.slice(0, 80)}» corresponde a ${matches.length ? matches.join(',') : 'nenhuma alternativa'} (esperado apenas ${q.correctOptionId})`);
+  return { id: q.id, ok: errors.length === 0, method, details: `saída: ${actual.slice(0, 120).replace(/\n/g, ' ⏎ ')}`, errors };
+}
+
+/**
+ * kind=node: executa o código com as bibliotecas do sandbox (tools/sandbox: Express, jsonwebtoken, bcryptjs, React, jsdom…).
+ * Isolamento: `node --permission` (sem processos filhos, sem workers; leitura de arquivos só no sandbox).
+ * Observação: a permissão de rede do Node não é restringida — o código verificado é sempre escrito no repositório (nunca de terceiros);
+ * os testes de API usam apenas servidores efêmeros em 127.0.0.1.
+ */
+export async function verifyNode(q: Question): Promise<VerifyOutcome> {
+  const v = q.verification!;
+  const p = (v.params ?? {}) as { code?: string; format?: string };
+  if (!p.code) return { id: q.id, ok: false, method: 'node-exec', details: 'sem params.code', errors: ['params.code ausente'] };
+  if (!fs.existsSync(path.join(SANDBOX_DIR, 'node_modules'))) return { id: q.id, ok: false, method: 'node-exec', details: 'sandbox não instalado', errors: ['execute: npm run sandbox:install'] };
+  const casesDir = path.join(SANDBOX_DIR, '.cases');
+  fs.mkdirSync(casesDir, { recursive: true });
+  const file = path.join(casesDir, `${q.id}-${process.pid}.${p.format === 'cjs' ? 'cjs' : 'mjs'}`);
+  fs.writeFileSync(file, p.code);
+  try {
+    const r = await run(process.execPath, ['--permission', `--allow-fs-read=${SANDBOX_DIR}/*`, `--allow-fs-read=${JS_PRELOAD}`, '--max-old-space-size=256', '--no-warnings', '--require', JS_PRELOAD, file], null, 20000, SANDBOX_DIR);
+    if (r.timedOut) return { id: q.id, ok: false, method: 'node-exec', details: 'tempo esgotado', errors: ['timeout na execução do código'] };
+    let outText = '';
+    try {
+      outText = (JSON.parse(r.stdout.trim().split('\n').pop() ?? '{}') as { out: string }).out ?? '';
+    } catch {
+      return { id: q.id, ok: false, method: 'node-exec', details: 'saída inválida do executor', errors: [`executor falhou: ${(r.stderr || r.stdout).slice(0, 300)}`] };
+    }
+    return compareOutput(q, v.optionValues ?? {}, outText, 'node-exec (--permission, sandbox)');
+  } finally {
+    fs.rmSync(file, { force: true });
+  }
+}
+
+/**
+ * kind=web: carrega params.html no Chromium (sem rede) e avalia params.probe (corpo de função JS que retorna o valor)
+ * com a janela params.width×params.height (padrão 390×800; params.mobile liga a emulação de celular). Com params.aria (seletor),
+ * a árvore de acessibilidade calculada pelo Chromium fica em window.__aria. O valor medido é comparado às alternativas.
+ */
+export async function verifyWebAll(qs: Question[]): Promise<VerifyOutcome[]> {
+  if (!qs.length) return [];
+  const { chromium } = await import('playwright-core');
+  const exe = process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+  const out: VerifyOutcome[] = [];
+  let browser: Awaited<ReturnType<typeof chromium.launch>>;
+  try {
+    browser = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] });
+  } catch (e) {
+    return qs.map((q) => ({ id: q.id, ok: false, method: 'web-chromium', details: 'Chromium indisponível', errors: [`não foi possível abrir o Chromium (${exe}): ${(e as Error).message.slice(0, 120)}`] }));
+  }
+  try {
+    for (const q of qs) {
+      const p = (q.verification!.params ?? {}) as { html?: string; probe?: string; width?: number; height?: number; mobile?: boolean; aria?: string };
+      if (!p.html || !p.probe) {
+        out.push({ id: q.id, ok: false, method: 'web-chromium', details: 'params incompletos', errors: ['params.html e params.probe são obrigatórios'] });
+        continue;
+      }
+      const ctx = await browser.newContext({ viewport: { width: p.width ?? 390, height: p.height ?? 800 }, javaScriptEnabled: true, isMobile: p.mobile === true, hasTouch: p.mobile === true });
+      const page = await ctx.newPage();
+      await page.route('**/*', (route) => (route.request().url().startsWith('data:') ? route.continue() : route.abort()));
+      try {
+        await page.setContent(p.html, { waitUntil: 'load' });
+        // params.aria = seletor cuja árvore de acessibilidade (roles reais calculados pelo Chromium) fica em window.__aria para o probe
+        if (p.aria) {
+          const snap = await page.locator(p.aria).ariaSnapshot();
+          await page.evaluate((t) => ((window as unknown as { __aria: string }).__aria = t), snap);
+        }
+        const value = await page.evaluate(`(() => { ${p.probe} })()`);
+        const text = typeof value === 'string' ? value : JSON.stringify(value);
+        out.push(compareOutput(q, q.verification!.optionValues ?? {}, text, 'web-chromium (sem rede)'));
+      } catch (e) {
+        out.push({ id: q.id, ok: false, method: 'web-chromium', details: 'falha ao medir', errors: [(e as Error).message.slice(0, 200)] });
+      } finally {
+        await ctx.close();
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+  return out;
+}
+
 export async function verifyAll(qs: Question[]): Promise<VerifyOutcome[]> {
   const math = qs.filter((q) => q.verification && needsPython(q.verification.kind));
   const js = qs.filter((q) => q.verification?.kind === 'js');
+  const nodeQs = qs.filter((q) => q.verification?.kind === 'node');
+  const web = qs.filter((q) => q.verification?.kind === 'web');
   const src = qs.filter((q) => q.verification?.kind === 'source');
   const res: VerifyOutcome[] = [];
   if (math.length) res.push(...(await verifyMath(math)));
   for (const q of js) res.push(await verifyJs(q));
+  for (const q of nodeQs) res.push(await verifyNode(q));
+  res.push(...(await verifyWebAll(web)));
   for (const q of src) res.push({ id: q.id, ok: true, method: 'source-review', details: 'sem execução: ' + (q.verification!.claims?.length ?? 0) + ' afirmação(ões) conferida(s) contra a fonte', errors: [] });
   return res;
 }

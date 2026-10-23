@@ -14,7 +14,8 @@
     "content:coverage": "tsx tools/sm.ts coverage-report --write",
     "content:publish": "tsx tools/sm.ts publish",
     "e2e": "tsx tests/e2e/run.ts",
-    "progress": "tsx tools/progress.ts"
+    "progress": "tsx tools/progress.ts",
+    "sandbox:install": "npm --prefix tools/sandbox install --no-audit --no-fund"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

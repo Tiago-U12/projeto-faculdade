@@ -1,0 +1,17 @@
+{
+  "name": "sm-sandbox",
+  "private": true,
+  "description": "Dependências usadas SOMENTE para verificar questões de Full Stack (kind 'node'). Instalar com: npm run sandbox:install",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "3.0.2",
+    "cors": "2.8.5",
+    "emmet": "2.4.11",
+    "express": "5.1.0",
+    "jsdom": "26.1.0",
+    "jsonwebtoken": "9.0.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-router-dom": "7.6.0"
+  }
+}

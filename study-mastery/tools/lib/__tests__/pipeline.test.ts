@@ -106,6 +106,17 @@ describe('validate: verificação de verdade (SymPy + numérico, JS isolado)', (
     expect(bad.status).toBe('draft');
   }, 60000);
 
+  it('kind=node executa Express/JWT/bcrypt reais no sandbox; kind=web mede HTML/CSS no Chromium', async () => {
+    const node = mk(jsSpec({ id: 'fs-js-funcoes-010', opts: ['200 3', '201 3', '200 4', '404 3'], verify: { kind: 'node', params: { code: "import express from 'express';\nconst app=express();app.get('/n',(req,res)=>res.json({n:3}));\nconst s=app.listen(0,async()=>{const r=await fetch('http://127.0.0.1:'+s.address().port+'/n');const j=await r.json();console.log(r.status,j.n);s.close();});" }, values: ['200 3', '201 3', '200 4', '404 3'] } }));
+    const web = mk(jsSpec({ id: 'fs-js-funcoes-011', opts: ['flex', 'block', 'grid', 'inline'], verify: { kind: 'web', params: { html: '<style>.a{display:flex}</style><div class="a" id="x"></div>', probe: "return getComputedStyle(document.getElementById('x')).display;" }, values: ['flex', 'block', 'grid', 'inline'] } }));
+    const wrong = mk(jsSpec({ id: 'fs-js-funcoes-012', opts: ['block', 'flex', 'grid', 'inline'], verify: { kind: 'web', params: { html: '<style>.a{display:flex}</style><div class="a" id="x"></div>', probe: "return getComputedStyle(document.getElementById('x')).display;" }, values: ['block', 'flex', 'grid', 'inline'] } }));
+    await validateAll([node, web, wrong], TAX, SOURCES);
+    expect(node.verification!.result!.details).toMatch(/200 3/);
+    expect(node.status).toBe('verified');
+    expect(web.status).toBe('verified');
+    expect(wrong.status).toBe('draft');
+  }, 90000);
+
   it('rejeita expressões inseguras (sem executar nada)', async () => {
     const q = mk(limitSpec({ id: 'c2-lhopital-004', verify: { kind: 'limit', params: { expr: "__import__('os').system('touch /tmp/pwned_sm')", at: '0' }, values: ['1', '0', 'oo', 'DNE'] } }));
     await validateAll([q], TAX, SOURCES);

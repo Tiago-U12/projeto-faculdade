@@ -1,0 +1,1728 @@
+[
+ {
+  "id": "fs-html-001",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Landmark main",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual tag HTML5 deve envolver o conteúdo principal e exclusivo de cada página (aquele que não se repete entre as páginas, como menu e rodapé)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<section>`"
+   },
+   {
+    "id": "b",
+    "text": "`<main>`"
+   },
+   {
+    "id": "c",
+    "text": "`<article>`"
+   },
+   {
+    "id": "d",
+    "text": "`<div>`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`<main>` delimita o conteúdo principal da página; o navegador o expõe como o marco (landmark) “main”, o que permite aos leitores de tela pularem direto para ele. No projeto da aula, o título e a grade de cards ficam dentro de `<main>`, e o cabeçalho e o rodapé ficam fora.",
+   "wrong": {
+    "a": "`<section>` agrupa um trecho temático; não cria o marco “conteúdo principal” para leitores de tela.",
+    "c": "`<article>` é para conteúdo independente e reutilizável (como um card), não para a área principal da página.",
+    "d": "`<div>` é só um contêiner de layout, sem significado semântico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 3: main envolve o conteúdo específico da página",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-aula-01",
+    "locator": "tags semânticas vs. “sopa de div”",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.659Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<div>div</div><section>section</section><article>article</article><main>main</main>",
+    "probe": "const s = window.__aria; const r = s.match(/- main[^\\n]*?[:\\s\"]+([A-Za-z0-9_À-ÿ-]+)/); return r ? r[1] : 'nenhum';",
+    "aria": "body"
+   },
+   "optionValues": {
+    "b": "main",
+    "a": "section",
+    "c": "article",
+    "d": "div"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: main"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-002",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Landmark navigation",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual tag marca o bloco de links de navegação principal dentro do cabeçalho do site?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<ul>`"
+   },
+   {
+    "id": "b",
+    "text": "`<menu>`"
+   },
+   {
+    "id": "c",
+    "text": "`<nav>`"
+   },
+   {
+    "id": "d",
+    "text": "`<links>`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`<nav>` identifica um conjunto de links de navegação e é exposta como o marco “navigation”. No cabeçalho da aula usamos `<header>` com a logo e um `<nav>` com os links (“Lugares”).",
+   "wrong": {
+    "b": "`<menu>` representa uma lista de comandos/ações; não é o marco de navegação do site.",
+    "d": "Não existe a tag `<links>` no HTML; o navegador a trata como elemento desconhecido.",
+    "a": "`<ul>` é só uma lista; sozinha não identifica o bloco como navegação."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 2: header com logo + nav",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-aula-01",
+    "locator": "tags semânticas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<nav>nav</nav><menu><li>menu</li></menu><ul><li>ul</li></ul><links>links</links>",
+    "probe": "const s = window.__aria; const r = s.match(/- navigation[^\\n]*?[:\\s\"]+([A-Za-z0-9_À-ÿ-]+)/); return r ? r[1] : 'nenhum';",
+    "aria": "body"
+   },
+   "optionValues": {
+    "c": "nav",
+    "b": "menu",
+    "d": "links",
+    "a": "ul"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: nav"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-003",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Emmet: filho e multiplicação",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No VS Code, o que o Emmet gera ao expandir a abreviação `ul>li*3`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<ul><li></li></ul><ul><li></li></ul><ul><li></li></ul>`"
+   },
+   {
+    "id": "b",
+    "text": "`<ul><li>3</li></ul>`"
+   },
+   {
+    "id": "c",
+    "text": "`<ul><li></li><li></li><li></li></ul>`"
+   },
+   {
+    "id": "d",
+    "text": "`<ul></ul><li></li><li></li><li></li>`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`>` coloca o elemento dentro do anterior e `*3` repete o elemento imediatamente anterior (`li`) três vezes. Resultado: um `<ul>` com três `<li>` vazios.",
+   "wrong": {
+    "d": "Isso seria o resultado de `ul+li*3`: com `+` os itens ficam como irmãos da lista, fora dela.",
+    "a": "Isso seria `ul*3>li`. Aqui o `*3` se aplica ao `li`, não ao `ul`.",
+    "b": "O `*3` multiplica o elemento; não escreve o número no texto (para texto usa-se `{...}`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "cheat sheet: > filho, *n multiplicação",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "tabela de sintaxe Emmet",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconsole.log(expand(\"ul>li*3\").replace(/\\n\\s*/g, ''));"
+   },
+   "optionValues": {
+    "c": "<ul><li></li><li></li><li></li></ul>",
+    "d": "<ul></ul><li></li><li></li><li></li>",
+    "a": "<ul><li></li></ul><ul><li></li></ul><ul><li></li></ul>",
+    "b": "<ul><li>3</li></ul>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: <ul><li></li><li></li><li></li></ul>"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-004",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "História do HTML",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Segundo a linha do tempo vista na Aula 01, qual afirmação sobre a evolução do HTML está correta?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Desde 2019 o HTML deixou de ter especificação e é definido apenas pelos navegadores."
+   },
+   {
+    "id": "b",
+    "text": "Em 2014 o W3C publicou o HTML5 como Recomendação oficial, trazendo tags semânticas como `<header>`, `<nav>` e `<main>`."
+   },
+   {
+    "id": "c",
+    "text": "O HTML5 foi o primeiro padrão formal do HTML, publicado pelo IETF em 1995."
+   },
+   {
+    "id": "d",
+    "text": "O WHATWG foi criado em 2004 pelo próprio W3C para escrever o XHTML 2."
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A linha do tempo da aula: 1989–1991 primeira versão (Tim Berners-Lee, CERN); 1995 HTML 2.0 (IETF); 1997–1999 HTML 3.2 e 4.01 (W3C); 2000 XHTML; 2004 fundação do WHATWG; 2014 HTML5 como Recomendação do W3C; 2019 em diante, HTML Living Standard mantido pelo WHATWG.",
+   "wrong": {
+    "c": "O padrão publicado pelo IETF em 1995 foi o HTML 2.0; o HTML5 só virou Recomendação em 2014.",
+    "d": "O WHATWG foi fundado por Mozilla, Apple e Opera, insatisfeitas com os rumos do W3C (que apostava no XHTML2).",
+    "a": "Desde 2019 o WHATWG mantém o “HTML Living Standard”, uma especificação viva e contínua."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "parte 1: linha do tempo do HTML",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "1.1 Uma história rápida do HTML",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 3: “2014 — O W3C publica o HTML5 como Recomendação oficial.” e “O HTML5 introduziu as tags semânticas (header, nav, main, article, footer)”.",
+    "Slide 3: “1995 — HTML 2.0 vira o primeiro padrão formal, publicado pelo IETF”; “2004 — Mozilla, Apple e Opera fundam o WHATWG”.",
+    "Slide 5: “Desde 2019 ... o WHATWG mantém o HTML Living Standard”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "sem execução: 3 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-005",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Atributo lang",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Depois de digitar `!` + Tab no VS Code, o Emmet gera `<html lang=\"en\">`. Por que o projeto da aula troca esse valor por `lang=\"pt-BR\"`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Para definir a codificação de caracteres da página"
+   },
+   {
+    "id": "b",
+    "text": "Para declarar o idioma do conteúdo, o que ajuda leitores de tela, tradutores e corretores ortográficos"
+   },
+   {
+    "id": "c",
+    "text": "Para tornar a página responsiva em telas pequenas"
+   },
+   {
+    "id": "d",
+    "text": "Para o navegador converter o texto automaticamente para o português"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O Emmet não sabe em que idioma a página está escrita, então a aula ajusta “na mão” duas coisas: o `lang` (de `en` para `pt-BR`) e o `<title>`. O `lang` declara o idioma do documento, usado por tecnologias assistivas (pronúncia correta), tradutores automáticos e pelo seletor CSS `:lang()`.",
+   "wrong": {
+    "d": "O atributo `lang` apenas informa o idioma; não traduz nada sozinho.",
+    "a": "A codificação é definida por `<meta charset=\"UTF-8\">`, não por `lang`.",
+    "c": "A responsividade depende da meta `viewport` e do CSS; `lang` não interfere no layout."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 1: ajustar lang e title na mão",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 1 — Esqueleto HTML5",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 19 (passo 1): “Depois do ! ajustamos duas coisas que o Emmet não adivinha: idioma e título” — de lang=\"en\" para lang=\"pt-BR\" e <title>Avaliações | Lugares</title>.",
+    "Apostila Passo 1: “o lang=\"en\" vira lang=\"pt-BR\", e o <title> recebe o nome real da página”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-006",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Entidades HTML",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No link “Voltar para lugares” do exercício, o texto começa com `&larr;`. Que caractere o navegador exibe?",
+  "options": [
+   {
+    "id": "a",
+    "text": "↑"
+   },
+   {
+    "id": "b",
+    "text": "→"
+   },
+   {
+    "id": "c",
+    "text": "↓"
+   },
+   {
+    "id": "d",
+    "text": "←"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`&larr;` é a entidade HTML da seta para a esquerda (←). Entidades começam com `&` e terminam com `;`, permitindo escrever caracteres especiais sem depender do teclado.",
+   "wrong": {
+    "b": "`&rarr;` é a seta para a direita; `&larr;` (“left arrow”) é a seta para a esquerda.",
+    "a": "A seta para cima é `&uarr;`.",
+    "c": "A seta para baixo é `&darr;`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "1.5: &larr; é a entidade HTML para a seta ←",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<p id=\"x\">&larr;</p>",
+    "probe": "return document.getElementById('x').textContent;"
+   },
+   "optionValues": {
+    "d": "←",
+    "b": "→",
+    "a": "↑",
+    "c": "↓"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: ←"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-007",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Atributos data-*",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Cada card tem `data-categoria=\"cafeteria\"`. Qual seletor CSS estiliza apenas os cards dessa categoria?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`.card[data-categoria=\"cafeteria\"]`"
+   },
+   {
+    "id": "b",
+    "text": "`.card:data(cafeteria)`"
+   },
+   {
+    "id": "c",
+    "text": "`.card#cafeteria`"
+   },
+   {
+    "id": "d",
+    "text": "`.card.data-categoria-cafeteria`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Atributos `data-*` são lidos no CSS por seletores de atributo: `[data-categoria=\"cafeteria\"]`. A apostila explica que esse atributo permite colorir o banner de cada card por categoria sem alterar o HTML de novo.",
+   "wrong": {
+    "d": "Isso procuraria uma classe chamada `data-categoria-cafeteria`, que não existe; atributos são selecionados com colchetes.",
+    "c": "`#` seleciona por `id`; o card não tem `id=\"cafeteria\"`.",
+    "b": "Não existe a pseudoclasse `:data()` no CSS; a regra inteira é inválida e ignorada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 5: os dois papéis do data-categoria",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<style>.card[data-categoria=\"cafeteria\"]{background:rgb(1,1,1)}.card.data-categoria-cafeteria{background:rgb(2,2,2)}.card#cafeteria{background:rgb(3,3,3)}.card:data(cafeteria){background:rgb(4,4,4)}</style><article class=\"card\" data-categoria=\"cafeteria\" id=\"c\">x</article>",
+    "probe": "return getComputedStyle(document.getElementById('c')).backgroundColor;"
+   },
+   "optionValues": {
+    "a": "rgb(1, 1, 1)",
+    "d": "rgb(2, 2, 2)",
+    "c": "rgb(3, 3, 3)",
+    "b": "rgb(4, 4, 4)"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: rgb(1, 1, 1)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-008",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "header como landmark banner",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "No trecho abaixo, qual dos `<header>` é exposto aos leitores de tela como o marco “banner” (cabeçalho do site)?\n\n```html\n<header>TOPO</header>\n<main>\n  <article>\n    <header>INTERNO</header>\n    <h2>Café Aroma</h2>\n  </article>\n</main>\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhum, pois o banner exige `role=\"banner\"` explícito"
+   },
+   {
+    "id": "b",
+    "text": "Apenas o `<header>` de TOPO, filho direto do `<body>`"
+   },
+   {
+    "id": "c",
+    "text": "Os dois, pois toda tag `<header>` vira banner"
+   },
+   {
+    "id": "d",
+    "text": "Apenas o `<header>` de INTERNO, dentro do `<article>`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O `<header>` só é o marco “banner” quando pertence ao site/página inteira (filho do `<body>`). Dentro de um `<article>` ele funciona apenas como cabeçalho daquele conteúdo e não vira marco — por isso o `<header>` da logo/menu fica no topo, e cada card pode ter sua própria introdução sem poluir a navegação por marcos.",
+   "wrong": {
+    "d": "Dentro de `<article>`, `<section>` ou `<main>` o `<header>` é apenas o cabeçalho daquele bloco, não o banner do site.",
+    "c": "Só o `<header>` que não está dentro de um bloco sectioning/main é o banner; o interno não é.",
+    "a": "Não é preciso `role`: o `<header>` do topo já recebe o papel “banner” automaticamente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 2: header do site",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-aula-01",
+    "locator": "tags semânticas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<header>TOPO</header><main><article><header>INTERNO</header><h2>Café Aroma</h2></article></main>",
+    "probe": "const s = window.__aria; const a = /- banner[^\\n]*TOPO/.test(s); const b = /- banner[^\\n]*INTERNO/.test(s); return a && b ? 'ambos' : a ? 'TOPO' : b ? 'INTERNO' : 'nenhum';",
+    "aria": "body"
+   },
+   "optionValues": {
+    "b": "TOPO",
+    "d": "INTERNO",
+    "c": "ambos",
+    "a": "nenhum"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: TOPO"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-009",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "section e região nomeada",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Na página de detalhe há duas `<section>`: uma sem nome (`<section>`) e outra com `aria-label=\"Avaliações\"`. Como o navegador as expõe aos leitores de tela?",
+  "options": [
+   {
+    "id": "a",
+    "text": "As duas viram o marco “region”, sempre"
+   },
+   {
+    "id": "b",
+    "text": "Só a `<section>` com nome acessível vira “region”"
+   },
+   {
+    "id": "c",
+    "text": "Só a primeira `<section>` dentro do `<main>`"
+   },
+   {
+    "id": "d",
+    "text": "Nenhuma delas: `<section>` nunca vira marco"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Uma `<section>` só é exposta como marco “region” quando tem nome acessível (por `aria-label` ou `aria-labelledby`). Sem nome, ela é apenas um agrupamento. Por isso, ao usar `<section>` no projeto, vale dar um título (`<h2>`) e ligá-lo à seção quando ela for relevante para navegação por marcos.",
+   "wrong": {
+    "a": "Sem nome acessível a `<section>` não é exposta como região (marcos sem nome seriam ruído).",
+    "d": "Com `aria-label` (ou `aria-labelledby`) a `<section>` passa a ser um marco “region”.",
+    "c": "A posição no documento não decide; o que importa é ter nome acessível."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "1.5: section.detalhe-avaliacoes com título",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-aula-01",
+    "locator": "diferenciar section e div",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<main><section>SEMNOME<p>texto</p></section><section aria-label=\"Avaliações\">COMNOME<p>texto</p></section></main>",
+    "probe": "const s = window.__aria; const n = (s.match(/- region/g) || []).length; const nomeada = /- region \"Avaliações\"/.test(s); return n === 1 && nomeada ? 'so-nomeada' : n === 2 ? 'duas' : n === 0 ? 'nenhuma' : 'outra';",
+    "aria": "body"
+   },
+   "optionValues": {
+    "b": "so-nomeada",
+    "a": "duas",
+    "d": "nenhuma",
+    "c": "outra"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: so-nomeada"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-010",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Emmet: navegação",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual HTML resulta da abreviação `nav.menu>ul>li*2>a`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<nav class=\"menu\"><ul><li><a href=\"\"></a></li></ul></nav>`"
+   },
+   {
+    "id": "b",
+    "text": "`<nav id=\"menu\"><ul><li><a href=\"\"></a></li><li><a href=\"\"></a></li></ul></nav>`"
+   },
+   {
+    "id": "c",
+    "text": "`<nav class=\"menu\"><ul><li></li><li></li></ul><a href=\"\"></a></nav>`"
+   },
+   {
+    "id": "d",
+    "text": "`<nav class=\"menu\"><ul><li><a href=\"\"></a></li><li><a href=\"\"></a></li></ul></nav>`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Lendo da esquerda para a direita: `nav.menu` cria o `<nav class=\"menu\">`; `>ul` aninha a lista; `>li*2` cria dois itens dentro dela; `>a` coloca um link dentro de cada item (o Emmet inclui `href=\"\"` nas âncoras).",
+   "wrong": {
+    "c": "O `>` final aninha o `a` dentro de cada `li`; aqui o `a` ficou solto fora da lista.",
+    "a": "O `*2` se aplica ao `li` (e ao `a` dentro dele): devem existir dois itens, não um.",
+    "b": "`.menu` gera `class=\"menu\"`; para `id` seria `#menu`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "sintaxe: tag.classe, >, *n",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "tabela de sintaxe Emmet",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconsole.log(expand(\"nav.menu>ul>li*2>a\").replace(/\\n\\s*/g, ''));"
+   },
+   "optionValues": {
+    "d": "<nav class=\"menu\"><ul><li><a href=\"\"></a></li><li><a href=\"\"></a></li></ul></nav>",
+    "c": "<nav class=\"menu\"><ul><li></li><li></li></ul><a href=\"\"></a></nav>",
+    "a": "<nav class=\"menu\"><ul><li><a href=\"\"></a></li></ul></nav>",
+    "b": "<nav id=\"menu\"><ul><li><a href=\"\"></a></li><li><a href=\"\"></a></li></ul></nav>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: <nav class=\"menu\"><ul><li><a href=\"\"></a></li><li><a href=\"\"></a></li></ul></nav>"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-011",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Emmet: irmão e subir de nível",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A abreviação `div>h2+p^footer` gera:",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<div><h2></h2><p></p></div><footer></footer>`"
+   },
+   {
+    "id": "b",
+    "text": "`<div><h2></h2><p></p><footer></footer></div>`"
+   },
+   {
+    "id": "c",
+    "text": "`<div><h2></h2></div><p></p><footer></footer>`"
+   },
+   {
+    "id": "d",
+    "text": "`<div><h2><p></p></h2></div><footer></footer>`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`div>h2+p` gera uma `div` contendo `h2` e `p` lado a lado (`+` = irmão). O operador `^` sobe um nível na hierarquia, então `footer` é criado depois da `div`, no mesmo nível dela.",
+   "wrong": {
+    "b": "Sem o `^`, o `footer` seria irmão do `p` (dentro da div); o `^` sobe um nível, tornando-o irmão da `div`.",
+    "c": "O `+` entre `h2` e `p` os mantém irmãos dentro da `div`; só o `^` sai dela.",
+    "d": "`+` cria irmãos; para colocar o `p` dentro do `h2` seria `>` (e não faria sentido semântico)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "sintaxe: > filho, + irmão",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "tabela de sintaxe Emmet",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconsole.log(expand(\"div>h2+p^footer\").replace(/\\n\\s*/g, ''));"
+   },
+   "optionValues": {
+    "a": "<div><h2></h2><p></p></div><footer></footer>",
+    "b": "<div><h2></h2><p></p><footer></footer></div>",
+    "c": "<div><h2></h2></div><p></p><footer></footer>",
+    "d": "<div><h2><p></p></h2></div><footer></footer>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: <div><h2></h2><p></p></div><footer></footer>"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-012",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Emmet: numeração com $",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o resultado de `li.item$*3{Item $}` no Emmet?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<li class=\"item1\">Item 1</li><li class=\"item2\">Item 2</li><li class=\"item3\">Item 3</li>`"
+   },
+   {
+    "id": "b",
+    "text": "`<li class=\"item3\">Item 3</li>`"
+   },
+   {
+    "id": "c",
+    "text": "`<li class=\"item$\">Item $</li><li class=\"item$\">Item $</li><li class=\"item$\">Item $</li>`"
+   },
+   {
+    "id": "d",
+    "text": "`<li class=\"item0\">Item 0</li><li class=\"item1\">Item 1</li><li class=\"item2\">Item 2</li>`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Dentro de uma multiplicação (`*n`), cada `$` é trocado pelo número do clone (1, 2, 3...). Vale tanto na classe (`item$`) quanto no texto (`{Item $}`), gerando `item1/Item 1`, `item2/Item 2` e `item3/Item 3`.",
+   "wrong": {
+    "c": "O `$` é um contador automático dentro de uma multiplicação; o Emmet o substitui por 1, 2, 3.",
+    "b": "`*3` repete o elemento três vezes; não gera só o último número.",
+    "d": "A numeração com `$` começa em 1 por padrão (para outra base seria `@`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "tabela de sintaxe Emmet: $ numeração automática",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconsole.log(expand(\"li.item$*3{Item $}\").replace(/\\n\\s*/g, ''));"
+   },
+   "optionValues": {
+    "a": "<li class=\"item1\">Item 1</li><li class=\"item2\">Item 2</li><li class=\"item3\">Item 3</li>",
+    "c": "<li class=\"item$\">Item $</li><li class=\"item$\">Item $</li><li class=\"item$\">Item $</li>",
+    "b": "<li class=\"item3\">Item 3</li>",
+    "d": "<li class=\"item0\">Item 0</li><li class=\"item1\">Item 1</li><li class=\"item2\">Item 2</li>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: <li class=\"item1\">Item 1</li><li class=\"item2\">Item 2</li><li class=\"item3\">Item 3</li>"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-013",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "article e aside",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Na plataforma de avaliações, qual par de tags representa melhor, respectivamente, (1) cada card de lugar na página inicial e (2) o resumo da nota média na página de detalhe?",
+  "options": [
+   {
+    "id": "a",
+    "text": "(1) `<article>` e (2) `<aside>`"
+   },
+   {
+    "id": "b",
+    "text": "(1) `<div>` e (2) `<section>`"
+   },
+   {
+    "id": "c",
+    "text": "(1) `<aside>` e (2) `<main>`"
+   },
+   {
+    "id": "d",
+    "text": "(1) `<section>` e (2) `<article>`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`<article>` é para conteúdo que faz sentido por si só (cada card de lugar); `<aside>` marca conteúdo complementar ao principal — a nota média resume, mas não é o conteúdo central da página de detalhe. O navegador expõe `article` e `aside` (marco “complementary”) com esses papéis.",
+   "wrong": {
+    "b": "Um card é conteúdo independente (`article`), e o resumo da nota é complementar ao conteúdo principal (`aside`).",
+    "d": "O resumo da nota não é um conteúdo autônomo/publicável; ele complementa a informação principal.",
+    "c": "O card é o conteúdo da página, não complementar; e o `main` é a área principal inteira, não o resumo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-01",
+    "locator": "critérios de aceite: resumo de nota usa aside",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "tabela de semântica da página de detalhe",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<main><article>CARD<p>x</p></article><aside>RESUMO<p>y</p></aside></main>",
+    "probe": "const s = window.__aria; const lines = s.split('\\n'); const ind = (l) => l.match(/^ */)[0].length; const role = (w) => { const i = lines.findIndex((l) => l.includes(w)); if (i < 0) return 'nenhum'; for (let j = i; j >= 0; j--) { if (j === i || ind(lines[j]) < ind(lines[i])) { const r = lines[j].match(/- ([a-z]+)/); if (r && r[1] !== 'text' && r[1] !== 'paragraph') return r[1]; } } return 'text'; }; return role('CARD') + ',' + role('RESUMO');",
+    "aria": "body"
+   },
+   "optionValues": {
+    "a": "article,complementary",
+    "b": "text,text",
+    "d": "article,article",
+    "c": "complementary,main"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: article,complementary"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-014",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Meta viewport",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O Emmet inclui `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">` no esqueleto. Em um celular, sem essa meta, com qual largura de layout (em px CSS) o navegador costuma desenhar a página antes de reduzi-la para caber na tela?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Cerca de 1280 px"
+   },
+   {
+    "id": "b",
+    "text": "Cerca de 320 px"
+   },
+   {
+    "id": "c",
+    "text": "Cerca de 390 px (a largura real da tela)"
+   },
+   {
+    "id": "d",
+    "text": "Cerca de 980 px"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Sem a meta `viewport`, navegadores móveis simulam uma janela larga (≈980 px) e encolhem o resultado, deixando o texto minúsculo e anulando as media queries pensadas para telas pequenas. Com `width=device-width, initial-scale=1.0` o layout usa a largura real do aparelho.",
+   "wrong": {
+    "c": "Essa é a largura que se obtém *com* `width=device-width`; sem a meta, o navegador mobile assume um layout “desktop” mais largo.",
+    "b": "320 px é uma largura de telas muito pequenas, mas não é o padrão assumido sem a meta.",
+    "a": "O padrão histórico dos navegadores móveis é por volta de 980 px, não 1280 px."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 1 — Esqueleto HTML5 (meta viewport)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"></head><body><p>x</p></body></html>",
+    "probe": "return String(window.innerWidth);",
+    "mobile": true
+   },
+   "optionValues": {
+    "d": "980",
+    "c": "390",
+    "b": "320",
+    "a": "1280"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: 980"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-015",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Âncora sem href",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O Emmet gera `<a class=\"card-link\">Ver detalhes</a>` (sem `href`) e a aula pede para “completar o href na mão”. Se o `href` for esquecido, como o navegador trata essa âncora?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Não a expõe como link e ela não recebe foco pelo teclado (Tab)"
+   },
+   {
+    "id": "b",
+    "text": "Como link, mas sem possibilidade de clique do mouse"
+   },
+   {
+    "id": "c",
+    "text": "Como botão, ativando-se com Enter"
+   },
+   {
+    "id": "d",
+    "text": "Como link normal, só que apontando para a própria página"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O `<a>` só é um hiperlink quando tem o atributo `href`. Sem ele, não entra na ordem de foco do teclado nem aparece como “link” para os leitores de tela (o texto é lido como texto comum). Por isso o Emmet deixa `href=\"\"` vazio e a aula reforça: “os hrefs completamos na mão”.",
+   "wrong": {
+    "d": "Sem `href` o `<a>` é apenas um “marcador”: não é link nem é focável.",
+    "b": "Sem `href` ela não é link para ninguém (mouse, teclado ou leitor de tela).",
+    "c": "Âncora sem `href` não vira botão; para uma ação usa-se `<button>`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 2: “os hrefs completamos na mão depois”",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 2: Preenchemos os href manualmente",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<a id=\"s\">SEMHREF</a><a id=\"c\" href=\"detalhe.html\">COMHREF</a>",
+    "probe": "const s = window.__aria; const link = /- link[^\\n]*SEMHREF/.test(s); const a = document.getElementById('s'); a.focus(); return link + ',' + (document.activeElement === a);",
+    "aria": "body"
+   },
+   "optionValues": {
+    "a": "false,false",
+    "d": "true,true",
+    "b": "true,false",
+    "c": "false,true"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: false,false"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-016",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "aria-hidden em ícones decorativos",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O banner de cada card tem um emoji decorativo: `<div class=\"card-banner\" aria-hidden=\"true\">☕</div>`. Qual é o efeito de `aria-hidden=\"true\"` nesse elemento?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Ele continua sendo lido pelos leitores de tela e continua visível"
+   },
+   {
+    "id": "b",
+    "text": "Ele fica invisível na tela e também para os leitores de tela"
+   },
+   {
+    "id": "c",
+    "text": "Ele sai da árvore de acessibilidade (leitores de tela o ignoram), mas continua visível na tela"
+   },
+   {
+    "id": "d",
+    "text": "Ele passa a ser lido pelos leitores de tela, mas some da tela"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`aria-hidden=\"true\"` remove o elemento da árvore de acessibilidade sem mudar nada visualmente. É apropriado para emojis/ícones decorativos, evitando que o leitor de tela diga “xícara de café” antes do nome do lugar.",
+   "wrong": {
+    "b": "`aria-hidden` não altera a aparência; esconder da tela exige CSS (`display:none` ou `hidden`).",
+    "a": "Esse é o comportamento *sem* o atributo; com ele o conteúdo é removido da árvore de acessibilidade.",
+    "d": "É o contrário: some da leitura assistiva, não da tela."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 5: div.card-banner com aria-hidden=\"true\"",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<div id=\"b\" aria-hidden=\"true\">☕</div><p>Café Aroma</p>",
+    "probe": "const s = window.__aria; return s.includes('☕') + ',' + (document.getElementById('b').offsetParent !== null);",
+    "aria": "body"
+   },
+   "optionValues": {
+    "c": "false,true",
+    "b": "false,false",
+    "a": "true,true",
+    "d": "true,false"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: false,true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-017",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Marcos da página inicial",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A página inicial tem `<header>` (com `<nav>`), `<main>` (com os cards em `<article>`) e `<footer>`, todos filhos diretos do `<body>`. Quais marcos (landmarks) um leitor de tela lista, em ordem?",
+  "options": [
+   {
+    "id": "a",
+    "text": "banner, main, contentinfo"
+   },
+   {
+    "id": "b",
+    "text": "banner, navigation, main"
+   },
+   {
+    "id": "c",
+    "text": "banner, navigation, main, contentinfo"
+   },
+   {
+    "id": "d",
+    "text": "header, nav, main, footer"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Mapeamento padrão: `<header>` (do site) → banner; `<nav>` → navigation; `<main>` → main; `<footer>` (do site) → contentinfo. Os `<article>` dos cards são “article”, que não é um marco. Por isso usar as tags semânticas já entrega a estrutura de navegação por marcos “de graça”.",
+   "wrong": {
+    "d": "Esses são nomes de *tags*; os leitores de tela anunciam os *papéis*: banner, navigation, main, contentinfo.",
+    "b": "O `<footer>` filho do `<body>` também é um marco: “contentinfo”.",
+    "a": "O `<nav>` também é um marco (“navigation”), mesmo dentro do `<header>`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "do wireframe para os blocos de HTML",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-aula-01",
+    "locator": "objetivos: estruturar uma página com HTML semântico",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "html": "<header class=\"cabecalho\"><a href=\"index.html\">Avaliações</a><nav><a href=\"index.html\">Lugares</a></nav></header><main><h1>Lugares avaliados</h1><article><h2>Café Aroma</h2></article></main><footer>Projeto de referência</footer>",
+    "probe": "const s = window.__aria; return [...s.matchAll(/^\\s*- (banner|navigation|main|contentinfo|complementary|region)/gm)].map((x) => x[1]).join(',');",
+    "aria": "body"
+   },
+   "optionValues": {
+    "c": "banner,navigation,main,contentinfo",
+    "d": "header,nav,main,footer",
+    "b": "banner,navigation,main",
+    "a": "banner,main,contentinfo"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (sem rede)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: banner,navigation,main,contentinfo"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-018",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Emmet: card completo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML o Emmet gera para `article.card[data-categoria=cafeteria]>div.card-banner+div.card-body>span.badge+h2.card-title`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div><div class=\"card-body\"><span class=\"badge\"></span><h2 class=\"card-title\"></h2></div></article>`"
+   },
+   {
+    "id": "b",
+    "text": "`<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"><div class=\"card-body\"><span class=\"badge\"></span><h2 class=\"card-title\"></h2></div></div></article>`"
+   },
+   {
+    "id": "c",
+    "text": "`<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div><div class=\"card-body\"><span class=\"badge\"><h2 class=\"card-title\"></h2></span></div></article>`"
+   },
+   {
+    "id": "d",
+    "text": "`<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div></article><div class=\"card-body\"><span class=\"badge\"></span><h2 class=\"card-title\"></h2></div>`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`article.card[data-categoria=cafeteria]` cria o card com classe e atributo; `>` desce um nível; `div.card-banner+div.card-body` cria dois irmãos dentro do card; o `>` depois do corpo desce para ele; e `span.badge+h2.card-title` cria mais dois irmãos dentro de `.card-body`. É a estrutura do primeiro card da aula (sem os textos).",
+   "wrong": {
+    "d": "Sem `^`, os dois `div` são filhos do `article`; aqui o `card-body` ficou fora do card.",
+    "b": "O `+` entre `div.card-banner` e `div.card-body` os faz irmãos; o corpo não fica dentro do banner.",
+    "c": "O `+` entre `span.badge` e `h2.card-title` os deixa irmãos dentro do corpo, e não aninhados."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 5: o primeiro card, completo",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 5 — O primeiro card, completo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconsole.log(expand(\"article.card[data-categoria=cafeteria]>div.card-banner+div.card-body>span.badge+h2.card-title\").replace(/\\n\\s*/g, ''));"
+   },
+   "optionValues": {
+    "a": "<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div><div class=\"card-body\"><span class=\"badge\"></span><h2 class=\"card-title\"></h2></div></article>",
+    "d": "<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div></article><div class=\"card-body\"><span class=\"badge\"></span><h2 class=\"card-title\"></h2></div>",
+    "b": "<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"><div class=\"card-body\"><span class=\"badge\"></span><h2 class=\"card-title\"></h2></div></div></article>",
+    "c": "<article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div><div class=\"card-body\"><span class=\"badge\"><h2 class=\"card-title\"></h2></span></div></article>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: <article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div><div class=\"card-body\"><span class=\"badg"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-019",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "Emmet: atributo com contador",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML resulta de `article.card*2>h2.card-title{Card $}+a.card-link[href=\"detalhe.html?id=$\"]{Ver}`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<article class=\"card\"><h2 class=\"card-title\">Card 1</h2></article><article class=\"card\"><h2 class=\"card-title\">Card 2</h2></article><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a>`"
+   },
+   {
+    "id": "b",
+    "text": "`<article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article><article class=\"card\"><h2 class=\"card-title\">Card 2</h2><a href=\"detalhe.html?id=2\" class=\"card-link\">Ver</a></article>`"
+   },
+   {
+    "id": "c",
+    "text": "`<article class=\"card\"><h2 class=\"card-title\">Card $</h2><a href=\"detalhe.html?id=$\" class=\"card-link\">Ver</a></article><article class=\"card\"><h2 class=\"card-title\">Card $</h2><a href=\"detalhe.html?id=$\" class=\"card-link\">Ver</a></article>`"
+   },
+   {
+    "id": "d",
+    "text": "`<article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article><article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article>`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A multiplicação `*2` clona o `article` inteiro (com tudo que está dentro dele). O `$` vira 1 no primeiro clone e 2 no segundo, tanto no texto `Card $` quanto no atributo `href=\"detalhe.html?id=$\"`. Esse padrão gera os links “Ver detalhes” de cada lugar.",
+   "wrong": {
+    "d": "Dentro de uma multiplicação o `$` avança a cada clone (1, 2); não repete o mesmo número.",
+    "c": "O `$` é substituído tanto no texto `{...}` quanto dentro do valor do atributo.",
+    "a": "O `+` mantém o `a` como irmão do `h2` *dentro* de cada `article`; ele não sai do card."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "tabela de sintaxe Emmet: *n e $",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 6: article.card*5",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconsole.log(expand(\"article.card*2>h2.card-title{Card $}+a.card-link[href=\\\"detalhe.html?id=$\\\"]{Ver}\").replace(/\\n\\s*/g, ''));"
+   },
+   "optionValues": {
+    "b": "<article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article><article class=\"card\"><h2 class=\"card-title\">Card 2</h2><a href=\"detalhe.html?id=2\" class=\"card-link\">Ver</a></article>",
+    "d": "<article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article><article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article>",
+    "c": "<article class=\"card\"><h2 class=\"card-title\">Card $</h2><a href=\"detalhe.html?id=$\" class=\"card-link\">Ver</a></article><article class=\"card\"><h2 class=\"card-title\">Card $</h2><a href=\"detalhe.html?id=$\" class=\"card-link\">Ver</a></article>",
+    "a": "<article class=\"card\"><h2 class=\"card-title\">Card 1</h2></article><article class=\"card\"><h2 class=\"card-title\">Card 2</h2></article><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: <article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article><"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-html-020",
+  "disciplineId": "fullstack",
+  "topicId": "html",
+  "subtopic": "O que o Emmet não adivinha",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Após expandir `!` no VS Code, o esqueleto gerado pelo Emmet ainda precisa de ajuste manual para a Plataforma de Avaliações. Qual item **não** vem pronto de forma adequada ao projeto?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A meta `viewport` para telas pequenas"
+   },
+   {
+    "id": "b",
+    "text": "A declaração `<!DOCTYPE html>`"
+   },
+   {
+    "id": "c",
+    "text": "O idioma (`lang`) e o título (`<title>`), que vêm como `en` e `Document`"
+   },
+   {
+    "id": "d",
+    "text": "A codificação `<meta charset=\"UTF-8\">`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O esqueleto de `!` traz doctype, `charset` UTF-8 e meta `viewport`, mas sempre com `lang=\"en\"` e `<title>Document</title>`. A aula ajusta esses dois à mão (`lang=\"pt-BR\"` e `<title>Avaliações | Lugares</title>`) porque o Emmet não conhece o idioma nem o nome da página.",
+   "wrong": {
+    "b": "O Emmet já inclui o doctype HTML5 corretamente.",
+    "d": "A codificação UTF-8 já vem no esqueleto e é a que o projeto usa.",
+    "a": "A meta `viewport` com `width=device-width, initial-scale=1.0` também já vem pronta."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-slides-aula01",
+    "locator": "passo 1: ajustes manuais depois do !",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-apostila-01-02",
+    "locator": "Passo 1 — Esqueleto HTML5",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:00:34.660Z",
+  "updatedAt": "2026-10-23T01:01:01.293Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import expand from 'emmet';\nconst out = expand('!');\nconst pronto = { 'lang-e-title': out.includes('lang=\"pt-BR\"') && out.includes('Avaliações'), doctype: out.includes('<!DOCTYPE html>'), charset: out.includes('charset=\"UTF-8\"'), viewport: out.includes('name=\"viewport\"') };\nconsole.log(Object.entries(pronto).filter(([, ok]) => !ok).map(([k]) => k).join(','));"
+   },
+   "optionValues": {
+    "c": "lang-e-title",
+    "b": "doctype",
+    "d": "charset",
+    "a": "viewport"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:00:47.281Z",
+    "details": "saída: lang-e-title"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:01:01.293Z",
+   "notes": "HTML/Emmet: roles e estilos medidos no Chromium; expansões conferidas com a biblioteca emmet; fatos históricos conferidos nos slides",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]
