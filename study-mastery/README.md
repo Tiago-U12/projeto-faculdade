@@ -22,7 +22,7 @@ npm run e2e        # E2E em Chromium (390 px); exige `npm run build` antes
 
 ## Estado da v0.5
 
-**Publicado:** <https://tiago-u12.github.io/projeto-faculdade/study-mastery/>. Homologação do uso real (137/137 verificações automatizadas): [HOMOLOGACAO_V05.md](docs/HOMOLOGACAO_V05.md).
+**Publicado:** <https://tiago-u12.github.io/projeto-faculdade/study-mastery/> (GitHub Pages) e <https://study-mastery.pages.dev/> (Cloudflare Pages). Homologação do uso real (137/137 verificações automatizadas): [HOMOLOGACAO_V05.md](docs/HOMOLOGACAO_V05.md).
 
 
 Validação completa em 2026-10-23 (typecheck, 681 testes, PWA, build, E2E, as 600 questões renderizadas em 390/320 px, offline no subcaminho do Pages e reexecução editorial das 600). Detalhes: [AUDITORIA_V05.md](docs/AUDITORIA_V05.md).

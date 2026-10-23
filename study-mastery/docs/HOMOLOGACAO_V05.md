@@ -8,6 +8,23 @@ Validação do checklist de uso real (acesso, filtros, modos, gabarito, resultad
 - Endereço: <https://tiago-u12.github.io/projeto-faculdade/study-mastery/>
 - **Limitação deste ambiente:** a política de rede da sessão bloqueia `tiago-u12.github.io` e o armazenamento de artefatos do GitHub. A homologação foi feita com **o mesmo commit publicado** (`079cbfa`, árvore `study-mastery` idêntica), compilado aqui e servido no **mesmo subcaminho** `/projeto-faculdade/study-mastery/`, com service worker. Abrir o link público no celular continua sendo conferência do usuário (lista no fim).
 
+## Cloudflare Pages (<https://study-mastery.pages.dev/>)
+
+O projeto também foi ligado ao Cloudflare Pages, pelo painel deles. Não há configuração do Cloudflare no repositório, e este ambiente também bloqueia `study-mastery.pages.dev`.
+
+Lá o app fica na **raiz** do domínio, e o Cloudflare devolve o `index.html` com HTTP 200 para arquivos inexistentes (fallback de SPA). A homologação foi repetida nesse layout com `HOMOLOG_LAYOUT=cloudflare npm run e2e:homologacao`: **137/137** verificações passaram.
+
+O roteiro de validação no celular corresponde a estes itens automatizados (todos ✓):
+
+| Passo no celular | Verificação equivalente |
+|---|---|
+| Abrir em aba anônima e entrar sem login | perfil de navegador novo; nenhum campo de senha ou e-mail em nenhuma tela; nenhuma requisição para fora do site |
+| Completar uma sessão e abrir o resultado pelo histórico | sessão completa com pontuação certa (8/10 = 80%); a tentativa reabre por `#/results?id=…` a partir do histórico |
+| Carregar, ativar o modo avião e recarregar | navegador **fechado e reaberto** sem rede: página inicial, Cálculo II e Full Stack funcionam e o progresso é salvo |
+| Escolher um MP3 e tocar offline | MP3 de silêncio sintético escolhido no aparelho toca sem rede, continua após reabrir e é apagado ao remover; sem MP3, o fallback HTML do Cloudflare é corretamente tratado como “sem música” |
+
+A versão servida lá depende do branch configurado no painel do Cloudflare (provavelmente `main`, hoje a 0.5.0, sem as correções de acessibilidade da 0.5.1). Os quatro passos acima também passaram na 0.5.0.
+
 ## Como foi testado
 
 `npm run build && npm run e2e:homologacao` (`tests/e2e/homologacao.ts`):

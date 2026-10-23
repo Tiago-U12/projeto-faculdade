@@ -3,6 +3,8 @@
  * offline/PWA, visual/acessibilidade, acervo e privacidade) no BUILD DE PRODUÇÃO servido no mesmo subcaminho do GitHub Pages,
  * em Chromium com emulação de celular e perfil persistente (fechar e reabrir offline é real).
  *   npm run build && npm run e2e:homologacao [-- --relatorio caminho.md]
+ * Layout do Cloudflare Pages (app na raiz e index.html devolvido com 200 para arquivos inexistentes):
+ *   HOMOLOG_LAYOUT=cloudflare npm run e2e:homologacao
  * Arquivos auxiliares (MP3 de SILÊNCIO sintético, arquivos inválidos) são gerados em um diretório temporário — nenhuma música
  * é criada ou gravada no repositório. Sai com código 1 se algum item automatizado falhar.
  */
@@ -15,7 +17,10 @@ import type { PublishedQuestion, Taxonomy } from '../../src/types';
 
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const DIST = path.join(ROOT, 'dist');
-const PREFIX = '/projeto-faculdade/study-mastery/';
+// github (padrão): subcaminho do GitHub Pages, 404 real para arquivos ausentes.
+// cloudflare: raiz do domínio e fallback de SPA (o Cloudflare Pages serve o index.html com 200 quando não há 404.html).
+const LAYOUT = process.env.HOMOLOG_LAYOUT === 'cloudflare' ? 'cloudflare' : 'github';
+const PREFIX = LAYOUT === 'cloudflare' ? '/' : '/projeto-faculdade/study-mastery/';
 const KEY = 'study-mastery:state:v1';
 const EXE = process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'sm-homolog-'));
@@ -77,7 +82,10 @@ const server = http.createServer((req, res) => {
   let f = path.resolve(DIST, p.slice(PREFIX.length) || 'index.html');
   if (!f.startsWith(DIST)) return void res.writeHead(404).end();
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
-  if (!fs.existsSync(f)) return void res.writeHead(404, { 'Content-Type': 'text/html' }).end('<h1>404</h1>'); // como o Pages (MP3 ausente cai aqui)
+  if (!fs.existsSync(f)) {
+    if (LAYOUT === 'cloudflare') f = path.join(DIST, 'index.html'); // fallback de SPA: o MP3 ausente “existe” como HTML
+    else return void res.writeHead(404, { 'Content-Type': 'text/html' }).end('<h1>404</h1>'); // como o GitHub Pages
+  }
   res.writeHead(200, { 'Content-Type': MIME[path.extname(f)] ?? 'application/octet-stream' });
   res.end(req.method === 'HEAD' ? undefined : fs.readFileSync(f));
 });
@@ -173,6 +181,7 @@ async function runAprender(pattern: boolean[]) {
 async function main() {
   await new Promise<void>((r) => server.listen(0, '127.0.0.1', r));
   BASE = `http://127.0.0.1:${(server.address() as { port: number }).port}${PREFIX}`;
+  console.log(`Layout: ${LAYOUT} · ${BASE}`);
   const profile = path.join(TMP, 'perfil');
   const ctxOpts = { executablePath: EXE, args: ['--no-sandbox', '--autoplay-policy=user-gesture-required'], viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, locale: 'pt-BR', colorScheme: 'dark' as const, acceptDownloads: true, serviceWorkers: 'allow' as const };
   let ctx: BrowserContext = await chromium.launchPersistentContext(profile, ctxOpts);
