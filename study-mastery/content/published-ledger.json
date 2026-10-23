@@ -2162,5 +2162,105 @@
  "fs-mysql-026": {
   "firstPublished": "2026-10-23T01:39:02.888Z",
   "lastVersion": 1
+ },
+ "fs-jwt-auth-001": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-002": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-003": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-004": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-005": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-006": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-007": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-008": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-009": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-010": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-011": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-012": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-013": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-014": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-015": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-016": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-017": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-018": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-019": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-020": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-021": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-022": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-023": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-024": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
+ },
+ "fs-jwt-auth-025": {
+  "firstPublished": "2026-10-23T01:43:08.704Z",
+  "lastVersion": 1
  }
 }

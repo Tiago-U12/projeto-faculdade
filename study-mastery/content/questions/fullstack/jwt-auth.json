@@ -1,0 +1,2052 @@
+[
+ {
+  "id": "fs-jwt-auth-001",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Hash com sal",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime (os dois hashes da mesma senha são iguais? e a comparação com a senha correta)?\n\n```js\nconst h1 = await bcrypt.hash(\"senha123\", 10);\nconst h2 = await bcrypt.hash(\"senha123\", 10);\nconsole.log(h1 === h2, await bcrypt.compare(\"senha123\", h1));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`false false`"
+   },
+   {
+    "id": "b",
+    "text": "`true false`"
+   },
+   {
+    "id": "c",
+    "text": "`true true`"
+   },
+   {
+    "id": "d",
+    "text": "`false true`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Cada `bcrypt.hash` gera um sal aleatório embutido no hash, por isso dois hashes da mesma senha diferem (`h1 === h2` é `false`). A verificação é feita com `bcrypt.compare(senha, hash)`, que lê o sal do próprio hash — resultado `true`. Por isso nunca se compara hashes com `===`.",
+   "wrong": {
+    "c": "O bcrypt inclui um *sal* aleatório em cada hash, então hashes da mesma senha são diferentes.",
+    "a": "`bcrypt.compare` extrai o sal do hash e confere a senha: resultado `true`.",
+    "b": "Dois hashes da mesma senha não são iguais, e a senha correta confere."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "Hash de senha (bcrypt): bcrypt.compare compara a senha digitada com o hash salvo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.562Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst h1 = await bcrypt.hash(\"senha123\", 10);\nconst h2 = await bcrypt.hash(\"senha123\", 10);\nconsole.log(h1 === h2, await bcrypt.compare(\"senha123\", h1));"
+   },
+   "optionValues": {
+    "d": "false true",
+    "c": "true true",
+    "a": "false false",
+    "b": "true false"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: false true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-002",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "bcrypt.compare",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime?\n\n```js\nconst hash = await bcrypt.hash(\"minhaSenha123\", 10);\nconsole.log(await bcrypt.compare(\"minhasenha123\", hash));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true`"
+   },
+   {
+    "id": "b",
+    "text": "`false`"
+   },
+   {
+    "id": "c",
+    "text": "`\"minhaSenha123\"`"
+   },
+   {
+    "id": "d",
+    "text": "Um erro, pois os textos são diferentes"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`bcrypt.compare` gera o hash da senha informada com o mesmo sal e custo do hash salvo e compara. Qualquer diferença (aqui o “S” maiúsculo) resulta em `false`. No login, isso leva à resposta 401 “Email ou senha inválidos”.",
+   "wrong": {
+    "a": "Senhas diferem em maiúsculas/minúsculas (“minhaSenha123” ≠ “minhasenha123”): o hash não confere.",
+    "c": "`compare` devolve um booleano; nunca devolve a senha original (o hash não é reversível).",
+    "d": "Senha incorreta não gera erro: o resultado é simplesmente `false`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "2. login: await bcrypt.compare(senha, usuario.senhaHash)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst hash = await bcrypt.hash(\"minhaSenha123\", 10);\nconsole.log(await bcrypt.compare(\"minhasenha123\", hash));"
+   },
+   "optionValues": {
+    "b": "false",
+    "a": "true",
+    "c": "minhaSenha123",
+    "d": "erro"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: false"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-003",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Formato do hash",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Com o custo 10, como começa o hash gerado pelo `bcryptjs` do curso (v3)?\n\n```js\nconst hash = await bcrypt.hash(\"senha123\", 10);\nconsole.log(hash.slice(0, 7));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`$2b$12$`"
+   },
+   {
+    "id": "b",
+    "text": "`$2b$10$`"
+   },
+   {
+    "id": "c",
+    "text": "`$10$2b`"
+   },
+   {
+    "id": "d",
+    "text": "`senha12`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O hash bcrypt tem o formato `$2b$<custo>$<sal+hash>`, com 60 caracteres: `2b` é a versão do algoritmo e `10` o custo informado (“10 é o custo do hash” na aula). Aumentar o custo deixa o cálculo mais lento, dificultando ataques de força bruta.",
+   "wrong": {
+    "d": "O hash nunca contém a senha: é uma sequência derivada de forma irreversível.",
+    "a": "O segundo número é o *custo* passado em `bcrypt.hash(senha, 10)` (aqui 10).",
+    "c": "O formato é `$versão$custo$` + sal e hash: `$2b$10$`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "2. registro: await bcrypt.hash(senha, 10) (10 é o \"custo\" do hash)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst hash = await bcrypt.hash(\"senha123\", 10);\nconsole.log(hash.slice(0, 7));"
+   },
+   "optionValues": {
+    "b": "$2b$10$",
+    "d": "senha12",
+    "a": "$2b$12$",
+    "c": "$10$2b"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: $2b$10$"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-004",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Estrutura do JWT",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em quantas partes separadas por ponto (`.`) é dividido um token JWT?\n\n```js\nconst token = jwt.sign({ id: 1 }, \"segredo\");\nconsole.log(token.split(\".\").length);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`4`"
+   },
+   {
+    "id": "b",
+    "text": "`3` — cabeçalho, payload e assinatura"
+   },
+   {
+    "id": "c",
+    "text": "`2`"
+   },
+   {
+    "id": "d",
+    "text": "`1`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Um JWT é `cabecalho.payload.assinatura`, cada parte em Base64URL. O servidor assina o conjunto com o segredo (`JWT_SECRET`); ao receber o token, recalcula a assinatura com `jwt.verify` para saber se ele é legítimo.",
+   "wrong": {
+    "c": "Além do cabeçalho e do payload, existe a assinatura, que permite verificar a integridade.",
+    "d": "O JWT tem três partes concatenadas por pontos.",
+    "a": "São exatamente três partes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "JWT (JSON Web Token): o servidor assina um token com uma chave secreta (JWT_SECRET)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1 }, \"segredo\");\nconsole.log(token.split(\".\").length);"
+   },
+   "optionValues": {
+    "b": "3",
+    "c": "2",
+    "d": "1",
+    "a": "4"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 3"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-005",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "O payload é legível",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Alguém captura o token abaixo, **sem conhecer o segredo**. O que o código mostra?\n\n```js\nconst token = jwt.sign({ id: 1, nome: \"Marina\" }, \"segredo\");\nconst payload = token.split(\".\")[1];\nconsole.log(JSON.parse(Buffer.from(payload, \"base64url\")).nome);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Um erro por falta do segredo"
+   },
+   {
+    "id": "b",
+    "text": "`Marina`"
+   },
+   {
+    "id": "c",
+    "text": "Nada: o payload é criptografado"
+   },
+   {
+    "id": "d",
+    "text": "`undefined`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O payload de um JWT assinado (JWS) é apenas codificado em Base64URL: qualquer pessoa pode lê-lo. Por isso **nunca** se coloca segredos (senha, hash) no token; a assinatura só impede alterações. A aula coloca apenas `id`, `nome` e `email`.",
+   "wrong": {
+    "c": "O JWT assinado não é criptografado: o payload é só Base64URL. A assinatura garante integridade, não sigilo.",
+    "a": "Ler o payload não exige o segredo (só verificar a assinatura exige).",
+    "d": "A propriedade `nome` está no payload e é recuperada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "o servidor assina um token contendo os dados do usuário (id, nome, email)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1, nome: \"Marina\" }, \"segredo\");\nconst payload = token.split(\".\")[1];\nconsole.log(JSON.parse(Buffer.from(payload, \"base64url\")).nome);"
+   },
+   "optionValues": {
+    "b": "Marina",
+    "c": "",
+    "a": "erro",
+    "d": "undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: Marina"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-006",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "verify com segredo errado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um token é assinado com um segredo e verificado com outro. Qual é o nome do erro?\n\n```js\nconst token = jwt.sign({ id: 1 }, \"segredo-a\");\ntry {\n  jwt.verify(token, \"segredo-b\");\n} catch (e) {\n  console.log(e.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhum: a verificação passa"
+   },
+   {
+    "id": "b",
+    "text": "`SyntaxError`"
+   },
+   {
+    "id": "c",
+    "text": "`TokenExpiredError`"
+   },
+   {
+    "id": "d",
+    "text": "`JsonWebTokenError`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`jwt.verify` recalcula a assinatura com o segredo informado; se não bater, lança `JsonWebTokenError` (“invalid signature”). Por isso o middleware usa `try/catch`: “se o token for inválido ou expirado, isso LANÇA uma exceção”.",
+   "wrong": {
+    "c": "Esse erro ocorre quando o token expirou, não quando a assinatura é inválida.",
+    "b": "O token está bem formado; o que falha é a assinatura.",
+    "a": "Com segredo diferente a assinatura recalculada não bate, e o `verify` lança erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "3. try/catch: jwt.verify(token, process.env.JWT_SECRET) lança exceção se o token for inválido ou expirado",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1 }, \"segredo-a\");\ntry {\n  jwt.verify(token, \"segredo-b\");\n  console.log(\"passou\");\n} catch (e) {\n  console.log(e.name);\n}"
+   },
+   "optionValues": {
+    "d": "JsonWebTokenError",
+    "c": "TokenExpiredError",
+    "b": "SyntaxError",
+    "a": "passou"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: JsonWebTokenError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-007",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "401 sem token",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Com o middleware da aula, qual é o status de uma requisição **sem** o cabeçalho `Authorization`?\n\n```js\nfunction exigirAutenticacao(req, res, next) {\n  const cabecalho = req.headers.authorization;\n  if (!cabecalho || !cabecalho.startsWith(\"Bearer \")) {\n    return res.status(401).json({ erro: \"Token de autenticação ausente.\" });\n  }\n  const token = cabecalho.slice(\"Bearer \".length);\n  try {\n    req.usuario = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch (erro) {\n    res.status(401).json({ erro: \"Token inválido ou expirado.\" });\n  }\n}\napp.post(\"/avaliacoes\", exigirAutenticacao, (req, res) => res.status(201).json({ ok: true }));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`201`"
+   },
+   {
+    "id": "b",
+    "text": "`403`"
+   },
+   {
+    "id": "c",
+    "text": "`401`"
+   },
+   {
+    "id": "d",
+    "text": "`400`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Sem o cabeçalho `Authorization: Bearer <token>` o middleware responde `401` (“Token de autenticação ausente.”) e não chama `next()`. Critério de aceite: “`POST /lugares/:id/avaliacoes` sem token (ou com token inválido) responde 401”.",
+   "wrong": {
+    "a": "A rota está protegida: sem token o middleware corta a requisição antes do handler.",
+    "b": "A aula usa 401 (não autenticado) para token ausente ou inválido.",
+    "d": "400 é para dados inválidos; a falta de autenticação é 401."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "POST /lugares/:id/avaliacoes sem token (ou com token inválido) responde 401",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\nfunction exigirAutenticacao(req, res, next) {\n  const cabecalho = req.headers.authorization;\n  if (!cabecalho || !cabecalho.startsWith(\"Bearer \")) {\n    return res.status(401).json({ erro: \"Token de autenticação ausente.\" });\n  }\n  const token = cabecalho.slice(\"Bearer \".length);\n  try {\n    req.usuario = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch (erro) {\n    res.status(401).json({ erro: \"Token inválido ou expirado.\" });\n  }\n}\napp.post(\"/avaliacoes\", exigirAutenticacao, (req, res) => res.status(201).json({ ok: true }));\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nconst r = await req('POST', '/avaliacoes', {});\nconsole.log(r.status);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "401",
+    "a": "201",
+    "b": "403",
+    "d": "400"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 401"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-008",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Extrair o token",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime?\n\n```js\nconst cabecalho = \"Bearer abc.def.ghi\";\nconsole.log(cabecalho.slice(\"Bearer \".length));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Bearer abc.def.ghi`"
+   },
+   {
+    "id": "b",
+    "text": "`Bearer `"
+   },
+   {
+    "id": "c",
+    "text": "`abc.def.ghi`"
+   },
+   {
+    "id": "d",
+    "text": "`abc`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O formato é `Authorization: Bearer <token>`. `\"Bearer \".length` vale 7 (incluindo o espaço), então `slice(7)` devolve o token completo. É o passo 2 do middleware da Aula 11.",
+   "wrong": {
+    "a": "O `slice` descarta os primeiros caracteres (“Bearer ”, 7 caracteres) e devolve só o token.",
+    "b": "`slice(7)` devolve o que vem *depois* dos 7 primeiros caracteres.",
+    "d": "Os pontos fazem parte do token; só o prefixo é removido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "2. Extraia o token: cabecalho.slice(\"Bearer \".length)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst cabecalho = \"Bearer abc.def.ghi\";\nconsole.log(cabecalho.slice(\"Bearer \".length));"
+   },
+   "optionValues": {
+    "c": "abc.def.ghi",
+    "a": "Bearer abc.def.ghi",
+    "b": "Bearer ",
+    "d": "abc"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: abc.def.ghi"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-009",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Token expirado",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O token foi assinado com `expiresIn: \"1s\"`. Depois de ~1,2 segundo, o que acontece na verificação?\n\n```js\nconst token = jwt.sign({ id: 1 }, \"segredo\", { expiresIn: \"1s\" });\nawait new Promise((r) => setTimeout(r, 1200));\ntry {\n  jwt.verify(token, \"segredo\");\n  console.log(\"válido\");\n} catch (e) {\n  console.log(e.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`NotBeforeError`"
+   },
+   {
+    "id": "b",
+    "text": "`válido`"
+   },
+   {
+    "id": "c",
+    "text": "`JsonWebTokenError`"
+   },
+   {
+    "id": "d",
+    "text": "`TokenExpiredError`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Com `expiresIn` o token recebe o claim `exp`. Após esse instante, `jwt.verify` lança `TokenExpiredError` — o middleware responde 401 e o cliente precisa logar de novo. A aula usa `expiresIn: \"2h\"` para limitar o risco de tokens vazados.",
+   "wrong": {
+    "b": "O claim `exp` foi ultrapassado; o `verify` recusa tokens vencidos.",
+    "c": "A assinatura continua correta; o problema é a expiração (erro específico `TokenExpiredError`).",
+    "a": "Esse erro se refere ao claim `nbf` (token ainda não ativo)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "3. login: jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: \"2h\" })",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.563Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1 }, \"segredo\", { expiresIn: \"1s\" });\nawait new Promise((r) => setTimeout(r, 1200));\ntry {\n  jwt.verify(token, \"segredo\");\n  console.log(\"válido\");\n} catch (e) {\n  console.log(e.name);\n}"
+   },
+   "optionValues": {
+    "d": "TokenExpiredError",
+    "b": "válido",
+    "c": "JsonWebTokenError",
+    "a": "NotBeforeError"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: TokenExpiredError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-010",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "decode não verifica",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime (primeiro o resultado de `decode`, depois o de `verify` com segredo errado)?\n\n```js\nconst token = jwt.sign({ nome: \"Marina\" }, \"segredo\");\nconsole.log(jwt.decode(token).nome);\ntry {\n  jwt.verify(token, \"outro\");\n} catch (e) {\n  console.log(e.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Marina` nas duas"
+   },
+   {
+    "id": "b",
+    "text": "`JsonWebTokenError` nas duas"
+   },
+   {
+    "id": "c",
+    "text": "Nada nas duas"
+   },
+   {
+    "id": "d",
+    "text": "`Marina` e depois `JsonWebTokenError`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`jwt.decode` apenas lê o payload (não valida nada) — nunca use para decidir autenticação. `jwt.verify` confere a assinatura (e expiração), e por isso falha com segredo errado. O middleware da aula usa `verify`.",
+   "wrong": {
+    "b": "`jwt.decode` só decodifica, sem checar assinatura; por isso devolve o payload mesmo sem o segredo.",
+    "a": "O `verify` com segredo errado lança erro.",
+    "c": "O `decode` devolve o payload."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "jwt.verify confere a assinatura para saber se o token é legítimo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.564Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ nome: \"Marina\" }, \"segredo\");\nconsole.log(jwt.decode(token).nome);\ntry {\n  jwt.verify(token, \"outro\");\n} catch (e) {\n  console.log(e.name);\n}"
+   },
+   "optionValues": {
+    "d": "Marina\nJsonWebTokenError",
+    "b": "JsonWebTokenError\nJsonWebTokenError",
+    "a": "Marina\nMarina",
+    "c": ""
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: Marina ⏎ JsonWebTokenError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-011",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Payload adulterado",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um usuário troca o `id` no payload do token (mantendo a assinatura original). O que o `verify` faz?\n\n```js\nconst token = jwt.sign({ id: 1 }, \"segredo\");\nconst [cab, , assinatura] = token.split(\".\");\nconst falso = Buffer.from(JSON.stringify({ id: 99 })).toString(\"base64url\");\ntry {\n  jwt.verify([cab, falso, assinatura].join(\".\"), \"segredo\");\n  console.log(\"aceito\");\n} catch (e) {\n  console.log(e.message);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`aceito`"
+   },
+   {
+    "id": "b",
+    "text": "`jwt malformed`"
+   },
+   {
+    "id": "c",
+    "text": "`jwt expired`"
+   },
+   {
+    "id": "d",
+    "text": "`invalid signature`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A assinatura (HMAC com o segredo) cobre o cabeçalho e o payload. Como o atacante não conhece o segredo, não consegue recalcular a assinatura de um payload alterado: o `verify` lança “invalid signature”. Esse é o motivo de o servidor poder confiar em `req.usuario.id` vindo do token.",
+   "wrong": {
+    "a": "A assinatura é calculada sobre cabeçalho + payload; mudar o payload invalida a assinatura.",
+    "c": "O token não expirou; o problema é a integridade.",
+    "b": "O token continua bem formado (três partes Base64URL); só a assinatura falha."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "O servidor confere a assinatura (jwt.verify) para saber se o token é legítimo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.564Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1 }, \"segredo\");\nconst [cab, , assinatura] = token.split(\".\");\nconst falso = Buffer.from(JSON.stringify({ id: 99 })).toString(\"base64url\");\ntry {\n  jwt.verify([cab, falso, assinatura].join(\".\"), \"segredo\");\n  console.log(\"aceito\");\n} catch (e) {\n  console.log(e.message);\n}"
+   },
+   "optionValues": {
+    "d": "invalid signature",
+    "a": "aceito",
+    "c": "jwt expired",
+    "b": "jwt malformed"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: invalid signature"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-012",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Algoritmo none",
+  "difficulty": "medio",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Um atacante monta um token com o cabeçalho `{\"alg\":\"none\"}` e **sem assinatura**, tentando passar pela verificação. O que o `jwt.verify(token, segredo)` faz?\n\n```js\nconst b64 = (o) => Buffer.from(JSON.stringify(o)).toString(\"base64url\");\nconst falso = b64({ alg: \"none\", typ: \"JWT\" }) + \".\" + b64({ id: 1 }) + \".\";\ntry {\n  jwt.verify(falso, \"segredo\");\n  console.log(\"aceito\");\n} catch (e) {\n  console.log(e.message);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Aceita e devolve o payload `{ id: 1 }`"
+   },
+   {
+    "id": "b",
+    "text": "Rejeita: `jwt expired`"
+   },
+   {
+    "id": "c",
+    "text": "Rejeita: `jwt signature is required`"
+   },
+   {
+    "id": "d",
+    "text": "Aceita, pois não há assinatura para conferir"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O ataque “alg: none” tenta fazer o servidor aceitar um token sem assinatura. O `jsonwebtoken` moderno bloqueia: com um segredo fornecido, o token precisa estar assinado (“jwt signature is required”). Ainda assim, é boa prática fixar o algoritmo: `jwt.verify(token, segredo, { algorithms: [\"HS256\"] })`.",
+   "wrong": {
+    "d": "Quando um segredo é informado, o `jsonwebtoken` exige assinatura e recusa tokens “sem algoritmo”.",
+    "a": "Tokens não assinados não são aceitos quando se passa um segredo ao `verify`.",
+    "b": "O motivo da recusa é a ausência de assinatura, não a expiração."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "jwt.verify confere a assinatura para saber se o token é legítimo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.564Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst b64 = (o) => Buffer.from(JSON.stringify(o)).toString(\"base64url\");\nconst falso = b64({ alg: \"none\", typ: \"JWT\" }) + \".\" + b64({ id: 1 }) + \".\";\ntry {\n  jwt.verify(falso, \"segredo\");\n  console.log(\"aceito\");\n} catch (e) {\n  console.log(e.message);\n}"
+   },
+   "optionValues": {
+    "c": "jwt signature is required",
+    "d": "aceito",
+    "a": "{\"id\":1}",
+    "b": "jwt expired"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: jwt signature is required"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-013",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Mensagem genérica no login",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No login da aula, as duas falhas (e-mail inexistente e senha errada) devolvem a mesma resposta. O código abaixo compara as respostas das duas tentativas. O que imprime?\n\n```js\n// usuário cadastrado: marina@example.com / senha123\nconst r1 = await req(\"POST\", \"/login\", { email: \"naoexiste@example.com\", senha: \"qualquer\" });\nconst r2 = await req(\"POST\", \"/login\", { email: \"marina@example.com\", senha: \"errada\" });\nconsole.log(r1.status, r2.status, r1.texto === r2.texto);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`400 401 true`"
+   },
+   {
+    "id": "b",
+    "text": "`401 401 true`"
+   },
+   {
+    "id": "c",
+    "text": "`404 401 false`"
+   },
+   {
+    "id": "d",
+    "text": "`401 401 false`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Se o servidor dissesse “e-mail não encontrado” ou “senha incorreta”, um atacante poderia descobrir quais e-mails têm conta. A aula manda usar a *mesma* mensagem e o mesmo status 401 nos dois casos: “mensagem genérica, sem dizer se foi o email ou a senha”.",
+   "wrong": {
+    "c": "A aula usa a mesma resposta genérica para não revelar se o e-mail existe (evita enumeração de contas).",
+    "d": "As mensagens são idênticas (“Email ou senha inválidos.”), por isso a comparação dá `true`.",
+    "a": "Ambas as falhas devolvem 401."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "POST /auth/login com senha errada responde 401 (mensagem genérica)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.564Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\nconst usuarios = [{ id: 1, email: 'marina@example.com', senhaHash: bcrypt.hashSync('senha123', 10) }];\napp.post('/login', async (req, res) => {\n  const { email, senha } = req.body;\n  const invalidas = () => res.status(401).json({ erro: 'Email ou senha inválidos.' });\n  const usuario = usuarios.find((u) => u.email === email);\n  if (!usuario) return invalidas();\n  if (!(await bcrypt.compare(senha, usuario.senhaHash))) return invalidas();\n  res.json({ token: jwt.sign({ id: usuario.id }, process.env.JWT_SECRET) });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nconst r1 = await req('POST', '/login', { email: 'naoexiste@example.com', senha: 'qualquer' });\nconst r2 = await req('POST', '/login', { email: 'marina@example.com', senha: 'errada' });\nconsole.log(r1.status, r2.status, r1.texto === r2.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "401 401 true",
+    "c": "404 401 false",
+    "d": "401 401 false",
+    "a": "400 401 true"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 401 401 true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-014",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "E-mail duplicado",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O repositório lança um erro com `code = \"ER_DUP_ENTRY\"` quando o e-mail já existe. Qual é o status da segunda tentativa de registro?\n\n```js\nrouter.post(\"/registro\", async (req, res) => {\n  const senhaHash = await bcrypt.hash(req.body.senha, 10);\n  try {\n    const usuario = await criarUsuario({ email: req.body.email, senhaHash });\n    res.status(201).json(usuario);\n  } catch (erro) {\n    if (erro.code === \"ER_DUP_ENTRY\") {\n      return res.status(409).json({ erro: \"Email já cadastrado.\" });\n    }\n    throw erro;\n  }\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`201`"
+   },
+   {
+    "id": "b",
+    "text": "`400`"
+   },
+   {
+    "id": "c",
+    "text": "`500`"
+   },
+   {
+    "id": "d",
+    "text": "`409`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "409 Conflict indica que a requisição conflita com o estado atual (e-mail já cadastrado). O `catch` trata só o erro esperado (`ER_DUP_ENTRY`) e relança os demais, para não esconder falhas inesperadas — como o enunciado da aula pede.",
+   "wrong": {
+    "a": "O banco recusa o e-mail repetido (restrição UNIQUE); o `catch` converte o erro em 409.",
+    "b": "A aula usa 409 (conflito) para recurso já existente.",
+    "c": "O erro conhecido é tratado; só erros inesperados são relançados (500)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "Registrar o mesmo email duas vezes responde 409",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.564Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\nconst emails = new Set();\nasync function criarUsuario({ email, senhaHash }) {\n  if (emails.has(email)) { const e = new Error('dup'); e.code = 'ER_DUP_ENTRY'; throw e; }\n  emails.add(email);\n  return { id: emails.size, email };\n}\napp.post('/registro', async (req, res) => {\n  const senhaHash = await bcrypt.hash(req.body.senha, 4);\n  try {\n    const usuario = await criarUsuario({ email: req.body.email, senhaHash });\n    res.status(201).json(usuario);\n  } catch (erro) {\n    if (erro.code === 'ER_DUP_ENTRY') {\n      return res.status(409).json({ erro: 'Email já cadastrado.' });\n    }\n    throw erro;\n  }\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nawait req('POST', '/registro', { email: 'a@b.com', senha: 'senha123' });\nconst r = await req('POST', '/registro', { email: 'a@b.com', senha: 'senha123' });\nconsole.log(r.status);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "d": "409",
+    "a": "201",
+    "b": "400",
+    "c": "500"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 409"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-015",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Rota protegida",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quais status voltam, na ordem, para: (1) sem token, (2) token assinado com **outro** segredo, (3) token válido?\n\n```js\nfunction exigirAutenticacao(req, res, next) {\n  const cabecalho = req.headers.authorization;\n  if (!cabecalho || !cabecalho.startsWith(\"Bearer \")) {\n    return res.status(401).json({ erro: \"Token de autenticação ausente.\" });\n  }\n  const token = cabecalho.slice(\"Bearer \".length);\n  try {\n    req.usuario = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch (erro) {\n    res.status(401).json({ erro: \"Token inválido ou expirado.\" });\n  }\n}\napp.post(\"/avaliacoes\", exigirAutenticacao, (req, res) => res.status(201).json({ usuarioId: req.usuario.id }));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`401 401 401`"
+   },
+   {
+    "id": "b",
+    "text": "`401 401 201`"
+   },
+   {
+    "id": "c",
+    "text": "`401 403 201`"
+   },
+   {
+    "id": "d",
+    "text": "`201 401 201`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O middleware libera apenas tokens válidos: sem cabeçalho → 401; token com assinatura inválida → cai no `catch` → 401; token válido → `next()` e a rota usa `req.usuario.id`. Assim a avaliação é gravada com o `usuarioId` de quem está logado.",
+   "wrong": {
+    "c": "O middleware da aula responde 401 também para token inválido (assinatura errada).",
+    "d": "Sem token a rota nem é executada: 401.",
+    "a": "Com um token válido a requisição passa e a rota responde 201."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "Com um token válido, a avaliação é criada com o usuarioId de quem está logado",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\nfunction exigirAutenticacao(req, res, next) {\n  const cabecalho = req.headers.authorization;\n  if (!cabecalho || !cabecalho.startsWith(\"Bearer \")) {\n    return res.status(401).json({ erro: \"Token de autenticação ausente.\" });\n  }\n  const token = cabecalho.slice(\"Bearer \".length);\n  try {\n    req.usuario = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch (erro) {\n    res.status(401).json({ erro: \"Token inválido ou expirado.\" });\n  }\n}\napp.post(\"/avaliacoes\", exigirAutenticacao, (req, res) => res.status(201).json({ usuarioId: req.usuario.id }));\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nconst r1 = await req('POST', '/avaliacoes', {});\nconst falso = jwt.sign({ id: 7 }, 'outro-segredo');\nconst r2 = await req('POST', '/avaliacoes', {}, { Authorization: 'Bearer ' + falso });\nconst bom = jwt.sign({ id: 7 }, process.env.JWT_SECRET);\nconst r3 = await req('POST', '/avaliacoes', {}, { Authorization: 'Bearer ' + bom });\nconsole.log(r1.status, r2.status, r3.status);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "401 401 201",
+    "c": "401 403 201",
+    "d": "201 401 201",
+    "a": "401 401 401"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 401 401 201"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-016",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Resposta do registro",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O registro deve criar a conta e **nunca** devolver a senha nem o hash. Quais chaves tem o JSON devolvido por esta rota?\n\n```js\nrouter.post(\"/registro\", async (req, res) => {\n  const senhaHash = await bcrypt.hash(req.body.senha, 10);\n  const usuario = { id: 1, nome: req.body.nome, email: req.body.email, senhaHash };\n  const { senhaHash: _, ...publico } = usuario;\n  res.status(201).json(publico);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[\"id\",\"nome\",\"email\",\"senhaHash\"]`"
+   },
+   {
+    "id": "b",
+    "text": "`[]`"
+   },
+   {
+    "id": "c",
+    "text": "`[\"id\",\"nome\",\"email\"]`"
+   },
+   {
+    "id": "d",
+    "text": "`[\"senhaHash\"]`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Na desestruturação `{ senhaHash: _, ...publico } = usuario`, o hash é extraído e descartado; `publico` guarda os demais campos. Responder apenas dados públicos cumpre o critério: “`POST /auth/registro` cria a conta e nunca retorna a senha (nem o hash)”.",
+   "wrong": {
+    "a": "A desestruturação com o resto (`...publico`) remove o campo `senhaHash` antes de responder.",
+    "d": "O `publico` contém tudo, menos o hash.",
+    "b": "O objeto público mantém id, nome e e-mail."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "POST /auth/registro nunca retorna a senha (nem o hash) na resposta",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\napp.post('/registro', async (req, res) => {\n  const senhaHash = await bcrypt.hash(req.body.senha, 4);\n  const usuario = { id: 1, nome: req.body.nome, email: req.body.email, senhaHash };\n  const { senhaHash: _, ...publico } = usuario;\n  res.status(201).json(publico);\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nconst r = await req('POST', '/registro', { nome: 'M', email: 'a@b.com', senha: 'senha123' });\nconsole.log(JSON.stringify(Object.keys(JSON.parse(r.texto))));\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "[\"id\",\"nome\",\"email\"]",
+    "a": "[\"id\",\"nome\",\"email\",\"senhaHash\"]",
+    "d": "[\"senhaHash\"]",
+    "b": "[]"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: [\"id\",\"nome\",\"email\"]"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-017",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Limite de 72 bytes do bcrypt",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O bcrypt considera apenas os primeiros 72 bytes da senha. O que o código imprime?\n\n```js\nconst base = \"a\".repeat(72);\nconst hash = await bcrypt.hash(base + \"X\", 10);\nconsole.log(await bcrypt.compare(base + \"Y\", hash));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`false` — as senhas são diferentes"
+   },
+   {
+    "id": "b",
+    "text": "`true` — o 73º caractere é ignorado"
+   },
+   {
+    "id": "c",
+    "text": "Um erro por senha muito longa"
+   },
+   {
+    "id": "d",
+    "text": "`undefined`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O algoritmo bcrypt usa só os 72 primeiros bytes da senha; o resto é descartado. Duas senhas que coincidem nesses 72 bytes geram o mesmo resultado. Em sistemas reais, limita-se o tamanho da senha (ou aplica-se um pré-hash) para evitar surpresas.",
+   "wrong": {
+    "a": "As senhas diferem apenas após o 72º byte, e o bcrypt ignora o excedente: a comparação dá `true`.",
+    "c": "O `bcryptjs` não lança erro: apenas trunca a senha.",
+    "d": "`compare` devolve um booleano."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "Hash de senha (bcrypt): comparar o hash da senha digitada com o hash salvo",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst base = \"a\".repeat(72);\nconst hash = await bcrypt.hash(base + \"X\", 10);\nconsole.log(await bcrypt.compare(base + \"Y\", hash));"
+   },
+   "optionValues": {
+    "b": "true",
+    "a": "false",
+    "c": "erro",
+    "d": "undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-018",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Cabeçalho do JWT",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o cabeçalho (primeira parte) de um token criado com `jwt.sign(payload, segredo)` sem opções de algoritmo?\n\n```js\nconst token = jwt.sign({ id: 1 }, \"segredo\");\nconsole.log(Buffer.from(token.split(\".\")[0], \"base64url\").toString());\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`{\"typ\":\"JWT\"}`"
+   },
+   {
+    "id": "b",
+    "text": "`{\"alg\":\"HS256\",\"typ\":\"JWT\"}`"
+   },
+   {
+    "id": "c",
+    "text": "`{\"alg\":\"RS256\",\"typ\":\"JWT\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`{\"alg\":\"none\",\"typ\":\"JWT\"}`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Com um segredo (string), o padrão do `jsonwebtoken` é `HS256` (HMAC com SHA-256), registrado no cabeçalho junto com `typ: \"JWT\"`. Por isso o `JWT_SECRET` precisa ser longo e aleatório: é a chave simétrica que assina e verifica.",
+   "wrong": {
+    "d": "O `jsonwebtoken` assina por padrão com HMAC-SHA256 (HS256); “none” significaria sem assinatura.",
+    "c": "RS256 usa par de chaves RSA; com um segredo simples o padrão é HS256.",
+    "a": "O cabeçalho informa também o algoritmo (`alg`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "jwt.sign(payload, process.env.JWT_SECRET) com chave secreta",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1 }, \"segredo\");\nconsole.log(Buffer.from(token.split(\".\")[0], \"base64url\").toString());"
+   },
+   "optionValues": {
+    "b": "{\"alg\":\"HS256\",\"typ\":\"JWT\"}",
+    "d": "{\"alg\":\"none\",\"typ\":\"JWT\"}",
+    "c": "{\"alg\":\"RS256\",\"typ\":\"JWT\"}",
+    "a": "{\"typ\":\"JWT\"}"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: {\"alg\":\"HS256\",\"typ\":\"JWT\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-019",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Unidade do expiresIn",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é a duração (`exp − iat`, em segundos) dos dois tokens?\n\n```js\nconst a = jwt.decode(jwt.sign({ id: 1 }, \"s\", { expiresIn: 120 }));\nconst b = jwt.decode(jwt.sign({ id: 1 }, \"s\", { expiresIn: \"120\" }));\nconsole.log(a.exp - a.iat, b.exp - b.iat);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`120 0`"
+   },
+   {
+    "id": "b",
+    "text": "`120 120`"
+   },
+   {
+    "id": "c",
+    "text": "`7200 7200`"
+   },
+   {
+    "id": "d",
+    "text": "`0 120`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Em `expiresIn`: número → segundos (`120` = 2 minutos); string → usa a biblioteca `ms`, e sem unidade o valor é em milissegundos (`\"120\"` = 120 ms ≈ 0 s). Para evitar ambiguidade, escreva a unidade: `\"2h\"`, `\"15m\"`, `\"7d\"` — como no login da aula (`\"2h\"`).",
+   "wrong": {
+    "b": "Números são segundos, mas uma *string* sem unidade (“120”) é lida em milissegundos — ou seja, 120 ms, que arredonda para 0 s.",
+    "c": "Sem unidade explícita não há conversão para horas; “2h” seria 7200 s.",
+    "d": "Está invertido: o número é segundos; a string sem unidade é milissegundos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "jwt.sign(..., { expiresIn: \"2h\" })",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst a = jwt.decode(jwt.sign({ id: 1 }, \"s\", { expiresIn: 120 }));\nconst b = jwt.decode(jwt.sign({ id: 1 }, \"s\", { expiresIn: \"120\" }));\nconsole.log(a.exp - a.iat, b.exp - b.iat);"
+   },
+   "optionValues": {
+    "a": "120 0",
+    "b": "120 120",
+    "c": "7200 7200",
+    "d": "0 120"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 120 0"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-020",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Duração de \"2h\"",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Quantos segundos separam `iat` (emitido em) e `exp` (expira em) para um token com `expiresIn: \"2h\"`?\n\n```js\nconst d = jwt.decode(jwt.sign({ id: 1 }, \"s\", { expiresIn: \"2h\" }));\nconsole.log(d.exp - d.iat);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`2`"
+   },
+   {
+    "id": "b",
+    "text": "`120`"
+   },
+   {
+    "id": "c",
+    "text": "`7200000`"
+   },
+   {
+    "id": "d",
+    "text": "`7200`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Os claims `iat` e `exp` são “NumericDate”: segundos desde 1970-01-01. “2h” = 2 × 3600 = 7200 segundos. O cliente pode ler `exp` (payload é público) para saber quando renovar o login.",
+   "wrong": {
+    "b": "Duas *horas* equivalem a 2 × 60 × 60 = 7200 segundos, não 120.",
+    "a": "Os claims `iat` e `exp` são timestamps em segundos; a diferença é 7200.",
+    "c": "7 200 000 seria a duração em milissegundos; no JWT esses campos são em segundos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "3. jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: \"2h\" })",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst d = jwt.decode(jwt.sign({ id: 1 }, \"s\", { expiresIn: \"2h\" }));\nconsole.log(d.exp - d.iat);"
+   },
+   "optionValues": {
+    "d": "7200",
+    "b": "120",
+    "a": "2",
+    "c": "7200000"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 7200"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-021",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Conteúdo do req.usuario",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Quais chaves tem o objeto devolvido por `jwt.verify` (e guardado em `req.usuario`) para um token assinado com o payload `{ id, nome, email }` e `expiresIn`?\n\n```js\nconst token = jwt.sign({ id: 1, nome: \"Marina\", email: \"m@x.com\" }, \"s\", { expiresIn: \"2h\" });\nconsole.log(Object.keys(jwt.verify(token, \"s\")));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[\"id\",\"nome\",\"email\",\"senhaHash\"]`"
+   },
+   {
+    "id": "b",
+    "text": "`[\"id\",\"nome\",\"email\"]`"
+   },
+   {
+    "id": "c",
+    "text": "`[\"token\"]`"
+   },
+   {
+    "id": "d",
+    "text": "`[\"id\",\"nome\",\"email\",\"iat\",\"exp\"]`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O retorno de `jwt.verify` é o payload assinado mais os claims registrados: `iat` sempre, e `exp` quando há `expiresIn`. Por isso em rotas protegidas `req.usuario` pode trazer também esses campos.",
+   "wrong": {
+    "b": "Além do payload assinado, a biblioteca acrescenta `iat` (emitido em) e `exp` (expiração, por causa do `expiresIn`).",
+    "c": "O `verify` devolve o payload decodificado, não o token.",
+    "a": "O hash não está no payload (e não deve estar)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "4. jwt.verify devolve o payload assinado no login (id, nome, email); guarde em req.usuario",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconst token = jwt.sign({ id: 1, nome: \"Marina\", email: \"m@x.com\" }, \"s\", { expiresIn: \"2h\" });\nconsole.log(JSON.stringify(Object.keys(jwt.verify(token, \"s\"))));"
+   },
+   "optionValues": {
+    "d": "[\"id\",\"nome\",\"email\",\"iat\",\"exp\"]",
+    "b": "[\"id\",\"nome\",\"email\"]",
+    "c": "[\"token\"]",
+    "a": "[\"id\",\"nome\",\"email\",\"senhaHash\"]"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: [\"id\",\"nome\",\"email\",\"iat\",\"exp\"]"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-022",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "JWT_SECRET ausente",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Se a variável `JWT_SECRET` não foi definida no `.env`, o que acontece ao fazer login (assinar o token)?\n\n```js\ntry {\n  jwt.sign({ id: 1 }, process.env.JWT_SECRET);\n} catch (e) {\n  console.log(e.message);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhum erro e nenhum token"
+   },
+   {
+    "id": "b",
+    "text": "Erro: `secretOrPrivateKey must have a value`"
+   },
+   {
+    "id": "c",
+    "text": "O token é assinado com a string “undefined”"
+   },
+   {
+    "id": "d",
+    "text": "O token é assinado com uma chave vazia"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Sem segredo, `jwt.sign` lança “secretOrPrivateKey must have a value”. Por isso o segredo vem de variável de ambiente (`JWT_SECRET` no `.env`, nunca no código) e a aplicação deve falhar cedo, na inicialização, se ele não existir.",
+   "wrong": {
+    "d": "O `jsonwebtoken` recusa assinar sem segredo.",
+    "c": "Não há conversão silenciosa: a biblioteca lança erro.",
+    "a": "O erro é lançado e, na API, vira uma resposta 500."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": ".env.example: JWT_SECRET (nunca reaproveite este exemplo)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\ntry {\n  jwt.sign({ id: 1 }, process.env.JWT_SECRET);\n  console.log(\"assinou\");\n} catch (e) {\n  console.log(e.message);\n}"
+   },
+   "optionValues": {
+    "b": "secretOrPrivateKey must have a value",
+    "d": "assinou",
+    "c": "assinou com undefined",
+    "a": ""
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: secretOrPrivateKey must have a value"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-023",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Hash inválido no banco",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "No seed da Aula 10, a coluna `senha_hash` contém o texto `defina-na-aula-11` (não é um hash bcrypt). O que o `bcrypt.compare` devolve ao testar uma senha contra esse valor?\n\n```js\nconsole.log(await bcrypt.compare(\"senha123\", \"defina-na-aula-11\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`true`"
+   },
+   {
+    "id": "c",
+    "text": "`false`"
+   },
+   {
+    "id": "d",
+    "text": "Um erro que derruba a API"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Usuários criados antes da Aula 11 (seed de exemplo) não têm hash bcrypt válido; o `compare` simplesmente retorna `false`, e o login responde 401. Para testar, crie contas novas pelo `/auth/registro`, que grava hashes reais.",
+   "wrong": {
+    "b": "O texto não é um hash gerado pelo bcrypt, então nenhuma senha confere.",
+    "d": "O `bcryptjs` devolve `false` para um hash malformado, sem lançar erro.",
+    "a": "O resultado é um booleano."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "senha_hash do seed da aula 10 (\"defina-na-aula-11\") ainda não é um hash real",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nconsole.log(await bcrypt.compare(\"senha123\", \"defina-na-aula-11\"));"
+   },
+   "optionValues": {
+    "c": "false",
+    "b": "true",
+    "d": "erro",
+    "a": "undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: false"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-024",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Nome do cabeçalho no Node",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O cliente envia `Authorization: Bearer abc`. Em um handler do Express, o que o código imprime?\n\n```js\napp.get(\"/x\", (req, res) => {\n  console.log(typeof req.headers.authorization, typeof req.headers.Authorization);\n  res.end();\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`string string`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined string`"
+   },
+   {
+    "id": "c",
+    "text": "`undefined undefined`"
+   },
+   {
+    "id": "d",
+    "text": "`string undefined`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Nomes de cabeçalhos HTTP não diferenciam maiúsculas de minúsculas, e o Node os expõe em minúsculas: use `req.headers.authorization` (ou `req.get(\"Authorization\")`). Já o *valor* diferencia: `\"bearer abc\"` não passa em `startsWith(\"Bearer \")`.",
+   "wrong": {
+    "a": "O Node coloca os nomes dos cabeçalhos em minúsculas em `req.headers`; a chave com “A” maiúsculo não existe.",
+    "b": "Está invertido: a chave em minúsculas (`authorization`) é a que existe.",
+    "c": "O cabeçalho foi enviado e está em `req.headers.authorization`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "1. exigirAutenticacao: pegue req.headers.authorization",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\napp.get(\"/x\", (req, res) => {\n  console.log(typeof req.headers.authorization, typeof req.headers.Authorization);\n  res.end();\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nawait req('GET', '/x', undefined, { Authorization: 'Bearer abc' });\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "d": "string undefined",
+    "a": "string string",
+    "b": "undefined string",
+    "c": "undefined undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: string undefined"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-jwt-auth-025",
+  "disciplineId": "fullstack",
+  "topicId": "jwt-auth",
+  "subtopic": "Valor do esquema é sensível a maiúsculas",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O cliente envia `Authorization: bearer <token válido>` (com “b” minúsculo). Com o middleware da aula, qual é o status?\n\n```js\nfunction exigirAutenticacao(req, res, next) {\n  const cabecalho = req.headers.authorization;\n  if (!cabecalho || !cabecalho.startsWith(\"Bearer \")) {\n    return res.status(401).json({ erro: \"Token de autenticação ausente.\" });\n  }\n  const token = cabecalho.slice(\"Bearer \".length);\n  try {\n    req.usuario = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch (erro) {\n    res.status(401).json({ erro: \"Token inválido ou expirado.\" });\n  }\n}\napp.get(\"/privado\", exigirAutenticacao, (req, res) => res.json({ ok: true }));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`403`"
+   },
+   {
+    "id": "b",
+    "text": "`200`"
+   },
+   {
+    "id": "c",
+    "text": "`401`"
+   },
+   {
+    "id": "d",
+    "text": "`500`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A comparação `cabecalho.startsWith(\"Bearer \")` é sensível a maiúsculas: “bearer ...” é rejeitado. (A especificação HTTP trata o esquema como insensível, então um middleware mais tolerante poderia usar uma regex com a flag `i`; o da aula é propositalmente simples.)",
+   "wrong": {
+    "b": "O middleware usa `startsWith(\"Bearer \")`, que diferencia maiúsculas de minúsculas.",
+    "a": "A aula usa 401 para falhas de autenticação.",
+    "d": "Não há exceção: o `if` responde 401 antes do `verify`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-11",
+    "locator": "1. exigirAutenticacao: se não começar com \"Bearer \", responda 401",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:42:42.567Z",
+  "updatedAt": "2026-10-23T01:43:08.128Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nimport bcrypt from 'bcryptjs';\nimport jwt from 'jsonwebtoken';\nprocess.env.NODE_ENV = 'test';\nprocess.env.JWT_SECRET = 'segredo-de-teste';\nconst app = express();\napp.use(express.json());\nfunction exigirAutenticacao(req, res, next) {\n  const cabecalho = req.headers.authorization;\n  if (!cabecalho || !cabecalho.startsWith(\"Bearer \")) {\n    return res.status(401).json({ erro: \"Token de autenticação ausente.\" });\n  }\n  const token = cabecalho.slice(\"Bearer \".length);\n  try {\n    req.usuario = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch (erro) {\n    res.status(401).json({ erro: \"Token inválido ou expirado.\" });\n  }\n}\napp.get(\"/privado\", exigirAutenticacao, (req, res) => res.json({ ok: true }));\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, cabecalhos = {}) => {\n  const r = await fetch(url + caminho, { method: metodo, headers: { ...(corpo !== undefined ? { 'content-type': 'application/json' } : {}), ...cabecalhos }, body: corpo === undefined ? undefined : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text() };\n};\nconst token = jwt.sign({ id: 1 }, process.env.JWT_SECRET);\nconst r = await req('GET', '/privado', undefined, { Authorization: 'bearer ' + token });\nconsole.log(r.status);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "401",
+    "b": "200",
+    "a": "403",
+    "d": "500"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:42:55.886Z",
+    "details": "saída: 401"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:43:08.128Z",
+   "notes": "JWT/bcrypt: bcryptjs 3 e jsonwebtoken 9 executados; middleware e rotas do enunciado chamados por fetch no Express 5",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]
