@@ -79,6 +79,8 @@ const MIME: Record<string, string> = { '.html': 'text/html; charset=utf-8', '.js
 const server = http.createServer((req, res) => {
   const p = decodeURIComponent(new URL(req.url!, 'http://x').pathname);
   if (!p.startsWith(PREFIX)) return void res.writeHead(404).end();
+  // Pages canonicaliza /index.html para /: respostas redirecionadas precisam entrar na homologação.
+  if (LAYOUT === 'cloudflare' && p === '/index.html') return void res.writeHead(308, { Location: '/' }).end();
   let f = path.resolve(DIST, p.slice(PREFIX.length) || 'index.html');
   if (!f.startsWith(DIST)) return void res.writeHead(404).end();
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
