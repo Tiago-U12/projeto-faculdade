@@ -8653,5 +8653,905 @@
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-001",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Rota raiz",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Com as rotas configuradas como na Aula 08, qual título aparece quando a URL é `/`?\n\n```jsx\nfunction Home() { return <h1>Home</h1>; }\nfunction Detalhe() {\n  const { id } = useParams();\n  return <h1>Detalhe {id}</h1>;\n}\nfunction NaoEncontrada() { return <h1>404</h1>; }\n\nfunction App() {\n  return (\n    <Routes>\n      <Route path=\"/\" element={<Home />} />\n      <Route path=\"/lugares/:id\" element={<Detalhe />} />\n      <Route path=\"*\" element={<NaoEncontrada />} />\n    </Routes>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nada é renderizado"
+   },
+   {
+    "id": "b",
+    "text": "`Detalhe`"
+   },
+   {
+    "id": "c",
+    "text": "`Home`"
+   },
+   {
+    "id": "d",
+    "text": "`404`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O React Router compara a URL com as rotas: `path=\"/\"` casa exatamente com `/` e renderiza `<Home />`. Este é o item “`/` mostra a lista de lugares” dos critérios de aceite.",
+   "wrong": {
+    "b": "A rota `/lugares/:id` só casa com URLs que começam com `/lugares/` seguido de um id.",
+    "d": "A rota coringa `*` só é usada quando nenhuma outra rota casa; aqui `/` casa com a Home.",
+    "a": "Há uma rota que casa com `/` e renderiza a Home."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "Configure o <BrowserRouter> com 3 rotas (/, /lugares/:id, *)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.618Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-002",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Parâmetro de rota",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual título aparece para a URL `/lugares/3` (o `useParams` lê o `id` da rota `/lugares/:id`)?\n\n```jsx\nfunction Home() { return <h1>Home</h1>; }\nfunction Detalhe() {\n  const { id } = useParams();\n  return <h1>Detalhe {id}</h1>;\n}\nfunction NaoEncontrada() { return <h1>404</h1>; }\n\nfunction App() {\n  return (\n    <Routes>\n      <Route path=\"/\" element={<Home />} />\n      <Route path=\"/lugares/:id\" element={<Detalhe />} />\n      <Route path=\"*\" element={<NaoEncontrada />} />\n    </Routes>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Home`"
+   },
+   {
+    "id": "b",
+    "text": "`Detalhe 3`"
+   },
+   {
+    "id": "c",
+    "text": "`Detalhe :id`"
+   },
+   {
+    "id": "d",
+    "text": "`404`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O trecho `:id` no `path` é um parâmetro dinâmico: qualquer valor ali (`3`, `42`...) cai na mesma rota e fica disponível em `useParams()` — aqui `id = \"3\"`, então o título é “Detalhe 3”.",
+   "wrong": {
+    "c": "`useParams()` devolve o *valor* presente na URL (`\"3\"`), não o nome do parâmetro.",
+    "a": "A URL tem o prefixo `/lugares/`; a rota `/` só casa com a raiz.",
+    "d": "A URL casa com `/lugares/:id`; a coringa só vale para URLs sem rota correspondente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "Ler o parâmetro :id da URL com useParams",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-003",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Rota coringa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual título aparece para a URL `/qualquer-coisa`?\n\n```jsx\nfunction Home() { return <h1>Home</h1>; }\nfunction Detalhe() {\n  const { id } = useParams();\n  return <h1>Detalhe {id}</h1>;\n}\nfunction NaoEncontrada() { return <h1>404</h1>; }\n\nfunction App() {\n  return (\n    <Routes>\n      <Route path=\"/\" element={<Home />} />\n      <Route path=\"/lugares/:id\" element={<Detalhe />} />\n      <Route path=\"*\" element={<NaoEncontrada />} />\n    </Routes>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Home`"
+   },
+   {
+    "id": "b",
+    "text": "Um erro do navegador (página não encontrada)"
+   },
+   {
+    "id": "c",
+    "text": "`Detalhe`"
+   },
+   {
+    "id": "d",
+    "text": "`404`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`path=\"*\"` é a rota “coringa”: casa com qualquer URL que nenhuma outra rota atendeu. Assim o app mostra a própria página “não encontrado” em vez de uma tela vazia — critério de aceite: “`/rota-invalida` mostra a página 404”.",
+   "wrong": {
+    "a": "A Home só aparece em `/`.",
+    "c": "`Detalhe` exige o prefixo `/lugares/`.",
+    "b": "Em um SPA, a rota coringa `*` captura qualquer URL sem rota própria e mostra a página 404 do próprio app."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "rota coringa * para qualquer outra URL",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-004",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Link",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Que elemento HTML o componente `Link` gera, e com qual destino?\n\n```jsx\nconst html = renderToStaticMarkup(\n  <StaticRouter location=\"/\">\n    <Link to=\"/lugares/2\">Ver detalhes</Link>\n  </StaticRouter>\n);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Um `<button>` com `data-to=\"/lugares/2\"`"
+   },
+   {
+    "id": "b",
+    "text": "Um elemento `<Link>` com o atributo `to`"
+   },
+   {
+    "id": "c",
+    "text": "Uma âncora `<a>` com o atributo `to=\"/lugares/2\"`"
+   },
+   {
+    "id": "d",
+    "text": "Uma âncora `<a>` com `href=\"/lugares/2\"`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O `<Link to=\"...\">` renderiza uma âncora `<a href=\"...\">` — acessível e funcional — mas intercepta o clique para navegar sem recarregar a página. Por isso a Aula 08 troca os `<a href>` por `<Link to>`.",
+   "wrong": {
+    "b": "`Link` é um componente do React; no HTML final ele vira uma âncora comum.",
+    "a": "`Link` gera uma âncora (`<a>`) com `href`, o que mantém acessibilidade e permite abrir em nova aba.",
+    "c": "O atributo da âncora é `href`; `to` é o nome da prop do componente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "3. Cabecalho e LugarCard: troque as tags <a href=\"...\"> por <Link to=\"...\">",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-005",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "id é texto",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Na URL `/lugares/abc`, o que o código imprime?\n\n```jsx\nfunction Detalhe() {\n  const { id } = useParams();\n  const lugarId = Number(id);\n  return <p>{typeof id} {String(lugarId)}</p>;\n}\n// <Route path=\"/lugares/:id\" element={<Detalhe />} />\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`number 0`"
+   },
+   {
+    "id": "b",
+    "text": "`number NaN`"
+   },
+   {
+    "id": "c",
+    "text": "`string abc`"
+   },
+   {
+    "id": "d",
+    "text": "`string NaN`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Os parâmetros de rota são sempre *strings*. A aula converte com `Number(id)` para comparar com os ids numéricos de `lugares.json`; se o texto não for numérico (ex.: “abc”), a conversão dá `NaN` e o lugar não é encontrado — por isso `/lugares/999` e ids inválidos mostram a página 404.",
+   "wrong": {
+    "a": "`useParams` sempre devolve texto; e `Number(\"abc\")` não dá 0, dá `NaN`.",
+    "c": "A segunda parte imprime o resultado de `Number(id)`, que é `NaN` para “abc”.",
+    "b": "O tipo de `id` é `string` (os valores da URL são sempre texto)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "2. Detalhe: useParams() devolve string; converta com Number(id)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-006",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Organização de pastas",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Pela regra da Aula 08, onde deve ficar um arquivo que representa **uma tela inteira** (rota), como `Detalhe.jsx`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Em `src/servicos/`"
+   },
+   {
+    "id": "b",
+    "text": "Em `src/componentes/`"
+   },
+   {
+    "id": "c",
+    "text": "Em `src/utilitarios/`"
+   },
+   {
+    "id": "d",
+    "text": "Em `src/paginas/`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A regra prática do README: “se o arquivo é uma **rota inteira**, ele mora em `paginas/`. Se é uma **peça** usada dentro de várias telas, mora em `componentes/`”. Os demais diretórios: `servicos/` (fetch), `utilitarios/` (funções puras) e `data/` (constantes).",
+   "wrong": {
+    "b": "`componentes/` guarda peças reutilizáveis usadas dentro de várias telas.",
+    "a": "`servicos/` guarda o acesso a dados (fetch), não telas.",
+    "c": "`utilitarios/` guarda funções puras (cálculos, filtros)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "Nova organização de pastas: paginas/ para rotas inteiras",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-007",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Ranking de rotas",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Na versão atual do React Router, a rota coringa foi declarada **primeiro**. Qual título aparece para `/lugares/3`?\n\n```jsx\n<Routes>\n  <Route path=\"*\" element={<NaoEncontrada />} />\n  <Route path=\"/\" element={<Home />} />\n  <Route path=\"/lugares/:id\" element={<Detalhe />} />\n</Routes>\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Home`"
+   },
+   {
+    "id": "b",
+    "text": "`Detalhe 3` (vence a mais específica)"
+   },
+   {
+    "id": "c",
+    "text": "`404` — vence a primeira rota que casa"
+   },
+   {
+    "id": "d",
+    "text": "Um erro de configuração"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Nas versões atuais, o React Router escolhe a rota *mais específica* que casa, independentemente da ordem. Mesmo assim a aula recomenda declarar a coringa por último: deixa a leitura clara e evita surpresas em versões/roteadores antigos.",
+   "wrong": {
+    "c": "Desde a v6 o React Router *ranqueia* as rotas por especificidade; o `*` é a menos específica e só vence se nada mais casar.",
+    "a": "`/` só casa com a URL raiz.",
+    "d": "A ordem das rotas não causa erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "path=\"*\": rota coringa; DEVE ser a última <Route> da lista (convenção da aula)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-008",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Link não recarrega a página",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O usuário clica no `Link`. Qual é o valor de `evento.defaultPrevented` e qual pathname passa a ser exibido?\n\n```jsx\nfunction Pagina() {\n  const { pathname } = useLocation();\n  return <div><Link id=\"l\" to=\"/lugares/2\">Ver</Link><p id=\"p\">{pathname}</p></div>;\n}\n// MemoryRouter começando em \"/\"\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true` e `/`"
+   },
+   {
+    "id": "b",
+    "text": "`true` e `/lugares/2`"
+   },
+   {
+    "id": "c",
+    "text": "`false` e `/lugares/2`"
+   },
+   {
+    "id": "d",
+    "text": "`false` e `/`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Ao clicar, o `Link` chama `preventDefault()` no evento (impedindo a navegação do navegador, que recarregaria tudo) e atualiza a URL pelo roteador: o React troca só o conteúdo das rotas. É o “sem flash branco” dos critérios da aula.",
+   "wrong": {
+    "c": "O `Link` cancela o comportamento padrão da âncora (que recarregaria a página) e navega pelo roteador.",
+    "a": "A navegação acontece: o pathname muda para `/lugares/2`.",
+    "d": "O clique é tratado pelo roteador (defaultPrevented verdadeiro) e a URL muda."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "Navegar entre páginas não recarrega o navegador (sem flash branco)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-009",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Vários parâmetros",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para a URL `/lugares/3/avaliacoes/7`, o que o componente imprime?\n\n```jsx\nfunction Pagina() {\n  const { id, avaliacaoId } = useParams();\n  return <p>{id}-{avaliacaoId}</p>;\n}\n// <Route path=\"/lugares/:id/avaliacoes/:avaliacaoId\" element={<Pagina />} />\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`id-avaliacaoId`"
+   },
+   {
+    "id": "b",
+    "text": "`7-3`"
+   },
+   {
+    "id": "c",
+    "text": "`3-7`"
+   },
+   {
+    "id": "d",
+    "text": "`-`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Cada `:nome` no `path` vira uma chave de `useParams()`. Em `/lugares/:id/avaliacoes/:avaliacaoId`, a URL `/lugares/3/avaliacoes/7` produz `{ id: \"3\", avaliacaoId: \"7\" }` — resultado `3-7`.",
+   "wrong": {
+    "b": "Os nomes na rota definem o mapeamento: `:id` é o primeiro segmento dinâmico (3) e `:avaliacaoId` o segundo (7).",
+    "a": "`useParams` devolve os valores presentes na URL, não os nomes.",
+    "d": "Os dois parâmetros foram encontrados na URL."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "rota /lugares/:id: parâmetro dinâmico lido com useParams",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-010",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Layout fora de Routes",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Na URL inválida `/rota-invalida`, o que aparece na tela?\n\n```jsx\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Cabecalho />\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"*\" element={<NaoEncontrada />} />\n      </Routes>\n      <Rodape />\n    </BrowserRouter>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Somente cabeçalho e rodapé"
+   },
+   {
+    "id": "b",
+    "text": "Cabeçalho, a página 404 e rodapé"
+   },
+   {
+    "id": "c",
+    "text": "Somente a página 404"
+   },
+   {
+    "id": "d",
+    "text": "Uma tela em branco"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Tudo que está fora de `<Routes>` é renderizado sempre. Por isso a aula pede “manter `<Cabecalho />` e `<Rodape />` visíveis em todas as páginas” — inclusive na 404 — e só o miolo muda conforme a URL.",
+   "wrong": {
+    "c": "`Cabecalho` e `Rodape` estão fora de `<Routes>`, então aparecem em todas as páginas.",
+    "a": "A rota coringa renderiza a página 404 entre os dois.",
+    "d": "Há uma rota coringa que cobre qualquer URL sem rota própria."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "Cabecalho e Rodape aparecem em todas as páginas, inclusive na 404",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-011",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Query string",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para a URL `/lugares?cat=parque`, o que o componente imprime?\n\n```jsx\nfunction Lista() {\n  const [params] = useSearchParams();\n  return <p>{params.get(\"cat\")}</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`cat=parque`"
+   },
+   {
+    "id": "b",
+    "text": "Nada (`null` não é exibido)"
+   },
+   {
+    "id": "c",
+    "text": "`parque`"
+   },
+   {
+    "id": "d",
+    "text": "`undefined`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Parâmetros de *query string* (depois do `?`) são lidos com `useSearchParams()`, diferente dos parâmetros de caminho (`:id`) lidos com `useParams()`. Aqui `params.get(\"cat\")` é `\"parque\"`.",
+   "wrong": {
+    "a": "`get(\"cat\")` devolve só o *valor* do parâmetro.",
+    "b": "O parâmetro `cat` existe na URL, então o valor é `\"parque\"`.",
+    "d": "Parâmetros ausentes devolvem `null`; aqui ele está presente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "ler parâmetros da URL (useParams) — query string é um recurso relacionado",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-012",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Barra final na URL",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Com a rota `/lugares/:id`, qual título aparece para a URL `/lugares/3/` (com barra no final)?\n\n```jsx\nfunction Home() { return <h1>Home</h1>; }\nfunction Detalhe() {\n  const { id } = useParams();\n  return <h1>Detalhe {id}</h1>;\n}\nfunction NaoEncontrada() { return <h1>404</h1>; }\n\nfunction App() {\n  return (\n    <Routes>\n      <Route path=\"/\" element={<Home />} />\n      <Route path=\"/lugares/:id\" element={<Detalhe />} />\n      <Route path=\"*\" element={<NaoEncontrada />} />\n    </Routes>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`404`"
+   },
+   {
+    "id": "b",
+    "text": "`Home`"
+   },
+   {
+    "id": "c",
+    "text": "`Detalhe `, com id vazio"
+   },
+   {
+    "id": "d",
+    "text": "`Detalhe 3`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Por padrão, a barra final é ignorada na correspondência de rotas (`/lugares/3` e `/lugares/3/` casam com a mesma rota) e o parâmetro `id` vale `\"3\"`. Isso evita 404 desnecessário para URLs digitadas com barra.",
+   "wrong": {
+    "a": "O React Router ignora a barra final ao comparar os caminhos: `/lugares/3/` casa com `/lugares/:id`.",
+    "c": "O valor do parâmetro continua sendo `\"3\"`.",
+    "b": "A raiz só casa com `/`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "/lugares/1 (ou qualquer id válido) mostra o detalhe certo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-013",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Rota estática versus dinâmica",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Com as duas rotas abaixo (a dinâmica declarada primeiro), qual página aparece para `/lugares/novo`?\n\n```jsx\n<Routes>\n  <Route path=\"/lugares/:id\" element={<Detalhe />} />\n  <Route path=\"/lugares/novo\" element={<NovoLugar />} />\n</Routes>\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Detalhe` com `id = \"novo\"`"
+   },
+   {
+    "id": "b",
+    "text": "A página 404"
+   },
+   {
+    "id": "c",
+    "text": "As duas ao mesmo tempo"
+   },
+   {
+    "id": "d",
+    "text": "`NovoLugar` (a estática vence)"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O React Router calcula uma “pontuação” para cada rota: segmentos estáticos (`novo`) valem mais que dinâmicos (`:id`). Assim `/lugares/novo` vai para `NovoLugar`, e qualquer outro valor (`/lugares/3`) para `Detalhe` — sem depender da ordem de declaração.",
+   "wrong": {
+    "a": "O roteador prioriza segmentos estáticos sobre dinâmicos, independentemente da ordem.",
+    "c": "Só uma rota é escolhida em um mesmo nível de `<Routes>`.",
+    "b": "Existe uma rota que casa (a estática)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "rotas com parâmetro dinâmico (:id) convivendo com outras rotas",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-014",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "useNavigate",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Depois que o botão é clicado, qual é o pathname exibido?\n\n```jsx\nfunction Pagina() {\n  const navegar = useNavigate();\n  const { pathname } = useLocation();\n  return (\n    <div>\n      <button id=\"b\" onClick={() => navegar(\"/\")}>Voltar</button>\n      <p id=\"p\">{pathname}</p>\n    </div>\n  );\n}\n// MemoryRouter começando em \"/lugares/5\"\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`/`"
+   },
+   {
+    "id": "b",
+    "text": "`/lugares/5`"
+   },
+   {
+    "id": "c",
+    "text": "Nada: o botão exige um `Link`"
+   },
+   {
+    "id": "d",
+    "text": "`/Voltar`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`useNavigate()` devolve uma função para navegar por código (depois de salvar um formulário, por exemplo). Ao chamar `navegar(\"/\")` a URL muda para a raiz sem recarregar a página.",
+   "wrong": {
+    "b": "`navegar(\"/\")` navega programaticamente para a raiz, mudando o pathname.",
+    "d": "O destino é o caminho passado para `navegar`, não o texto do botão.",
+    "c": "`useNavigate` permite navegar a partir de qualquer evento, sem um `Link`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "navegação entre páginas sem recarregar",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-015",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Links relativos",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o `href` gerado pelo link relativo (sem barra inicial) quando a URL atual é `/lugares/3`?\n\n```jsx\n// <Route path=\"/lugares/:id\" element={<Detalhe />} />\nfunction Detalhe() {\n  return <Link to=\"avaliacoes\">Avaliações</Link>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`/lugares/avaliacoes`"
+   },
+   {
+    "id": "b",
+    "text": "`avaliacoes`"
+   },
+   {
+    "id": "c",
+    "text": "`/lugares/3/avaliacoes`"
+   },
+   {
+    "id": "d",
+    "text": "`/avaliacoes`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Em `<Link to=\"avaliacoes\">` (sem `/` no início) o caminho é resolvido a partir da rota atual: `/lugares/3` + `avaliacoes` = `/lugares/3/avaliacoes`. Com `to=\"/avaliacoes\"` o destino seria a raiz.",
+   "wrong": {
+    "d": "Sem barra inicial o destino é *relativo* à rota atual (`/lugares/3`), e não à raiz.",
+    "a": "O relativo parte da rota inteira (com o valor do `:id`), e não do segmento anterior.",
+    "b": "O `Link` resolve o caminho completo: `href=\"/lugares/3/avaliacoes\"`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "Link to=\"...\": navegação entre rotas",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.619Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-016",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Parâmetro curinga (splat)",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para a URL `/arquivos/fotos/2026/praia.png`, o que o componente imprime?\n\n```jsx\nfunction Arquivo() {\n  const params = useParams();\n  return <p>{params[\"*\"]}</p>;\n}\n// <Route path=\"/arquivos/*\" element={<Arquivo />} />\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`fotos`"
+   },
+   {
+    "id": "b",
+    "text": "`fotos/2026/praia.png`"
+   },
+   {
+    "id": "c",
+    "text": "`/arquivos/fotos/2026/praia.png`"
+   },
+   {
+    "id": "d",
+    "text": "`*`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O `*` no final de um path (“splat”) captura todo o restante da URL. Ele fica em `params[\"*\"]` — aqui `fotos/2026/praia.png`. A rota coringa da aula (`path=\"*\"`) usa o mesmo mecanismo para aceitar qualquer URL.",
+   "wrong": {
+    "d": "O asterisco no path é o padrão da rota; `params[\"*\"]` contém o texto que ele capturou.",
+    "a": "O curinga captura *todo* o restante do caminho, não só o próximo segmento.",
+    "c": "O valor capturado não inclui a parte já casada (`/arquivos/`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "path=\"*\": rota coringa que pega qualquer URL",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.620Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-017",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Redirecionamento com Navigate",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O usuário acessa `/inicio`. Qual título aparece e qual é o pathname final?\n\n```jsx\nfunction App() {\n  const { pathname } = useLocation();\n  return (\n    <>\n      <p id=\"p\">{pathname}</p>\n      <Routes>\n        <Route path=\"/\" element={<h1>Home</h1>} />\n        <Route path=\"/inicio\" element={<Navigate to=\"/\" replace />} />\n      </Routes>\n    </>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Home`, mas o pathname continua `/inicio`"
+   },
+   {
+    "id": "b",
+    "text": "`404` em `/`"
+   },
+   {
+    "id": "c",
+    "text": "Nada, em `/inicio`"
+   },
+   {
+    "id": "d",
+    "text": "`Home` em `/`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`<Navigate to=\"/\" replace />` dispara uma navegação ao ser renderizado: o pathname vira `/` e a rota raiz mostra “Home”. O `replace` troca a entrada atual do histórico em vez de empilhar outra, evitando que o botão “voltar” caia de novo em `/inicio`.",
+   "wrong": {
+    "c": "O `<Navigate>` redireciona imediatamente para a rota indicada em `to`.",
+    "a": "O redirecionamento altera a URL para `/` (com `replace`, substituindo a entrada do histórico).",
+    "b": "O destino `/` existe e renderiza a Home."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "rotas e navegação do React Router",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.620Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-router-018",
+  "disciplineId": "fullstack",
+  "topicId": "react-router",
+  "subtopic": "Link versus âncora comum",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Dois cliques são feitos: um em um `Link` e outro em um `<a href>` comum. Quais são os valores de `defaultPrevented` em cada evento?\n\n```jsx\n<MemoryRouter>\n  <Link id=\"l\" to=\"/x\">Link</Link>\n  <a id=\"a\" href=\"/x\">Âncora</a>\n</MemoryRouter>\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Link: `false` e âncora: `true`"
+   },
+   {
+    "id": "b",
+    "text": "Os dois: `true`"
+   },
+   {
+    "id": "c",
+    "text": "Os dois: `false`"
+   },
+   {
+    "id": "d",
+    "text": "Link: `true` e âncora: `false`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O `Link` trata o clique: chama `preventDefault()` e navega internamente (SPA). A âncora comum mantém o comportamento padrão: o navegador carrega a nova URL, recarregando o app e perdendo o estado. Essa é a diferença que a aula pede para aplicar em `Cabecalho` e `LugarCard`.",
+   "wrong": {
+    "b": "A âncora comum não é interceptada: o navegador faz a navegação padrão (recarregando a página).",
+    "c": "O `Link` cancela o comportamento padrão para navegar pelo roteador.",
+    "a": "É o contrário: o roteador intercepta o `Link`, não a âncora."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-08",
+    "locator": "3. Link navega SEM recarregar a página inteira",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:28:16.620Z",
+  "updatedAt": "2026-10-23T01:29:00.375Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
  }
 ]
