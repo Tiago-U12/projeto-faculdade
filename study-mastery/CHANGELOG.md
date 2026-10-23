@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.2 — 2026-10-23
+- Corrigido o `ERR_FAILED` ao reabrir o Cloudflare Pages: a navegação usa a página canônica pré-cacheada, evitando a resposta redirecionada de `/index.html`.
+- Regressão em Chromium para reload online/offline, perfil persistente reaberto e atualização de um worker antigo sem apagar a sessão.
+- A homologação Cloudflare agora também reproduz o redirecionamento de `index.html` para `/`, além do fallback de SPA.
+
 ## 0.5.1 — 2026-10-23
 - Publicado no GitHub Pages: <https://tiago-u12.github.io/projeto-faculdade/study-mastery/> (workflow com os passos do Study Mastery executados).
 - Homologação do checklist de uso real: `npm run e2e:homologacao` — 137/137 verificações automatizadas; relatório em `docs/HOMOLOGACAO_V05.md`.

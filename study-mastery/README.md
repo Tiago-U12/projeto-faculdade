@@ -1,4 +1,4 @@
-# Study Mastery v0.5.1
+# Study Mastery v0.5.2
 
 Plataforma de estudos universitária gratuita e mobile-first: questões, simulados, explicações e acompanhamento do aprendizado — **sem cadastro e sem chamadas de IA durante as sessões**. O estudante usa um banco de questões **previamente verificado e aprovado**, versionado em JSON; todo o progresso fica no próprio aparelho.
 
@@ -16,6 +16,7 @@ npm test           # testes unitários e do pipeline
 npm run test:pwa   # testes isolados do worker/cache/Range (Node 22.6+)
 npm run e2e:render # todas as 600 questões em 390 e 320px (exige build)
 npm run e2e:offline # build no subcaminho Pages e navegação offline
+npm run e2e:redirects # reload e recuperação do PWA com o redirecionamento real do Cloudflare
 npm run e2e:homologacao # checklist de uso real (filtros, modos, progresso, rádio, offline, acessibilidade)
 npm run e2e        # E2E em Chromium (390 px); exige `npm run build` antes
 ```

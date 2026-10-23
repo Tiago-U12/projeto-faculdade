@@ -25,6 +25,26 @@ O roteiro de validação no celular corresponde a estes itens automatizados (tod
 
 A versão servida lá depende do branch configurado no painel do Cloudflare (provavelmente `main`, hoje a 0.5.0, sem as correções de acessibilidade da 0.5.1). Os quatro passos acima também passaram na 0.5.0.
 
+## Incidente de navegação no Cloudflare — correção 0.5.2
+
+Após o deploy da 0.5.1, um teste no endereço público reproduziu `net::ERR_FAILED` ao recarregar depois que o service worker assumia a página. O primeiro acesso em perfil novo funcionava.
+
+Causa confirmada: o Cloudflare canonicaliza `/index.html` para `/`. A resposta guardada sob a chave `index.html` tinha `redirected=true`; o Chrome não permite que essa resposta em cache atenda à navegação. A página canônica `/` já estava pré-cacheada com `redirected=false`. No GitHub Pages, o alias não redirecionava.
+
+A homologação anterior de **137/137** reproduzia a raiz e o fallback HTML, mas **não esse redirecionamento**; portanto, não demonstrava que a reabertura no serviço real funcionava. O servidor de homologação Cloudflare agora também canonicaliza `index.html`.
+
+A 0.5.2 passa a usar a URL canônica do escopo como shell em cache. O teste `npm run e2e:redirects` cobre:
+- Reload online e offline nos layouts Cloudflare e GitHub Pages.
+- Navegador fechado e perfil reaberto offline, mantendo sessão e resposta.
+- Perfil controlado pelo worker defeituoso: reproduzir o erro, instalar o worker corrigido e recuperar a sessão sem apagar os dados locais.
+
+Evidências:
+- [Diagnóstico no endereço público](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39991821422): HTTP/assets 200 e reprodução do mesmo erro no reload do Chromium.
+- [Regressão antes da correção](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39992757216): documentos em cache com e sem redirecionamento, seguidos de `ERR_FAILED`.
+- [Validação da correção](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39993408309): etapas de typecheck, unidade/PWA, build, regressão canônica e E2E/offline aprovadas. Consultar as etapas finais de homologação no resultado da execução.
+
+Não é necessário apagar o histórico, as preferências ou o MP3 para receber o novo worker.
+
 ## Como foi testado
 
 `npm run build && npm run e2e:homologacao` (`tests/e2e/homologacao.ts`):
