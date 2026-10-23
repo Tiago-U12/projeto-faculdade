@@ -1,0 +1,93 @@
+name: Study Mastery - diagnostico publico
+on:
+  push:
+    branches: [diagnostico/study-mastery-pages]
+permissions:
+  contents: read
+jobs:
+  public-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir DNS, HTTP e assets publicados
+        continue-on-error: true
+        run: |
+          node --input-type=module <<'NODE'
+          import dns from 'node:dns/promises';
+          const bases = ['https://study-mastery.pages.dev/', 'https://5c2aaa12.study-mastery.pages.dev/', 'https://tiago-u12.github.io/projeto-faculdade/study-mastery/'];
+          let failures = 0;
+          for (const base of bases) {
+            try {
+              console.log(JSON.stringify({base,dns:await dns.lookup(new URL(base).hostname,{all:true})}));
+              const r=await fetch(base,{signal:AbortSignal.timeout(20000)});
+              const html=await r.text();
+              const assets=[...html.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)].map(m=>new URL(m[1],r.url).href);
+              console.log(JSON.stringify({base,url:r.url,status:r.status,type:r.headers.get('content-type'),server:r.headers.get('server'),cfRay:r.headers.get('cf-ray'),title:html.match(/<title>(.*?)<\/title>/s)?.[1],assets}));
+              if(!r.ok || !html.includes('Study Mastery') || !assets.length) failures++;
+              for(const url of [...assets,new URL('sw.js',base).href,new URL('manifest.webmanifest',base).href]){
+                try{
+                  const x=await fetch(url,{signal:AbortSignal.timeout(20000)});
+                  const text=await x.text();
+                  console.log(JSON.stringify({resource:url,status:x.status,type:x.headers.get('content-type'),bytes:text.length,rawMarkers:/__SM_VERSION__|__SM_ASSETS__/.test(text),hasVersion051:url.endsWith('.js')?text.includes('0.5.1'):undefined}));
+                  if(!x.ok)failures++;
+                  if(url.endsWith('sw.js')&&(/__SM_VERSION__|__SM_ASSETS__/.test(text)||!text.includes('study-mastery-')))failures++;
+                }catch(e){failures++;console.log(JSON.stringify({resource:url,error:String(e),cause:String(e.cause)}));}
+              }
+            }catch(e){failures++;console.log(JSON.stringify({base,error:String(e),cause:String(e.cause)}));}
+          }
+          console.log(JSON.stringify({httpFailures:failures}));
+          process.exitCode=failures?1:0;
+          NODE
+      - name: Instalar dependencias existentes do Study Mastery
+        working-directory: study-mastery
+        run: npm ci --no-audit --no-fund
+      - name: Abrir o site real em Chromium e testar offline
+        working-directory: study-mastery
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright-core';
+          import fs from 'node:fs';
+          const exe=['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(p=>fs.existsSync(p));
+          if(!exe)throw Error('No preinstalled Chromium found on hosted runner');
+          const browser=await chromium.launch({executablePath:exe,args:['--no-sandbox']});
+          let failures=0;
+          try{
+          for(const base of ['https://study-mastery.pages.dev/','https://5c2aaa12.study-mastery.pages.dev/']){
+           const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,serviceWorkers:'allow'});
+           const page=await context.newPage();
+           const errors=[],failedRequests=[];
+           page.on('pageerror',e=>errors.push(String(e)));
+           page.on('requestfailed',r=>failedRequests.push({url:r.url(),error:r.failure()?.errorText}));
+           try{
+            const response=await page.goto(base,{waitUntil:'domcontentloaded',timeout:30000});
+            await page.getByRole('heading',{name:/Aprenda mais/}).waitFor({timeout:20000});
+            const identity={base,status:response?.status(),title:await page.title(),body:(await page.locator('body').innerText()).slice(0,1000),version:await page.locator('footer').innerText()};
+            console.log(JSON.stringify({identity}));
+            await page.getByRole('button',{name:'Começar a estudar'}).click();
+            await page.getByRole('heading',{name:/Configure seu/}).waitFor();
+            await page.locator('label.seg-btn',{hasText:/^\s*5\s*$/}).click();
+            await page.getByRole('button',{name:/Iniciar sessão/}).click();
+            await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor();
+            await page.keyboard.press('1');
+            await page.locator('.feedback').waitFor();
+            await page.waitForFunction(()=>!!navigator.serviceWorker.controller,{timeout:10000});
+            console.log(JSON.stringify({base,quiz:true,sw:await page.evaluate(async()=>({controller:navigator.serviceWorker.controller?.scriptURL,caches:await caches.keys()})),errors,failedRequests}));
+            await context.setOffline(true);
+            await page.reload({waitUntil:'domcontentloaded'});
+            await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor({timeout:10000});
+            console.log(JSON.stringify({base,offlineReload:true}));
+            if(errors.length)failures++;
+           }catch(e){
+            failures++;
+            console.log(JSON.stringify({base,browserError:String(e),url:page.url(),body:await page.locator('body').innerText({timeout:3000}).catch(()=>''),errors,failedRequests}));
+           }
+           await context.close();
+          }
+          }finally{await browser.close();}
+          console.log(JSON.stringify({browserFailures:failures}));
+          process.exitCode=failures?1:0;
+          NODE
