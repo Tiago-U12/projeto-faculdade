@@ -7,7 +7,7 @@ permissions:
 jobs:
   public-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 7
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,6 +45,12 @@ jobs:
       - name: Instalar dependencias existentes do Study Mastery
         working-directory: study-mastery
         run: npm ci --no-audit --no-fund
+      - name: Typecheck e testes de unidade
+        working-directory: study-mastery
+        run: |
+          npm run typecheck
+          npm test
+          npm run test:pwa
       - name: Build para reproducao local
         working-directory: study-mastery
         run: npm run build
@@ -53,3 +59,21 @@ jobs:
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
         run: npm run e2e:redirects
+      - name: Verificar offline e fluxo existente
+        working-directory: study-mastery
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+        run: |
+          npm run e2e:offline
+          npm run e2e
+      - name: Homologacao completa com canonicalizacao Cloudflare
+        working-directory: study-mastery
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+          HOMOLOG_LAYOUT: cloudflare
+        run: npm run e2e:homologacao
+      - name: Homologacao completa GitHub Pages
+        working-directory: study-mastery
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
+        run: npm run e2e:homologacao

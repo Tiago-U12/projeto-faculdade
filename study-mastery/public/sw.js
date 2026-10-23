@@ -3,7 +3,9 @@ const PREFIX = 'study-mastery-';
 const CACHE = PREFIX + '__SM_VERSION__';
 const CORE = /*__SM_ASSETS__*/ [];
 const scope = new URL('./', self.location.href);
-const indexUrl = new URL('index.html', scope).href;
+// Pages redireciona index.html para a raiz; uma resposta redirecionada não pode servir navegações.
+// './' já é pré-cacheado sem redirecionamento, tanto na raiz quanto no subcaminho do GitHub Pages.
+const shellUrl = scope.href;
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -61,7 +63,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   e.respondWith(caches.open(CACHE).then(async (cache) => {
     // Shell e chunks pertencem à mesma versão instalada, também durante atualizações.
-    const hit = await cache.match(req.mode === 'navigate' ? indexUrl : req);
+    const hit = await cache.match(req.mode === 'navigate' ? shellUrl : req);
     return hit || fetch(req);
   }).catch(() => new Response('Indisponível offline. Abra o app com internet para completar a instalação.', { status: 503 })));
 });
