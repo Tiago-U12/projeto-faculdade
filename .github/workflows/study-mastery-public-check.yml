@@ -28,11 +28,11 @@ jobs:
               const assets=[...html.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)].map(m=>new URL(m[1],r.url).href);
               console.log(JSON.stringify({base,url:r.url,status:r.status,type:r.headers.get('content-type'),server:r.headers.get('server'),cfRay:r.headers.get('cf-ray'),title:html.match(/<title>(.*?)<\/title>/s)?.[1],assets}));
               if(!r.ok || !html.includes('Study Mastery') || !assets.length) failures++;
-              for(const url of [...assets,new URL('sw.js',base).href,new URL('manifest.webmanifest',base).href]){
+              for(const url of [...assets,new URL('index.html',base).href,new URL('sw.js',base).href,new URL('manifest.webmanifest',base).href]){
                 try{
                   const x=await fetch(url,{signal:AbortSignal.timeout(20000)});
                   const text=await x.text();
-                  console.log(JSON.stringify({resource:url,status:x.status,type:x.headers.get('content-type'),bytes:text.length,rawMarkers:/__SM_VERSION__|__SM_ASSETS__/.test(text),hasVersion051:url.endsWith('.js')?text.includes('0.5.1'):undefined}));
+                  console.log(JSON.stringify({resource:url,finalUrl:x.url,redirected:x.redirected,status:x.status,type:x.headers.get('content-type'),bytes:text.length,rawMarkers:/__SM_VERSION__|__SM_ASSETS__/.test(text),hasVersion051:url.endsWith('.js')?text.includes('0.5.1'):undefined}));
                   if(!x.ok)failures++;
                   if(url.endsWith('sw.js')&&(/__SM_VERSION__|__SM_ASSETS__/.test(text)||!text.includes('study-mastery-')))failures++;
                 }catch(e){failures++;console.log(JSON.stringify({resource:url,error:String(e),cause:String(e.cause)}));}
@@ -76,6 +76,10 @@ jobs:
             await page.locator('.feedback').waitFor();
             await page.waitForFunction(()=>!!navigator.serviceWorker.controller,{timeout:10000});
             console.log(JSON.stringify({base,quiz:true,sw:await page.evaluate(async()=>({controller:navigator.serviceWorker.controller?.scriptURL,caches:await caches.keys()})),errors,failedRequests}));
+            console.log(JSON.stringify({base,cachedResponses:await page.evaluate(async()=>{const names=await caches.keys();const rows=[];for(const name of names){const cache=await caches.open(name);for(const key of await cache.keys()){if(/index.html$|\\/$/.test(key.url)){const r=await cache.match(key);rows.push({key:key.url,url:r.url,redirected:r.redirected,type:r.type,status:r.status});}}}return rows;})}));
+            await page.reload({waitUntil:'domcontentloaded'});
+            await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor({timeout:10000});
+            console.log(JSON.stringify({base,onlineReload:true}));
             await context.setOffline(true);
             await page.reload({waitUntil:'domcontentloaded'});
             await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor({timeout:10000});
@@ -87,6 +91,16 @@ jobs:
            }
            await context.close();
           }
+          const control=await browser.newContext({serviceWorkers:'block'});
+          const cp=await control.newPage();
+          try{
+           await cp.goto('https://study-mastery.pages.dev/',{waitUntil:'domcontentloaded'});
+           await cp.getByRole('heading',{name:/Aprenda mais/}).waitFor();
+           await cp.reload({waitUntil:'domcontentloaded'});
+           await cp.getByRole('heading',{name:/Aprenda mais/}).waitFor();
+           console.log(JSON.stringify({controlWithoutServiceWorker:true,url:cp.url()}));
+          }catch(e){console.log(JSON.stringify({controlWithoutServiceWorker:false,error:String(e)}));}
+          await control.close();
           }finally{await browser.close();}
           console.log(JSON.stringify({browserFailures:failures}));
           process.exitCode=failures?1:0;
