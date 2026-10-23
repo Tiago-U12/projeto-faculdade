@@ -2380,6 +2380,806 @@
   "reviewedBy": "ai-assisted"
  },
  {
+  "id": "fs-deploy-001",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "VITE_API_URL em produção",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O front tem estes dois arquivos de ambiente. Qual valor o Vite usa para `import.meta.env.VITE_API_URL` no **build de produção** (`npm run build`)?\n\n```ini\n# .env.development\nVITE_API_URL=http://localhost:3333\n\n# .env.production\nVITE_API_URL=https://avaliacoes-api.onrender.com\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhum: a variável fica indefinida"
+   },
+   {
+    "id": "b",
+    "text": "`http://localhost:3333`"
+   },
+   {
+    "id": "c",
+    "text": "`https://avaliacoes-api.onrender.com`"
+   },
+   {
+    "id": "d",
+    "text": "Os dois valores, em uma lista"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O Vite escolhe os arquivos `.env` pelo *modo*: `npm run dev` → `development` (`.env.development`) e `npm run build` → `production` (`.env.production`). Por isso a aula mantém dois arquivos e o mesmo código funciona em dev e em produção.",
+   "wrong": {
+    "b": "Esse é o valor de `.env.development`, usado por `npm run dev`; o build usa o modo *production*.",
+    "a": "O Vite carrega `.env.production` automaticamente no build.",
+    "d": "Em cada modo vale apenas o valor do arquivo daquele modo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "client/.env.development e .env.production (VITE_API_URL)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.012Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-002",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Prefixo VITE_",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O arquivo `.env.production` do front contém as duas linhas abaixo. Quais variáveis o Vite expõe ao código do navegador?\n\n```ini\nVITE_API_URL=https://avaliacoes-api.onrender.com\nJWT_SECRET=nao-deveria-estar-aqui\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhuma"
+   },
+   {
+    "id": "b",
+    "text": "Apenas `VITE_API_URL`"
+   },
+   {
+    "id": "c",
+    "text": "As duas"
+   },
+   {
+    "id": "d",
+    "text": "Apenas `JWT_SECRET`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Para evitar vazamentos acidentais, o Vite só expõe ao front as variáveis que começam com `VITE_`. Mesmo assim, **tudo o que for exposto vai para o bundle público**: nunca coloque segredos em variáveis `VITE_*`. O `JWT_SECRET` pertence ao servidor (Render).",
+   "wrong": {
+    "c": "Só variáveis com o prefixo `VITE_` são expostas ao código do cliente; as demais ficam de fora.",
+    "d": "O prefixo `VITE_` é o que libera a exposição, não o contrário.",
+    "a": "`VITE_API_URL` é exposta."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "VITE_API_URL: URL configurável por variável de ambiente; JWT_SECRET fica no servidor",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-003",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Porta do servidor",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em `index.js` do servidor: `const PORTA = process.env.PORT || process.env.PORTA || 3333;`. Que porta é usada em cada cenário? (1) o Render define `PORT=10000`; (2) localmente só existe `PORTA=4000`; (3) nenhuma das duas existe.",
+  "options": [
+   {
+    "id": "a",
+    "text": "`10000`, `4000` e `3333`"
+   },
+   {
+    "id": "b",
+    "text": "`3333` nos três"
+   },
+   {
+    "id": "c",
+    "text": "`10000`, `3333` e `4000`"
+   },
+   {
+    "id": "d",
+    "text": "`4000`, `10000` e `3333`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A expressão tenta `PORT` (definida pelo Render), depois `PORTA` (do `.env` local) e por fim 3333. Assim o mesmo código funciona na nuvem, no ambiente do aluno e sem configuração nenhuma.",
+   "wrong": {
+    "b": "O operador `||` usa o primeiro valor definido: a variável do ambiente tem prioridade sobre o padrão.",
+    "d": "No cenário (1) vale `PORT` (10000), que vem primeiro na expressão.",
+    "c": "No cenário (2) `PORT` não existe, e então vale `PORTA` (4000); o padrão `3333` só no cenário (3)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "server/index.js: process.env.PORT (Render) com fallback para PORTA/3333",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-004",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "F5 em uma rota do SPA",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O front (React com React Router) foi publicado em um servidor estático **sem** configuração especial: só existe o arquivo `index.html`. Que status o servidor devolve para `GET /lugares/1` (o que acontece ao dar F5 nessa página)?\n\n```js\nconst app = express();\napp.use(express.static(dist)); // só serve arquivos que existem\n// GET /lugares/1 → não existe o arquivo lugares/1\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`301` para a página inicial"
+   },
+   {
+    "id": "b",
+    "text": "`404` (não há arquivo nesse caminho)"
+   },
+   {
+    "id": "c",
+    "text": "`200` com o `index.html`"
+   },
+   {
+    "id": "d",
+    "text": "`500`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Em um SPA, as rotas (`/lugares/1`) existem só no JavaScript do navegador. Ao recarregar, o navegador pede essa URL ao *servidor*, que procura um arquivo e não encontra: 404. Por isso a aula inclui `public/_redirects` e `netlify.toml`, que mandam servir o `index.html` em qualquer rota.",
+   "wrong": {
+    "c": "Isso só acontece com a configuração de fallback (_redirects / netlify.toml); o servidor estático sozinho procura um arquivo real.",
+    "a": "Sem regra de redirecionamento, o servidor apenas informa que o arquivo não existe.",
+    "d": "Não há erro interno: o arquivo apenas não existe (404)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "client/public/_redirects e netlify.toml: servir index.html em qualquer rota (F5 em /lugares/1)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-005",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Comandos de build e start no Render",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No Blueprint `render.yaml` da API, quais são o comando de build e o de inicialização?\n\n```yaml\nservices:\n  - type: web\n    name: avaliacoes-api\n    env: node\n    buildCommand: ???\n    startCommand: ???\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Build: `npm test` · Start: `node index.js --dev`"
+   },
+   {
+    "id": "b",
+    "text": "Build: `npm install` · Start: `npm start`"
+   },
+   {
+    "id": "c",
+    "text": "Build: `npm run build` · Start: `npm run dev`"
+   },
+   {
+    "id": "d",
+    "text": "Build: `vite build` · Start: `vite preview`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O README orienta: “Build command: `npm install` — Start command: `npm start`”. O `package.json` do servidor define `\"start\": \"node index.js\"` (sem `--watch`, que é só do `dev`).",
+   "wrong": {
+    "c": "A API Express não tem etapa de build; e `npm run dev` (com `--watch`) é para desenvolvimento.",
+    "a": "O Render instala as dependências no build e inicia com o script `start`.",
+    "d": "Isso é o front-end (Netlify), não a API do Render."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "3. Deploy da API no Render: Build command npm install; Start command npm start",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-006",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Rota coringa no Express 5",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para servir o `index.html` em qualquer rota no Express 5, qual padrão de rota é válido?\n\n```js\napp.get(PADRAO, (req, res) => res.sendFile(path.join(dist, \"index.html\")));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`\"*\"`"
+   },
+   {
+    "id": "b",
+    "text": "`\"(.*)\"`"
+   },
+   {
+    "id": "c",
+    "text": "`\"/{*splat}\"`"
+   },
+   {
+    "id": "d",
+    "text": "`\"/*\"`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Na versão 5, os curingas precisam de nome: `\"/*splat\"` ou, para casar também a raiz, `\"/{*splat}\"`. As formas do Express 4 (`\"*\"`, `\"/*\"`, `\"(.*)\"`) lançam erro. Atenção ao copiar exemplos antigos de tutoriais.",
+   "wrong": {
+    "a": "No Express 5 (path-to-regexp v8) o curinga precisa ser nomeado; `\"*\"` sozinho lança erro ao registrar a rota.",
+    "d": "Também inválido no Express 5: o asterisco exige um nome (como `*splat`).",
+    "b": "Grupos de regex sem nome não são aceitos na sintaxe nova do Express 5."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "servir index.html para qualquer rota (SPA) — equivalente ao _redirects /* → /index.html",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-007",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Fallback de SPA",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O servidor tem o fallback abaixo. Quais status voltam para `GET /lugares/1` (rota do app) e para `GET /arquivo-inexistente.js`?\n\n```js\napp.use(express.static(dist));\napp.get(\"/{*splat}\", (req, res) => res.sendFile(path.join(dist, \"index.html\")));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`200` e `200`"
+   },
+   {
+    "id": "b",
+    "text": "`404` e `200`"
+   },
+   {
+    "id": "c",
+    "text": "`404` e `404`"
+   },
+   {
+    "id": "d",
+    "text": "`200` e `404`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O fallback devolve `index.html` (200) para tudo que não é um arquivo estático existente — ótimo para rotas do React Router, mas arquivos ausentes (`.js`, imagens) também viram 200 com HTML, o que pode confundir. O 404 “de verdade” da aplicação é desenhado pelo React (rota coringa).",
+   "wrong": {
+    "d": "O fallback responde a *qualquer* GET que não casou com um arquivo estático, inclusive a um arquivo inexistente.",
+    "c": "O fallback faz justamente com que rotas do app sejam atendidas com o `index.html`.",
+    "b": "Ambos os caminhos caem no fallback e recebem 200."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "7. Uma URL inventada (/qualquer-coisa) mostra a página 404 da aplicação (não uma página de erro do Netlify)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-008",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "CORS_ORIGIN",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A API usa `cors({ origin: process.env.CORS_ORIGIN || \"*\" })`. Qual valor tem o cabeçalho `Access-Control-Allow-Origin` da resposta (1) com `CORS_ORIGIN` **não definida** e (2) com `CORS_ORIGIN=https://meu-site.netlify.app`?",
+  "options": [
+   {
+    "id": "a",
+    "text": "(1) `*` e (2) `https://meu-site.netlify.app`"
+   },
+   {
+    "id": "b",
+    "text": "(1) `*` e (2) `*`"
+   },
+   {
+    "id": "c",
+    "text": "(1) `https://meu-site.netlify.app` e (2) `*`"
+   },
+   {
+    "id": "d",
+    "text": "(1) ausente e (2) `*`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O pacote `cors` responde com o valor configurado em `origin`. Sem `CORS_ORIGIN` vale `\"*\"` (útil no 1º deploy, quando a URL do Netlify ainda não existe); depois, restrinja à URL do front. A aula orienta: “atualize `CORS_ORIGIN` com a URL do Netlify”.",
+   "wrong": {
+    "d": "Sem a variável, o código usa o padrão `\"*\"` (qualquer origem); com ela, só a origem informada é anunciada.",
+    "c": "Está invertido: o padrão (sem variável) é `*`.",
+    "b": "Com a variável definida, a API passa a anunciar apenas aquela origem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "4. Depois do deploy, volte no Render e atualize CORS_ORIGIN com a URL do Netlify",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-009",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Arquivos .env por modo",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Com os arquivos abaixo, qual é o valor de `VITE_API_URL` em modo **production**?\n\n```ini\n# .env.production        → VITE_API_URL=https://avaliacoes-api.onrender.com\n# .env.production.local  → VITE_API_URL=https://minha-api-de-teste.onrender.com\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Erro: variável duplicada"
+   },
+   {
+    "id": "b",
+    "text": "Os dois valores"
+   },
+   {
+    "id": "c",
+    "text": "`https://minha-api-de-teste.onrender.com`"
+   },
+   {
+    "id": "d",
+    "text": "`https://avaliacoes-api.onrender.com`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Vite carrega, em ordem de prioridade crescente: `.env`, `.env.local`, `.env.[modo]`, `.env.[modo].local`. O último que define a variável vence. Os arquivos `*.local` costumam ficar fora do Git (o `.gitignore` do front tem `*.local`), ótimos para configurações pessoais.",
+   "wrong": {
+    "d": "Arquivos `.local` têm prioridade sobre os equivalentes sem `.local` e servem para ajustes pessoais.",
+    "b": "Só um valor é aplicado por variável.",
+    "a": "Não há erro: o Vite aplica uma ordem de prioridade entre os arquivos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "client/.gitignore ignora *.local; .env.development e .env.production versionados",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.013Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-010",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Segredo com prefixo VITE_",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Por engano, alguém cria no front a variável `VITE_JWT_SECRET=meu-segredo` no `.env.production`. O que acontece?\n\n```ini\nVITE_API_URL=https://avaliacoes-api.onrender.com\nVITE_JWT_SECRET=meu-segredo\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Ela só funciona em desenvolvimento"
+   },
+   {
+    "id": "b",
+    "text": "É exposta e vai para o bundle público"
+   },
+   {
+    "id": "c",
+    "text": "O build falha por segurança"
+   },
+   {
+    "id": "d",
+    "text": "Fica privada, pois só o servidor a vê"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O prefixo `VITE_` diz ao Vite “pode ir para o cliente”. Tudo o que vai para o navegador é público (o usuário pode ver em “Fontes”/Network). O `JWT_SECRET` deve existir apenas no servidor (variável de ambiente do Render). Se um segredo vazou, troque-o imediatamente.",
+   "wrong": {
+    "d": "Variáveis com prefixo `VITE_` são embutidas no código enviado ao navegador; privadas são as *sem* esse prefixo — e que só existem no servidor.",
+    "c": "O Vite não avisa nem bloqueia: simplesmente expõe qualquer variável `VITE_*`.",
+    "a": "A exposição vale também para o build de produção."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "VITE_API_URL é público; JWT_SECRET e credenciais do banco ficam no Render",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-011",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "BASE_URL vazia",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No starter da Aula 13, `const BASE_URL = \"\";` ainda está vazio. O front publicado em uma origem (A) executa a chamada abaixo, mas a API está em outra origem (B). Para onde vai a requisição?\n\n```js\nconst BASE_URL = \"\"; // TODO: import.meta.env.VITE_API_URL\nfetch(BASE_URL + \"/lugares\");\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Para a API (B), pois o fetch descobre sozinho a URL"
+   },
+   {
+    "id": "b",
+    "text": "Para `localhost:3333`"
+   },
+   {
+    "id": "c",
+    "text": "Dá erro de sintaxe"
+   },
+   {
+    "id": "d",
+    "text": "Para a própria origem do site (A)"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Com `BASE_URL = \"\"` o caminho vira `\"/lugares\"`, relativo à origem do site (Netlify): a requisição vai para o próprio site, que não tem essa rota. Por isso a aula troca por `import.meta.env.VITE_API_URL` — uma URL absoluta da API.",
+   "wrong": {
+    "a": "Um caminho começando com `/` é relativo à origem da página, não à API.",
+    "c": "`fetch(\"/lugares\")` é válido; o problema é o destino.",
+    "b": "Só se a URL fosse montada com o valor de `VITE_API_URL` do modo de desenvolvimento."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "1. servicoLugares.js: BASE_URL lendo import.meta.env.VITE_API_URL",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "web-chromium (servidores locais)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-012",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "CORS com barra no final",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O front está em `https://meu-site.netlify.app` (a origem do navegador, **sem** barra final). No Render alguém configurou `CORS_ORIGIN=https://meu-site.netlify.app/` (**com** barra final). O que acontece ao chamar a API?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A API ignora o cabeçalho e libera tudo"
+   },
+   {
+    "id": "b",
+    "text": "Bloqueia: a origem anunciada não é igual"
+   },
+   {
+    "id": "c",
+    "text": "Funciona normalmente, pois a barra é ignorada"
+   },
+   {
+    "id": "d",
+    "text": "A API responde 401"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Origens não têm barra no final. O navegador compara o `Access-Control-Allow-Origin` com a origem da página byte a byte: `.../` ≠ `...`, então o `fetch` falha com erro de CORS. Um dos erros mais comuns ao configurar `CORS_ORIGIN`: copie a URL *sem* a barra final.",
+   "wrong": {
+    "c": "A comparação de origens é exata (esquema, host e porta, sem barra); o cabeçalho com “/” não coincide.",
+    "d": "A API responde, mas o navegador impede o front de ler a resposta (erro de CORS).",
+    "a": "O cabeçalho é enviado exatamente como configurado; quem decide é o navegador."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "4. atualize CORS_ORIGIN com a URL do Netlify (ex: https://seu-site.netlify.app)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "web-chromium (servidores locais)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-013",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "CORS com origem exata",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Agora o `CORS_ORIGIN` está correto: igual à origem do front (sem barra final). O que acontece com o `fetch` do front para a API?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Continua bloqueado, pois a API precisa liberar também a Netlify no cabeçalho `Vary`"
+   },
+   {
+    "id": "b",
+    "text": "Funciona: o `fetch` resolve com `200` e o front lê os dados"
+   },
+   {
+    "id": "c",
+    "text": "Fica bloqueado até a API ter HTTPS"
+   },
+   {
+    "id": "d",
+    "text": "Funciona só se a API também enviar `Allow-Methods`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Quando o cabeçalho `Access-Control-Allow-Origin` é exatamente a origem da página, o navegador libera a leitura da resposta de requisições simples (`GET`). Requisições com `Authorization` ou `JSON` no corpo exigem também a pré-checagem (preflight) — que o pacote `cors` responde automaticamente.",
+   "wrong": {
+    "a": "Com a origem exata em `Access-Control-Allow-Origin` a requisição simples é liberada.",
+    "d": "Para um `GET` simples não há preflight; o `Allow-Methods` não é necessário.",
+    "c": "O problema aqui é de origem; HTTPS é uma exigência separada (conteúdo misto)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "4. atualize CORS_ORIGIN com a URL do Netlify",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "web-chromium (servidores locais)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-014",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Redirecionamento versus reescrita",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O `_redirects` da aula usa o status `200` (reescrita). Se o status fosse `301` (redirecionamento), qual seria o comportamento de um servidor que aplica a regra `/* → /index.html` a `GET /lugares/1`? (Modelo em Express: de um lado `res.sendFile`, do outro `res.redirect(301, \"/index.html\")`.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "Os dois mantêm a URL `/lugares/1` no navegador"
+   },
+   {
+    "id": "b",
+    "text": "Os dois levam o navegador para `/index.html`"
+   },
+   {
+    "id": "c",
+    "text": "Com 200 a URL se mantém; com 301 muda para `/index.html`"
+   },
+   {
+    "id": "d",
+    "text": "Com 200 o servidor responde 404; com 301, 200"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Uma *reescrita* (`status 200`) entrega o conteúdo de `index.html` sob a URL original: o React Router lê `/lugares/1` e renderiza a página certa. Um *redirecionamento* (`301`) manda o navegador ir para `/index.html`: a URL muda e o app perde a rota. Por isso o README usa `/* /index.html 200`.",
+   "wrong": {
+    "a": "Só a reescrita (200) mantém a URL; o redirecionamento muda o endereço para o destino.",
+    "b": "Com a reescrita o conteúdo de `index.html` é servido no endereço original, sem mudar a URL.",
+    "d": "Os códigos estão invertidos: 200 entrega o conteúdo; 301 aponta para outro endereço."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "client/public/_redirects: /* /index.html 200; netlify.toml: [[redirects]] from \"/*\" to \"/index.html\" status = 200",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-015",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": ".env fora do Git",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O `.gitignore` do servidor contém `node_modules/` e `.env`. Quais destes arquivos são ignorados (não vão para o repositório)?\n\n```text\n.env\n.env.example\nnode_modules/express/index.js\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Apenas `.env`"
+   },
+   {
+    "id": "b",
+    "text": "Os três"
+   },
+   {
+    "id": "c",
+    "text": "`.env` e o conteúdo de `node_modules/`"
+   },
+   {
+    "id": "d",
+    "text": "Nenhum"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`.env` guarda segredos (senha do banco, `JWT_SECRET`) e nunca deve ser versionado; `node_modules/` é regenerável (`npm install`). O `.env.example` é versionado de propósito: serve de modelo para quem for configurar o ambiente (e para você mesmo no Render).",
+   "wrong": {
+    "b": "`.env.example` é diferente de `.env` e não é ignorado — ele documenta as variáveis necessárias sem valores reais.",
+    "a": "A pasta `node_modules/` também é ignorada, inclusive os arquivos dentro dela.",
+    "d": "As regras casam com `.env` e com o conteúdo de `node_modules/`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "server/.gitignore: node_modules/ e .env; server/.env.example com valores de exemplo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-deploy-016",
+  "disciplineId": "fullstack",
+  "topicId": "deploy",
+  "subtopic": "Variáveis do Render sem valores no repositório",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O `render.yaml` lista as variáveis assim: `- key: JWT_SECRET` + `sync: false`, **sem** nenhum valor. Por que o arquivo é escrito desse jeito?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Porque o Node ignora variáveis declaradas no YAML"
+   },
+   {
+    "id": "b",
+    "text": "Porque o valor padrão é lido do `.env` local"
+   },
+   {
+    "id": "c",
+    "text": "Porque o Render gera as senhas automaticamente"
+   },
+   {
+    "id": "d",
+    "text": "Para os valores sensíveis não ficarem no repositório: eles são informados no painel do Render"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O Blueprint descreve a infraestrutura (versionada no Git), mas segredos não devem estar no repositório. Por isso cada variável aparece apenas com a chave e `sync: false` (o valor é pedido/preenchido no painel do Render). A mesma lógica vale para o `.env` local, ignorado pelo Git.",
+   "wrong": {
+    "c": "O README manda *configurar* as variáveis (DB_*, JWT_SECRET, CORS_ORIGIN) no serviço, informando você mesmo os valores.",
+    "a": "O arquivo descreve o serviço; as variáveis chegam ao processo depois de configuradas.",
+    "b": "O `.env` não é versionado nem enviado ao Render."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-13",
+    "locator": "server/render.yaml: envVars DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, JWT_SECRET, CORS_ORIGIN com sync: false",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:51:37.014Z",
+  "updatedAt": "2026-10-23T01:52:24.693Z",
+  "status": "approved",
+  "verifiedBy": "source-review",
+  "reviewedBy": "ai-assisted"
+ },
+ {
   "id": "fs-express-rest-001",
   "disciplineId": "fullstack",
   "topicId": "express-rest",

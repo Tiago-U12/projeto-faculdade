@@ -105,16 +105,17 @@ function compareOutput(q: Question, optionValues: Record<string, string>, outTex
 
 /**
  * kind=node: executa o código com as bibliotecas do sandbox (tools/sandbox: Express, jsonwebtoken, bcryptjs, React, jsdom…).
- * Isolamento: `node --permission` (sem processos filhos, sem workers; leitura de arquivos só no sandbox).
+ * Isolamento: `node --permission` (sem processos filhos, sem workers; leitura de arquivos só no sandbox). `addons: true` libera módulos nativos
+ * (necessário ao Vite/Rollup) e `files` cria arquivos de apoio lidos via DIR.
  * Observação: a permissão de rede do Node não é restringida — o código verificado é sempre escrito no repositório (nunca de terceiros);
  * os testes de API usam apenas servidores efêmeros em 127.0.0.1.
  */
 export async function verifyNode(q: Question): Promise<VerifyOutcome> {
   const v = q.verification!;
-  const p = (v.params ?? {}) as { code?: string; format?: string; jsx?: boolean };
+  const p = (v.params ?? {}) as { code?: string; format?: string; jsx?: boolean; files?: Record<string, string>; addons?: boolean };
   if (!p.code) return { id: q.id, ok: false, method: 'node-exec', details: 'sem params.code', errors: ['params.code ausente'] };
   if (!fs.existsSync(path.join(SANDBOX_DIR, 'node_modules'))) return { id: q.id, ok: false, method: 'node-exec', details: 'sandbox não instalado', errors: ['execute: npm run sandbox:install'] };
-  const casesDir = path.join(SANDBOX_DIR, '.cases');
+  const casesDir = path.join(SANDBOX_DIR, 'casos');
   fs.mkdirSync(casesDir, { recursive: true });
   const file = path.join(casesDir, `${q.id}-${process.pid}.${p.format === 'cjs' ? 'cjs' : 'mjs'}`);
   let source = p.code;
@@ -123,9 +124,20 @@ export async function verifyNode(q: Question): Promise<VerifyOutcome> {
     const { transform } = await import('esbuild');
     source = (await transform(p.code, { loader: 'jsx', jsx: 'automatic', format: 'esm' })).code;
   }
+  // params.files: arquivos de apoio (caminho relativo → conteúdo) criados ANTES da execução numa pasta própria; o código os lê via DIR
+  const filesDir = path.join(casesDir, `${q.id}-${process.pid}-files`);
+  if (p.files) {
+    for (const [rel, content] of Object.entries(p.files)) {
+      const destino = path.join(filesDir, rel);
+      if (!destino.startsWith(filesDir + path.sep)) throw new Error(`caminho de arquivo inválido: ${rel}`);
+      fs.mkdirSync(path.dirname(destino), { recursive: true });
+      fs.writeFileSync(destino, content);
+    }
+    source = `const DIR = ${JSON.stringify(filesDir)};\n${source}`;
+  }
   fs.writeFileSync(file, source);
   try {
-    const r = await run(process.execPath, ['--permission', `--allow-fs-read=${SANDBOX_DIR}/*`, `--allow-fs-read=${JS_PRELOAD}`, '--max-old-space-size=256', '--no-warnings', '--require', JS_PRELOAD, file], null, 20000, SANDBOX_DIR);
+    const r = await run(process.execPath, ['--permission', ...(p.addons ? ['--allow-addons'] : []), `--allow-fs-read=${SANDBOX_DIR}/*`, `--allow-fs-read=${JS_PRELOAD}`, '--max-old-space-size=256', '--no-warnings', '--require', JS_PRELOAD, file], null, p.addons ? 40000 : 20000, SANDBOX_DIR);
     if (r.timedOut) return { id: q.id, ok: false, method: 'node-exec', details: 'tempo esgotado', errors: ['timeout na execução do código'] };
     let outText = '';
     try {
@@ -136,6 +148,7 @@ export async function verifyNode(q: Question): Promise<VerifyOutcome> {
     return compareOutput(q, v.optionValues ?? {}, outText, 'node-exec (--permission, sandbox)');
   } finally {
     fs.rmSync(file, { force: true });
+    fs.rmSync(filesDir, { recursive: true, force: true });
   }
 }
 
@@ -160,7 +173,9 @@ async function startWebServers(defs: WebServer[]): Promise<{ bases: Record<strin
         return;
       }
       const body = (route.body ?? '').replace(/\{\{(\w+)\}\}/g, (_, n) => bases[n] ?? '');
-      res.writeHead(route.status ?? 200, { 'Content-Type': route.type ?? 'text/plain; charset=utf-8', ...(def.headers ?? {}), ...(route.headers ?? {}) });
+      const cab: Record<string, string> = { 'Content-Type': route.type ?? 'text/plain; charset=utf-8', ...(def.headers ?? {}), ...(route.headers ?? {}) };
+      for (const k of Object.keys(cab)) cab[k] = String(cab[k]).replace(/\{\{(\w+)\}\}/g, (_, n) => bases[n] ?? ''); // {{app}} nos cabeçalhos = origem do servidor "app"
+      res.writeHead(route.status ?? 200, cab);
       res.end(req.method === 'HEAD' ? undefined : body);
     });
     servers.push(srv);
