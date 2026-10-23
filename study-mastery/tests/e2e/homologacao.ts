@@ -79,6 +79,8 @@ const MIME: Record<string, string> = { '.html': 'text/html; charset=utf-8', '.js
 const server = http.createServer((req, res) => {
   const p = decodeURIComponent(new URL(req.url!, 'http://x').pathname);
   if (!p.startsWith(PREFIX)) return void res.writeHead(404).end();
+  // Pages canonicaliza /index.html para /: respostas redirecionadas precisam entrar na homologação.
+  if (LAYOUT === 'cloudflare' && p === '/index.html') return void res.writeHead(308, { Location: '/' }).end();
   let f = path.resolve(DIST, p.slice(PREFIX.length) || 'index.html');
   if (!f.startsWith(DIST)) return void res.writeHead(404).end();
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
@@ -104,9 +106,13 @@ function watch(p: Page) {
   });
   p.on('console', (m) => {
     if (m.type() !== 'error') return;
-    // a sondagem HEAD do MP3 ausente gera um 404 esperado (nenhuma música acompanha o app)
-    if (/404/.test(m.text()) && /study-radio\.mp3$/.test(m.location()?.url ?? '')) return;
-    consoleErrors.push(m.text());
+    // A faixa do app é opcional: 404 online ou 503 do worker sem rede são esperados na sondagem.
+    // Os outros recursos continuam causando falha, inclusive qualquer outro 503.
+    if (/(?:404|503)/.test(m.text()) && /study-radio\.mp3$/.test(m.location()?.url ?? '')) {
+      console.log('  • sondagem da faixa opcional: ' + m.text() + ' · ' + m.location().url);
+      return;
+    }
+    consoleErrors.push(m.text() + ' · ' + (m.location()?.url ?? ''));
   });
   p.on('pageerror', (e) => consoleErrors.push(String(e)));
 }
@@ -222,12 +228,16 @@ async function main() {
       ok(`“${d.name}” mostra 300 questões aprovadas`, /300 questões aprovadas/.test(card), card.split('\n').find((l) => /aprovadas/.test(l)));
     }
     await page.getByRole('button', { name: /Começar a estudar/ }).click();
+    await page.getByRole('heading', { name: /Configure seu/ }).waitFor();
     ok('“Começar a estudar” abre a configuração', await page.getByRole('heading', { name: /Configure seu/ }).isVisible());
     await page.getByRole('button', { name: 'Meu progresso' }).click();
+    await page.getByRole('heading', { name: /Seu progresso/ }).waitFor();
     ok('“Meu progresso” abre o progresso', await page.getByRole('heading', { name: /Seu progresso/ }).isVisible());
     await page.getByRole('button', { name: 'Acervo e fontes' }).click();
+    await page.getByRole('heading', { name: /Fontes que/ }).waitFor();
     ok('“Acervo e fontes” abre o acervo', await page.getByRole('heading', { name: /Fontes que/ }).isVisible());
     await page.getByRole('button', { name: /Study Mastery — início/ }).click();
+    await page.getByRole('heading', { name: /Aprenda mais/ }).waitFor();
     ok('a marca volta à página inicial', await page.getByRole('heading', { name: /Aprenda mais/ }).isVisible());
     await goHash('#/setup?d=calculo2');
     await page.getByRole('heading', { name: /Configure seu/ }).waitFor();
