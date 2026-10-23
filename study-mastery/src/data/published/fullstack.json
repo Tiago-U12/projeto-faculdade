@@ -2380,6 +2380,1361 @@
   "reviewedBy": "ai-assisted"
  },
  {
+  "id": "fs-express-rest-001",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "res.json",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O servidor abaixo recebe um `GET /`. Qual é a resposta (status e corpo)?\n\n```js\napp.get(\"/\", (req, res) => {\n  res.json({ mensagem: \"API no ar.\" });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`404`, porque a rota não tem id"
+   },
+   {
+    "id": "b",
+    "text": "`200` com o texto `[object Object]`"
+   },
+   {
+    "id": "c",
+    "text": "`200` com o corpo `{\"mensagem\":\"API no ar.\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`201` com o corpo vazio"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Se não houver `res.status(...)`, a resposta tem status 200. O `res.json(obj)` converte o objeto em JSON, define o cabeçalho `Content-Type: application/json` e envia o corpo. É exatamente o que a rota `/` do starter faz: “API da Plataforma de Avaliações no ar.”.",
+   "wrong": {
+    "d": "201 é para recursos criados (POST); aqui o padrão do `res.json` é 200 e há um corpo JSON.",
+    "a": "A rota `GET /` existe e responde normalmente.",
+    "b": "`res.json` serializa o objeto como JSON (não usa `toString`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "src/app.js: app.get(\"/\") responde res.json({ mensagem: ... })",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.201Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-002",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "404 com JSON",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Chega um `GET /lugares/999` ao servidor. Qual é a resposta?\n\n```js\nconst lugares = [{ id: 1, nome: \"Café Aroma\" }, { id: 2, nome: \"Parque das Águas\" }];\napp.get(\"/lugares/:id\", (req, res) => {\n  const id = Number(req.params.id);\n  const lugar = lugares.find((l) => l.id === id);\n  if (!lugar) {\n    return res.status(404).json({ erro: \"Lugar não encontrado.\" });\n  }\n  res.json(lugar);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`200` com o corpo `null`"
+   },
+   {
+    "id": "b",
+    "text": "`500` (erro interno)"
+   },
+   {
+    "id": "c",
+    "text": "`404` com o corpo `{\"erro\":\"Lugar não encontrado.\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`400` (requisição inválida)"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O id 999 não existe em `lugares`, então `find` devolve `undefined` e a rota responde `res.status(404).json({ erro: ... })`. Critério de aceite da aula: “`GET /lugares/999` responde 404 com um corpo JSON `{ erro: ... }`”.",
+   "wrong": {
+    "a": "Com o `return` após `res.status(404).json(...)`, a função termina e a resposta é 404.",
+    "b": "Não há exceção: o código trata o caso e responde 404 de forma controlada.",
+    "d": "400 indica dados inválidos enviados pelo cliente; aqui o id é válido, mas o recurso não existe (404)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "GET /lugares/999 responde 404 com um corpo JSON { erro: ... }",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-003",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "201 Created",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o status HTTP da resposta de um `POST` que cria a avaliação com sucesso?\n\n```js\nconst avaliacoes = [];\napp.use(express.json());\napp.post(\"/avaliacoes\", (req, res) => {\n  const nova = { id: avaliacoes.length + 1, ...req.body };\n  avaliacoes.push(nova);\n  res.status(201).json(nova);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`201`"
+   },
+   {
+    "id": "b",
+    "text": "`204`"
+   },
+   {
+    "id": "c",
+    "text": "`302`"
+   },
+   {
+    "id": "d",
+    "text": "`200`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`201 Created` é o código para “recurso criado com sucesso”. A Aula 09 pede: “adicione ao array `avaliacoes` e responda `res.status(201).json(novaAvaliacao)` — 201 é o código HTTP para ‘criado com sucesso’”.",
+   "wrong": {
+    "d": "O código define `201` explicitamente; 200 seria o padrão se não houvesse `res.status`.",
+    "b": "204 significa “sem conteúdo”; aqui a avaliação criada é devolvida no corpo.",
+    "c": "302 é um redirecionamento."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "POST /lugares/:id/avaliacoes responde 201 com a avaliação criada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-004",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "req.params",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para `GET /lugares/3`, o que a rota imprime no servidor?\n\n```js\napp.get(\"/lugares/:id\", (req, res) => {\n  console.log(typeof req.params.id, Number(req.params.id));\n  res.end();\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`string :id`"
+   },
+   {
+    "id": "b",
+    "text": "`number 3`"
+   },
+   {
+    "id": "c",
+    "text": "`string 3`"
+   },
+   {
+    "id": "d",
+    "text": "`undefined NaN`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Valores de `req.params` são sempre strings: `\"3\"`. A aula manda converter: “Pegue o id da URL com `Number(req.params.id)`”, já que os ids dos dados são números (comparar `\"3\" === 3` daria falso).",
+   "wrong": {
+    "b": "Os parâmetros de rota chegam sempre como texto; por isso a aula usa `Number(req.params.id)`.",
+    "d": "O segmento `:id` da rota populou `req.params.id` com `\"3\"`.",
+    "a": "`req.params.id` contém o valor presente na URL, não o nome do parâmetro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "GET /lugares/:id: pegue o id da URL com Number(req.params.id)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-005",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "express.json",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um cliente envia `POST /x` com o corpo JSON `{\"nota\":5}` e o cabeçalho `Content-Type: application/json`, **mas o servidor não usa** `express.json()`. O que a rota imprime?\n\n```js\napp.post(\"/x\", (req, res) => {\n  console.log(req.body);\n  res.end();\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`null`"
+   },
+   {
+    "id": "c",
+    "text": "`\"{\\\\\"nota\\\\\":5}\"`"
+   },
+   {
+    "id": "d",
+    "text": "`{ nota: 5 }`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Para o Express transformar o corpo JSON em objeto é preciso registrar `app.use(express.json())` (antes das rotas). Sem ele, no Express 5 `req.body` fica `undefined`. A aula avisa: “o `express.json()` já está configurado em `app.js`, então `req.body` já vem pronto”.",
+   "wrong": {
+    "d": "O Express não lê o corpo sozinho; é o middleware `express.json()` que preenche `req.body`.",
+    "c": "Sem o middleware, `req.body` nem é preenchido com o texto bruto.",
+    "b": "No Express 5 o valor é `undefined` quando nenhum middleware leu o corpo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "src/app.js configura CORS e express.json(); req.body já vem pronto",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-006",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Rota desconhecida",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Chega um `GET /nao-existe` ao servidor abaixo. Qual é a resposta?\n\n```js\napp.get(\"/\", (req, res) => res.json({ ok: true }));\napp.use((req, res) => {\n  res.status(404).json({ erro: \"Rota não encontrada.\" });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "A conexão fica pendurada sem resposta"
+   },
+   {
+    "id": "b",
+    "text": "`500`"
+   },
+   {
+    "id": "c",
+    "text": "`404` com `{\"erro\":\"Rota não encontrada.\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`200` com `{\"ok\":true}`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O `app.use((req, res) => ...)` no final, sem caminho, atua como “pega-tudo”: se nenhuma rota anterior respondeu, ele devolve 404 com JSON. É o que o starter faz em `app.js`: “devolve 404 para qualquer rota desconhecida”.",
+   "wrong": {
+    "d": "A rota `/` só responde a `GET /`; a URL pedida é outra.",
+    "b": "Não há exceção; o middleware final responde 404.",
+    "a": "O middleware sem caminho captura qualquer requisição que as rotas anteriores não trataram."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "app.js devolve 404 para qualquer rota desconhecida",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-007",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Método HTTP errado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Existe apenas a rota abaixo. Que status o Express devolve para um `GET /avaliacoes`?\n\n```js\napp.post(\"/avaliacoes\", (req, res) => {\n  res.status(201).json({ ok: true });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`201`"
+   },
+   {
+    "id": "b",
+    "text": "`404`"
+   },
+   {
+    "id": "c",
+    "text": "`500`"
+   },
+   {
+    "id": "d",
+    "text": "`200` com lista vazia"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Uma rota no Express é a combinação *método + caminho*. Só existe `POST /avaliacoes`; para `GET /avaliacoes` nada casa, então o Express responde 404 (“Cannot GET /avaliacoes”). Por isso a aula usa `GET` para consultar e `POST` para criar.",
+   "wrong": {
+    "a": "O `POST` responde 201, mas a requisição usa `GET`; o método também faz parte da rota.",
+    "d": "O Express não cria rotas `GET` sozinho.",
+    "c": "Não há exceção; simplesmente nenhuma rota casa com `GET /avaliacoes`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "rotas GET /lugares, GET /lugares/:id e POST /lugares/:id/avaliacoes",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-008",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Content-Type do res.json",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o cabeçalho `Content-Type` da resposta?\n\n```js\napp.get(\"/lugares\", (req, res) => {\n  res.json([{ id: 1 }]);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`text/html; charset=utf-8`"
+   },
+   {
+    "id": "b",
+    "text": "`text/plain; charset=utf-8`"
+   },
+   {
+    "id": "c",
+    "text": "Nenhum: o cabeçalho não é definido"
+   },
+   {
+    "id": "d",
+    "text": "`application/json; charset=utf-8`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`res.json(dados)` serializa com `JSON.stringify` e define `Content-Type: application/json; charset=utf-8`, informando ao cliente (como o `fetch` e seu `resposta.json()`) como interpretar o corpo.",
+   "wrong": {
+    "a": "`res.send` com texto/HTML usa esse tipo; o `res.json` define `application/json`.",
+    "b": "`res.json` não envia texto simples.",
+    "c": "O `res.json` define o `Content-Type` automaticamente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "GET /lugares: res.json(...) com o array",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-009",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Porta por variável de ambiente",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em `index.js` a porta é escolhida assim. Quais valores o código imprime se a variável `PORTA` **não** estiver definida e depois se for `\"4000\"`?\n\n```js\nconst PORTA = process.env.PORTA || 3333;\nconsole.log(PORTA);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`3333` nas duas situações"
+   },
+   {
+    "id": "b",
+    "text": "`3333` e depois `4000` (texto)"
+   },
+   {
+    "id": "c",
+    "text": "`4000` e depois `3333`"
+   },
+   {
+    "id": "d",
+    "text": "`undefined` e depois `4000`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`process.env.PORTA || 3333` usa a variável de ambiente se existir e, caso contrário, o padrão 3333. Variáveis de ambiente são sempre texto, então “4000” chega como string. A aula: “o servidor sobe em `http://localhost:3333` (a variável de ambiente `PORTA` pode mudar isso)”.",
+   "wrong": {
+    "d": "Com `PORTA` indefinida, o operador `||` usa o valor padrão `3333`.",
+    "a": "Quando `PORTA` existe (“4000”), ela prevalece sobre o padrão.",
+    "c": "O padrão `3333` só vale quando a variável não está definida."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "O servidor sobe em http://localhost:3333 (a variável PORTA pode mudar isso)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-010",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Ordem dos middlewares",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Chega um `GET /x`. Em que ordem as mensagens são impressas?\n\n```js\napp.use((req, res, next) => {\n  console.log(\"A\");\n  next();\n});\napp.get(\"/x\", (req, res) => {\n  console.log(\"B\");\n  res.end();\n});\napp.use((req, res) => {\n  console.log(\"C\");\n  res.end();\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Só `B`"
+   },
+   {
+    "id": "b",
+    "text": "`A` e depois `B`"
+   },
+   {
+    "id": "c",
+    "text": "`B` e depois `A`"
+   },
+   {
+    "id": "d",
+    "text": "`A`, `B` e `C`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O Express percorre os handlers na ordem de registro. O primeiro (`A`) chama `next()` e passa adiante; a rota `GET /x` (`B`) responde e não chama `next`, encerrando a cadeia. O último middleware (`C`) nunca roda para essa requisição.",
+   "wrong": {
+    "d": "Depois que a rota responde com `res.end()` (sem chamar `next`), a cadeia termina; o middleware final não é executado.",
+    "c": "Middlewares e rotas são executados na ordem em que foram registrados: o `app.use` vem primeiro.",
+    "a": "O primeiro middleware também executa (chama `next()` para continuar)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "app.js: ordem de app.use(cors()), express.json(), rotas e 404 final",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-011",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "return após responder",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O handler esquece o `return` depois de responder 404. O que o **cliente** recebe para `GET /lugares/999`?\n\n```js\napp.get(\"/lugares/:id\", (req, res) => {\n  const lugar = undefined; // não encontrado\n  if (!lugar) {\n    res.status(404).json({ erro: \"Lugar não encontrado.\" });\n  }\n  res.json(lugar.nome);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhuma resposta"
+   },
+   {
+    "id": "b",
+    "text": "Duas respostas, uma após a outra"
+   },
+   {
+    "id": "c",
+    "text": "`200`"
+   },
+   {
+    "id": "d",
+    "text": "`404` com o JSON de erro"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Sem `return`, depois de `res.status(404).json(...)` o código continua e tenta usar `lugar.nome` (de `undefined`), lançando um erro no servidor. O cliente já recebeu o 404, mas o servidor registra a exceção. Por isso a aula avisa: “e pare (`return`) — sem isso, o código continuaria e quebraria”.",
+   "wrong": {
+    "c": "A primeira resposta (404) já foi enviada; a linha seguinte lança exceção ao acessar `lugar.nome`.",
+    "b": "Uma requisição HTTP só tem uma resposta; a segunda tentativa não chega ao cliente.",
+    "a": "O 404 já foi enviado antes do erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "GET /lugares/:id: se não encontrar, responda 404 e pare (return)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-012",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Erros em handlers async (Express 5)",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "No Express 5, o que acontece quando um handler **async** lança uma exceção e há um middleware de erro?\n\n```js\napp.get(\"/x\", async (req, res) => {\n  throw new Error(\"falhou\");\n});\napp.use((err, req, res, next) => {\n  res.status(500).json({ erro: err.message });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "A requisição fica pendurada até dar timeout"
+   },
+   {
+    "id": "b",
+    "text": "`500` com `{\"erro\":\"falhou\"}`"
+   },
+   {
+    "id": "c",
+    "text": "O processo Node.js encerra"
+   },
+   {
+    "id": "d",
+    "text": "O cliente recebe `200` com corpo vazio"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A partir do Express 5, handlers que retornam uma Promise rejeitada (ou funções `async` que lançam) enviam o erro automaticamente ao próximo middleware de erro. Não é mais preciso envolver tudo em `try/catch` + `next(erro)` — base do tratamento central de erros da Aula 12.",
+   "wrong": {
+    "a": "Isso acontecia no Express 4; no Express 5 Promises rejeitadas são encaminhadas ao tratamento de erros.",
+    "c": "O erro é capturado pelo Express e tratado como qualquer exceção do handler.",
+    "d": "O middleware de erro responde com 500."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "API Express 5 (express ^5.2.1 no package.json)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-013",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Assinatura do middleware de erro",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O middleware abaixo foi escrito com **três** parâmetros. O que o cliente recebe quando a rota lança um erro?\n\n```js\napp.get(\"/x\", () => {\n  throw new Error(\"falhou\");\n});\napp.use((req, res, next) => {\n  res.status(500).json({ erro: \"tratado\" });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`500` com `{\"erro\":\"tratado\"}`"
+   },
+   {
+    "id": "b",
+    "text": "`200` com corpo vazio"
+   },
+   {
+    "id": "c",
+    "text": "`404`"
+   },
+   {
+    "id": "d",
+    "text": "`500` em HTML (tratador padrão)"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O Express identifica um middleware de erro pelo número de parâmetros: precisa ter exatamente quatro (`err, req, res, next`). Com três ele é um middleware comum e é *pulado* quando há erro; o tratador padrão responde `500` com uma página HTML de erro.",
+   "wrong": {
+    "a": "Só funções com *quatro* parâmetros (`err, req, res, next`) são tratadas como middleware de erro.",
+    "b": "O tratador padrão responde com 500, não 200.",
+    "c": "A rota existe; o problema é o erro lançado nela."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "middlewares no Express (app.use) — ver aula 12 para o handler central",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.202Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-014",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Query string",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a resposta para `GET /lugares?categoria=parque`?\n\n```js\napp.get(\"/lugares\", (req, res) => {\n  res.json({ categoria: req.query.categoria });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`{\"categoria\":\"categoria=parque\"}`"
+   },
+   {
+    "id": "b",
+    "text": "Um erro `404`"
+   },
+   {
+    "id": "c",
+    "text": "`{}`"
+   },
+   {
+    "id": "d",
+    "text": "`{\"categoria\":\"parque\"}`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Parâmetros após o `?` (query string) ficam em `req.query`; parâmetros do caminho (`:id`) ficam em `req.params`; o corpo JSON, em `req.body`. Aqui `req.query.categoria` é `\"parque\"`.",
+   "wrong": {
+    "c": "O parâmetro de consulta (depois do `?`) é lido em `req.query` e está presente.",
+    "a": "`req.query` já separa nome e valor.",
+    "b": "A query string não faz parte do caminho da rota: `/lugares` casa normalmente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "GET /lugares: lista todos os lugares (variações de filtro via query string)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-015",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "JSON inválido",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um cliente envia o corpo `{\"nota\": 5` (JSON malformado, falta fechar a chave) com `Content-Type: application/json`. Qual é o status devolvido pelo Express?\n\n```js\napp.use(express.json());\napp.post(\"/x\", (req, res) => res.status(201).json(req.body));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`200` com `{}`"
+   },
+   {
+    "id": "b",
+    "text": "`400`"
+   },
+   {
+    "id": "c",
+    "text": "`201` com o corpo parcial"
+   },
+   {
+    "id": "d",
+    "text": "`500`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O `express.json()` tenta interpretar o corpo; JSON malformado gera um erro de parse com status `400 Bad Request`, devolvido pelo tratador padrão antes de chegar à rota. A culpa é do cliente (dado inválido), por isso 4xx e não 5xx.",
+   "wrong": {
+    "c": "O parser falha antes de a rota executar; ela nem é chamada.",
+    "d": "Erros de parse do corpo do cliente resultam em 400 (requisição inválida).",
+    "a": "Não há resposta de sucesso: a requisição é recusada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "POST com dados inválidos responde 400, sem derrubar o servidor",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-016",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Router montado em prefixo",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O router está montado em `/lugares`. Quais status voltam para `GET /lugares/3` e `GET /3`, respectivamente?\n\n```js\nconst router = express.Router();\nrouter.get(\"/:id\", (req, res) => res.json({ id: req.params.id }));\napp.use(\"/lugares\", router);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`404` e depois `200`"
+   },
+   {
+    "id": "b",
+    "text": "`200` e depois `404`"
+   },
+   {
+    "id": "c",
+    "text": "`404` nas duas"
+   },
+   {
+    "id": "d",
+    "text": "`200` nas duas"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`app.use(\"/lugares\", rotasLugares)` monta o router sob o prefixo `/lugares`: a rota `\"/:id\"` do router vira `/lugares/:id`. Por isso o arquivo `rotas/lugares.js` declara `router.get(\"/\")` e `router.get(\"/:id\")` e o app define o prefixo uma vez só.",
+   "wrong": {
+    "d": "O prefixo `/lugares` faz parte do caminho completo; `GET /3` não casa com nenhuma rota.",
+    "a": "É o contrário: o router só responde sob o prefixo `/lugares`.",
+    "c": "`GET /lugares/3` casa com `/lugares` + `/:id`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "app.js: app.use(\"/lugares\", rotasLugares)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-017",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Ordem das rotas no Express",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Diferente do React Router, o Express usa a **ordem de declaração**. O que responde `GET /lugares/novo` aqui?\n\n```js\napp.get(\"/lugares/:id\", (req, res) => res.send(\"id=\" + req.params.id));\napp.get(\"/lugares/novo\", (req, res) => res.send(\"formulário\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`id=novo` (a primeira rota que casa)"
+   },
+   {
+    "id": "b",
+    "text": "`404`"
+   },
+   {
+    "id": "c",
+    "text": "`formulário`"
+   },
+   {
+    "id": "d",
+    "text": "As duas respostas"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O Express testa os handlers na ordem de registro e responde com o primeiro que casa. Como `/lugares/:id` aceita `novo` como id, ela responde primeiro. Para o formulário funcionar, declare as rotas específicas (`/lugares/novo`) *antes* das dinâmicas.",
+   "wrong": {
+    "c": "No Express vence a *primeira* rota que casa, mesmo sendo mais genérica; a rota estática teria que vir antes.",
+    "d": "Uma requisição recebe uma única resposta.",
+    "b": "Há uma rota que casa (a dinâmica)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "rotas em src/rotas/lugares.js: /, /:id e /:id/avaliacoes",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-018",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Validação da avaliação",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para cada requisição abaixo (nota/comentário), quais status o servidor devolve, na ordem?\n\n1. nota 8, comentário “Muito bom” · 2. nota 4.5, comentário “Muito bom” · 3. nota 5, comentário “ab ” · 4. nota 5, comentário “ótimo”\n\n```js\napp.use(express.json());\napp.post(\"/avaliacoes\", (req, res) => {\n  const { nota, comentario } = req.body;\n  if (!Number.isInteger(nota) || nota < 1 || nota > 5) {\n    return res.status(400).json({ erro: \"nota inválida\" });\n  }\n  if (typeof comentario !== \"string\" || comentario.trim().length < 3) {\n    return res.status(400).json({ erro: \"comentário curto\" });\n  }\n  res.status(201).json({ nota, comentario: comentario.trim() });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`400 400 400 201`"
+   },
+   {
+    "id": "b",
+    "text": "`400 201 400 201`"
+   },
+   {
+    "id": "c",
+    "text": "`201 400 400 201`"
+   },
+   {
+    "id": "d",
+    "text": "`400 400 201 201`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "1) 8 > 5 → 400. 2) 4.5 não é inteiro → 400. 3) “ab ” depois de `trim()` tem 2 caracteres → 400. 4) nota 5 e comentário válido → 201. São as regras do enunciado da Aula 09: nota inteira de 1 a 5 e comentário com pelo menos 3 caracteres.",
+   "wrong": {
+    "b": "`4.5` não é inteiro (`Number.isInteger(4.5)` é falso), logo é rejeitado.",
+    "d": "“ab ” tem 2 caracteres depois do `trim()` (< 3), então é rejeitado.",
+    "c": "Nota 8 está fora do intervalo 1–5."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "POST: nota (inteiro 1-5) e comentario (mín. 3 caracteres após trim)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-019",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "res.send e Content-Type",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Quais `Content-Type` (somente o tipo) as duas rotas devolvem?\n\n```js\napp.get(\"/a\", (req, res) => res.send(\"<p>oi</p>\"));\napp.get(\"/b\", (req, res) => res.send({ oi: 1 }));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`text/html` e `application/json`"
+   },
+   {
+    "id": "b",
+    "text": "`text/html` nas duas"
+   },
+   {
+    "id": "c",
+    "text": "`application/json` nas duas"
+   },
+   {
+    "id": "d",
+    "text": "`text/plain` e `application/json`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`res.send` escolhe o tipo pelo argumento: string → `text/html`; objeto/array → JSON (`application/json`); Buffer → `application/octet-stream`. Em APIs, prefira `res.json` para deixar a intenção explícita.",
+   "wrong": {
+    "b": "Quando o argumento de `res.send` é um objeto, o Express o envia como JSON, com o tipo adequado.",
+    "d": "Uma string passada a `res.send` é enviada como `text/html`.",
+    "c": "Uma string é enviada como HTML, não como JSON."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "GET /: res.json(...) — API que responde JSON",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-020",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "204 sem corpo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O handler responde 204 e tenta enviar um JSON. O que o cliente recebe?\n\n```js\napp.delete(\"/x\", (req, res) => {\n  res.status(204).json({ removido: true });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Status `204` com `{\"removido\":true}`"
+   },
+   {
+    "id": "b",
+    "text": "Status `200` com `{\"removido\":true}`"
+   },
+   {
+    "id": "c",
+    "text": "Status `204` com o corpo vazio"
+   },
+   {
+    "id": "d",
+    "text": "Erro `500`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O código `204 No Content` significa “deu certo, sem corpo” — comum em `DELETE`. Mesmo usando `res.json`, o Node omite o corpo nas respostas 204 (e 304). Se quiser devolver dados, use 200.",
+   "wrong": {
+    "a": "Respostas 204 não têm corpo: o servidor descarta o conteúdo.",
+    "b": "O status definido foi 204 e é mantido.",
+    "d": "Não há erro; o Express apenas omite o corpo em respostas 204."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "códigos HTTP: 200, 201, 400, 404 nas rotas da API",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-021",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "HEAD usa a rota GET",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Um cliente envia `HEAD /lugares`. O que o servidor responde?\n\n```js\napp.get(\"/lugares\", (req, res) => {\n  res.json([{ id: 1 }, { id: 2 }]);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Status `405`"
+   },
+   {
+    "id": "b",
+    "text": "`200` sem corpo"
+   },
+   {
+    "id": "c",
+    "text": "Status `404`"
+   },
+   {
+    "id": "d",
+    "text": "Status `200` com o JSON no corpo"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Por padrão, o Express trata requisições `HEAD` usando o handler `GET` da mesma rota, mas descarta o corpo (HEAD só pede os cabeçalhos). Útil para verificar se um recurso existe sem baixá-lo.",
+   "wrong": {
+    "c": "O Express atende automaticamente `HEAD` com as rotas `GET` correspondentes.",
+    "d": "Em respostas a `HEAD` o corpo nunca é enviado.",
+    "a": "O Express não responde 405 aqui; ele reaproveita o handler do `GET`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "rotas GET da API",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-022",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "CORS no Express",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um navegador envia a pré-checagem `OPTIONS /lugares` (com os cabeçalhos `Origin` e `Access-Control-Request-Method: GET`). Que status e `Access-Control-Allow-Origin` o servidor devolve?\n\n```js\napp.use(cors());\napp.get(\"/lugares\", (req, res) => res.json([]));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`200` e `null`"
+   },
+   {
+    "id": "b",
+    "text": "`404` e nenhum cabeçalho"
+   },
+   {
+    "id": "c",
+    "text": "`204` e nenhum cabeçalho"
+   },
+   {
+    "id": "d",
+    "text": "`204` e `*`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O pacote `cors`, usado em `app.js` do starter, responde às requisições de pré-checagem (`OPTIONS`) com `204` e inclui `Access-Control-Allow-Origin: *` (padrão: qualquer origem). Sem ele, o front (porta 5173) não conseguiria chamar a API (porta 3333) pelo navegador.",
+   "wrong": {
+    "b": "O middleware `cors()` responde automaticamente às pré-checagens `OPTIONS`.",
+    "a": "O `cors()` padrão responde 204 e inclui o cabeçalho com `*`.",
+    "c": "A resposta traz `Access-Control-Allow-Origin: *`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "app.js configura CORS e express.json()",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "package.json: cors ^2.8.6",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-023",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "next(err) pula middlewares comuns",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Em um `GET /x`, que mensagens são impressas e qual status o cliente recebe?\n\n```js\napp.use((req, res, next) => {\n  console.log(\"1\");\n  next(new Error(\"falhou\"));\n});\napp.use((req, res, next) => {\n  console.log(\"2\");\n  next();\n});\napp.use((err, req, res, next) => {\n  console.log(\"3\", err.message);\n  res.status(500).json({ erro: err.message });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1` e `2`, com status `500` padrão"
+   },
+   {
+    "id": "b",
+    "text": "Só `1`, com status `200`"
+   },
+   {
+    "id": "c",
+    "text": "`1`, `2` e `3 falhou`"
+   },
+   {
+    "id": "d",
+    "text": "`1` e `3 falhou`, com status `500`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Chamar `next(erro)` com um argumento muda o fluxo: os middlewares e rotas comuns restantes são ignorados, e o Express procura o próximo middleware de erro (quatro parâmetros). Daí o tratador central de erros da Aula 12 ficar sempre *depois* das rotas.",
+   "wrong": {
+    "c": "Quando se chama `next(erro)`, o Express pula os middlewares comuns e vai direto ao próximo de *erro*.",
+    "b": "O erro é encaminhado ao middleware de erro, que responde 500.",
+    "a": "O middleware 2 é ignorado e o de erro (com 4 parâmetros) é quem responde."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "middlewares: app.use e o fluxo de next()",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-024",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "express.json depois das rotas",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O `express.json()` foi registrado **depois** da rota. O que a rota imprime para um `POST /x` com JSON `{\"nota\":5}`?\n\n```js\napp.post(\"/x\", (req, res) => {\n  console.log(req.body);\n  res.end();\n});\napp.use(express.json());\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Erro de sintaxe"
+   },
+   {
+    "id": "b",
+    "text": "`{ nota: 5 }`"
+   },
+   {
+    "id": "c",
+    "text": "`undefined`"
+   },
+   {
+    "id": "d",
+    "text": "`{}`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A rota é encontrada primeiro e responde sem passar pelo `express.json()` registrado depois. Regra: registre `app.use(cors())` e `app.use(express.json())` *antes* das rotas — como o `app.js` do starter faz.",
+   "wrong": {
+    "b": "Os middlewares executam na ordem de registro; o parser vem depois da rota e não chega a ser usado.",
+    "d": "No Express 5, sem parse o valor é `undefined` (no Express 4 era um objeto vazio).",
+    "a": "O código é válido; a falha está na ordem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "src/app.js: cors() e express.json() antes das rotas",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-025",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Pega-tudo registrado cedo demais",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O middleware de 404 foi registrado **antes** das rotas. Qual é a resposta para `GET /lugares`?\n\n```js\napp.use((req, res) => {\n  res.status(404).json({ erro: \"Rota não encontrada.\" });\n});\napp.get(\"/lugares\", (req, res) => res.json([]));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "A resposta das duas, concatenadas"
+   },
+   {
+    "id": "b",
+    "text": "`500`"
+   },
+   {
+    "id": "c",
+    "text": "`404` com o JSON de erro"
+   },
+   {
+    "id": "d",
+    "text": "`200` com `[]`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Um `app.use(handler)` sem caminho corresponde a *todas* as requisições. Registrado no início, ele responde 404 antes de as rotas serem consultadas. Por isso o 404 “pega-tudo” fica sempre por último em `criarApp()`.",
+   "wrong": {
+    "d": "O middleware sem caminho captura tudo e responde sem chamar `next()`, impedindo que a rota seja alcançada.",
+    "b": "Não há erro; a requisição é simplesmente atendida pelo primeiro handler.",
+    "a": "Só um handler responde."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "app.js devolve 404 para qualquer rota desconhecida (por último)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-026",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Cabeçalho Location em 201",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual valor tem o cabeçalho `Location` na resposta deste `POST`?\n\n```js\napp.post(\"/lugares/:id/avaliacoes\", (req, res) => {\n  res.status(201).location(\"/avaliacoes/9\").json({ id: 9 });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`/avaliacoes/9`"
+   },
+   {
+    "id": "b",
+    "text": "`/lugares/:id/avaliacoes`"
+   },
+   {
+    "id": "c",
+    "text": "`/`"
+   },
+   {
+    "id": "d",
+    "text": "Não há cabeçalho `Location`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Boa prática REST: ao responder `201 Created`, indicar no cabeçalho `Location` a URL do novo recurso. No Express: `res.status(201).location(\"/avaliacoes/9\").json(...)`. O cliente pode usar esse caminho para consultar o item criado.",
+   "wrong": {
+    "d": "O método `.location()` define o cabeçalho `Location` da resposta.",
+    "b": "O valor é exatamente o passado a `.location()`.",
+    "c": "O `Location` foi definido explicitamente como `/avaliacoes/9`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "POST responde 201 com a avaliação criada",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-express-rest-027",
+  "disciplineId": "fullstack",
+  "topicId": "express-rest",
+  "subtopic": "Formulário versus JSON",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Um cliente envia `nota=5` como formulário (`application/x-www-form-urlencoded`). Nas duas rotas o que é impresso?\n\n```js\napp.post(\"/a\", express.json(), (req, res) => {\n  console.log(\"a\", req.body);\n  res.end();\n});\napp.post(\"/b\", express.urlencoded({ extended: true }), (req, res) => {\n  console.log(\"b\", req.body);\n  res.end();\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`a {\"nota\":\"5\"}` e `b undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`a {\"nota\":5}` e `b {\"nota\":5}`"
+   },
+   {
+    "id": "c",
+    "text": "`a undefined` e `b {\"nota\":\"5\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`a undefined` e `b undefined`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Cada parser lida com um `Content-Type`: `express.json()` → JSON; `express.urlencoded()` → formulários clássicos (`nota=5`). No JSON os tipos são preservados (número 5); em formulários tudo vira texto (`\"5\"`), por isso a validação deve converter com `Number(...)`. Com o parser errado, `req.body` fica `undefined`.",
+   "wrong": {
+    "b": "O `express.json()` só interpreta corpos JSON; e os campos de formulário chegam sempre como *texto* (“5”).",
+    "a": "Está invertido: o formulário é lido por `urlencoded`, não por `json`.",
+    "d": "O `express.urlencoded()` interpreta corpos de formulário."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-09",
+    "locator": "req.body já vem pronto graças ao express.json()",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:32:08.203Z",
+  "updatedAt": "2026-10-23T01:32:39.741Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
   "id": "fs-fetch-async-001",
   "disciplineId": "fullstack",
   "topicId": "fetch-async",
