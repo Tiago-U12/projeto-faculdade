@@ -41,7 +41,10 @@ A 0.5.2 passa a usar a URL canônica do escopo como shell em cache. O teste `npm
 Evidências:
 - [Diagnóstico no endereço público](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39991821422): HTTP/assets 200 e reprodução do mesmo erro no reload do Chromium.
 - [Regressão antes da correção](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39992757216): documentos em cache com e sem redirecionamento, seguidos de `ERR_FAILED`.
-- [Validação da correção](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39993408309): etapas de typecheck, unidade/PWA, build, regressão canônica e E2E/offline aprovadas. Consultar as etapas finais de homologação no resultado da execução.
+- [Validação final da correção](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39994463265): typecheck, **681 testes**, testes PWA, build, regressão canônica, E2E/offline e **137/137 em cada um dos dois layouts** aprovados.
+- [Prévia real no Cloudflare](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39994167944): v0.5.2, HTTP 200, reload online, questão respondida e reload offline preservando a sessão; sem erro de página.
+
+Na primeira rodada completa, duas verificações consultavam a visibilidade antes da renderização da rota terminar; agora aguardam o título de destino antes de manter a mesma asserção. A sondagem do MP3 opcional ausente também pode retornar 503 pelo worker offline, além do 404 online: somente esses resultados da URL da faixa opcional são tratados como esperados. Falhas dos outros arquivos continuam reprovando a homologação.
 
 Não é necessário apagar o histórico, as preferências ou o MP3 para receber o novo worker.
 
