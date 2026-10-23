@@ -224,12 +224,16 @@ async function main() {
       ok(`“${d.name}” mostra 300 questões aprovadas`, /300 questões aprovadas/.test(card), card.split('\n').find((l) => /aprovadas/.test(l)));
     }
     await page.getByRole('button', { name: /Começar a estudar/ }).click();
+    await page.getByRole('heading', { name: /Configure seu/ }).waitFor();
     ok('“Começar a estudar” abre a configuração', await page.getByRole('heading', { name: /Configure seu/ }).isVisible());
     await page.getByRole('button', { name: 'Meu progresso' }).click();
+    await page.getByRole('heading', { name: /Seu progresso/ }).waitFor();
     ok('“Meu progresso” abre o progresso', await page.getByRole('heading', { name: /Seu progresso/ }).isVisible());
     await page.getByRole('button', { name: 'Acervo e fontes' }).click();
+    await page.getByRole('heading', { name: /Fontes que/ }).waitFor();
     ok('“Acervo e fontes” abre o acervo', await page.getByRole('heading', { name: /Fontes que/ }).isVisible());
     await page.getByRole('button', { name: /Study Mastery — início/ }).click();
+    await page.getByRole('heading', { name: /Aprenda mais/ }).waitFor();
     ok('a marca volta à página inicial', await page.getByRole('heading', { name: /Aprenda mais/ }).isVisible());
     await goHash('#/setup?d=calculo2');
     await page.getByRole('heading', { name: /Configure seu/ }).waitFor();
