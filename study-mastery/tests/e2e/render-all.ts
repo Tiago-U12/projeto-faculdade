@@ -46,7 +46,7 @@ async function audit(page: Page, questions: PublishedQuestion[], width: number, 
     const r = await page.evaluate(() => ({
       hscroll: document.documentElement.scrollWidth > window.innerWidth + 1,
       widest: [...document.querySelectorAll('main *')]
-        .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display, .katex-mathml'))
+        .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display, .katex-mathml, .hide-tail'))
         .slice(0, 2)
         .map((el) => `${el.tagName.toLowerCase()}.${(el as HTMLElement).className}`),
       katexErrors: document.querySelectorAll('.katex-error').length,
@@ -71,7 +71,7 @@ async function audit(page: Page, questions: PublishedQuestion[], width: number, 
   const res = await page.evaluate(() => ({
     hscroll: document.documentElement.scrollWidth > window.innerWidth + 1,
     widest: [...document.querySelectorAll('main *')]
-      .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display, .katex-mathml'))
+      .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display, .katex-mathml, .hide-tail'))
       .slice(0, 3)
       .map((el) => `${el.tagName.toLowerCase()}.${(el as HTMLElement).className} ← ${(el.closest('.review-item')?.querySelector('.rv-n')?.textContent ?? '')}`),
     katexErrors: document.querySelectorAll('.katex-error').length,

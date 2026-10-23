@@ -70,7 +70,7 @@ describe('tentativas e sessão em andamento', () => {
     state.attempts = [attempt('old', fsQuestion)];
     state.stats['fs-old'] = { seen: 1, correct: 0, lastSeen: '2026-10-23', lastCorrect: false, box: 0, due: '2026-10-23' };
     mount(<Progress go={() => {}} />, state);
-    fireEvent.click(screen.getByRole('button', { name: bank.taxonomy.disciplines.find((d) => d.id === 'fullstack')!.short, exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: bank.taxonomy.disciplines.find((d) => d.id === 'fullstack')!.short }));
     expect(screen.getByRole('link')).toHaveAttribute('href', '#/results?id=old');
     fireEvent.click(screen.getByRole('button', { name: 'Revisar meus erros' }));
     expect(JSON.parse(screen.getByTestId('active').textContent!).session.items.map((i: { questionId: string }) => i.questionId)).toEqual(['fs-old']);

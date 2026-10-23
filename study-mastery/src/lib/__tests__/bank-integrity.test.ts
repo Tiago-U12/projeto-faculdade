@@ -125,32 +125,40 @@ describe('filtros estritos sobre o banco real', () => {
 
   it('nenhuma sessão (4 modos × 5/10/20) traz questão fora do filtro nem repetida', () => {
     let seed = 1;
+    const byId = new Map(bank.map((q) => [q.id, q]));
     // histórico simulado para exercitar o modo Revisão (erros, vencidas e não vistas)
     const stats: Record<string, ReturnType<typeof nextStat>> = {};
     const past = new Date('2026-10-01T12:00:00Z');
     bank.forEach((q, i) => {
       if (i % 3 === 0) stats[q.id] = nextStat(undefined, i % 2 === 0, past);
     });
+    // violações acumuladas e conferidas no fim: as mesmas checagens, sem ~280 mil chamadas de expect
+    const erros: string[] = [];
+    let sessoes = 0;
     for (const c of cfgs) {
       const pool = eligible(bank, c);
       for (const mode of ['aprender', 'simulado', 'revisao', 'misto'] as const) {
         for (const size of [5, 10, 20]) {
           const s = buildSession(pool, { ...c, mode, size }, { stats, now: new Date('2026-10-23T12:00:00Z') }, seed++);
+          sessoes++;
+          const tag = `${mode}/${size}/${c.disciplineId}:${c.topicIds.join('+')}:${c.difficulties.join('+')}:${c.scope}`;
           const ids = s.items.map((it) => it.questionId);
-          expect(ids.length).toBe(Math.min(size, pool.length));
-          expect(new Set(ids).size).toBe(ids.length);
-          const byId = new Map(bank.map((q) => [q.id, q]));
-          for (const id of ids) {
-            const q = byId.get(id)!;
-            expect(q.disciplineId).toBe(c.disciplineId);
-            expect(c.topicIds).toContain(q.topicId);
-            expect(c.difficulties).toContain(q.difficulty as Difficulty);
-            expect(scopeAllows(c.scope as Scope, q.scope)).toBe(true);
+          if (ids.length !== Math.min(size, pool.length)) erros.push(`${tag}: ${ids.length} itens (esperado ${Math.min(size, pool.length)})`);
+          if (new Set(ids).size !== ids.length) erros.push(`${tag}: questão repetida`);
+          for (const it of s.items) {
+            const q = byId.get(it.questionId);
+            if (!q) {
+              erros.push(`${tag}: ${it.questionId} não existe`);
+              continue;
+            }
+            if (q.disciplineId !== c.disciplineId || !c.topicIds.includes(q.topicId) || !c.difficulties.includes(q.difficulty as Difficulty) || !scopeAllows(c.scope as Scope, q.scope)) erros.push(`${tag}: ${q.id} fora do filtro`);
+            // embaralhamento preserva o gabarito: a ordem é uma permutação das alternativas
+            if ([...it.order].sort().join() !== q.options.map((o) => o.id).sort().join()) erros.push(`${tag}: ${q.id} ordem inválida`);
           }
-          // embaralhamento preserva o gabarito: a ordem é uma permutação das alternativas
-          for (const it of s.items) expect([...it.order].sort()).toEqual(byId.get(it.questionId)!.options.map((o) => o.id).sort());
         }
       }
     }
-  });
+    expect(sessoes).toBe(cfgs.length * 12);
+    expect(erros).toEqual([]);
+  }, 30000);
 });
