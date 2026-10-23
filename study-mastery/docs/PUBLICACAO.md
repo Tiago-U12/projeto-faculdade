@@ -1,45 +1,79 @@
 # Publicação do Study Mastery
 
-Destino previsto: <https://tiago-u12.github.io/projeto-faculdade/study-mastery/>.
+Endereço principal: <https://study-mastery.pages.dev/>.
+Endereço mantido no GitHub Pages: <https://tiago-u12.github.io/projeto-faculdade/study-mastery/>.
 
-O app mantém `base: './'` e roteamento por hash (`#/setup`, `#/quiz`, `#/results?id=...`). Tentativas são locais ao aparelho: o link identifica uma tentativa existente naquele navegador, não compartilha seus dados.
+O app mantém `base: './'` e roteamento por hash (`#/setup`, `#/quiz`, `#/results?id=...`).
+Tentativas são locais ao navegador: o link identifica uma tentativa existente naquele aparelho, não compartilha seus dados.
 
-## Autorização e workflow
+## Cloudflare Pages e atualizações automáticas
 
-Nenhuma publicação é autorizada apenas por este branch ou pelo merge. Os três passos adicionados a `.github/workflows/deploy.yml` (instalação, build e cópia) exigem literalmente:
+Integração oficial Cloudflare Workers and Pages com o GitHub:
+- Repositório: `Tiago-U12/projeto-faculdade`.
+- Branch de produção: `main`.
+- Root directory: `study-mastery`.
+- Framework: React (Vite).
+- Build command: `npm run build`.
+- Build output directory: `dist`.
+- Node: `NODE_VERSION=22.22.0`, versão usada na validação registrada.
+- Hospedagem estática no plano Free, com domínio `pages.dev`; nenhum backend, API paga ou MP3 é necessário.
+
+As configurações ficam no painel Cloudflare. O check **Cloudflare Pages**, publicado no GitHub pelo app oficial, identifica o SHA e o resultado do deploy. Branches de trabalho podem gerar prévias; a prévia não comprova que a mesma versão já está em produção.
+
+Para atualizar: abrir um PR para `main`, executar os testes pertinentes, revisar e mesclar. A integração publica o novo build automaticamente. Conferir o check do SHA mesclado e a versão do rodapé no endereço principal.
+
+O Worker separado chamado `projeto-faculdade` (`workers.dev`) é distinto do projeto Pages `study-mastery`. Uma falha no check **Workers Builds: projeto-faculdade** deve ser diagnosticada separadamente e não deve ser descrita como falha do Pages. Desconectar ou remover esse Worker exige ação no painel; não é necessário alterar o código dos outros aplicativos para publicar o Study Mastery.
+
+## GitHub Pages e os outros projetos
+
+A publicação existente permanece ativa. Os três passos de Study Mastery em `.github/workflows/deploy.yml` exigem:
 
 ```yaml
 if: vars.PUBLICAR_STUDY_MASTERY == 'true'
 ```
 
-Ausente, `false` ou outro valor: o Study Mastery não entra no artefato. Os passos existentes de TrocaTicket, Aysha Park e Dungeon Cooked foram preservados. **Não habilitar a variável nem executar o workflow de deploy sem autorização do Tiago.** Nenhum segredo é necessário no repositório para esse build estático.
+A autorização para habilitar esses passos já foi concedida pelo Tiago. A execução [39965304006](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39965304006), tentativa 2, executou instalação, build e inclusão do Study Mastery com sucesso.
+O workflow dispara em push para `main` ou execução manual e copia o build para `TrocaTicket/dist/study-mastery/`.
 
-Após a autorização, um responsável com acesso às configurações do repositório define a variável de Actions `PUBLICAR_STUDY_MASTERY=true`. O workflow existente dispara em push para `main` ou execução manual; esta tarefa não executou nenhum deles. O build é copiado para `TrocaTicket/dist/study-mastery/` antes de empacotar o artefato Pages.
+A variável controla a inclusão no próximo artefato. Desabilitá-la pode remover o Study Mastery do próximo deploy do GitHub Pages; não é um modo de congelar a publicação anterior.
 
-A condição controla inclusão no próximo artefato: não é uma promessa de manter uma publicação anterior quando a variável for desabilitada. Esta versão não altera os arquivos-fonte dos outros aplicativos.
+TrocaTicket, Aysha Park e Dungeon Cooked continuam na hospedagem existente. Seus passos de build não foram alterados nesta atualização. A auditoria registra um erro preexistente do Aysha Park em Chromium headless, sem relação com o Study Mastery.
 
-## Verificação local
+**O repositório permanece público por instrução do Tiago.** Qualquer privatização futura exige confirmação explícita e alternativas de hospedagem validadas para todos os sites afetados; Pages de repositórios privados não está incluído no GitHub Free.
+
+## Validação
 
 ```bash
 cd study-mastery
 npm ci
-npm run build
+npm run typecheck
+npm test
 npm run test:pwa
+npm run build
+npm run e2e
+npm run e2e:render
 npm run e2e:offline
+npm run e2e:homologacao
+HOMOLOG_LAYOUT=cloudflare npm run e2e:homologacao
 ```
 
-O teste offline copia o build para uma pasta temporária com o layout `TrocaTicket/dist/study-mastery`, serve no subcaminho final e testa instalação, arquivos em cache, ambas as disciplinas, Range e caches vizinhos. Não publica nada. Use `CHROMIUM_PATH` para selecionar o Chromium instalado.
+Os testes de navegador exigem Chromium instalado; use `CHROMIUM_PATH` quando necessário.
+A homologação usa um perfil persistente e MP3 sintético de silêncio temporário. No layout Cloudflare, testa o app na raiz e o fallback HTML para arquivos inexistentes. O player reconhece esse HTML como ausência de música.
 
-Em 2026-10-23 o workflow foi simulado com o **build real**: passos existentes mais os condicionados, servido em `/projeto-faculdade/`. TrocaTicket, Dungeon Cooked e Study Mastery funcionaram; o service worker ficou restrito ao subcaminho; os arquivos dos outros projetos ficaram idênticos. Aysha Park tem um erro preexistente no Chromium headless, sem relação com este branch. Detalhes em [AUDITORIA_V05.md](AUDITORIA_V05.md).
+Resultados registrados e limitações: [HOMOLOGACAO_V05.md](HOMOLOGACAO_V05.md) e [AUDITORIA_V05.md](AUDITORIA_V05.md). A simulação local não equivale a testar o endereço público ou um celular físico.
+Após um deploy, conferir acesso anônimo, sessões nas duas disciplinas, filtros, resultado pelo histórico, rádio local, instalação/offline e atualização de cache. Conferir também os endereços dos outros aplicativos.
 
-## PWA e atualização
+## Dados locais e troca de endereço
 
-O plugin `tools/pwa.ts` enumera os arquivos finais do build, incluindo chunks e fontes, e injeta a lista e um hash em `sw.js`. O hash depende dos nomes, conteúdo, versão do app e template do worker. Uma instalação incompleta não ativa a nova versão. O shell e seus assets usam o cache da mesma versão.
+Os domínios GitHub Pages e Cloudflare não compartilham localStorage, IndexedDB ou a instalação do PWA.
+Antes de trocar: terminar a sessão, exportar o histórico em Progresso e guardar o JSON. No novo endereço, importar e conferir tentativas e estatísticas.
+A exportação exclui a sessão em andamento e não inclui o MP3 ou preferências da rádio. Escolher o MP3 novamente e instalar o PWA no novo domínio.
 
-O `activate` remove somente caches antigos cujo nome começa por `study-mastery-`. Requisições fora da pasta do app não são interceptadas. MP3 recebe tratamento separado de arquivo completo/Range; veja [STUDY_RADIO.md](STUDY_RADIO.md).
+## PWA e recuperação
 
-Pendências externas: revisão humana do banco e das dificuldades, autorização do Tiago para a variável e MP3 opcional fornecido por quem tem direito de usá-lo.
+O plugin `tools/pwa.ts` injeta todos os assets finais e um hash em `sw.js`. O hash depende dos arquivos, versão e template. Uma instalação incompleta não ativa a nova versão; o shell e os assets usam o cache da mesma versão.
+O `activate` remove somente caches com prefixo `study-mastery-`; no GitHub Pages, requisições fora da pasta do app não são interceptadas. O MP3 usa arquivo completo em cache e respostas Range; veja [STUDY_RADIO.md](STUDY_RADIO.md).
 
-## Estado em 2026-10-23
+Em falha de publicação, restaurar um deployment funcional anterior no Pages e corrigir o código por PR. Rollback de deploy não reverte um commit Git. O GitHub Pages permanece como endereço alternativo enquanto estiver configurado; para levar dados de volta, exportar no domínio utilizado e importar no destino.
 
-Publicado. A variável `PUBLICAR_STUDY_MASTERY=true` foi criada e o workflow reexecutado ([execução 39965304006](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39965304006), tentativa 2). Os três passos do Study Mastery rodaram e passaram. Para tirar do ar numa próxima publicação, basta mudar a variável para outro valor (os passos voltam a ser pulados). Homologação: [HOMOLOGACAO_V05.md](HOMOLOGACAO_V05.md).
+Pendências: revisão humana das 600 questões e da dificuldade, conferência MariaDB × MySQL e testes em aparelho/leitor de tela reais. Todas as conferências editoriais registradas até aqui são assistidas por IA. Nenhuma música acompanha a plataforma.

@@ -58,9 +58,9 @@ Na mesma rodada, também passaram:
 
 Ficou como informativo: em 260 px (abaixo dos 320 px exigidos pela WCAG), a questão com a fórmula mais longa da amostra ainda precisa de 299 px.
 
-## Revisão de conteúdo (amostra à mão)
+## Revisão de conteúdo assistida por IA (amostra)
 
-Antes da prova de 26/10, revisei à mão **32 questões fáceis e médias** dos 4 assuntos da prova, com as contas refeitas uma a uma. **Todas estão corretas**: gabarito certo, distratores claramente errados e explicação e passos consistentes.
+Antes da prova de 26/10, uma conferência adicional **assistida por IA** refez uma a uma as contas de **32 questões fáceis e médias** dos 4 assuntos da prova. **Todas estão corretas**: gabarito certo, distratores claramente errados e explicação e passos consistentes.
 - L’Hôpital: 002, 007, 008, 014, 017, 022, 026, 030.
 - Primitivas: 001, 003, 006, 009, 015, 016, 017, 026.
 - Substituição: 001, 003, 004, 013, 021, 024, 025, 026.
