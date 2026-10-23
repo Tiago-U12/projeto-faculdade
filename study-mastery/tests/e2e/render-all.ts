@@ -39,7 +39,7 @@ async function audit(page: Page, questions: PublishedQuestion[], width: number, 
   await page.reload();
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    await page.locator('.quiztop').getByText(`QUESTÃO ${i + 1} DE ${questions.length}`).waitFor();
+    await page.getByRole('heading', { name: `Questão ${i + 1} de ${questions.length}`, exact: true }).waitFor();
     await page.locator('.explain').waitFor();
     // abre a fonte para medir também o bloco recolhido
     await page.locator('.explain details.src-details').evaluate((d) => ((d as HTMLDetailsElement).open = true));
@@ -51,8 +51,8 @@ async function audit(page: Page, questions: PublishedQuestion[], width: number, 
         .map((el) => `${el.tagName.toLowerCase()}.${(el as HTMLElement).className}`),
       katexErrors: document.querySelectorAll('.katex-error').length,
       steps: document.querySelectorAll('.explain .steps li').length,
-      hasCorrect: !!document.querySelector('.why-right p'),
-      hasWrong: !!document.querySelector('.why-wrong p'),
+      hasCorrect: !!document.querySelector('.why-right .explanation-text'),
+      hasWrong: !!document.querySelector('.why-wrong .explanation-text'),
       sources: document.querySelectorAll('.explain .sources li').length,
     }));
     const tag = `${q.id} @${width}px`;
@@ -92,7 +92,7 @@ async function main() {
       await new Promise((r) => setTimeout(r, 250));
     }
   }
-  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/usr/bin/chromium', args: ['--no-sandbox'] });
   const page = await (await browser.newContext({ locale: 'pt-BR', colorScheme: 'dark', serviceWorkers: 'block' })).newPage();
   const errors: string[] = [];
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));

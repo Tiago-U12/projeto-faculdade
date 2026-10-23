@@ -59,6 +59,22 @@ jobs:
           mkdir -p TrocaTicket/dist/dungeon-cooked
           cp dungeon-cooked/dist/index.html TrocaTicket/dist/dungeon-cooked/
 
+      - name: Instalar dependencias do Study Mastery
+        if: vars.PUBLICAR_STUDY_MASTERY == 'true'
+        working-directory: study-mastery
+        run: npm ci
+
+      - name: Gerar Study Mastery
+        if: vars.PUBLICAR_STUDY_MASTERY == 'true'
+        working-directory: study-mastery
+        run: npm run build
+
+      - name: Incluir Study Mastery na publicacao
+        if: vars.PUBLICAR_STUDY_MASTERY == 'true'
+        run: |
+          mkdir -p TrocaTicket/dist/study-mastery
+          cp -a study-mastery/dist/. TrocaTicket/dist/study-mastery/
+
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 

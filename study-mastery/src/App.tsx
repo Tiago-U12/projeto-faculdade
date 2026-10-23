@@ -26,11 +26,11 @@ export function App() {
         {route.name === 'home' && <Home go={go} />}
         {route.name === 'setup' && <Setup key={`${route.disciplineId}-${route.preset}`} route={route} go={go} />}
         {route.name === 'quiz' && <Quiz go={go} />}
-        {route.name === 'results' && <Results go={go} />}
+        {route.name === 'results' && <Results attemptId={route.id} go={go} />}
         {route.name === 'progress' && <Progress go={go} />}
         {route.name === 'library' && <Library go={go} />}
       </main>
-      <footer><span>✳ Study Mastery · v0.3</span><span>Aprender é construir.</span></footer>
+      <footer><span>✳ Study Mastery · v{__APP_VERSION__}</span><span>Aprender é construir.</span></footer>
     </div>
   );
 }

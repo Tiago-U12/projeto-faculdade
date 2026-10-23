@@ -1,11 +1,16 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { readFileSync } from 'node:fs';
+import { offlinePrecache } from './tools/pwa';
 
-// base relativa: o build funciona em qualquer subcaminho (ex.: GitHub Pages) e em arquivo local.
+const { version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string };
+
+// base relativa: o build funciona em qualquer subcaminho (ex.: GitHub Pages).
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [react(), offlinePrecache(version)],
+  define: { __APP_VERSION__: JSON.stringify(version) },
   build: { chunkSizeWarningLimit: 900 },
   test: {
     // testes de componentes declaram o ambiente no próprio arquivo (// @vitest-environment jsdom)

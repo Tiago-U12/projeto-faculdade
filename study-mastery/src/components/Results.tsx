@@ -4,12 +4,12 @@ import { DIFFICULTIES, DIFFICULTY_LABEL, MODE_LABEL } from '../types';
 import { topicName } from '../lib/bank';
 import { useStudy } from '../state';
 import { ExplanationBlock } from './Explanation';
+import { reviewConfig } from '../lib/review';
 import { RichText } from './RichText';
 
-export function Results({ go }: { go: (to: string) => void }) {
+export function Results({ attemptId, go }: { attemptId?: string; go: (to: string) => void }) {
   const { bank, state, start } = useStudy();
-  const attempt = state.attempts[0];
-  const last = state.settings.lastConfig;
+  const attempt = attemptId === undefined ? state.attempts[0] : state.attempts.find((a) => a.id === attemptId);
   const stats = useMemo(() => {
     if (!attempt) return null;
     const total = attempt.answers.length;
@@ -30,7 +30,7 @@ export function Results({ go }: { go: (to: string) => void }) {
   if (!attempt || !stats) {
     return (
       <section className="empty">
-        <h1 className="screen-title">Nada por aqui ainda</h1>
+        <h1 className="screen-title">{attemptId === undefined ? 'Nada por aqui ainda' : 'Tentativa não encontrada neste aparelho'}</h1>
         <button type="button" className="primary" onClick={() => go('#/setup')}>Configurar sessão <ArrowRight size={18} aria-hidden="true" /></button>
       </section>
     );
@@ -38,8 +38,8 @@ export function Results({ go }: { go: (to: string) => void }) {
   const wrongIds = attempt.answers.filter((a) => !a.correct).map((a) => a.questionId);
   const msg = stats.pct >= 85 ? 'Excelente rodada! Experimente a camada de desafio.' : stats.pct >= 60 ? 'Bom caminho. Revise os pontos abaixo para consolidar.' : 'Ótimo ponto de partida: os erros mostram exatamente o que revisar.';
   const redo = () => {
-    if (!last) return;
-    if (start({ ...last, mode: 'revisao', size: Math.min(20, wrongIds.length) }, wrongIds)) go('#/quiz');
+    const questions = bank.questions.filter((q) => wrongIds.includes(q.id) && q.disciplineId === attempt.disciplineId);
+    if (start(reviewConfig(attempt.disciplineId, questions), wrongIds)) go('#/quiz');
   };
 
   return (
@@ -88,8 +88,8 @@ export function Results({ go }: { go: (to: string) => void }) {
                   <summary><span className="rv-n">{i + 1}</span><span className="rv-stem"><RichText text={q.stem.split('\n')[0]} /></span><span className="rv-badge">{a.correct ? 'acertou' : a.chosenOptionId ? 'errou' : 'em branco'}</span></summary>
                   <div className="rv-body">
                     <RichText as="div" className="rv-full" text={q.stem} />
-                    {!a.correct && <p className="rv-line"><b>Sua resposta:</b> {mine ? <RichText text={mine.text} /> : 'sem resposta'}</p>}
-                    <p className="rv-line"><b>Correta:</b> <RichText text={right.text} /></p>
+                    {!a.correct && <div className="rv-line"><b>Sua resposta:</b> {mine ? <RichText text={mine.text} /> : 'sem resposta'}</div>}
+                    <div className="rv-line"><b>Correta:</b> <RichText text={right.text} /></div>
                     <ExplanationBlock q={q} chosenId={a.chosenOptionId} bank={bank} />
                   </div>
                 </details>
@@ -100,7 +100,7 @@ export function Results({ go }: { go: (to: string) => void }) {
       </section>
 
       <div className="result-actions">
-        {wrongIds.length > 0 && last && <button type="button" className="primary" onClick={redo}><RotateCcw size={17} aria-hidden="true" /> Refazer os {wrongIds.length} erro{wrongIds.length > 1 ? 's' : ''}</button>}
+        {wrongIds.some((id) => bank.byId.has(id)) && <button type="button" className="primary" onClick={redo}><RotateCcw size={17} aria-hidden="true" /> Refazer os {wrongIds.length} erro{wrongIds.length > 1 ? 's' : ''}</button>}
         <button type="button" className="ghost" onClick={() => go('#/setup')}>Outra sessão</button>
         <button type="button" className="text-btn" onClick={() => go('#/')}>Início</button>
       </div>
