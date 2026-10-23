@@ -60,7 +60,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 4.5"
    }
   },
@@ -142,7 +142,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: NaN"
    }
   },
@@ -224,7 +224,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [5,4]"
    }
   },
@@ -306,7 +306,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 6"
    }
   },
@@ -388,7 +388,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [3,1,2] [3,2,1]"
    }
   },
@@ -470,7 +470,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 3.8"
    }
   },
@@ -552,7 +552,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: f1"
    }
   },
@@ -634,7 +634,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: undefined"
    }
   },
@@ -716,7 +716,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 5"
    }
   },
@@ -798,7 +798,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 0"
    }
   },
@@ -880,7 +880,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: TypeError"
    }
   },
@@ -962,7 +962,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [1,10,9]"
    }
   },
@@ -1044,7 +1044,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [3,4,5]"
    }
   },
@@ -1126,7 +1126,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 1"
    }
   },
@@ -1208,7 +1208,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: true [1,2,3]"
    }
   },
@@ -1290,7 +1290,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: false 0.3"
    }
   },
@@ -1372,7 +1372,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 3 -2"
    }
   },
@@ -1454,7 +1454,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: true false"
    }
   },
@@ -1536,7 +1536,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 5"
    }
   },
@@ -1618,7 +1618,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [1,NaN,NaN]"
    }
   },
@@ -1700,7 +1700,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [3,3,3]"
    }
   },
@@ -1782,7 +1782,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [3,2,1,3,2,1]"
    }
   },
@@ -1864,7 +1864,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: {\"1\":3,\"2\":1,\"3\":1}"
    }
   },
@@ -1946,7 +1946,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [1,3,2,4]"
    }
   },
@@ -2028,7 +2028,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [3,1,2] [1,2,3]"
    }
   },
@@ -2110,7 +2110,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [4,5] []"
    }
   },
@@ -2192,7 +2192,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:08:10.028Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 054 string"
    }
   },

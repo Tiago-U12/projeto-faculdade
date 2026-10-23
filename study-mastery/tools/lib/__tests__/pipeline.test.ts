@@ -18,6 +18,8 @@ import { publish, PublishError } from '../publish';
 import { findDuplicates } from '../dedupe';
 import { verifyJs } from '../verify';
 import { buildCoverage } from '../coverage';
+import { ingestSpecs } from '../ingest';
+import { toPublished } from '../publish';
 import { jsSpec, limitSpec, mk, SOURCES, TAX } from './helpers';
 import type { Question } from '../../../src/types';
 
@@ -255,3 +257,41 @@ describe('permissões de revisão e publicação', () => {
 });
 
 void os;
+
+describe('ingest e errata de questões aprovadas', () => {
+  const input = { reviewer: 'Maria', reviewerType: 'human' as const, checklist: ALL_CHECKS, now: new Date('2026-10-22T10:00:00Z') };
+  const aprovada = async (): Promise<Question[]> => {
+    const all: Question[] = [];
+    ingestSpecs(all, [limitSpec()]);
+    await validateAll(all, TAX, SOURCES);
+    approve(all, [all[0].id], TAX, SOURCES, input, false);
+    return all;
+  };
+  const corrigida = () => limitSpec({ stem: 'Calcule o limite (enunciado corrigido): $\\displaystyle\\lim_{x\\to0}\\frac{\\sin x}{x}$.' });
+
+  it('nunca sobrescreve uma aprovada sem errata explícita', async () => {
+    const all = await aprovada();
+    expect(() => ingestSpecs(all, [corrigida()])).toThrow(/--revise/);
+    expect(() => ingestSpecs(all, [corrigida()], { update: true })).toThrow(/aprovada|approved/);
+    expect(ingestSpecs(all, [limitSpec()])).toMatchObject({ same: 1 });
+  }, 60000);
+
+  it('errata exige motivo, sobe a versão, registra o histórico e tira a questão do banco publicado', async () => {
+    const all = await aprovada();
+    const q = all[0];
+    expect(() => ingestSpecs(all, [corrigida()], { revise: new Set([q.id]) })).toThrow(/reason/);
+    const r = ingestSpecs(all, [corrigida()], { revise: new Set([q.id]), reason: 'enunciado ambíguo', now: new Date('2026-10-23T00:00:00Z') });
+    expect(r.revised).toBe(1);
+    expect(q).toMatchObject({ status: 'draft', version: 2, errata: [{ version: 2, reason: 'enunciado ambíguo' }] });
+    expect(q.review).toBeUndefined();
+    expect(q.stem).toMatch(/corrigido/);
+    // fora do banco até nova validação e revisão
+    const out = path.join(tmp, 'pub-errata');
+    const pub = await publish(all, TAX, SOURCES, { outDir: out, recheck: false });
+    expect(pub.manifest.totals.approved).toBe(0);
+    await validateAll(all, TAX, SOURCES);
+    approve(all, [q.id], TAX, SOURCES, input, false);
+    expect(q.status).toBe('approved');
+    expect(toPublished(q)).not.toHaveProperty('errata');
+  }, 60000);
+});

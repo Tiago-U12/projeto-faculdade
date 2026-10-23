@@ -11067,7 +11067,7 @@
   "difficulty": "facil",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "O componente abaixo renderiza uma lista com `map` **sem** a prop `key`. O que o React faz?\n\n```jsx\nfunction Lista({ itens }) {\n  return (\n    <ul>\n      {itens.map((item) => (\n        <li>{item.nome}</li>\n      ))}\n    </ul>\n  );\n}\n```",
+  "stem": "Em modo de desenvolvimento (`npm run dev`), o componente abaixo renderiza uma lista com `map` **sem** a prop `key`. O que o React faz?\n\n```jsx\nfunction Lista({ itens }) {\n  return (\n    <ul>\n      {itens.map((item) => (\n        <li>{item.nome}</li>\n      ))}\n    </ul>\n  );\n}\n```",
   "options": [
    {
     "id": "a",
@@ -11102,9 +11102,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:20:04.600Z",
-  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -11617,7 +11617,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "Dois itens da lista usam a mesma `key`:\n\n```jsx\nconst itens = [{ id: 1, nome: \"A\" }, { id: 1, nome: \"B\" }];\nconst html = renderToStaticMarkup(\n  <ul>\n    {itens.map((i) => <li key={i.id}>{i.nome}</li>)}\n  </ul>\n);\n```\nO que o React faz?",
+  "stem": "Em modo de desenvolvimento (`npm run dev`), a lista abaixo é montada no navegador. Dois itens usam a mesma `key`:\n\n```jsx\nconst itens = [{ id: 1, nome: \"A\" }, { id: 1, nome: \"B\" }];\ncreateRoot(document.getElementById(\"root\")).render(\n  <ul>\n    {itens.map((i) => <li key={i.id}>{i.nome}</li>)}\n  </ul>\n);\n```\nO que o React faz?",
   "options": [
    {
     "id": "a",
@@ -11638,7 +11638,7 @@
   ],
   "correctOptionId": "a",
   "explanation": {
-   "correct": "As keys precisam ser únicas *entre irmãos*. Com duplicatas o React avisa (“Encountered two children with the same key”), pois em atualizações ele poderia confundir os itens (duplicar, omitir ou misturar estado). Por isso a aula usa `key={lugar.id}`, um identificador único do dado.",
+   "correct": "As keys precisam ser únicas *entre irmãos*. Com duplicatas o React avisa no console (“Encountered two children with the same key”), pois em atualizações ele poderia confundir os itens (duplicar, omitir ou misturar estado). Por isso a aula usa `key={lugar.id}`, um identificador único do dado. Esse aviso é do modo de desenvolvimento e aparece na renderização no navegador (`createRoot`); o build de produção não emite avisos.",
    "wrong": {
     "c": "Os dois itens são renderizados; o aviso alerta que keys repetidas podem causar comportamentos incorretos em atualizações.",
     "d": "Keys duplicadas geram aviso (não erro) e a renderização continua.",
@@ -11652,9 +11652,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:20:04.602Z",
-  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -12167,7 +12167,7 @@
   "difficulty": "facil",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de `execucoes` no final?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, []);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de `execucoes` no final?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, []);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -12193,7 +12193,10 @@
     "c": "Com o array de dependências vazio (`[]`) o efeito roda só na montagem, não a cada renderização.",
     "a": "Os cliques provocam re-renderizações, mas não reexecutam um efeito com `[]`.",
     "b": "O efeito roda uma vez, logo após a primeira renderização."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -12202,9 +12205,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.327Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -12567,7 +12570,7 @@
   "difficulty": "medio",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, [a]);\n  return (\n    <div>\n      <button id=\"ba\" onClick={() => setA(a + 1)}>a</button>\n      <button id=\"bb\" onClick={() => setB(b + 1)}>b</button>\n    </div>\n  );\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, [a]);\n  return (\n    <div>\n      <button id=\"ba\" onClick={() => setA(a + 1)}>a</button>\n      <button id=\"bb\" onClick={() => setB(b + 1)}>b</button>\n    </div>\n  );\n}\n```",
   "options": [
    {
     "id": "a",
@@ -12593,7 +12596,10 @@
     "a": "O efeito só reexecuta quando algo do array de dependências (`[a]`) muda; o estado `b` não está lá.",
     "d": "Além da montagem, a mudança de `a` (um clique) reexecuta o efeito: total 2.",
     "b": "Os cliques em “b” não reexecutam o efeito."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -12602,9 +12608,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -12617,7 +12623,7 @@
   "difficulty": "medio",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?\n\n```jsx\nfunction Relogio() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?\n\n```jsx\nfunction Relogio() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -12643,7 +12649,10 @@
     "b": "A função de limpeza só roda quando o componente é desmontado (ou antes de o efeito reexecutar).",
     "a": "Ao desmontar, o React executa a função retornada pelo efeito.",
     "d": "O efeito também roda na montagem, imprimindo “ligou”."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -12652,9 +12661,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -12667,7 +12676,7 @@
   "difficulty": "medio",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. O que o React faz ao receber o código abaixo?\n\n```jsx\nfunction Dados() {\n  useEffect(async () => {\n    await Promise.resolve();\n  }, []);\n  return <p>oi</p>;\n}\n```",
+  "stem": "A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. Em modo de desenvolvimento (`npm run dev`), o que o React faz ao receber o código abaixo?\n\n```jsx\nfunction Dados() {\n  useEffect(async () => {\n    await Promise.resolve();\n  }, []);\n  return <p>oi</p>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -12702,9 +12711,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -12967,7 +12976,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função `Tela` foi executada no total?\n\n```jsx\nlet renders = 0;\n\nfunction Tela() {\n  renders++;\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  function clicar() {\n    setA(a + 1);\n    setB(b + 1);\n  }\n  return <button id=\"b\" onClick={clicar}>{a}-{b}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função `Tela` foi executada no total?\n\n```jsx\nlet renders = 0;\n\nfunction Tela() {\n  renders++;\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  function clicar() {\n    setA(a + 1);\n    setB(b + 1);\n  }\n  return <button id=\"b\" onClick={clicar}>{a}-{b}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -12993,7 +13002,10 @@
     "d": "O React agrupa (faz “batch” de) as duas atualizações do mesmo evento em *uma* nova renderização.",
     "b": "Além da montagem, houve a re-renderização causada pelo clique.",
     "a": "Não há uma renderização por chamada de `set`; elas são agrupadas."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -13002,9 +13014,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -13017,7 +13029,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "Qual é a sequência impressa no console quando o componente é montado?\n\n```jsx\nfunction Tela() {\n  const [n, setN] = useState(0);\n  console.log(\"render\", n);\n  useEffect(() => {\n    console.log(\"efeito\", n);\n    setN(1);\n  }, []);\n  return <p>{n}</p>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: Qual é a sequência impressa no console quando o componente é montado?\n\n```jsx\nfunction Tela() {\n  const [n, setN] = useState(0);\n  console.log(\"render\", n);\n  useEffect(() => {\n    console.log(\"efeito\", n);\n    setN(1);\n  }, []);\n  return <p>{n}</p>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -13043,7 +13055,10 @@
     "b": "O efeito roda *depois* de o React renderizar e aplicar a tela; o primeiro log é o do render.",
     "a": "`setN(1)` no efeito muda o estado e provoca um novo render (`render 1`).",
     "c": "O primeiro render usa o valor inicial (0) e o efeito do mesmo render enxerga `n` = 0."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -13052,9 +13067,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -13067,7 +13082,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "Note que o `useEffect` está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  });\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: Note que o `useEffect` está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  });\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -13093,7 +13108,10 @@
     "b": "Isso vale para `[]`. Sem array, o efeito roda depois de *toda* renderização.",
     "c": "Há três renderizações (montagem + dois cliques), e o efeito roda após cada uma.",
     "d": "O efeito roda pelo menos na montagem."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -13102,9 +13120,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -13217,7 +13235,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "O que o React faz com este campo?\n\n```jsx\nfunction Campo() {\n  return <input value=\"Marina\" />;\n}\n```",
+  "stem": "Em modo de desenvolvimento (`npm run dev`), o que o React faz com este campo?\n\n```jsx\nfunction Campo() {\n  return <input value=\"Marina\" />;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -13252,9 +13270,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.329Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
@@ -13267,7 +13285,7 @@
   "difficulty": "dificil",
   "scope": "desafio",
   "type": "multiple-choice",
-  "stem": "Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a `caro()` ocorrem em (A) `Tela` e em (B) `TelaLazy`, respectivamente?\n\n```jsx\nlet chamadas = 0;\nfunction caro() {\n  chamadas++;\n  return 10;\n}\n\nfunction Tela() {\n  const [n, setN] = useState(caro()); // (A)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction TelaLazy() {\n  const [n, setN] = useState(() => caro()); // (B)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a `caro()` ocorrem em (A) `Tela` e em (B) `TelaLazy`, respectivamente?\n\n```jsx\nlet chamadas = 0;\nfunction caro() {\n  chamadas++;\n  return 10;\n}\n\nfunction Tela() {\n  const [n, setN] = useState(caro()); // (A)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction TelaLazy() {\n  const [n, setN] = useState(() => caro()); // (B)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -13293,7 +13311,10 @@
     "c": "Em (A) `caro()` é executada em *todo* render, pois é avaliada antes de chamar `useState`; só em (B) o React ignora a função depois da primeira vez.",
     "d": "Em (B) a função inicializadora roda apenas na primeira renderização.",
     "b": "Está invertido: (A) chama em todo render; (B) só na montagem."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -13302,9 +13323,9 @@
     "usage": "aula"
    }
   ],
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.329Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"

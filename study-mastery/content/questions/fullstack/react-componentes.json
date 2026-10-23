@@ -61,7 +61,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <estrelas nota=\"4\"></estrelas>"
    }
   },
@@ -144,7 +144,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>Olá, Marina!</p>"
    }
   },
@@ -227,7 +227,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <span class=\"estrelas\" aria-label=\"4 de 5 estrelas\">★★★★☆</span>"
    }
   },
@@ -310,7 +310,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>5 avaliações</p>"
    }
   },
@@ -393,7 +393,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <i>number</i> ⏎ <i>string</i>"
    }
   },
@@ -422,7 +422,7 @@
   "difficulty": "facil",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "O componente abaixo renderiza uma lista com `map` **sem** a prop `key`. O que o React faz?\n\n```jsx\nfunction Lista({ itens }) {\n  return (\n    <ul>\n      {itens.map((item) => (\n        <li>{item.nome}</li>\n      ))}\n    </ul>\n  );\n}\n```",
+  "stem": "Em modo de desenvolvimento (`npm run dev`), o componente abaixo renderiza uma lista com `map` **sem** a prop `key`. O que o React faz?\n\n```jsx\nfunction Lista({ itens }) {\n  return (\n    <ul>\n      {itens.map((item) => (\n        <li>{item.nome}</li>\n      ))}\n    </ul>\n  );\n}\n```",
   "options": [
    {
     "id": "a",
@@ -458,9 +458,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:20:04.600Z",
-  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -476,16 +476,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: renderiza e avisa"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:56:11.393Z",
+    "reason": "Enunciado não deixava claro que o aviso só existe em desenvolvimento; na 017 o código mostrava renderToStaticMarkup, que NÃO emite o aviso de key duplicada (a verificação executava createRoot). Enunciado alinhado ao código executado."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:20:56.279Z",
-   "notes": "React componentes: JSX compilado (esbuild) e renderizado com react-dom/server e react-dom/client+jsdom; avisos do React capturados",
+   "at": "2026-10-23T02:56:20.917Z",
+   "notes": "Errata v0.5: enunciado alinhado ao código executado e ao modo de desenvolvimento; reverificado no sandbox (React 19, jsdom).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -559,7 +566,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>Nenhum lugar encontrado.</p>"
    }
   },
@@ -642,7 +649,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: []"
    }
   },
@@ -725,7 +732,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: TypeError"
    }
   },
@@ -808,7 +815,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <section class=\"moldura\"><h2>Café Aroma</h2><p>Cafeteria</p></section>"
    }
   },
@@ -891,7 +898,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <h1>Lugares avaliados</h1><p>Descubra e avalie.</p>"
    }
   },
@@ -974,7 +981,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>0</p>"
    }
   },
@@ -1057,7 +1064,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <ul></ul>"
    }
   },
@@ -1140,7 +1147,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <div style=\"font-size:16px;margin-top:4px\">x</div>"
    }
   },
@@ -1223,7 +1230,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>&lt;b&gt;Ótimo!&lt;/b&gt;</p>"
    }
   },
@@ -1306,7 +1313,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <span>★★★☆☆</span>"
    }
   },
@@ -1335,7 +1342,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "Dois itens da lista usam a mesma `key`:\n\n```jsx\nconst itens = [{ id: 1, nome: \"A\" }, { id: 1, nome: \"B\" }];\nconst html = renderToStaticMarkup(\n  <ul>\n    {itens.map((i) => <li key={i.id}>{i.nome}</li>)}\n  </ul>\n);\n```\nO que o React faz?",
+  "stem": "Em modo de desenvolvimento (`npm run dev`), a lista abaixo é montada no navegador. Dois itens usam a mesma `key`:\n\n```jsx\nconst itens = [{ id: 1, nome: \"A\" }, { id: 1, nome: \"B\" }];\ncreateRoot(document.getElementById(\"root\")).render(\n  <ul>\n    {itens.map((i) => <li key={i.id}>{i.nome}</li>)}\n  </ul>\n);\n```\nO que o React faz?",
   "options": [
    {
     "id": "a",
@@ -1356,7 +1363,7 @@
   ],
   "correctOptionId": "a",
   "explanation": {
-   "correct": "As keys precisam ser únicas *entre irmãos*. Com duplicatas o React avisa (“Encountered two children with the same key”), pois em atualizações ele poderia confundir os itens (duplicar, omitir ou misturar estado). Por isso a aula usa `key={lugar.id}`, um identificador único do dado.",
+   "correct": "As keys precisam ser únicas *entre irmãos*. Com duplicatas o React avisa no console (“Encountered two children with the same key”), pois em atualizações ele poderia confundir os itens (duplicar, omitir ou misturar estado). Por isso a aula usa `key={lugar.id}`, um identificador único do dado. Esse aviso é do modo de desenvolvimento e aparece na renderização no navegador (`createRoot`); o build de produção não emite avisos.",
    "wrong": {
     "c": "Os dois itens são renderizados; o aviso alerta que keys repetidas podem causar comportamentos incorretos em atualizações.",
     "d": "Keys duplicadas geram aviso (não erro) e a renderização continua.",
@@ -1371,9 +1378,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:20:04.602Z",
-  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -1389,16 +1396,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: renderiza e avisa"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:56:11.393Z",
+    "reason": "Enunciado não deixava claro que o aviso só existe em desenvolvimento; na 017 o código mostrava renderToStaticMarkup, que NÃO emite o aviso de key duplicada (a verificação executava createRoot). Enunciado alinhado ao código executado."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:20:56.279Z",
-   "notes": "React componentes: JSX compilado (esbuild) e renderizado com react-dom/server e react-dom/client+jsdom; avisos do React capturados",
+   "at": "2026-10-23T02:56:20.917Z",
+   "notes": "Errata v0.5: enunciado alinhado ao código executado e ao modo de desenvolvimento; reverificado no sandbox (React 19, jsdom).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1472,7 +1486,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 1"
    }
   },
@@ -1555,7 +1569,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 2 1"
    }
   },
@@ -1638,7 +1652,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>[0NaN]</p>"
    }
   },
@@ -1721,7 +1735,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: []"
    }
   },
@@ -1804,7 +1818,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <span>★★★★★</span> ⏎ <span>★★★★★</span> ⏎ <span></span>"
    }
   },
@@ -1887,7 +1901,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p><b>Ótimo!</b></p>"
    }
   },
@@ -1970,7 +1984,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:20:52.553Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <label for=\"nome\" class=\"campo\" tabindex=\"0\">Nome</label>"
    }
   },

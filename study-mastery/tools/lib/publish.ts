@@ -24,8 +24,9 @@ export interface PublishOptions {
 }
 
 export function toPublished(q: Question): PublishedQuestion {
-  const { verification, review, status: _s, ...rest } = q;
+  const { verification, review, status: _s, errata: _e, ...rest } = q;
   void _s;
+  void _e;
   return { ...rest, status: 'approved', verifiedBy: verification?.result?.method ?? 'desconhecido', reviewedBy: review!.reviewerType };
 }
 

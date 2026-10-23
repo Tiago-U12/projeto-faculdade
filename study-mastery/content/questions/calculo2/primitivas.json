@@ -54,7 +54,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -150,7 +150,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**6/6 + C; checagem numérica ok"
    }
   },
@@ -243,7 +243,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 7*x + C; checagem numérica ok"
    }
   },
@@ -331,7 +331,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**3 + x**2 + C; checagem numérica ok"
    }
   },
@@ -412,7 +412,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -505,7 +505,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = exp(x) + C; checagem numérica ok"
    }
   },
@@ -598,7 +598,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = sin(x) + C; checagem numérica ok"
    }
   },
@@ -694,7 +694,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = -cos(x) + C; checagem numérica ok"
    }
   },
@@ -787,7 +787,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = log(x) + C; checagem numérica ok"
    }
   },
@@ -875,7 +875,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 2*x**(3/2)/3 + C; checagem numérica ok"
    }
   },
@@ -968,7 +968,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = 7; checagem independente ok"
    }
   },
@@ -1056,7 +1056,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = -1/x + C; checagem numérica ok"
    }
   },
@@ -1144,7 +1144,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "função de referência = 3*x**2 + 2"
    }
   },
@@ -1232,7 +1232,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**4/4 - 2*x**2 - 1/x + C; checagem numérica ok"
    }
   },
@@ -1324,7 +1324,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 2*exp(x) + 3*cos(x) + C; checagem numérica ok"
    }
   },
@@ -1415,7 +1415,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**3/3 + x**2 + x + C; checagem numérica ok"
    }
   },
@@ -1511,7 +1511,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 3*x**2/2 + 5*log(x) + C; checagem numérica ok"
    }
   },
@@ -1599,7 +1599,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = Piecewise((2*sqrt(x)*(x + 1)**2/5 - 2*sqrt(x)*(x + 1)/15 - 4*sqrt(x)/15, Abs(x + 1) > 1), (2*I*sqrt(-x)*(x + 1)**2/5 - 2*I*sqrt(-x)*(x + 1)/15 - 4*I*sqrt(-x)/15, True)) + C; checagem numérica ok"
    }
   },
@@ -1692,7 +1692,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = log(x)/2 + C; checagem numérica ok"
    }
   },
@@ -1780,7 +1780,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = -1/(2*x**2) + C; checagem numérica ok"
    }
   },
@@ -1868,7 +1868,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "função de referência = x**3 - 2*x + 5"
    }
   },
@@ -1961,7 +1961,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = exp(x) + log(x) + C; checagem numérica ok"
    }
   },
@@ -2049,7 +2049,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**2 + C; checagem numérica ok"
    }
   },
@@ -2142,7 +2142,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = sin(x) - cos(x) + C; checagem numérica ok"
    }
   },
@@ -2235,7 +2235,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = log(x); checagem numérica ok"
    }
   },
@@ -2325,7 +2325,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:14:01.006Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**6/6 + C; checagem numérica ok"
    }
   },
@@ -2421,7 +2421,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**4/4 + x**2 + log(x) + C; checagem numérica ok"
    }
   },
@@ -2509,7 +2509,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**2/2 - x + C; checagem numérica ok"
    }
   },
@@ -2600,7 +2600,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = -x + sin(x)/cos(x) + C; checagem numérica ok"
    }
   },
@@ -2688,7 +2688,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x/2 - sin(x)*cos(x)/2 + C; checagem numérica ok"
    }
   },
@@ -2776,7 +2776,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "função de referência = x**3 + x + 2"
    }
   },
@@ -2864,7 +2864,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "função de referência = x**2 + 1"
    }
   },
@@ -2955,7 +2955,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 2; checagem numérica ok"
    }
   },
@@ -3043,7 +3043,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 2*x*sqrt(x**3)/5 + C; checagem numérica ok"
    }
   },
@@ -3131,7 +3131,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "função de referência = 2*x**3 - 3*x**2 + 2*x + 1"
    }
   },
@@ -3224,7 +3224,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 3**x/log(3) + C; checagem numérica ok"
    }
   },
@@ -3312,7 +3312,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = 2*x**(3/2)/3 + 2*sqrt(x) + C; checagem numérica ok"
    }
   },
@@ -3400,7 +3400,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = x**2/2 - 2*x + log(x) + C; checagem numérica ok"
    }
   },
@@ -3502,7 +3502,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:15:36.864Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "∫ = log(x) + C; checagem numérica ok"
    }
   },

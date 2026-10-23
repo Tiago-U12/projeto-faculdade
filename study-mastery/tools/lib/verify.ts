@@ -229,7 +229,7 @@ export async function verifyWebAll(qs: Question[]): Promise<VerifyOutcome[]> {
         const value = await page.evaluate(`(async () => { ${p.probe} })()`);
         let text = typeof value === 'string' ? value : JSON.stringify(value);
         if (srvs && p.hits) text += ` hits=${srvs.hits[p.hits] ?? 0}`;
-        out.push(compareOutput(q, q.verification!.optionValues ?? {}, text, 'web-chromium (servidores locais)'));
+        out.push(compareOutput(q, q.verification!.optionValues ?? {}, text, srvs ? 'web-chromium (servidores locais)' : 'web-chromium (sem rede)'));
       } catch (e) {
         out.push({ id: q.id, ok: false, method: 'web-chromium', details: 'falha ao medir', errors: [(e as Error).message.slice(0, 200)] });
       } finally {

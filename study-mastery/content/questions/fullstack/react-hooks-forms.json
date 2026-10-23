@@ -61,7 +61,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 2"
    }
   },
@@ -144,7 +144,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: Nota: 5"
    }
   },
@@ -227,7 +227,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: ABC"
    }
   },
@@ -256,7 +256,7 @@
   "difficulty": "facil",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de `execucoes` no final?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, []);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de `execucoes` no final?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, []);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -282,7 +282,10 @@
     "c": "Com o array de dependências vazio (`[]`) o efeito roda só na montagem, não a cada renderização.",
     "a": "Os cliques provocam re-renderizações, mas não reexecutam um efeito com `[]`.",
     "b": "O efeito roda uma vez, logo após a primeira renderização."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -292,9 +295,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.327Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -310,16 +313,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 1"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.886Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -393,7 +403,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: Você digitou: Oi"
    }
   },
@@ -476,7 +486,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: true"
    }
   },
@@ -559,7 +569,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: number-function"
    }
   },
@@ -642,7 +652,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: <p>Carregando lugares...</p>"
    }
   },
@@ -725,7 +735,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: Parque das Águas"
    }
   },
@@ -808,7 +818,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 1"
    }
   },
@@ -891,7 +901,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: AB"
    }
   },
@@ -920,7 +930,7 @@
   "difficulty": "medio",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, [a]);\n  return (\n    <div>\n      <button id=\"ba\" onClick={() => setA(a + 1)}>a</button>\n      <button id=\"bb\" onClick={() => setB(b + 1)}>b</button>\n    </div>\n  );\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, [a]);\n  return (\n    <div>\n      <button id=\"ba\" onClick={() => setA(a + 1)}>a</button>\n      <button id=\"bb\" onClick={() => setB(b + 1)}>b</button>\n    </div>\n  );\n}\n```",
   "options": [
    {
     "id": "a",
@@ -946,7 +956,10 @@
     "a": "O efeito só reexecuta quando algo do array de dependências (`[a]`) muda; o estado `b` não está lá.",
     "d": "Além da montagem, a mudança de `a` (um clique) reexecuta o efeito: total 2.",
     "b": "Os cliques em “b” não reexecutam o efeito."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -956,9 +969,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -974,16 +987,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 2"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.887Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1003,7 +1023,7 @@
   "difficulty": "medio",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?\n\n```jsx\nfunction Relogio() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?\n\n```jsx\nfunction Relogio() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -1029,7 +1049,10 @@
     "b": "A função de limpeza só roda quando o componente é desmontado (ou antes de o efeito reexecutar).",
     "a": "Ao desmontar, o React executa a função retornada pelo efeito.",
     "d": "O efeito também roda na montagem, imprimindo “ligou”."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -1039,9 +1062,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -1057,16 +1080,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: ligou ⏎ desligou"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.887Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1086,7 +1116,7 @@
   "difficulty": "medio",
   "scope": "aula",
   "type": "multiple-choice",
-  "stem": "A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. O que o React faz ao receber o código abaixo?\n\n```jsx\nfunction Dados() {\n  useEffect(async () => {\n    await Promise.resolve();\n  }, []);\n  return <p>oi</p>;\n}\n```",
+  "stem": "A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. Em modo de desenvolvimento (`npm run dev`), o que o React faz ao receber o código abaixo?\n\n```jsx\nfunction Dados() {\n  useEffect(async () => {\n    await Promise.resolve();\n  }, []);\n  return <p>oi</p>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -1122,9 +1152,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -1140,16 +1170,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: aviso"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:56:11.828Z",
+    "reason": "Avisos do React só existem em modo de desenvolvimento; o enunciado passou a dizer isso explicitamente."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:56:20.917Z",
+   "notes": "Errata v0.5: enunciado alinhado ao código executado e ao modo de desenvolvimento; reverificado no sandbox (React 19, jsdom).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1223,7 +1260,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: string"
    }
   },
@@ -1306,7 +1343,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: Comentário muito curto / 0"
    }
   },
@@ -1389,7 +1426,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: [] 1"
    }
   },
@@ -1472,7 +1509,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 4"
    }
   },
@@ -1555,7 +1592,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: handler: 0 ⏎ 1"
    }
   },
@@ -1584,7 +1621,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função `Tela` foi executada no total?\n\n```jsx\nlet renders = 0;\n\nfunction Tela() {\n  renders++;\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  function clicar() {\n    setA(a + 1);\n    setB(b + 1);\n  }\n  return <button id=\"b\" onClick={clicar}>{a}-{b}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função `Tela` foi executada no total?\n\n```jsx\nlet renders = 0;\n\nfunction Tela() {\n  renders++;\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  function clicar() {\n    setA(a + 1);\n    setB(b + 1);\n  }\n  return <button id=\"b\" onClick={clicar}>{a}-{b}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -1610,7 +1647,10 @@
     "d": "O React agrupa (faz “batch” de) as duas atualizações do mesmo evento em *uma* nova renderização.",
     "b": "Além da montagem, houve a re-renderização causada pelo clique.",
     "a": "Não há uma renderização por chamada de `set`; elas são agrupadas."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -1620,9 +1660,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -1638,16 +1678,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 2"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.887Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1667,7 +1714,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "Qual é a sequência impressa no console quando o componente é montado?\n\n```jsx\nfunction Tela() {\n  const [n, setN] = useState(0);\n  console.log(\"render\", n);\n  useEffect(() => {\n    console.log(\"efeito\", n);\n    setN(1);\n  }, []);\n  return <p>{n}</p>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: Qual é a sequência impressa no console quando o componente é montado?\n\n```jsx\nfunction Tela() {\n  const [n, setN] = useState(0);\n  console.log(\"render\", n);\n  useEffect(() => {\n    console.log(\"efeito\", n);\n    setN(1);\n  }, []);\n  return <p>{n}</p>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -1693,7 +1740,10 @@
     "b": "O efeito roda *depois* de o React renderizar e aplicar a tela; o primeiro log é o do render.",
     "a": "`setN(1)` no efeito muda o estado e provoca um novo render (`render 1`).",
     "c": "O primeiro render usa o valor inicial (0) e o efeito do mesmo render enxerga `n` = 0."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -1703,9 +1753,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -1721,16 +1771,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: render 0 ⏎ efeito 0 ⏎ render 1"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.887Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1750,7 +1807,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "Note que o `useEffect` está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  });\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: Note que o `useEffect` está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  });\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -1776,7 +1833,10 @@
     "b": "Isso vale para `[]`. Sem array, o efeito roda depois de *toda* renderização.",
     "c": "Há três renderizações (montagem + dois cliques), e o efeito roda após cada uma.",
     "d": "O efeito roda pelo menos na montagem."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -1786,9 +1846,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.328Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -1804,16 +1864,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 3"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.887Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -1887,7 +1954,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: ligou ⏎ desligou ⏎ ligou"
    }
   },
@@ -1970,7 +2037,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 0"
    }
   },
@@ -1999,7 +2066,7 @@
   "difficulty": "dificil",
   "scope": "aprofundamento",
   "type": "multiple-choice",
-  "stem": "O que o React faz com este campo?\n\n```jsx\nfunction Campo() {\n  return <input value=\"Marina\" />;\n}\n```",
+  "stem": "Em modo de desenvolvimento (`npm run dev`), o que o React faz com este campo?\n\n```jsx\nfunction Campo() {\n  return <input value=\"Marina\" />;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -2035,9 +2102,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.329Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:56:20.917Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -2053,16 +2120,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: aviso"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:56:11.829Z",
+    "reason": "Avisos do React só existem em modo de desenvolvimento; o enunciado passou a dizer isso explicitamente."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:56:20.917Z",
+   "notes": "Errata v0.5: enunciado alinhado ao código executado e ao modo de desenvolvimento; reverificado no sandbox (React 19, jsdom).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -2082,7 +2156,7 @@
   "difficulty": "dificil",
   "scope": "desafio",
   "type": "multiple-choice",
-  "stem": "Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a `caro()` ocorrem em (A) `Tela` e em (B) `TelaLazy`, respectivamente?\n\n```jsx\nlet chamadas = 0;\nfunction caro() {\n  chamadas++;\n  return 10;\n}\n\nfunction Tela() {\n  const [n, setN] = useState(caro()); // (A)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction TelaLazy() {\n  const [n, setN] = useState(() => caro()); // (B)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "stem": "Sem `<StrictMode>`: Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a `caro()` ocorrem em (A) `Tela` e em (B) `TelaLazy`, respectivamente?\n\n```jsx\nlet chamadas = 0;\nfunction caro() {\n  chamadas++;\n  return 10;\n}\n\nfunction Tela() {\n  const [n, setN] = useState(caro()); // (A)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction TelaLazy() {\n  const [n, setN] = useState(() => caro()); // (B)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
   "options": [
    {
     "id": "a",
@@ -2108,7 +2182,10 @@
     "c": "Em (A) `caro()` é executada em *todo* render, pois é avaliada antes de chamar `useState`; só em (B) o React ignora a função depois da primeira vez.",
     "d": "Em (B) a função inicializadora roda apenas na primeira renderização.",
     "b": "Está invertido: (A) chama em todo render; (B) só na montagem."
-   }
+   },
+   "commonMistakes": [
+    "Esquecer o `<StrictMode>`: o `main.jsx` dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não."
+   ]
   },
   "sourceRefs": [
    {
@@ -2118,9 +2195,9 @@
    }
   ],
   "status": "approved",
-  "version": 1,
+  "version": 2,
   "createdAt": "2026-10-23T01:24:37.329Z",
-  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "updatedAt": "2026-10-23T02:59:28.631Z",
   "verification": {
    "kind": "node",
    "params": {
@@ -2136,16 +2213,23 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: (A) 2 e (B) 1"
    }
   },
+  "errata": [
+   {
+    "version": 2,
+    "at": "2026-10-23T02:58:44.888Z",
+    "reason": "Contagem de renderizações/efeitos depende do StrictMode, usado no main.jsx dos starters; com ele, em 004/012/020 a saída coincide com um distrator. O enunciado agora declara a condição (sem StrictMode); auditoria tools/audit/strictmode.ts."
+   }
+  ],
   "review": {
    "decision": "approved",
    "reviewer": "Claude (revisão assistida por IA)",
    "reviewerType": "ai-assisted",
-   "at": "2026-10-23T01:25:59.637Z",
-   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "at": "2026-10-23T02:59:28.631Z",
+   "notes": "Errata v0.5: condição 'sem StrictMode' declarada no enunciado e explicada em erros frequentes; saída reexecutada com e sem StrictMode (tools/audit/strictmode.ts).",
    "checklist": {
     "gabarito-correto-e-unico": true,
     "enunciado-claro-sem-ambiguidade": true,
@@ -2219,7 +2303,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:25:37.511Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 0"
    }
   },

@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [react()],
   build: { chunkSizeWarningLimit: 900 },
   test: {
+    // testes de componentes declaram o ambiente no próprio arquivo (// @vitest-environment jsdom)
     include: ['src/**/*.test.{ts,tsx}', 'tools/**/*.test.ts'],
-    environmentMatchGlobs: [['src/**/*.test.tsx', 'jsdom']],
     setupFiles: ['./src/test-setup.ts'],
   },
 });

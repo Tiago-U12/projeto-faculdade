@@ -8,6 +8,8 @@ export interface ValidationReport {
   duplicates: DupPair[];
   transitions: { id: string; from: Status; to: Status }[];
   verified: number;
+  /** aprovadas reexecutadas com sucesso (só com recheckApproved) */
+  rechecked: number;
   failedVerification: string[];
   regressions: string[];
 }
@@ -59,6 +61,7 @@ export async function validateAll(all: Question[], tax: Taxonomy, sources: Sourc
   const outcomes = opts.skipVerify ? [] : await verifyAll(toVerify);
   const outById = new Map(outcomes.map((o) => [o.id, o]));
   let verified = 0;
+  let rechecked = 0;
   const transitions: ValidationReport['transitions'] = [];
   for (const q of live) {
     if (!target(q)) continue;
@@ -75,6 +78,7 @@ export async function validateAll(all: Question[], tax: Taxonomy, sources: Sourc
     const clean = !errorIds.has(q.id);
     if (q.status === 'approved') {
       if (!clean) regressions.push(q.id);
+      else if (o?.ok) rechecked++;
       continue;
     }
     const to: Status = clean && verificationOk && (o || opts.skipVerify) ? 'verified' : 'draft';
@@ -86,5 +90,5 @@ export async function validateAll(all: Question[], tax: Taxonomy, sources: Sourc
     }
     if (to === 'verified') verified++;
   }
-  return { issues, duplicates, transitions, verified, failedVerification, regressions };
+  return { issues, duplicates, transitions, verified, rechecked, failedVerification, regressions };
 }

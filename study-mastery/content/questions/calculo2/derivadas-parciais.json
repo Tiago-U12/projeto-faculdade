@@ -66,7 +66,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = 2*x*y; checagem independente ok"
    }
   },
@@ -154,7 +154,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = -2*x + 2*y; checagem independente ok"
    }
   },
@@ -248,7 +248,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 12; checagem numérica ok"
    }
   },
@@ -336,7 +336,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = y*exp(x*y); checagem independente ok"
    }
   },
@@ -424,7 +424,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = x/y; checagem independente ok"
    }
   },
@@ -518,7 +518,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 8; checagem numérica ok"
    }
   },
@@ -606,7 +606,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = -2; checagem independente ok"
    }
   },
@@ -694,7 +694,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = 6*x**2*y; checagem independente ok"
    }
   },
@@ -782,7 +782,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = exp(x)*cos(y); checagem independente ok"
    }
   },
@@ -870,7 +870,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = x/sqrt(x**2 + y**2); checagem independente ok"
    }
   },
@@ -958,7 +958,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = -x/(x + y)**2; checagem independente ok"
    }
   },
@@ -1052,7 +1052,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 3; checagem numérica ok"
    }
   },
@@ -1146,7 +1146,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 4; checagem numérica ok"
    }
   },
@@ -1241,7 +1241,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 12; checagem numérica ok"
    }
   },
@@ -1329,7 +1329,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "função de referência = t**2 + 2*t*(2*t**2 + t)"
    }
   },
@@ -1417,7 +1417,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = 0; checagem independente ok"
    }
   },
@@ -1505,7 +1505,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = exp(y) + 1/x; checagem independente ok"
    }
   },
@@ -1593,7 +1593,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = -4/5; checagem independente ok"
    }
   },
@@ -1681,7 +1681,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = 2*x + 4*y - 5; checagem independente ok"
    }
   },
@@ -1769,7 +1769,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "valor = -9/10; checagem independente ok"
    }
   },
@@ -1863,7 +1863,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-22T23:45:39.610Z",
+    "ranAt": "2026-10-23T02:51:37.723Z",
     "details": "derivada = 8*log(2); checagem numérica ok"
    }
   },

@@ -60,7 +60,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 200 {\"mensagem\":\"API no ar.\"}"
    }
   },
@@ -142,7 +142,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 404 {\"erro\":\"Lugar não encontrado.\"}"
    }
   },
@@ -224,7 +224,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 201"
    }
   },
@@ -306,7 +306,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: string 3"
    }
   },
@@ -388,7 +388,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: undefined"
    }
   },
@@ -470,7 +470,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 404 {\"erro\":\"Rota não encontrada.\"}"
    }
   },
@@ -552,7 +552,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 404"
    }
   },
@@ -634,7 +634,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: application/json; charset=utf-8"
    }
   },
@@ -716,7 +716,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 3333 4000"
    }
   },
@@ -798,7 +798,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: A ⏎ B"
    }
   },
@@ -880,7 +880,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: servidor: TypeError ⏎ cliente: 404 {\"erro\":\"Lugar não encontrado.\"}"
    }
   },
@@ -962,7 +962,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 500 {\"erro\":\"falhou\"}"
    }
   },
@@ -1044,7 +1044,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 500 text/html"
    }
   },
@@ -1126,7 +1126,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: {\"categoria\":\"parque\"}"
    }
   },
@@ -1208,7 +1208,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 400"
    }
   },
@@ -1290,7 +1290,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 200 404"
    }
   },
@@ -1372,7 +1372,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: id=novo"
    }
   },
@@ -1454,7 +1454,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 400 400 400 201"
    }
   },
@@ -1536,7 +1536,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: text/html application/json"
    }
   },
@@ -1618,7 +1618,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 204 []"
    }
   },
@@ -1700,7 +1700,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 200 0 application/json"
    }
   },
@@ -1787,7 +1787,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 204 *"
    }
   },
@@ -1869,7 +1869,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 1 ⏎ 3 falhou ⏎ status 500"
    }
   },
@@ -1951,7 +1951,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: undefined"
    }
   },
@@ -2033,7 +2033,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: 404 {\"erro\":\"Rota não encontrada.\"}"
    }
   },
@@ -2115,7 +2115,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: /avaliacoes/9"
    }
   },
@@ -2197,7 +2197,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:32:24.847Z",
+    "ranAt": "2026-10-23T03:00:06.881Z",
     "details": "saída: a undefined ⏎ b {\"nota\":\"5\"}"
    }
   },

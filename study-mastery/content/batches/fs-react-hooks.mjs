@@ -31,6 +31,12 @@ const enviar = async (form) => { const evt = new window.Event('submit', { bubble
 `;
 const ui = (componente, interacao, values) => ({ kind: 'node', params: { jsx: true, code: `${HARNESS}${componente}\n${interacao}` }, values });
 const stem = (intro, componente) => `${intro}\n\n${code(componente)}`;
+// contagens de renderizações/efeitos dependem do StrictMode (o main.jsx dos starters usa <StrictMode>, que em desenvolvimento
+// executa componentes e efeitos duas vezes de propósito): estas questões declaram a condição no enunciado
+const SEM_STRICT = 'Sem §<StrictMode>§: ';
+const NOTA_STRICT = 'Esquecer o §<StrictMode>§: o §main.jsx§ dos starters o usa e, em desenvolvimento, ele executa componentes e efeitos duas vezes de propósito (para revelar efeitos sem limpeza). Com ele as contagens dobram; em produção, não.';
+// acrescenta a observação do StrictMode aos erros frequentes das questões cuja contagem depende dele
+const comNotaStrict = (spec) => (spec.stem.includes('Sem `<StrictMode>`') ? { ...spec, mistakes: [...(spec.mistakes ?? []), h`${NOTA_STRICT}`] } : spec);
 
 export default [
   // ---------------- FÁCEIS ----------------
@@ -98,7 +104,7 @@ function Tela() {
 }`;
     return R(4, {
       diff: 'facil', scope: 'aula', sub: 'useEffect com array vazio',
-      stem: h`${stem('O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de §execucoes§ no final?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de §execucoes§ no final?', C)}`,
       opts: [h`§1§`, [h`§3§`, h`Com o array de dependências vazio (§[]§) o efeito roda só na montagem, não a cada renderização.`], [h`§2§`, h`Os cliques provocam re-renderizações, mas não reexecutam um efeito com §[]§.`], [h`§0§`, h`O efeito roda uma vez, logo após a primeira renderização.`]],
       exp: h`§useEffect(fn, [])§ executa §fn§ apenas depois da primeira renderização (montagem). É por isso que a Aula 07 busca os dados dentro de um §useEffect§ com §[]§: “roda uma vez, na montagem do componente”.`,
       src: [[A7, '1. useEffect: roda uma vez, na montagem, por causa do array de dependências vazio []']],
@@ -263,7 +269,7 @@ function Tela() {
 }`;
     return R(12, {
       diff: 'medio', scope: 'aula', sub: 'Array de dependências',
-      stem: h`${stem('O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale §execucoes§?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale §execucoes§?', C)}`,
       opts: [h`§2§`, [h`§4§`, h`O efeito só reexecuta quando algo do array de dependências (§[a]§) muda; o estado §b§ não está lá.`], [h`§1§`, h`Além da montagem, a mudança de §a§ (um clique) reexecuta o efeito: total 2.`], [h`§3§`, h`Os cliques em “b” não reexecutam o efeito.`]],
       exp: h`O efeito roda na montagem (1) e sempre que um valor do array de dependências muda. Mudar §b§ não dispara; mudar §a§ uma vez dispara mais uma. Total: 2. Listar corretamente as dependências é o que mantém os efeitos sincronizados com o estado.`,
       src: [[A7, '1. useEffect: array de dependências']],
@@ -280,7 +286,7 @@ function Tela() {
 }`;
     return R(13, {
       diff: 'medio', scope: 'aprofundamento', sub: 'Função de limpeza',
-      stem: h`${stem('O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?', C)}`,
       opts: [h`§ligou§ e depois §desligou§`, [h`§desligou§ e depois §ligou§`, h`A função de limpeza só roda quando o componente é desmontado (ou antes de o efeito reexecutar).`], [h`Apenas §ligou§`, h`Ao desmontar, o React executa a função retornada pelo efeito.`], [h`Apenas §desligou§`, h`O efeito também roda na montagem, imprimindo “ligou”.`]],
       exp: h`O efeito imprime “ligou” depois da montagem. A função retornada é a *limpeza*: o React a executa ao desmontar (ou antes de rodar o efeito de novo). Serve para cancelar timers, assinaturas e requisições pendentes.`,
       src: [[A7, 'useEffect para buscar dados quando o componente monta']],
@@ -296,7 +302,7 @@ function Tela() {
 }`;
     return R(14, {
       diff: 'medio', scope: 'aula', sub: 'Efeito async',
-      stem: h`A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. O que o React faz ao receber o código abaixo?\n\n${code(C)}`,
+      stem: h`A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. Em modo de desenvolvimento (§npm run dev§), o que o React faz ao receber o código abaixo?\n\n${code(C)}`,
       opts: [h`Avisa no console: o efeito devolveu uma Promise`, [h`Funciona normalmente, sem nenhum aviso`, h`O React verifica o retorno do efeito e emite um aviso quando ele não é uma função.`], [h`Lança um erro e a tela fica em branco`, h`É um aviso (§console.error§), não uma exceção que derrube a renderização.`], [h`Executa o efeito duas vezes`, h`O aviso não altera a quantidade de execuções.`]],
       exp: h`Uma função §async§ sempre retorna uma Promise, mas o retorno de um efeito deve ser *a função de limpeza* (ou nada). Por isso a aula manda declarar uma função §async§ separada dentro do efeito (§carregarDados§) e chamá-la: “Declare uma função async §carregarDados§ (não dá para marcar o próprio callback do useEffect como async)”.`,
       src: [[A7, '1. useEffect: declare uma função async carregarDados (não dá para marcar o callback como async)']],
@@ -436,7 +442,7 @@ function Tela() {
 }`;
     return R(20, {
       diff: 'dificil', scope: 'aprofundamento', sub: 'Atualizações em lote',
-      stem: h`${stem('O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função §Tela§ foi executada no total?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função §Tela§ foi executada no total?', C)}`,
       opts: [h`§2§`, [h`§3§`, h`O React agrupa (faz “batch” de) as duas atualizações do mesmo evento em *uma* nova renderização.`], [h`§1§`, h`Além da montagem, houve a re-renderização causada pelo clique.`], [h`§4§`, h`Não há uma renderização por chamada de §set§; elas são agrupadas.`]],
       exp: h`Desde o React 18 (e na versão do curso, 19), várias chamadas de §set...§ dentro do mesmo evento são agrupadas em uma única renderização. Total: 1 (montagem) + 1 (clique) = 2 execuções de §Tela§.`,
       src: [[A7, 'lidarComEnvio e atualização de estados no mesmo evento']],
@@ -455,7 +461,7 @@ function Tela() {
 }`;
     return R(21, {
       diff: 'dificil', scope: 'aprofundamento', sub: 'Ordem render → efeito → render',
-      stem: h`${stem('Qual é a sequência impressa no console quando o componente é montado?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'Qual é a sequência impressa no console quando o componente é montado?', C)}`,
       opts: [h`§render 0§, §efeito 0§ e §render 1§`, [h`§efeito 0§, §render 0§ e §render 1§`, h`O efeito roda *depois* de o React renderizar e aplicar a tela; o primeiro log é o do render.`], [h`§render 0§ e §efeito 0§ apenas`, h`§setN(1)§ no efeito muda o estado e provoca um novo render (§render 1§).`], [h`§render 1§, §efeito 1§`, h`O primeiro render usa o valor inicial (0) e o efeito do mesmo render enxerga §n§ = 0.`]],
       exp: h`Sequência: 1) render com §n = 0§; 2) o React aplica a tela e executa o efeito (§efeito 0§), que chama §setN(1)§; 3) novo render com §n = 1§. O efeito, com array vazio, não roda de novo. É o fluxo da Aula 07: primeiro “Carregando...”, depois os dados.`,
       src: [[A7, '1. useEffect: roda após a montagem; atualiza estados']],
@@ -474,7 +480,7 @@ function Tela() {
 }`;
     return R(22, {
       diff: 'dificil', scope: 'aprofundamento', sub: 'Efeito sem array de dependências',
-      stem: h`${stem('Note que o §useEffect§ está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale §execucoes§?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'Note que o §useEffect§ está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale §execucoes§?', C)}`,
       opts: [h`§3§`, [h`§1§`, h`Isso vale para §[]§. Sem array, o efeito roda depois de *toda* renderização.`], [h`§2§`, h`Há três renderizações (montagem + dois cliques), e o efeito roda após cada uma.`], [h`§0§`, h`O efeito roda pelo menos na montagem.`]],
       exp: h`Sem o segundo argumento, o efeito executa após cada renderização: montagem (1) + dois cliques (2) = 3. Se esse efeito alterasse o estado sem condição, criaria um laço infinito de renderizações (cada atualização dispara outra renderização e outro efeito). Por isso a Aula 07 enfatiza o array §[]§ no §useEffect§.`,
       src: [[A7, '1. useEffect: array de dependências vazio [] no final']],
@@ -529,7 +535,7 @@ function Pai({ lugarId }) {
 }`;
     return R(25, {
       diff: 'dificil', scope: 'aprofundamento', sub: 'Campo com value sem onChange',
-      stem: h`${stem('O que o React faz com este campo?', C)}`,
+      stem: h`${stem('Em modo de desenvolvimento (§npm run dev§), o que o React faz com este campo?', C)}`,
       opts: [h`Renderiza o campo travado (somente leitura) e avisa no console que falta o §onChange§`, [h`Renderiza um campo editável sem nenhum aviso`, h`Com §value§ fixo e sem §onChange§, o campo fica preso ao valor e o React avisa sobre isso.`], [h`Lança um erro e não renderiza`, h`É um aviso no console, não uma exceção.`], [h`Converte automaticamente em campo não controlado`, h`O React não altera sozinho o tipo do campo; avisa para você corrigir.`]],
       exp: h`Um campo com §value§ é *controlado*: o React espera um §onChange§ que atualize o estado. Sem ele, o usuário não consegue editar o campo e o React emite “You provided a value prop to a form field without an onChange handler”. Soluções: adicionar §onChange§ + estado, usar §readOnly§ ou §defaultValue§.`,
       src: [[A7, 'Dica: campo controlado segue o padrão value={estado} onChange=...']],
@@ -554,7 +560,7 @@ function TelaLazy() {
 }`;
     return R(26, {
       diff: 'dificil', scope: 'desafio', sub: 'Inicialização preguiçosa',
-      stem: h`${stem('Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a §caro()§ ocorrem em (A) §Tela§ e em (B) §TelaLazy§, respectivamente?', C)}`,
+      stem: h`${stem(SEM_STRICT + 'Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a §caro()§ ocorrem em (A) §Tela§ e em (B) §TelaLazy§, respectivamente?', C)}`,
       opts: [h`(A) 2 e (B) 1`, [h`(A) 1 e (B) 1`, h`Em (A) §caro()§ é executada em *todo* render, pois é avaliada antes de chamar §useState§; só em (B) o React ignora a função depois da primeira vez.`], [h`(A) 2 e (B) 2`, h`Em (B) a função inicializadora roda apenas na primeira renderização.`], [h`(A) 1 e (B) 2`, h`Está invertido: (A) chama em todo render; (B) só na montagem.`]],
       exp: h`§useState(caro())§ chama §caro()§ a cada render (o resultado é ignorado depois do primeiro). §useState(() => caro())§ passa uma função inicializadora, que o React executa *só na montagem*. Para valores caros de calcular (ex.: ler algo grande), prefira a forma preguiçosa.`,
       src: [[A7, 'useState: valor inicial dos estados do formulário']],
@@ -580,4 +586,4 @@ function TelaLazy() {
       verify: ui(C, "await montar(<Tela />);\nawait clicar($('b'));\nawait clicar($('b'));\nawait clicar($('b'));\nconsole.log($('v').textContent);", ['0', '3', '1', 'undefined']),
     });
   })(),
-];
+].map(comNotaStrict);

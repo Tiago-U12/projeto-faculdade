@@ -88,10 +88,12 @@ export interface Question {
   tags?: string[];
   verification?: VerificationSpec;
   review?: ReviewRecord;
+  /** correções feitas depois de uma aprovação (sm ingest --revise): cada uma exigiu nova validação e revisão */
+  errata?: { version: number; at: string; reason: string }[];
 }
 
 /** Forma publicada para o estudante: sem scripts de verificação. */
-export interface PublishedQuestion extends Omit<Question, 'verification' | 'review' | 'status'> {
+export interface PublishedQuestion extends Omit<Question, 'verification' | 'review' | 'status' | 'errata'> {
   status: 'approved';
   verifiedBy: string; // método: sympy+numeric | js-exec | source
   reviewedBy: 'human' | 'ai-assisted';
