@@ -1,4 +1,4 @@
-# Study Mastery v0.4
+# Study Mastery v0.5.0
 
 Plataforma de estudos universitária gratuita e mobile-first: questões, simulados, explicações e acompanhamento do aprendizado — **sem cadastro e sem chamadas de IA durante as sessões**. O estudante usa um banco de questões **previamente verificado e aprovado**, versionado em JSON; todo o progresso fica no próprio aparelho.
 
@@ -9,12 +9,25 @@ Plataforma de estudos universitária gratuita e mobile-first: questões, simulad
 Requer Node 22+ (e, apenas para o processo editorial: Python 3 com `sympy`/`mpmath`, `npm run sandbox:install`, Chromium e, para questões de SQL, `mariadb-server`).
 
 ```bash
-npm install
+npm ci
 npm run dev        # app em modo desenvolvimento
 npm run build      # build de produção (tsc + vite)
 npm test           # testes unitários e do pipeline
+npm run test:pwa   # testes isolados do worker/cache/Range (Node 22.6+)
+npm run e2e:render # todas as 600 questões em 390 e 320px (exige build)
+npm run e2e:offline # build no subcaminho Pages e navegação offline
 npm run e2e        # E2E em Chromium (390 px); exige `npm run build` antes
 ```
+
+## Estado da v0.5.0
+
+Implementação continuada no branch existente; validação completa **pendente por bloqueios do ambiente**. Os 6 testes isolados de PWA passaram; build, Vitest, E2E e reexecução editorial não iniciaram aqui. Evidências e comandos para retomar: [AUDITORIA_V05.md](docs/AUDITORIA_V05.md).
+
+- Histórico abre cada tentativa por `#/results?id=...`; refazer erros usa as questões daquela tentativa.
+- Confirmação antes de substituir sessão em andamento e botão “Revisar meus erros” no Progresso.
+- [Study Radio](docs/STUDY_RADIO.md): MP3 opcional em loop, escolhido no aparelho ou fornecido no build; nenhuma música incluída.
+- Pré-cache versionado, caches restritos ao app, Range de áudio e ícones PNG.
+- [Publicação](docs/PUBLICACAO.md) condicionada a `PUBLICAR_STUDY_MASTERY=true`, somente após autorização do Tiago. Nenhum deploy ou merge executado nesta continuação.
 
 ## O que o estudante tem
 

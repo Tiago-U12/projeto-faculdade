@@ -2,10 +2,18 @@
 
 Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run progress`); o restante é mantido à mão.
 
+## Continuação v0.5.0
+
+Implementados: rádio opcional, sessão com confirmação de substituição, resultados por tentativa, revisão de erros, ajustes de acessibilidade/CSS, pré-cache/hash/Range, ícones PNG e workflow condicionado. Banco preservado em 600/600, revisão humana pendente.
+
+**Validação atual incompleta:** 6/6 testes PWA passaram; build/typecheck/Vitest/E2E/render-all/recheck-approved não iniciaram neste ambiente sem dependências, com rede negada; Chromium não iniciou por restrição de socket, MariaDB ausente. Cabeçalho 320px e resultados Full Stack 390px aguardam confirmação visual. Relatórios regenerados pelas funções do projeto via Node nativo. Veja [auditoria v0.5](docs/AUDITORIA_V05.md).
+
+As evidências da tabela de etapas abaixo pertencem às execuções anteriores; não são resultados novos desta continuação. Publicação: somente após autorização do Tiago e variável `PUBLICAR_STUDY_MASTERY=true`; sem merge/deploy nesta tarefa.
+
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-23T02:00:38.270Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-23T12:26:19.423Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
 **Total aprovado: 600 de 600** (faltam 0).
 
@@ -67,7 +75,7 @@ Revisão das aprovadas: 600 `ai-assisted`. **Nenhuma questão passou por revisã
 | P2 — schema, importação, validadores, fila de revisão, cobertura | **feito e testado** | `tools/` + testes em `tools/lib/__tests__/` |
 | P3 — gerador de rascunhos por lotes com provedor injetável | **feito**; provedor real **não testado contra a API** (sem chave neste ambiente) | testado com `MockProvider` e `fetch` simulado |
 | P4 — expansão até 600 aprovadas | **feito** (600/600 aprovadas, 100 por dificuldade e disciplina) | ver contagens; Full Stack verificado por execução (Node, React, Express, MariaDB, Chromium) |
-| P5 — PWA/offline, acessibilidade, deploy gratuito | PWA (service worker + manifest) feito; deploy **não feito** (precisa da sua autorização) | `public/sw.js` |
+| P5 — PWA/offline, acessibilidade, deploy gratuito | PWA v0.5 implementado; integração offline/visual **pendente** por ambiente; deploy **não feito** | `public/sw.js` |
 
 ## Pendências e riscos
 
@@ -79,4 +87,4 @@ Revisão das aprovadas: 600 `ai-assisted`. **Nenhuma questão passou por revisã
 - **Revisão humana**: toda aprovação até aqui é "assistida por IA" (verificação automática + leitura crítica em passada separada da autoria). Recomenda-se amostragem humana; `npm run sm -- publish --require-human` publica só o que um humano aprovou.
 - **Fontes externas não lidas** (OpenStax, MDN, react.dev, RFCs, dev.mysql.com, docs do Render/Netlify): nenhuma questão cita essas fontes (a validação recusa fontes não lidas). Para liberar, adicione os hosts em *Allowed domains* do ambiente.
 - **Materiais não lidos**: `Lista_CalcII.pdf` (Revisão NI1) e `3a Lista CB — Máximos e Mínimos` nunca foram recebidos (registrado no Drive). O PDF da 2ª lista de L'Hôpital/integrais tem matemática em imagem; foi lida por renderização.
-- **Deploy**: nada foi publicado. O workflow `.github/workflows/deploy.yml` do repositório não foi alterado.
+- **Deploy**: nada foi publicado. O workflow recebeu somente passos adicionais condicionados a `PUBLICAR_STUDY_MASTERY=true`; os passos existentes foram preservados.
