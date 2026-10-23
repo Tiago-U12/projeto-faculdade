@@ -112,6 +112,12 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  },
  {
+  "id": "fs-aula-04",
+  "title": "Aula 04 — Fetch de dados mockados (Promises, CORS) (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
   "id": "fs-apostila-01-02",
   "title": "Apostila Aulas 01–02: HTML, Emmet e CSS (15 pp.)",
   "kind": "aula-pdf",

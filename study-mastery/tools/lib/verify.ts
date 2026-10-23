@@ -1,4 +1,6 @@
 import { spawn } from 'node:child_process';
+import http from 'node:http';
+import type { AddressInfo } from 'node:net';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -131,10 +133,44 @@ export async function verifyNode(q: Question): Promise<VerifyOutcome> {
   }
 }
 
+interface WebRoute { status?: number; headers?: Record<string, string>; type?: string; body?: string }
+interface WebServer { name: string; routes: Record<string, WebRoute>; headers?: Record<string, string> }
+
+/** Sobe servidores HTTP efêmeros em 127.0.0.1 (cada porta = uma origem distinta) para testar CORS e fetch de verdade. */
+async function startWebServers(defs: WebServer[]): Promise<{ bases: Record<string, string>; hits: Record<string, number>; stop: () => Promise<void> }> {
+  const bases: Record<string, string> = {};
+  const hits: Record<string, number> = {};
+  const servers: http.Server[] = [];
+  const raw: Array<{ def: WebServer; srv: http.Server }> = [];
+  for (const def of defs) {
+    hits[def.name] = 0;
+    const srv = http.createServer((req, res) => {
+      hits[def.name]++;
+      const pathname = (req.url ?? '/').split('?')[0];
+      const route = def.routes[`${req.method} ${pathname}`] ?? def.routes[pathname];
+      if (!route) {
+        res.writeHead(404, { ...(def.headers ?? {}), 'Content-Type': 'text/plain' });
+        res.end('nao encontrado');
+        return;
+      }
+      const body = (route.body ?? '').replace(/\{\{(\w+)\}\}/g, (_, n) => bases[n] ?? '');
+      res.writeHead(route.status ?? 200, { 'Content-Type': route.type ?? 'text/plain; charset=utf-8', ...(def.headers ?? {}), ...(route.headers ?? {}) });
+      res.end(req.method === 'HEAD' ? undefined : body);
+    });
+    servers.push(srv);
+    raw.push({ def, srv });
+    await new Promise<void>((resolve) => srv.listen(0, '127.0.0.1', resolve));
+    bases[def.name] = `http://127.0.0.1:${(srv.address() as AddressInfo).port}`;
+  }
+  return { bases, hits, stop: () => Promise.all(servers.map((sv) => new Promise<void>((r) => sv.close(() => r())))).then(() => undefined) };
+}
+
 /**
- * kind=web: carrega params.html no Chromium (sem rede) e avalia params.probe (corpo de função JS que retorna o valor)
- * com a janela params.width×params.height (padrão 390×800; params.mobile liga a emulação de celular). Com params.aria (seletor),
- * a árvore de acessibilidade calculada pelo Chromium fica em window.__aria. O valor medido é comparado às alternativas.
+ * kind=web: carrega params.html no Chromium (sem rede externa) e avalia params.probe (corpo de função JS que pode retornar uma
+ * Promise) com a janela params.width×params.height (padrão 390×800; params.mobile liga a emulação de celular). Com params.aria
+ * (seletor), a árvore de acessibilidade calculada pelo Chromium fica em window.__aria. Com params.servers (lista de servidores
+ * efêmeros em 127.0.0.1, uma origem por servidor) e params.page (nome do servidor cuja rota "/" é aberta), é possível testar
+ * fetch/CORS de verdade (o probe lê as URLs em __bases.<nome>); params.hits (nome de servidor) acrescenta " hits=N" ao resultado. O valor medido é comparado às alternativas.
  */
 export async function verifyWebAll(qs: Question[]): Promise<VerifyOutcome[]> {
   if (!qs.length) return [];
@@ -149,28 +185,35 @@ export async function verifyWebAll(qs: Question[]): Promise<VerifyOutcome[]> {
   }
   try {
     for (const q of qs) {
-      const p = (q.verification!.params ?? {}) as { html?: string; probe?: string; width?: number; height?: number; mobile?: boolean; aria?: string };
-      if (!p.html || !p.probe) {
-        out.push({ id: q.id, ok: false, method: 'web-chromium', details: 'params incompletos', errors: ['params.html e params.probe são obrigatórios'] });
+      const p = (q.verification!.params ?? {}) as { html?: string; probe?: string; width?: number; height?: number; mobile?: boolean; aria?: string; servers?: WebServer[]; page?: string; hits?: string };
+      if ((!p.html && !p.servers) || !p.probe) {
+        out.push({ id: q.id, ok: false, method: 'web-chromium', details: 'params incompletos', errors: ['params.html (ou servers) e params.probe são obrigatórios'] });
         continue;
       }
       const ctx = await browser.newContext({ viewport: { width: p.width ?? 390, height: p.height ?? 800 }, javaScriptEnabled: true, isMobile: p.mobile === true, hasTouch: p.mobile === true });
       const page = await ctx.newPage();
-      await page.route('**/*', (route) => (route.request().url().startsWith('data:') ? route.continue() : route.abort()));
+      const srvs = p.servers ? await startWebServers(p.servers) : null;
+      // Sem servidores locais: bloqueia qualquer rede. Com servidores NÃO se intercepta nada, porque a interceptação do
+      // Playwright altera o tratamento das pré-checagens (preflight) de CORS e falsearia o resultado.
+      if (!srvs) await page.route('**/*', (route) => (route.request().url().startsWith('data:') ? route.continue() : route.abort()));
       try {
-        await page.setContent(p.html, { waitUntil: 'load' });
+        if (srvs && p.page) await page.goto(`${srvs.bases[p.page]}/`, { waitUntil: 'load' });
+        else await page.setContent(p.html!, { waitUntil: 'load' });
+        if (srvs) await page.evaluate((b) => ((window as unknown as { __bases: Record<string, string> }).__bases = b), srvs.bases); // URLs dos servidores para o probe: __bases.api
         // params.aria = seletor cuja árvore de acessibilidade (roles reais calculados pelo Chromium) fica em window.__aria para o probe
         if (p.aria) {
           const snap = await page.locator(p.aria).ariaSnapshot();
           await page.evaluate((t) => ((window as unknown as { __aria: string }).__aria = t), snap);
         }
-        const value = await page.evaluate(`(() => { ${p.probe} })()`);
-        const text = typeof value === 'string' ? value : JSON.stringify(value);
-        out.push(compareOutput(q, q.verification!.optionValues ?? {}, text, 'web-chromium (sem rede)'));
+        const value = await page.evaluate(`(async () => { ${p.probe} })()`);
+        let text = typeof value === 'string' ? value : JSON.stringify(value);
+        if (srvs && p.hits) text += ` hits=${srvs.hits[p.hits] ?? 0}`;
+        out.push(compareOutput(q, q.verification!.optionValues ?? {}, text, 'web-chromium (servidores locais)'));
       } catch (e) {
         out.push({ id: q.id, ok: false, method: 'web-chromium', details: 'falha ao medir', errors: [(e as Error).message.slice(0, 200)] });
       } finally {
         await ctx.close();
+        await srvs?.stop();
       }
     }
   } finally {

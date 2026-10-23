@@ -117,6 +117,16 @@ describe('validate: verificação de verdade (SymPy + numérico, JS isolado)', (
     expect(wrong.status).toBe('draft');
   }, 90000);
 
+  it('kind=web com servidores locais: CORS real entre duas origens (sem e com Allow-Origin)', async () => {
+    const mkCors = (id: string, apiHeaders: Record<string, string>, values: string[]) =>
+      mk(jsSpec({ id, opts: ['rejeitou TypeError', 'resolveu 200', 'resolveu 403', 'resolveu 204'], verify: { kind: 'web', params: { page: 'app', servers: [{ name: 'app', routes: { '/': { type: 'text/html', body: '<p>app</p>' } } }, { name: 'api', headers: apiHeaders, routes: { 'GET /d': { body: '{}' } } }], probe: "try { const r = await fetch(__bases.api + '/d'); return 'resolveu ' + r.status; } catch (e) { return 'rejeitou ' + e.name; }" }, values: values as [string, string, string, string] } }));
+    const semCors = mkCors('fs-js-funcoes-020', {}, ['rejeitou TypeError', 'resolveu 200', 'resolveu 403', 'resolveu 204']);
+    const comCors = mkCors('fs-js-funcoes-021', { 'Access-Control-Allow-Origin': '*' }, ['resolveu 200', 'rejeitou TypeError', 'resolveu 403', 'resolveu 204']);
+    await validateAll([semCors, comCors], TAX, SOURCES);
+    expect(semCors.status).toBe('verified');
+    expect(comCors.status).toBe('verified');
+  }, 90000);
+
   it('rejeita expressões inseguras (sem executar nada)', async () => {
     const q = mk(limitSpec({ id: 'c2-lhopital-004', verify: { kind: 'limit', params: { expr: "__import__('os').system('touch /tmp/pwned_sm')", at: '0' }, values: ['1', '0', 'oo', 'DNE'] } }));
     await validateAll([q], TAX, SOURCES);

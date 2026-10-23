@@ -1,0 +1,2444 @@
+[
+ {
+  "id": "fs-fetch-async-001",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "fetch e status 404",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um servidor responde com status 404 a uma requisição. O que acontece com a Promise do `fetch` no código abaixo?\n\n```js\nconst resposta = await fetch(url);\nconsole.log(resposta.ok, resposta.status);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Ela é resolvida com `null`"
+   },
+   {
+    "id": "b",
+    "text": "Ela é resolvida: `resposta.ok` é `false` e `resposta.status` é `404`"
+   },
+   {
+    "id": "c",
+    "text": "Ela é rejeitada com um erro e o código cai no `catch`"
+   },
+   {
+    "id": "d",
+    "text": "O `await` lança automaticamente um `Error(\"Not Found\")`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O `fetch` resolve sempre que o servidor responde, mesmo com 404 ou 500. O objeto `Response` traz `ok` (`true` para 200–299) e `status`. Por isso a Aula 04 pede: “Se `resposta.ok` for falso, lance um `Error` com uma mensagem (inclua o `resposta.status`)”.",
+   "wrong": {
+    "c": "O `fetch` só rejeita em falhas de rede; respostas HTTP 4xx/5xx resolvem normalmente.",
+    "a": "A Promise resolve com um objeto `Response` (com `ok`, `status`...), não com `null`.",
+    "d": "Nenhum erro é lançado automaticamente; por isso a aula manda testar `resposta.ok` e lançar o erro à mão."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "buscarLugares(): se resposta.ok for false, lance um Error incluindo resposta.status",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.382Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import http from 'node:http';\nconst srv = http.createServer((req, res) => { res.writeHead(404, {}); res.end('{\"x\":1}'); });\nawait new Promise((r) => srv.listen(0, '127.0.0.1', r));\nconst base = 'http://127.0.0.1:' + srv.address().port;\ntry { const resposta = await fetch(base + '/x'); console.log('resolveu', resposta.ok, resposta.status); } catch (e) { console.log('rejeitou', e.name); }\nsrv.close();"
+   },
+   "optionValues": {
+    "b": "resolveu false 404",
+    "c": "rejeitou TypeError",
+    "a": "resolveu null",
+    "d": "rejeitou Error"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: resolveu false 404"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-002",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "resposta.json()",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Dentro de uma função `async`, o que `resposta.json()` retorna?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined`, pois os dados chegam por um callback"
+   },
+   {
+    "id": "b",
+    "text": "Diretamente o objeto/array JavaScript"
+   },
+   {
+    "id": "c",
+    "text": "Uma string com o texto bruto do JSON"
+   },
+   {
+    "id": "d",
+    "text": "Uma Promise, que resolve com os dados já convertidos de JSON"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`Response.json()` lê o corpo e faz o parse de JSON de forma assíncrona, devolvendo uma Promise. Por isso o enunciado da aula diz que “essa chamada também retorna uma Promise, então pode usar `return resposta.json()` sem `await`”.",
+   "wrong": {
+    "b": "A leitura do corpo é assíncrona; sem `await` você recebe a Promise, não os dados.",
+    "c": "Texto bruto seria `resposta.text()`; `json()` já faz o parse.",
+    "a": "`json()` retorna uma Promise; não usa callback."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "retorne resposta.json() (essa chamada também retorna uma Promise)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.382Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import http from 'node:http';\nconst srv = http.createServer((req, res) => { res.writeHead(200, {}); res.end('{\"x\":1}'); });\nawait new Promise((r) => srv.listen(0, '127.0.0.1', r));\nconst base = 'http://127.0.0.1:' + srv.address().port;\nconst r = await fetch(base + '/x'); const p = r.json(); console.log(p instanceof Promise, typeof (await p));\nsrv.close();"
+   },
+   "optionValues": {
+    "d": "true object",
+    "b": "false object",
+    "c": "false string",
+    "a": "false undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: true object"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-003",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "async retorna Promise",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nasync function buscar() {\n  return 42;\n}\nconsole.log(buscar() instanceof Promise);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`42`"
+   },
+   {
+    "id": "c",
+    "text": "`true`"
+   },
+   {
+    "id": "d",
+    "text": "`false`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Uma função declarada com `async` sempre retorna uma Promise; o valor do `return` vira o valor com que ela é resolvida. Por isso as funções de `servico-lugares.js` da aula “retornam Promises” e podem ser usadas com `await` ou `.then`.",
+   "wrong": {
+    "d": "Toda função `async` devolve uma Promise, mesmo quando o `return` é um valor simples.",
+    "b": "O `console.log` imprime o resultado da comparação `instanceof`, não o valor de retorno.",
+    "a": "A expressão `instanceof` produz um booleano, nunca `undefined`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "as funções de servico-lugares.js retornam Promises e usam async/await",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.382Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "async function buscar() {\n  return 42;\n}\nconsole.log(buscar() instanceof Promise);"
+   },
+   "optionValues": {
+    "c": "true",
+    "d": "false",
+    "b": "42",
+    "a": "undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-004",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Ordem síncrona e timers",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(\"1\");\nsetTimeout(() => console.log(\"2\"), 0);\nconsole.log(\"3\");\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1 3 2`"
+   },
+   {
+    "id": "b",
+    "text": "`2 1 3`"
+   },
+   {
+    "id": "c",
+    "text": "`1 2 3`"
+   },
+   {
+    "id": "d",
+    "text": "`3 2 1`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "JavaScript executa primeiro todo o código síncrono (`\"1\"` e `\"3\"`). O callback agendado com `setTimeout` vai para a fila de tarefas e roda depois, mesmo com atraso 0. Saída: `1 3 2` (uma linha por `console.log`).",
+   "wrong": {
+    "c": "Mesmo com 0 ms, o callback do `setTimeout` só roda depois que o código síncrono termina.",
+    "b": "O `setTimeout` não adianta o callback; ele entra na fila de tarefas.",
+    "d": "O código síncrono roda de cima para baixo: `1` vem antes de `3`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "carregando / sucesso / erro: a interface precisa continuar responsiva enquanto espera",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "console.log(\"1\");\nsetTimeout(() => console.log(\"2\"), 0);\nconsole.log(\"3\");"
+   },
+   "optionValues": {
+    "a": "1\n3\n2",
+    "c": "1\n2\n3",
+    "b": "2\n1\n3",
+    "d": "3\n2\n1"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: 1 ⏎ 3 ⏎ 2"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-005",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Três estados de uma requisição",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A Aula 04 trata três estados da tela de carregamento de dados. Quais são?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Iniciado, pausado e finalizado"
+   },
+   {
+    "id": "b",
+    "text": "Online, offline e em cache"
+   },
+   {
+    "id": "c",
+    "text": "GET, POST e DELETE"
+   },
+   {
+    "id": "d",
+    "text": "Carregando, sucesso e erro"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A página mostra “Carregando dados...” enquanto a requisição está em andamento, a lista de lugares quando dá certo e uma mensagem de erro visível quando falha (por exemplo, no botão “Simular erro (404)”). Tratar os três evita tela vazia ou travada.",
+   "wrong": {
+    "a": "Não são estados de uma requisição de rede; a aula usa carregando / sucesso / erro.",
+    "c": "Esses são métodos HTTP, não estados da interface.",
+    "b": "Esses são estados de conectividade/cache; a aula trata o ciclo da requisição."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "tratando os três estados de uma requisição: carregando, sucesso e erro",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "README Aula 04: “Vamos buscar esses dados com fetch, tratando os três estados de uma requisição: carregando, sucesso e erro.”"
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-006",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Por que um servidor local",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Na Aula 04, abrir `carregar-dados.html` com duplo clique (URL `file://...`) faz o `fetch` falhar. Qual é o motivo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O arquivo JSON está corrompido"
+   },
+   {
+    "id": "b",
+    "text": "O JavaScript não funciona em arquivos locais"
+   },
+   {
+    "id": "c",
+    "text": "A política de CORS do navegador"
+   },
+   {
+    "id": "d",
+    "text": "O navegador exige HTTPS para qualquer `fetch`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Para o navegador, uma página aberta via `file://` tem origem “opaca” e não pode ler outros arquivos por `fetch` — é a mesma política de CORS que mais adiante exigirá configurar o servidor. Por isso a aula fornece o `servidor-estatico.js`: `node servidor-estatico.js . 5500` e acesso por `http://localhost:5500/`.",
+   "wrong": {
+    "b": "O JavaScript roda normalmente em `file://`; o que falha é o `fetch` dos JSONs.",
+    "a": "Os JSONs estão corretos; servidos por HTTP (`localhost:5500`) funcionam.",
+    "d": "O `fetch` funciona em `http://localhost`; a causa é a política de origem/CORS, não a falta de HTTPS."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "Antes de começar: por que preciso de um servidor? (política de CORS)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "README Aula 04: “Abrir carregar-dados.html direto no navegador (file://) faz o fetch falhar por política de CORS do navegador. Isso é esperado”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-007",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "try/catch com await",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nasync function carregar() {\n  try {\n    await Promise.reject(new Error(\"falhou\"));\n    console.log(\"sucesso\");\n  } catch (erro) {\n    console.log(\"erro:\", erro.message);\n  }\n}\ncarregar();\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`sucesso` e depois `erro: falhou`"
+   },
+   {
+    "id": "b",
+    "text": "`sucesso`"
+   },
+   {
+    "id": "c",
+    "text": "Nada: o erro não é capturado"
+   },
+   {
+    "id": "d",
+    "text": "`erro: falhou`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Dentro de uma função `async`, `await` transforma a rejeição da Promise em uma exceção. O `try/catch` a captura e imprime `erro: falhou`. É o padrão usado em `carregarDados()` da aula para mostrar uma mensagem de erro amigável em vez de travar a página.",
+   "wrong": {
+    "b": "O `await` de uma Promise rejeitada lança o erro; a linha `console.log(\"sucesso\")` não é executada.",
+    "a": "Quando o erro é lançado, o fluxo pula direto para o `catch`; o “sucesso” não aparece.",
+    "c": "O `try/catch` captura rejeições aguardadas com `await`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "carregar-dados.js: try { await buscarLugares() } catch (erro) { mostrarErro(erro.message) }",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "async function carregar() {\n  try {\n    await Promise.reject(new Error(\"falhou\"));\n    console.log(\"sucesso\");\n  } catch (erro) {\n    console.log(\"erro:\", erro.message);\n  }\n}\ncarregar();"
+   },
+   "optionValues": {
+    "d": "erro: falhou",
+    "b": "sucesso",
+    "a": "sucesso\nerro: falhou",
+    "c": ""
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: erro: falhou"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-008",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "JSON.parse",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst texto = '{\"nota\":5,\"comentario\":\"ótimo\"}';\nconst obj = JSON.parse(texto);\nconsole.log(obj.nota + 1, typeof obj);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`51 object`"
+   },
+   {
+    "id": "b",
+    "text": "`NaN object`"
+   },
+   {
+    "id": "c",
+    "text": "`\"5\"1 string`"
+   },
+   {
+    "id": "d",
+    "text": "`6 object`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`JSON.parse` transforma o texto JSON em um objeto JavaScript: `nota` vira o número `5` e `5 + 1 = 6`; `typeof obj` é `\"object\"`. É o que `resposta.json()` faz com o corpo da resposta.",
+   "wrong": {
+    "c": "`JSON.parse` converte o texto em objeto; `obj.nota` já é o número `5`.",
+    "a": "`nota` é número no JSON (sem aspas), então `+ 1` soma: `6`.",
+    "b": "A soma de dois números dá número; `NaN` só apareceria com valores não numéricos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "dados/lugares.json e dados/avaliacoes.json: respostas em JSON",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "const texto = '{\"nota\":5,\"comentario\":\"ótimo\"}';\nconst obj = JSON.parse(texto);\nconsole.log(obj.nota + 1, typeof obj);"
+   },
+   "optionValues": {
+    "d": "6 object",
+    "c": "\"5\"1 string",
+    "a": "51 object",
+    "b": "NaN object"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: 6 object"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-009",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "URL e query string",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst url = new URL(\"detalhe.html?id=3\", \"http://localhost:5500/\");\nconsole.log(url.searchParams.get(\"id\"), typeof url.searchParams.get(\"id\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`null undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`id=3 string`"
+   },
+   {
+    "id": "c",
+    "text": "`3 number`"
+   },
+   {
+    "id": "d",
+    "text": "`3 string`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`URL.searchParams.get(\"id\")` devolve o valor do parâmetro como *string* (`\"3\"`). Em páginas como `detalhe.html?id=3` lembre de converter com `Number(id)` antes de comparar com ids numéricos dos dados (comparar `\"3\" === 3` é `false`).",
+   "wrong": {
+    "c": "Valores de query string são sempre texto; para número é preciso converter com `Number(...)`.",
+    "a": "O parâmetro `id` existe na URL (`?id=3`), então o valor é `\"3\"`.",
+    "b": "`searchParams.get(\"id\")` devolve só o valor (`3`), sem o nome do parâmetro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "detalhe.html e dados por id (lugares.json)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "const url = new URL(\"detalhe.html?id=3\", \"http://localhost:5500/\");\nconsole.log(url.searchParams.get(\"id\"), typeof url.searchParams.get(\"id\"));"
+   },
+   "optionValues": {
+    "d": "3 string",
+    "c": "3 number",
+    "a": "null undefined",
+    "b": "id=3 string"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: 3 string"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-010",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Event loop: microtasks",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(\"A\");\nsetTimeout(() => console.log(\"B\"), 0);\nPromise.resolve().then(() => console.log(\"C\"));\nconsole.log(\"D\");\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`A D B C`"
+   },
+   {
+    "id": "b",
+    "text": "`A C D B`"
+   },
+   {
+    "id": "c",
+    "text": "`A D C B`"
+   },
+   {
+    "id": "d",
+    "text": "`A B C D`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Ordem de execução: 1) todo o código síncrono (`A`, `D`); 2) a fila de microtarefas (callbacks de Promise: `C`); 3) a fila de tarefas/timers (`B`). Saída: `A D C B`. Entender isso explica por que o “Carregando...” aparece antes dos dados chegarem.",
+   "wrong": {
+    "d": "As Promises (microtarefas) rodam antes dos timers (macrotarefas), e o código síncrono vem antes de ambos.",
+    "a": "O `.then` de uma Promise já resolvida roda antes do callback do `setTimeout`, mesmo com atraso 0.",
+    "b": "O `.then` nunca roda antes do código síncrono (`\"D\"`) terminar."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "fetch assíncrono: estados da tela enquanto aguarda",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "console.log(\"A\");\nsetTimeout(() => console.log(\"B\"), 0);\nPromise.resolve().then(() => console.log(\"C\"));\nconsole.log(\"D\");"
+   },
+   "optionValues": {
+    "c": "A\nD\nC\nB",
+    "d": "A\nB\nC\nD",
+    "a": "A\nD\nB\nC",
+    "b": "A\nC\nD\nB"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: A ⏎ D ⏎ C ⏎ B"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-011",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Promise.all",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst esperar = (ms, valor) =>\n  new Promise((resolve) => setTimeout(() => resolve(valor), ms));\n\nconst resultados = await Promise.all([esperar(30, \"A\"), esperar(10, \"B\")]);\nconsole.log(resultados);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`\"B\"`"
+   },
+   {
+    "id": "b",
+    "text": "`[\"A\",\"B\"]`"
+   },
+   {
+    "id": "c",
+    "text": "`[\"B\",\"A\"]`"
+   },
+   {
+    "id": "d",
+    "text": "`[]`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`Promise.all` espera todas as Promises e devolve um array de resultados *na mesma ordem* da entrada, mesmo que a segunda termine antes: `[\"A\",\"B\"]`. Se qualquer uma rejeitar, o `all` rejeita imediatamente.",
+   "wrong": {
+    "c": "`Promise.all` preserva a ordem do array de entrada, não a ordem em que as Promises terminam.",
+    "a": "Isso seria o comportamento de `Promise.race` (a primeira a terminar); `all` espera todas.",
+    "d": "Após o `await` o array já contém os resultados de todas as Promises."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "buscarLugares() e buscarAvaliacoes() podem ser combinadas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "const esperar = (ms, valor) =>\n  new Promise((resolve) => setTimeout(() => resolve(valor), ms));\n\nconst resultados = await Promise.all([esperar(30, \"A\"), esperar(10, \"B\")]);\nconsole.log(resultados);"
+   },
+   "optionValues": {
+    "b": "[\"A\",\"B\"]",
+    "c": "[\"B\",\"A\"]",
+    "a": "B",
+    "d": "[]"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: [\"A\",\"B\"]"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-012",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "await em sequência",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Cada chamada abaixo demora cerca de 100 ms. Aproximadamente quanto tempo (em ms) o trecho inteiro leva?\n\n```js\nconst tarefa = () => new Promise((r) => setTimeout(r, 100));\n\nawait tarefa(); // ex.: buscarLugares()\nawait tarefa(); // ex.: buscarAvaliacoes()\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Cerca de 300 ms"
+   },
+   {
+    "id": "b",
+    "text": "Cerca de 0 ms"
+   },
+   {
+    "id": "c",
+    "text": "Cerca de 100 ms"
+   },
+   {
+    "id": "d",
+    "text": "Cerca de 200 ms"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Dois `await` em sequência esperam um pelo outro: 100 + 100 ≈ 200 ms. Quando as requisições são independentes (como lugares e avaliações), iniciá-las juntas com `Promise.all` reduziria o total para o tempo da mais lenta (≈100 ms).",
+   "wrong": {
+    "c": "Isso ocorreria se as duas fossem iniciadas juntas (por exemplo, com `Promise.all`); aqui a segunda só começa quando a primeira termina.",
+    "a": "Há só duas esperas de 100 ms; não existe uma terceira etapa.",
+    "b": "O `await` realmente espera cada Promise terminar."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "carregarDados(): await buscarLugares(); await buscarAvaliacoes()",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "const tarefa = () => new Promise((r) => setTimeout(r, 100));\nconst t0 = Date.now();\nawait tarefa();\nawait tarefa();\nconsole.log(Math.round((Date.now() - t0) / 100) * 100);"
+   },
+   "optionValues": {
+    "d": "200",
+    "c": "100",
+    "a": "300",
+    "b": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: 200"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-013",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Quando o fetch rejeita",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual situação a Promise do `fetch` é **rejeitada** (cai no `catch`)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Quando o JSON é grande demais"
+   },
+   {
+    "id": "b",
+    "text": "Quando a rede cai ou o servidor está off-line"
+   },
+   {
+    "id": "c",
+    "text": "Quando o servidor responde 500"
+   },
+   {
+    "id": "d",
+    "text": "Quando o servidor responde 404"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O `fetch` rejeita (com `TypeError`) apenas quando não há resposta HTTP: falha de DNS, conexão recusada, rede fora do ar ou bloqueio de CORS. Respostas 4xx/5xx *chegam* e são tratadas verificando `resposta.ok`, como na Aula 04.",
+   "wrong": {
+    "d": "404 é uma resposta HTTP válida: a Promise resolve com `ok === false`.",
+    "c": "Erros 5xx também são respostas recebidas; o `fetch` resolve e você testa `resposta.ok`.",
+    "a": "O tamanho do corpo não rejeita o `fetch`; só o `json()` falharia se o conteúdo não fosse JSON válido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "fetch resolve com resposta.ok === false (HTTP 404)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "try { await fetch('http://127.0.0.1:1/nada'); console.log('resolveu'); } catch (e) { console.log('rejeitou', e.name); }"
+   },
+   "optionValues": {
+    "b": "rejeitou TypeError",
+    "d": "resolveu 404",
+    "c": "resolveu 500",
+    "a": "rejeitou RangeError"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: rejeitou TypeError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-014",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Encadeamento de then",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nPromise.resolve(1)\n  .then((x) => x + 1)\n  .then((x) => {\n    console.log(x);\n    return x * 2;\n  })\n  .then((x) => console.log(x));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`2` e depois `4`"
+   },
+   {
+    "id": "b",
+    "text": "`2` e depois `undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`1` e depois `2`"
+   },
+   {
+    "id": "d",
+    "text": "`4` e depois `2`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Cada `.then` devolve uma nova Promise cujo valor é o retorno do callback: 1 → (+1) → 2, impresso; retorna 4 (2 × 2) e o último `.then` imprime 4. Saída: `2` e depois `4`.",
+   "wrong": {
+    "c": "O primeiro `.then` soma 1 ao valor inicial: o segundo recebe `2`.",
+    "b": "O segundo `.then` retorna `x * 2`, e esse valor é o argumento do terceiro.",
+    "d": "A ordem de impressão segue o encadeamento: primeiro o que o 2º `.then` imprime (`2`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "buscar com .then/.catch, se preferir",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "Promise.resolve(1)\n  .then((x) => x + 1)\n  .then((x) => {\n    console.log(x);\n    return x * 2;\n  })\n  .then((x) => console.log(x));"
+   },
+   "optionValues": {
+    "a": "2\n4",
+    "c": "1\n2",
+    "b": "2\nundefined",
+    "d": "4\n2"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: 2 ⏎ 4"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-015",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "catch no meio da cadeia",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nPromise.resolve()\n  .then(() => { throw new Error(\"x\"); })\n  .then(() => console.log(\"A\"))\n  .catch((e) => console.log(\"B\", e.message))\n  .then(() => console.log(\"C\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`B x` apenas"
+   },
+   {
+    "id": "b",
+    "text": "`A` e depois `C`"
+   },
+   {
+    "id": "c",
+    "text": "`A`, `B x` e `C`"
+   },
+   {
+    "id": "d",
+    "text": "`B x` e depois `C`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O `throw` rejeita a Promise do primeiro `.then`; o `.then` seguinte (“A”) é ignorado e o `.catch` imprime `B x`. Como o `.catch` trata o erro e retorna normalmente, a Promise resultante é resolvida e o último `.then` imprime `C`.",
+   "wrong": {
+    "c": "Depois do erro, o `.then` que imprime “A” é pulado até o `.catch`.",
+    "a": "Depois de tratado pelo `.catch`, a cadeia volta ao normal e o último `.then` executa (`C`).",
+    "b": "O erro lançado no primeiro `.then` desvia a cadeia para o `.catch`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "async/await (ou .then/.catch, se preferir) com tratamento de erro",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "Promise.resolve()\n  .then(() => { throw new Error(\"x\"); })\n  .then(() => console.log(\"A\"))\n  .catch((e) => console.log(\"B\", e.message))\n  .then(() => console.log(\"C\"));"
+   },
+   "optionValues": {
+    "d": "B x\nC",
+    "c": "A\nB x\nC",
+    "a": "B x",
+    "b": "A\nC"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: B x ⏎ C"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-016",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "finally",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nasync function f() {\n  try {\n    return \"try\";\n  } finally {\n    console.log(\"finally\");\n  }\n}\nf().then(console.log);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Apenas `try`"
+   },
+   {
+    "id": "b",
+    "text": "`try` e depois `finally`"
+   },
+   {
+    "id": "c",
+    "text": "Apenas `finally`"
+   },
+   {
+    "id": "d",
+    "text": "`finally` e depois `try`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Ao encontrar `return \"try\"`, o JavaScript guarda o valor, executa o `finally` (imprime `finally`) e só então resolve a Promise com `\"try\"`, que o `.then(console.log)` imprime. Ordem: `finally`, `try`. Útil para esconder o “Carregando...” tanto em sucesso quanto em erro.",
+   "wrong": {
+    "b": "O bloco `finally` sempre executa *antes* de a função realmente sair, mesmo com `return` no `try`.",
+    "a": "O `finally` sempre roda, com ou sem erro.",
+    "c": "O valor retornado (`\"try\"`) é entregue ao `.then` e também é impresso."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "três estados: carregando / sucesso / erro",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "async function f() {\n  try {\n    return \"try\";\n  } finally {\n    console.log(\"finally\");\n  }\n}\nf().then(console.log);"
+   },
+   "optionValues": {
+    "d": "finally\ntry",
+    "b": "try\nfinally",
+    "a": "try",
+    "c": "finally"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: finally ⏎ try"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-017",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Corpo da resposta lido uma vez",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que acontece ao chamar `resposta.json()` duas vezes na mesma resposta?\n\n```js\nconst resposta = await fetch(url);\nawait resposta.json();\nawait resposta.json(); // segunda leitura\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Retorna novamente os mesmos dados"
+   },
+   {
+    "id": "b",
+    "text": "Retorna um array vazio"
+   },
+   {
+    "id": "c",
+    "text": "Lança `TypeError`: o corpo já foi consumido"
+   },
+   {
+    "id": "d",
+    "text": "Retorna `null`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O corpo (`body`) é lido uma única vez; depois fica “usado” (`bodyUsed = true`) e a segunda leitura rejeita com `TypeError`. Para ler duas vezes, clone antes com `resposta.clone()` — ou, melhor, guarde o resultado da primeira leitura em uma variável.",
+   "wrong": {
+    "a": "O corpo de uma `Response` é um fluxo que só pode ser lido uma vez.",
+    "d": "Não retorna `null`: a Promise é rejeitada com erro.",
+    "b": "Não há valor padrão; ler de novo gera erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "buscarLugares(): return resposta.json()",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import http from 'node:http';\nconst srv = http.createServer((req, res) => { res.writeHead(200, {}); res.end('{\"x\":1}'); });\nawait new Promise((r) => srv.listen(0, '127.0.0.1', r));\nconst base = 'http://127.0.0.1:' + srv.address().port;\nconst r = await fetch(base + '/x'); await r.json(); try { await r.json(); console.log('leu de novo'); } catch (e) { console.log(e.name); }\nsrv.close();"
+   },
+   "optionValues": {
+    "c": "TypeError",
+    "a": "leu de novo",
+    "d": "null",
+    "b": "[]"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: TypeError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-018",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "CORS sem cabeçalho",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Uma página servida em uma origem (porta A) faz `fetch` para uma API em outra porta (porta B). O servidor da API responde `200`, mas **sem** o cabeçalho `Access-Control-Allow-Origin`. O que o navegador faz?\n\n```js\ntry {\n  const r = await fetch(urlDaApi);\n  console.log(\"resolveu\", r.status);\n} catch (e) {\n  console.log(\"rejeitou\", e.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "A Promise resolve com status `200`"
+   },
+   {
+    "id": "b",
+    "text": "A Promise resolve com status `403`"
+   },
+   {
+    "id": "c",
+    "text": "A Promise resolve com status `0` e corpo vazio"
+   },
+   {
+    "id": "d",
+    "text": "A Promise é rejeitada com `TypeError`: o navegador bloqueia a leitura da resposta"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Portas diferentes são origens diferentes. Para ler a resposta, o servidor precisa autorizar a origem com `Access-Control-Allow-Origin`. Sem esse cabeçalho, o navegador bloqueia o acesso e o `fetch` rejeita com `TypeError` (“Failed to fetch”). Por isso, mais adiante no curso, a API em Express precisará habilitar o CORS.",
+   "wrong": {
+    "a": "Sem permissão de CORS o navegador não entrega a resposta ao JavaScript de outra origem.",
+    "b": "O bloqueio é feito pelo navegador; o servidor respondeu 200, e o código nem recebe um `Response`.",
+    "c": "Isso só ocorre em modo `no-cors` (resposta opaca); por padrão o `fetch` rejeita."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "file:// e CORS: o navegador bloqueia o fetch por política de origem",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {},
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados'); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "d": "rejeitou TypeError",
+    "a": "resolveu 200",
+    "b": "resolveu 403",
+    "c": "resolveu 0 opaca"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: rejeitou TypeError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-019",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "CORS com origem permitida",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A mesma situação, mas agora a API responde com o cabeçalho `Access-Control-Allow-Origin: *`. O que ocorre com o `fetch` simples (`GET` sem cabeçalhos extras) vindo de outra origem?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Continua rejeitando, pois falta autenticação"
+   },
+   {
+    "id": "b",
+    "text": "Resolve normalmente com status `200` e permite ler o JSON"
+   },
+   {
+    "id": "c",
+    "text": "Rejeita porque `*` não é aceito"
+   },
+   {
+    "id": "d",
+    "text": "Resolve, mas o corpo vem vazio"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Com `Access-Control-Allow-Origin: *` o navegador libera a leitura da resposta de qualquer origem para requisições “simples” (`GET` sem cabeçalhos especiais e sem credenciais). Assim o `fetch` resolve com `200` e o JSON pode ser lido.",
+   "wrong": {
+    "a": "`Allow-Origin: *` autoriza qualquer origem a ler respostas de requisições simples (sem credenciais).",
+    "d": "O corpo é entregue normalmente quando o CORS está liberado.",
+    "c": "O valor `*` é válido para requisições sem credenciais."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {
+       "Access-Control-Allow-Origin": "*"
+      },
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados'); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "b": "resolveu 200",
+    "a": "rejeitou TypeError",
+    "d": "resolveu 403",
+    "c": "resolveu 0 opaca"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: resolveu 200"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-020",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Preflight com Authorization",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A API responde `Access-Control-Allow-Origin: *` a todas as requisições, mas **não** autoriza cabeçalhos extras na resposta à pré-checagem (`OPTIONS`). O front envia `Authorization`:\n\n```js\nfetch(urlDaApi, {\n  headers: { Authorization: \"Bearer abc\" },\n});\n```\nO que acontece?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Resolve com status `0`"
+   },
+   {
+    "id": "b",
+    "text": "O navegador rejeita: a pré-checagem (preflight) não libera o cabeçalho `Authorization`"
+   },
+   {
+    "id": "c",
+    "text": "Resolve com `200`, pois a origem já está liberada"
+   },
+   {
+    "id": "d",
+    "text": "Resolve, mas o servidor ignora o `Authorization`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Um cabeçalho personalizado como `Authorization` dispara um *preflight* (`OPTIONS`). O servidor precisa responder com `Access-Control-Allow-Headers: Authorization`. Sem isso o navegador cancela a requisição e o `fetch` rejeita com `TypeError`. Em APIs com JWT (Aula 11) isso será configurado no Express.",
+   "wrong": {
+    "c": "Cabeçalhos como `Authorization` tornam a requisição “não simples”: exigem que o servidor liste o cabeçalho em `Access-Control-Allow-Headers`.",
+    "d": "Se o preflight falha, a requisição principal nem é enviada.",
+    "a": "Não é uma resposta opaca; o `fetch` é rejeitado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador (ver também aulas 09 e 11 sobre configuração no servidor)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {
+       "Access-Control-Allow-Origin": "*"
+      },
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados', { headers: { Authorization: 'Bearer abc' } }); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "b": "rejeitou TypeError",
+    "c": "resolveu 200",
+    "d": "resolveu 204",
+    "a": "resolveu 0 opaca"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: rejeitou TypeError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-021",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Preflight liberado",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Agora a API responde ao `OPTIONS` com `Access-Control-Allow-Origin: *` e `Access-Control-Allow-Headers: Authorization` (e a resposta ao `GET` também inclui o `Allow-Origin`). O mesmo `fetch` com o cabeçalho `Authorization` é feito. Qual é o resultado?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Resolve com status `204` (o do preflight)"
+   },
+   {
+    "id": "b",
+    "text": "Resolve com status `200`"
+   },
+   {
+    "id": "c",
+    "text": "Resolve com resposta opaca"
+   },
+   {
+    "id": "d",
+    "text": "Rejeita com `TypeError`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O navegador primeiro envia o preflight `OPTIONS`; como o servidor lista `Authorization` em `Access-Control-Allow-Headers`, ele envia a requisição real (`GET` com o cabeçalho). A resposta `200`, que traz `Allow-Origin`, é entregue ao código.",
+   "wrong": {
+    "d": "O preflight agora autoriza o cabeçalho; a requisição principal é enviada e a resposta liberada.",
+    "a": "O `204` é a resposta ao `OPTIONS`, que o JavaScript não vê; a página recebe a resposta do `GET` (`200`).",
+    "c": "Respostas opacas só existem em `mode: \"no-cors\"`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {
+       "Access-Control-Allow-Origin": "*"
+      },
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {
+         "Access-Control-Allow-Origin": "*",
+         "Access-Control-Allow-Headers": "Authorization"
+        }
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados', { headers: { Authorization: 'Bearer abc' } }); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "b": "resolveu 200",
+    "d": "rejeitou TypeError",
+    "a": "resolveu 204",
+    "c": "resolveu 0 opaca"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: resolveu 200"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-022",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Método PUT e preflight",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "A API libera apenas `Access-Control-Allow-Origin: *` (sem `Allow-Methods`) na pré-checagem. O front envia uma atualização:\n\n```js\nfetch(urlDaApi, { method: \"PUT\" });\n```\nO que acontece no navegador?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Rejeita com `TypeError`: o preflight não autoriza o método `PUT`"
+   },
+   {
+    "id": "b",
+    "text": "Resolve com `200`: a origem já foi liberada"
+   },
+   {
+    "id": "c",
+    "text": "O `PUT` é convertido em `GET` automaticamente"
+   },
+   {
+    "id": "d",
+    "text": "Resolve com `204`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Métodos “não simples” como `PUT` e `DELETE` disparam preflight; o servidor deve responder com `Access-Control-Allow-Methods` incluindo o método (além do `Allow-Origin`). Sem isso o `fetch` é rejeitado. Em Express, o middleware `cors()` cuida de tudo isso.",
+   "wrong": {
+    "b": "Métodos diferentes de GET/HEAD/POST exigem preflight, e o servidor precisa listar o método em `Access-Control-Allow-Methods`.",
+    "d": "O `204` seria a resposta ao `OPTIONS`; a página nunca chega a fazer o `PUT`.",
+    "c": "O navegador não troca o método da requisição."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador (configuração no servidor nas aulas 09+)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {
+       "Access-Control-Allow-Origin": "*"
+      },
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {
+         "Access-Control-Allow-Origin": "*"
+        }
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados', { method: 'PUT' }); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "a": "rejeitou TypeError",
+    "b": "resolveu 200",
+    "d": "resolveu 204",
+    "c": "resolveu 405"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: rejeitou TypeError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-023",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Credenciais e curinga",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O front faz `fetch(urlDaApi, { credentials: \"include\" })` e a API responde com `Access-Control-Allow-Origin: *`. O que o navegador faz?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Resolve e ignora os cookies"
+   },
+   {
+    "id": "b",
+    "text": "Resolve com resposta opaca"
+   },
+   {
+    "id": "c",
+    "text": "Resolve com `200`: `*` vale para qualquer requisição"
+   },
+   {
+    "id": "d",
+    "text": "Rejeita com `TypeError`: com credenciais o curinga `*` não é permitido"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Em requisições com credenciais (`credentials: \"include\"`), `Access-Control-Allow-Origin: *` é recusado; o servidor deve devolver a origem específica e `Access-Control-Allow-Credentials: true`. Esse cuidado vale ao usar cookies de sessão entre front e API em domínios diferentes.",
+   "wrong": {
+    "c": "Quando se enviam cookies/credenciais, o servidor precisa indicar a origem exata e `Access-Control-Allow-Credentials: true`.",
+    "a": "Não há resolução parcial: o navegador rejeita a resposta.",
+    "b": "Opaca só em `no-cors`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {
+       "Access-Control-Allow-Origin": "*"
+      },
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados', { credentials: 'include' }); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "d": "rejeitou TypeError",
+    "c": "resolveu 200",
+    "a": "resolveu 204",
+    "b": "resolveu 0 opaca"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: rejeitou TypeError"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-024",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "Mesma origem não precisa de CORS",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Se a página e a API estão na **mesma origem** (mesmo protocolo, host e porta) e o front chama `fetch(\"/local\")`, a API precisa enviar cabeçalhos de CORS?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Sim, sempre que usar `fetch`"
+   },
+   {
+    "id": "b",
+    "text": "Não: o `fetch` resolve normalmente, sem nenhum cabeçalho de CORS"
+   },
+   {
+    "id": "c",
+    "text": "Não, mas o `fetch` retorna resposta opaca"
+   },
+   {
+    "id": "d",
+    "text": "Sim, mas apenas `Access-Control-Allow-Methods`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A política de mesma origem só restringe leituras *entre* origens diferentes. Quando a página chama um caminho relativo como `/local`, a origem é a mesma e o `fetch` resolve normalmente (`200`). Por isso o `servidor-estatico.js` da aula, que serve a página e os JSONs na mesma origem, funciona sem CORS.",
+   "wrong": {
+    "a": "CORS só se aplica a requisições entre origens diferentes.",
+    "d": "Em mesma origem nenhum cabeçalho de CORS é necessário.",
+    "c": "Em mesma origem a resposta é “básica” e totalmente legível."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "servidor-estatico.js serve página e dados em http://localhost:5500",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {},
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch('/local'); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "b": "resolveu 200",
+    "a": "rejeitou TypeError",
+    "d": "resolveu 0 opaca",
+    "c": "resolveu 403"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: resolveu 200"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-025",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "no-cors e resposta opaca",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para “contornar” o erro de CORS, alguém usa `fetch(urlDaApi, { mode: \"no-cors\" })` contra uma API sem cabeçalhos de CORS. O que a Promise devolve?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Rejeita com `TypeError`"
+   },
+   {
+    "id": "b",
+    "text": "Resolve com `200` e o JSON legível"
+   },
+   {
+    "id": "c",
+    "text": "Resolve com `403`"
+   },
+   {
+    "id": "d",
+    "text": "Resolve com resposta *opaca* (status `0`)"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`mode: \"no-cors\"` não “resolve” o CORS: a requisição é enviada, mas a resposta é *opaca* (`type: \"opaque\"`, status `0`, corpo inacessível). Serve só para enviar requisições sem ler o resultado. A solução correta é o servidor liberar o CORS.",
+   "wrong": {
+    "b": "No modo `no-cors` a resposta é opaca: status `0`, corpo ilegível.",
+    "a": "Com `no-cors` a requisição é feita e a Promise resolve (com resposta opaca).",
+    "c": "O status visível ao JavaScript é `0`, não um código do servidor."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {},
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados', { mode: 'no-cors' }); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }"
+   },
+   "optionValues": {
+    "d": "resolveu 0 opaca",
+    "b": "resolveu 200",
+    "a": "rejeitou TypeError",
+    "c": "resolveu 403"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: resolveu 0 opaca"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-fetch-async-026",
+  "disciplineId": "fullstack",
+  "topicId": "fetch-async",
+  "subtopic": "A requisição chega ao servidor",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Um `fetch` simples (`GET`) entre origens falha por falta de `Access-Control-Allow-Origin` e o `catch` é executado. Quantas requisições o servidor da API efetivamente recebeu?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhuma: o navegador cancela antes de enviar"
+   },
+   {
+    "id": "b",
+    "text": "Uma: a requisição foi enviada e processada; só a *leitura* da resposta foi bloqueada"
+   },
+   {
+    "id": "c",
+    "text": "Duas: um preflight e a requisição real"
+   },
+   {
+    "id": "d",
+    "text": "Depende do status devolvido pelo servidor"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "CORS protege o *leitor*, não o servidor: num `GET` simples o navegador envia a requisição normalmente; o servidor a processa (com possíveis efeitos colaterais) e só então o navegador impede o JavaScript de ver a resposta. Por isso CORS não substitui autenticação/autorização no servidor.",
+   "wrong": {
+    "a": "Em requisições simples o navegador envia a requisição e depois decide se entrega a resposta ao código.",
+    "c": "Um `GET` simples sem cabeçalhos especiais não dispara preflight.",
+    "d": "O bloqueio por CORS ocorre independentemente do status da resposta."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-04",
+    "locator": "política de CORS do navegador",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:12:11.383Z",
+  "updatedAt": "2026-10-23T01:13:24.152Z",
+  "verification": {
+   "kind": "web",
+   "params": {
+    "page": "app",
+    "servers": [
+     {
+      "name": "app",
+      "routes": {
+       "/": {
+        "type": "text/html; charset=utf-8",
+        "body": "<!doctype html><p>app</p>"
+       },
+       "/local": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       }
+      }
+     },
+     {
+      "name": "api",
+      "headers": {},
+      "routes": {
+       "GET /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "PUT /dados": {
+        "type": "application/json",
+        "body": "{\"ok\":true}"
+       },
+       "OPTIONS /dados": {
+        "status": 204,
+        "headers": {}
+       }
+      }
+     }
+    ],
+    "probe": "try { const r = await fetch(__bases.api + '/dados'); return 'resolveu ' + r.status + (r.type === 'opaque' ? ' opaca' : ''); } catch (e) { return 'rejeitou ' + e.name; }",
+    "hits": "api"
+   },
+   "optionValues": {
+    "b": "rejeitou TypeError hits=1",
+    "a": "rejeitou TypeError hits=0",
+    "c": "rejeitou TypeError hits=2",
+    "d": "resolveu 200 hits=1"
+   },
+   "result": {
+    "ok": true,
+    "method": "web-chromium (servidores locais)",
+    "ranAt": "2026-10-23T01:13:20.541Z",
+    "details": "saída: rejeitou TypeError hits=1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:13:24.152Z",
+   "notes": "Fetch/Promises/CORS: JS em Node isolado, fetch contra servidor local e CORS real no Chromium com duas origens (sem interceptação, para o preflight ser fiel)",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]
