@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.1 — 2026-10-23
+- Publicado no GitHub Pages: <https://tiago-u12.github.io/projeto-faculdade/study-mastery/> (workflow com os passos do Study Mastery executados).
+- Homologação do checklist de uso real: `npm run e2e:homologacao` — 137/137 verificações automatizadas; relatório em `docs/HOMOLOGACAO_V05.md`.
+- Corrigido: “Pular para o conteúdo” tirava o estudante do quiz (rotas por `#`); Enter num link não avança mais a questão.
+- Acessibilidade (axe-core WCAG 2.2 AA, 0 violações em 7 telas × 2 temas): contrastes do lilás selecionado, do selo da prova, do texto secundário e do verde no tema claro; letra das alternativas legível para leitores de tela; campos de arquivo escondidos fora do Tab; links do histórico com área de toque de 44 px.
+- Telas cabem com zoom de texto alto (≈260 px): marca compacta, cartões de disciplina empilhados, métricas e listas quebram linha.
+
 ## 0.5.0 — 2026-10-23
 
 - Continuação da auditoria: 600 aprovadas (100/100/100 × 2), todas `ai-assisted`; 11 erratas React e fluxo `ingest --revise` preservados dos commits anteriores.

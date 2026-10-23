@@ -109,7 +109,8 @@ export function Progress({ go }: { go: (to: string) => void }) {
           <button type="button" className="ghost" onClick={download}><Download size={16} aria-hidden="true" /> Exportar histórico</button>
           <button type="button" className="ghost" onClick={() => { modeRef.current = 'merge'; fileRef.current?.click(); }}><Upload size={16} aria-hidden="true" /> Importar e mesclar</button>
           <button type="button" className="ghost" onClick={() => { modeRef.current = 'replace'; fileRef.current?.click(); }}><Upload size={16} aria-hidden="true" /> Importar e substituir</button>
-          <input ref={fileRef} type="file" accept="application/json,.json" className="sr-only" onChange={onFile} aria-label="Arquivo de histórico para importar" />
+          {/* acionado pelos botões “Importar…”: fora do Tab e da árvore de acessibilidade para não virar um controle invisível duplicado */}
+          <input ref={fileRef} type="file" accept="application/json,.json" className="sr-only" tabIndex={-1} aria-hidden="true" onChange={onFile} aria-label="Arquivo de histórico para importar" />
         </div>
         {confirmClear ? (
           <div className="confirm" role="alertdialog" aria-label="Apagar dados">

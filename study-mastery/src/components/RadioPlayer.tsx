@@ -101,6 +101,7 @@ export function RadioPlayer() {
               accept="audio/mpeg,.mp3"
               className="sr-only"
               tabIndex={-1}
+              aria-hidden="true"
               aria-label="Arquivo MP3 do aparelho"
               onChange={(e) => {
                 const f = e.target.files?.[0];

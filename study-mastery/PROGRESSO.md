@@ -2,6 +2,10 @@
 
 Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run progress`); o restante é mantido à mão.
 
+## Publicação e homologação (2026-10-23)
+
+Publicado em <https://tiago-u12.github.io/projeto-faculdade/study-mastery/>; os três passos do Study Mastery no workflow executaram com sucesso. Homologação do checklist de uso real: 137/137 verificações automatizadas, com 8 problemas de acessibilidade e usabilidade corrigidos; veja [HOMOLOGACAO_V05.md](docs/HOMOLOGACAO_V05.md). Revisão humana continua pendente.
+
 ## Continuação v0.5.0
 
 Implementados: rádio opcional, sessão com confirmação de substituição, resultados por tentativa, revisão de erros, ajustes de acessibilidade/CSS, pré-cache/hash/Range, ícones PNG e workflow condicionado. Banco preservado em 600/600, revisão humana pendente.

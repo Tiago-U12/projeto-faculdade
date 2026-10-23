@@ -39,3 +39,7 @@ O plugin `tools/pwa.ts` enumera os arquivos finais do build, incluindo chunks e 
 O `activate` remove somente caches antigos cujo nome começa por `study-mastery-`. Requisições fora da pasta do app não são interceptadas. MP3 recebe tratamento separado de arquivo completo/Range; veja [STUDY_RADIO.md](STUDY_RADIO.md).
 
 Pendências externas: revisão humana do banco e das dificuldades, autorização do Tiago para a variável e MP3 opcional fornecido por quem tem direito de usá-lo.
+
+## Estado em 2026-10-23
+
+Publicado. A variável `PUBLICAR_STUDY_MASTERY=true` foi criada e o workflow reexecutado ([execução 39965304006](https://github.com/Tiago-U12/projeto-faculdade/actions/runs/39965304006), tentativa 2). Os três passos do Study Mastery rodaram e passaram. Para tirar do ar numa próxima publicação, basta mudar a variável para outro valor (os passos voltam a ser pulados). Homologação: [HOMOLOGACAO_V05.md](HOMOLOGACAO_V05.md).
