@@ -46,7 +46,7 @@ async function audit(page: Page, questions: PublishedQuestion[], width: number, 
     const r = await page.evaluate(() => ({
       hscroll: document.documentElement.scrollWidth > window.innerWidth + 1,
       widest: [...document.querySelectorAll('main *')]
-        .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display'))
+        .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display, .katex-mathml'))
         .slice(0, 2)
         .map((el) => `${el.tagName.toLowerCase()}.${(el as HTMLElement).className}`),
       katexErrors: document.querySelectorAll('.katex-error').length,
@@ -64,6 +64,22 @@ async function audit(page: Page, questions: PublishedQuestion[], width: number, 
     if (r.sources !== q.sourceRefs.length) problems.push(`${tag}: fontes ${r.sources}/${q.sourceRefs.length}`);
     if (i < questions.length - 1) await page.getByRole('button', { name: 'Próxima questão' }).click();
   }
+  // resultados: revisão questão a questão com todos os itens abertos (enunciado, respostas e explicação completos)
+  await page.getByRole('button', { name: 'Ver resultados' }).click();
+  await page.locator('.review-list').waitFor();
+  await page.locator('.review-item details').evaluateAll((ds) => ds.forEach((d) => ((d as HTMLDetailsElement).open = true)));
+  const res = await page.evaluate(() => ({
+    hscroll: document.documentElement.scrollWidth > window.innerWidth + 1,
+    widest: [...document.querySelectorAll('main *')]
+      .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1 && !el.closest('.code-block, .math-display, .katex-display, .katex-mathml'))
+      .slice(0, 3)
+      .map((el) => `${el.tagName.toLowerCase()}.${(el as HTMLElement).className} ← ${(el.closest('.review-item')?.querySelector('.rv-n')?.textContent ?? '')}`),
+    katexErrors: document.querySelectorAll('.katex-error').length,
+    items: document.querySelectorAll('.review-item').length,
+  }));
+  if (res.hscroll) problems.push(`resultados @${width}px: rolagem horizontal (${res.widest.join(', ')})`);
+  if (res.katexErrors) problems.push(`resultados @${width}px: ${res.katexErrors} erro(s) de KaTeX`);
+  if (res.items !== questions.length) problems.push(`resultados @${width}px: ${res.items}/${questions.length} itens na revisão`);
   return problems;
 }
 
