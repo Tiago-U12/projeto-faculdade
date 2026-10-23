@@ -1,12 +1,13 @@
 import { AlertTriangle, ArrowLeft, Download, Trash2, Upload } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
+import { reviewConfig } from '../lib/review';
 import { reviewCounts } from '../lib/engine';
 import type { DisciplineId } from '../types';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
 
 export function Progress({ go }: { go: (to: string) => void }) {
-  const { bank, state, persisted, exportJson, importJson, clearAll } = useStudy();
+  const { bank, state, start, persisted, exportJson, importJson, clearAll } = useStudy();
   const [disciplineId, setDisciplineId] = useState<DisciplineId>('calculo2');
   const [msg, setMsg] = useState<string>('');
   const [confirmClear, setConfirmClear] = useState(false);
@@ -32,6 +33,11 @@ export function Progress({ go }: { go: (to: string) => void }) {
   }, [bank, discipline, disciplineId, state.stats]);
   const rev = useMemo(() => reviewCounts(bank.questions.filter((q) => q.disciplineId === disciplineId), state.stats), [bank, disciplineId, state.stats]);
 
+  const reviewErrors = () => {
+    const questions = bank.questions.filter((q) => q.disciplineId === disciplineId && state.stats[q.id]?.lastCorrect === false);
+    if (start(reviewConfig(disciplineId, questions), questions.map((q) => q.id))) go('#/quiz');
+  };
+
   const download = () => {
     const blob = new Blob([exportJson()], { type: 'application/json' });
     const a = document.createElement('a');
@@ -56,9 +62,9 @@ export function Progress({ go }: { go: (to: string) => void }) {
       <p className="sub">Tudo fica salvo neste aparelho. Exporte o histórico para levar para outro dispositivo.</p>
       {!persisted && <p className="notice"><AlertTriangle size={15} aria-hidden="true" /> Seu navegador bloqueou o armazenamento local: o progresso só dura enquanto esta aba estiver aberta. Use “Exportar” para guardar.</p>}
 
-      <div className="seg" role="tablist" aria-label="Disciplina">
+      <div className="seg" role="group" aria-label="Disciplina">
         {bank.taxonomy.disciplines.map((d) => (
-          <button key={d.id} type="button" role="tab" aria-selected={d.id === disciplineId} className={d.id === disciplineId ? 'seg-btn active' : 'seg-btn'} onClick={() => setDisciplineId(d.id)}>{d.short}</button>
+          <button key={d.id} type="button" aria-pressed={d.id === disciplineId} className={d.id === disciplineId ? 'seg-btn active' : 'seg-btn'} onClick={() => setDisciplineId(d.id)}>{d.short}</button>
         ))}
       </div>
 
@@ -67,6 +73,8 @@ export function Progress({ go }: { go: (to: string) => void }) {
         <div><span>ACERTOS</span><strong>{pct === null ? '—' : pct + '%'}</strong><small>{answers.length} respostas</small></div>
         <div><span>PARA REVISAR</span><strong>{rev.errors + rev.due}</strong><small>{rev.errors} erros · {rev.due} vencidas</small></div>
       </div>
+
+      <button type="button" className="primary" disabled={rev.errors === 0} onClick={reviewErrors}>Revisar meus erros</button>
 
       <section className="panel" aria-labelledby="h-topic-acc">
         <div className="panel-head"><h2 id="h-topic-acc">Evolução por assunto</h2></div>
@@ -89,7 +97,7 @@ export function Progress({ go }: { go: (to: string) => void }) {
           <ul className="hist">
             {attempts.slice(0, 10).map((a) => {
               const ok = a.answers.filter((x) => x.correct).length;
-              return <li key={a.id}><span>{new Date(a.date).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</span><span>{MODE_LABEL[a.mode]}</span><b>{ok}/{a.answers.length}</b></li>;
+              return <li key={a.id}><a href={`#/results?id=${encodeURIComponent(a.id)}`}>{new Date(a.date).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</a><span>{MODE_LABEL[a.mode]}</span><b>{ok}/{a.answers.length}</b></li>;
             })}
           </ul>
         )}

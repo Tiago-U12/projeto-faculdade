@@ -10,10 +10,11 @@ import { pathToFileURL } from 'node:url';
 import type { Difficulty, DisciplineId, Scope } from '../src/types';
 import { buildCoverage, renderCoverageMarkdown } from './lib/coverage';
 import { findDuplicates } from './lib/dedupe';
-import { toQuestion, contentHash, type DraftSpec } from './lib/dsl';
+import { type DraftSpec } from './lib/dsl';
 import { AnthropicProvider, generateDrafts, loadExcerpts, MockProvider, type Provider } from './lib/generator';
 import { downloadDriveFolder, importDirectory } from './lib/importer';
 import { BATCHES_DIR, CONTENT, EXTRACTED_DIR, REPORTS_DIR, ROOT } from './lib/paths';
+import { ingestSpecs } from './lib/ingest';
 import { validateAll } from './lib/pipeline';
 import { publish, PublishError } from './lib/publish';
 import { approve, reject, reviewQueue, ReviewError, REVIEW_CHECKLIST } from './lib/review';
@@ -41,6 +42,8 @@ const HELP = `Study Mastery — manutenção do banco de questões
       Inventaria materiais autorizados (PDF/MD/TXT/ZIP/Drive), calcula hash, detecta duplicatas/atualizações,
       extrai texto (content/extracted, não versionado), classifica assuntos e sugere assuntos novos.
   ingest <lote.mjs> [--update]            Importa um lote de rascunhos (DSL) para content/questions (status draft)
+  ingest <lote.mjs> --revise id1,id2 --reason ".."
+      Errata de questões já aprovadas: versão +1, volta a draft e precisa de nova validação, revisão e publicação.
   generate-drafts --discipline D --topic T --difficulty facil|medio|dificil [--scope aula|aprofundamento|desafio]
                   [--count N<=20] [--provider mock|anthropic] [--mock-file arquivo.json]
       Gera RASCUNHOS com IA (ANTHROPIC_API_KEY só no ambiente). Nunca aprova nem publica.
@@ -81,20 +84,14 @@ async function main() {
       const mod = await import(pathToFileURL(path.resolve(file)).href);
       const specs: DraftSpec[] = mod.default;
       const all = loadQuestions();
-      const byId = new Map(all.map((q) => [q.id, q]));
-      let added = 0, updated = 0, same = 0;
-      for (const s of specs) {
-        const q = toQuestion(s);
-        const cur = byId.get(q.id);
-        if (!cur) { all.push(q); byId.set(q.id, q); added++; continue; }
-        if (contentHash(cur) === contentHash(q)) { same++; continue; }
-        if (cur.status === 'approved' || cur.status === 'rejected') throw new Error(`${q.id} já está ${cur.status}: não pode ser sobrescrito por ingest. Crie um novo ID.`);
-        if (!flags.update) throw new Error(`${q.id} já existe com conteúdo diferente (use --update para atualizar rascunhos).`);
-        Object.assign(cur, { ...q, createdAt: cur.createdAt, version: cur.version, status: 'draft' as const });
-        updated++;
-      }
+      // --revise id1,id2 --reason "...": errata de questões JÁ aprovadas (ver tools/lib/ingest.ts)
+      const { added, updated, revised, same } = ingestSpecs(all, specs, {
+        update: !!flags.update,
+        revise: new Set(typeof flags.revise === 'string' ? flags.revise.split(',') : []),
+        reason: typeof flags.reason === 'string' ? flags.reason : undefined,
+      });
       saveQuestions(all);
-      console.log(`lote ${path.basename(file)}: ${added} novas, ${updated} atualizadas, ${same} idênticas (todas como draft).`);
+      console.log(`lote ${path.basename(file)}: ${added} novas, ${updated} atualizadas, ${revised} revisadas (errata, versão +1), ${same} idênticas (todas as alteradas como draft).`);
       return;
     }
 
@@ -159,7 +156,7 @@ async function main() {
       const errors = rep.issues.filter((i) => i.level === 'error');
       for (const i of rep.issues.slice(0, 80)) console.log(`  [${i.level}] ${i.id} (${i.code}): ${i.message}`);
       if (rep.issues.length > 80) console.log(`  … e mais ${rep.issues.length - 80}`);
-      console.log(`\n${rep.verified} verificada(s) · ${errors.length} erro(s) · ${rep.issues.length - errors.length} aviso(s) · ${rep.duplicates.length} par(es) suspeito(s) de duplicata`);
+      console.log(`\n${rep.verified} verificada(s) ·${flags['recheck-approved'] ? ` ${rep.rechecked} aprovada(s) reexecutada(s) sem regressão ·` : ''} ${errors.length} erro(s) · ${rep.issues.length - errors.length} aviso(s) · ${rep.duplicates.length} par(es) suspeito(s) de duplicata`);
       if (rep.regressions.length) console.log(`ATENÇÃO: aprovadas que falharam na revalidação: ${rep.regressions.join(', ')}`);
       process.exitCode = errors.some((e) => all.find((q) => q.id === e.id)?.status === 'approved') ? 1 : 0;
       return;

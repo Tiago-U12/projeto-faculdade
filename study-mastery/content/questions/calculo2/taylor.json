@@ -76,7 +76,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**2 + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -158,7 +158,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -256,7 +256,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x/4 + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -343,7 +343,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 1/2; checagem independente ok"
    }
   },
@@ -435,7 +435,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**3/6 + x**2/2 + x + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -523,7 +523,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 5/2; checagem independente ok"
    }
   },
@@ -616,7 +616,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = -x**3/6 + x; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -714,7 +714,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x - (x - 1)**2/2 - 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -812,7 +812,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = 55*x + (x - 5)**3 + 13*(x - 5)**2 - 199; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -904,7 +904,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**4/24 - x**2/2 + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -992,7 +992,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 0.0998333333333333; checagem independente ok"
    }
   },
@@ -1084,7 +1084,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = 4*x**3/3 + 2*x**2 + 2*x + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -1177,7 +1177,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**3 + x**2 + x + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -1270,7 +1270,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = -x**2/8 + x/2 + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -1363,7 +1363,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**3/3 - x**2/2 + x; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -1458,7 +1458,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "limite = 1/24; checagem numérica ok (+:finite;-:finite)"
    }
   },
@@ -1545,7 +1545,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 1/120; checagem independente ok"
    }
   },
@@ -1622,7 +1622,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -1715,7 +1715,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**3/3 + x; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -1807,7 +1807,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = x**4/2 + x**2 + 1; coeficientes numéricos (mpmath.taylor) ok"
    }
   },
@@ -1900,7 +1900,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem+mpmath.taylor",
-    "ranAt": "2026-10-22T23:32:07.928Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = -2*x**3/3 + x; coeficientes numéricos (mpmath.taylor) ok"
    }
   },

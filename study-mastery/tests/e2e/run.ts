@@ -33,7 +33,7 @@ async function main() {
       await new Promise((r) => setTimeout(r, 250));
     }
   }
-  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/usr/bin/chromium', args: ['--no-sandbox'] });
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, acceptDownloads: true, locale: 'pt-BR', colorScheme: 'dark' });
   const page = await ctx.newPage();
   const errors: string[] = [];
@@ -58,7 +58,7 @@ async function run(page: Page) {
   await page.getByRole('heading', { name: /Aprenda mais/ }).waitFor();
   check(await noHScroll(page), 'sem rolagem horizontal na home (390px)');
   await page.screenshot({ path: shot('01-home.png'), fullPage: true });
-  check(await page.getByText(/Banco em construção/).isVisible(), 'mostra a contagem real do banco');
+  check(await page.getByText(/Banco completo/).isVisible(), 'mostra a contagem real do banco');
 
   console.log('Configuração (foco da prova)');
   await page.getByRole('button', { name: /Foco da prova de 26\/10/ }).click();
@@ -91,6 +91,7 @@ async function run(page: Page) {
   await page.screenshot({ path: shot('03-quiz.png'), fullPage: false });
   const seen = new Set<string>();
   for (let i = 0; i < 5; i++) {
+    await page.getByRole('heading', { name: `Questão ${i + 1} de 5`, exact: true }).waitFor();
     seen.add(await page.locator('#q-stem').innerText());
     await page.keyboard.press('1');
     await page.locator('.feedback').waitFor();
@@ -115,9 +116,11 @@ async function run(page: Page) {
   await page.locator('label.seg-btn', { hasText: /^\s*5\s*$/ }).click();
   await page.getByRole('button', { name: /Iniciar/ }).click();
   await page.locator('#q-stem').waitFor();
+  await page.getByRole('heading', { name: 'Questão 1 de 5', exact: true }).waitFor();
   await page.keyboard.press('2');
   check((await page.locator('.feedback').count()) === 0, 'simulado não mostra gabarito durante a prova');
   check(await page.getByText(/aparecem ao final/).isVisible(), 'aviso do modo simulado');
+  await page.getByRole('heading', { name: 'Questão 1 de 5', exact: true }).waitFor();
   await page.keyboard.press('3'); // troca a resposta
   check((await page.locator('.choice.chosen').count()) === 1, 'dá para trocar a resposta no simulado');
   await page.getByRole('button', { name: 'Próxima questão' }).click();
@@ -136,7 +139,9 @@ async function run(page: Page) {
   await page.getByRole('button', { name: /Refazer os \d+ erros?/ }).click();
   await page.locator('#q-stem').waitFor();
   check(/revisão/i.test(await page.locator('.mode-pill').innerText()), 'refazer erros abre modo Revisão');
+  await page.getByRole('heading', { name: /^Questão 1 de [45]$/ }).waitFor();
   await page.keyboard.press('1');
+  await page.locator('.feedback').waitFor();
   await page.reload();
   await page.locator('#q-stem').waitFor();
   check((await page.locator('.choice.correct, .choice.incorrect').count()) > 0, 'sessão e resposta sobrevivem ao recarregamento');
@@ -148,7 +153,7 @@ async function run(page: Page) {
   console.log('Progresso, exportar e importar');
   await page.getByRole('button', { name: 'Meu progresso' }).click();
   await page.getByRole('heading', { name: 'Seu progresso.' }).waitFor();
-  await page.getByRole('tab', { name: 'Cálculo II' }).click();
+  await page.getByRole('button', { name: 'Cálculo II', exact: true }).click();
   check(/2/.test(await page.locator('.metrics').first().innerText()), 'histórico registra as sessões concluídas');
   await page.screenshot({ path: shot('08-progress.png'), fullPage: true });
   const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Exportar histórico' }).click()]);
@@ -159,7 +164,7 @@ async function run(page: Page) {
   await page.getByRole('button', { name: 'Apagar meus dados' }).click();
   await page.getByRole('button', { name: 'Apagar tudo' }).click();
   check(/Dados apagados/.test(await page.getByRole('status').innerText()), 'dados apagados');
-  await page.locator('input[type=file]').setInputFiles(file);
+  await page.getByLabel('Arquivo de histórico para importar').setInputFiles(file);
   await page.getByText(/Importado:/).waitFor();
   check(/2/.test(await page.locator('.metrics').first().innerText()), 'importação restaura o histórico');
   fs.rmSync(file);
@@ -174,6 +179,7 @@ async function run(page: Page) {
   await page.getByRole('radiogroup').first().waitFor();
   let codigos = 0;
   for (let i = 0; i < 10; i++) {
+    await page.getByRole('heading', { name: `Questão ${i + 1} de 10`, exact: true }).waitFor();
     codigos += await page.locator('#q-stem code, .choice code').count();
     await page.keyboard.press('1');
     await page.locator('.feedback').waitFor();
@@ -185,7 +191,7 @@ async function run(page: Page) {
   }
   check(codigos > 0, 'Full Stack renderiza trechos de código (inline ou em bloco)');
   check(await noHScroll(page), 'sem rolagem horizontal em Full Stack (390px)');
-  await page.getByRole('heading', { name: /Resultado|Sessão concluída|acertos/i }).first().waitFor().catch(() => undefined);
+  await page.getByRole('heading', { name: /Você está/ }).waitFor();
 
   console.log('Acervo e tema');
   await page.getByRole('button', { name: 'Acervo e fontes' }).click();

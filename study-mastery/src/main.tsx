@@ -6,6 +6,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { loadBank } from './lib/bank';
+import { RadioProvider } from './radio';
 import { StudyProvider } from './state';
 
 const root = createRoot(document.getElementById('root')!);
@@ -16,7 +17,9 @@ loadBank()
     root.render(
       <StrictMode>
         <StudyProvider bank={bank}>
-          <App />
+          <RadioProvider>
+            <App />
+          </RadioProvider>
         </StudyProvider>
       </StrictMode>,
     );

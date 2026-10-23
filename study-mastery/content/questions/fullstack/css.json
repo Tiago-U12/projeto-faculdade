@@ -66,7 +66,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: mesma-linha"
    }
   },
@@ -154,7 +154,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 2"
    }
   },
@@ -242,7 +242,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 24"
    }
   },
@@ -330,7 +330,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: rgb(31, 111, 120)"
    }
   },
@@ -413,7 +413,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 1 1 280px"
    }
   },
@@ -502,7 +502,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: block"
    }
   },
@@ -590,7 +590,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 400"
    }
   },
@@ -678,7 +678,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: block"
    }
   },
@@ -767,7 +767,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 317"
    }
   },
@@ -856,7 +856,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 4"
    }
   },
@@ -944,7 +944,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: rgb(0, 0, 255)"
    }
   },
@@ -1033,7 +1033,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 800"
    }
   },
@@ -1122,7 +1122,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: abaixo"
    }
   },
@@ -1210,7 +1210,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 344"
    }
   },
@@ -1293,7 +1293,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 24px"
    }
   },
@@ -1381,7 +1381,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 500"
    }
   },
@@ -1464,7 +1464,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 200,100,100"
    }
   },
@@ -1547,7 +1547,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 150,200,250"
    }
   },
@@ -1631,7 +1631,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: rgb(0, 0, 255)"
    }
   },
@@ -1719,7 +1719,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: rgb(0, 0, 255)"
    }
   },
@@ -1807,7 +1807,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 400"
    }
   },
@@ -1891,7 +1891,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 430"
    }
   },
@@ -1974,7 +1974,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: C,A,B"
    }
   },
@@ -2057,7 +2057,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:04:38.822Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 100"
    }
   },

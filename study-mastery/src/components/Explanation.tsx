@@ -31,12 +31,12 @@ export function ExplanationBlock({ q, chosenId, bank }: { q: PublishedQuestion; 
       {wrong && (
         <div className="why-wrong">
           <TriangleAlert size={16} aria-hidden="true" />
-          <div><b>Por que sua resposta não serve</b><RichText as="p" text={wrong} /></div>
+          <div><b>Por que sua resposta não serve</b><RichText as="div" className="explanation-text" text={wrong} /></div>
         </div>
       )}
       <div className="why-right">
         <Lightbulb size={16} aria-hidden="true" />
-        <div><b>Por que a alternativa correta está certa</b><RichText as="p" text={e.correct} /></div>
+        <div><b>Por que a alternativa correta está certa</b><RichText as="div" className="explanation-text" text={e.correct} /></div>
       </div>
       {e.steps && e.steps.length > 0 && (
         <div className="steps">

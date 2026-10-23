@@ -67,7 +67,7 @@ export function Home({ go }: { go: (to: string) => void }) {
         <div><span>ACERTOS</span><strong>{acc === null ? '—' : acc + '%'}</strong><small>média geral</small></div>
         <div><span>PARA REVISAR</span><strong>{due.errors + due.due}</strong><small>{due.errors} erros · {due.due} vencidas</small></div>
       </div>
-      <p className="bank-note"><Flame size={14} aria-hidden="true" /><span>Banco em construção: <b>{bank.questions.length}</b> de {goal} questões aprovadas. Só entram questões verificadas e aprovadas.</span></p>
+      <p className="bank-note"><Flame size={14} aria-hidden="true" /><span>Banco completo: <b>{bank.questions.length}</b> de {goal} questões aprovadas. Verificação automática e aprovação assistida por IA; revisão humana pendente.</span></p>
     </>
   );
 }

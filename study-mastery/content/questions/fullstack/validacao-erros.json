@@ -60,7 +60,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 404 {\"erro\":\"Lugar não encontrado.\"}"
    }
   },
@@ -142,7 +142,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 400 {\"erro\":\"Nota deve ser inteira de 1 a 5.\",\"campo\":\"nota\"}"
    }
   },
@@ -224,7 +224,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 500 {\"erro\":\"Erro interno do servidor.\"}"
    }
   },
@@ -306,7 +306,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true false true"
    }
   },
@@ -388,7 +388,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 400 404 401 409"
    }
   },
@@ -470,7 +470,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: text/html"
    }
   },
@@ -552,7 +552,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 404 404"
    }
   },
@@ -634,7 +634,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: nao"
    }
   },
@@ -716,7 +716,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: nome"
    }
   },
@@ -798,7 +798,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: [\"erro\"]"
    }
   },
@@ -880,7 +880,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 404 {\"erro\":\"Rota não encontrada.\"}"
    }
   },
@@ -962,7 +962,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 409 {\"erro\":\"Email já cadastrado.\"}"
    }
   },
@@ -1044,7 +1044,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 500"
    }
   },
@@ -1126,7 +1126,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 200 1"
    }
   },
@@ -1208,7 +1208,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: text/html"
    }
   },
@@ -1284,7 +1284,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -1366,7 +1366,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 500 {\"erro\":\"Cannot read properties of undefined (reading 'nome')\"}"
    }
   },
@@ -1448,7 +1448,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:46:52.049Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 500 text/html"
    }
   },

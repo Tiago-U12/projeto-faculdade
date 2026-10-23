@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.0 — 2026-10-23
+
+- Continuação da auditoria: 600 aprovadas (100/100/100 × 2), todas `ai-assisted`; 11 erratas React e fluxo `ingest --revise` preservados dos commits anteriores.
+- Study Radio próprio com MP3 opcional, IndexedDB e continuidade entre questões; nenhuma música incluída.
+- Quiz com `.stem`/`.qnum`, foco no feedback e E2E sincronizado pelo número da questão; explicações usam contêineres de bloco.
+- Confirmação para substituir sessão, resultados por ID no histórico, revisão de erros baseada na tentativa e botão de revisão no Progresso; seletores de disciplina com `aria-pressed`.
+- Versão única vinda de `package.json` via Vite; Home e Acervo informam banco completo e revisão humana pendente.
+- PWA com pré-cache dos assets e hash do build, limpeza somente de caches `study-mastery-`, MP3 completo/Range/HEAD e tolerância à quota; ícones PNG/Apple gerados do SVG.
+- Workflow Pages ganha apenas três passos condicionados a `PUBLICAR_STUDY_MASTERY == 'true'`; nenhum merge/deploy.
+- Cobertura regenerada para 600/600 e documentação de auditoria, publicação e rádio.
+- Validação completa (2026-10-23): typecheck, 681 testes, PWA 6/6, build, E2E, render das 600 questões em 390/320 px, offline no subcaminho do Pages, 600 reexecutadas sem regressão e workflow simulado com o build real. Detalhes em `docs/AUDITORIA_V05.md`.
+- Corrigido: rolagem horizontal em 320 px (grid das explicações e barra de ações da última questão), tipo inválido em `Sessions.test.tsx`, teste de filtros lento sob carga e busca O(n²) no modo Revisão.
+
 ## 0.4.0 — 2026-10-23
 - **600 questões aprovadas**: Cálculo II (300) e Desenvolvimento Web Full Stack (300), 100 por dificuldade em cada disciplina, distribuídas pelos assuntos conforme `content/taxonomy.json`.
 - Cálculo II completo: derivadas, Taylor, máximos e mínimos, funções de 2 variáveis, derivadas parciais, integrais duplas e otimização (além de L'Hôpital, primitivas, substituição e integral definida).

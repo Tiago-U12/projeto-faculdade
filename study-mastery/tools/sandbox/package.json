@@ -1,20 +1,20 @@
 {
   "name": "sm-sandbox",
   "private": true,
-  "description": "Dependências usadas SOMENTE para verificar questões de Full Stack (kind 'node'). Instalar com: npm run sandbox:install",
+  "description": "Dependências usadas SOMENTE para verificar questões de Full Stack (kind 'node'). Versões iguais às dos starters das aulas (Aulas 06–13: React 19.2, React Router 7.11, Vite 8.2, Express 5.2, mysql2 3.23, bcryptjs 3.0.3, jsonwebtoken 9.0.3). Instalar com: npm run sandbox:install",
   "type": "module",
   "dependencies": {
-    "bcryptjs": "3.0.2",
-    "cors": "2.8.5",
+    "bcryptjs": "3.0.3",
+    "cors": "2.8.6",
     "emmet": "2.4.11",
-    "express": "5.1.0",
+    "express": "5.2.1",
     "ignore": "7.0.5",
     "jsdom": "26.1.0",
-    "jsonwebtoken": "9.0.2",
-    "mysql2": "3.14.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-router-dom": "7.6.0",
-    "vite": "6.3.5"
+    "jsonwebtoken": "9.0.3",
+    "mysql2": "3.23.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router-dom": "7.11.0",
+    "vite": "8.2.0"
   }
 }

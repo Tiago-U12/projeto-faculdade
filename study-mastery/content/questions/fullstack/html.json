@@ -67,7 +67,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: main"
    }
   },
@@ -156,7 +156,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: nav"
    }
   },
@@ -243,7 +243,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <ul><li></li><li></li><li></li></ul>"
    }
   },
@@ -326,7 +326,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 3 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -408,7 +408,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -491,7 +491,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ←"
    }
   },
@@ -574,7 +574,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: rgb(1, 1, 1)"
    }
   },
@@ -663,7 +663,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: TOPO"
    }
   },
@@ -752,7 +752,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: so-nomeada"
    }
   },
@@ -839,7 +839,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <nav class=\"menu\"><ul><li><a href=\"\"></a></li><li><a href=\"\"></a></li></ul></nav>"
    }
   },
@@ -926,7 +926,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <div><h2></h2><p></p></div><footer></footer>"
    }
   },
@@ -1008,7 +1008,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <li class=\"item1\">Item 1</li><li class=\"item2\">Item 2</li><li class=\"item3\">Item 3</li>"
    }
   },
@@ -1097,7 +1097,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: article,complementary"
    }
   },
@@ -1181,7 +1181,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 980"
    }
   },
@@ -1270,7 +1270,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: false,false"
    }
   },
@@ -1354,7 +1354,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: false,true"
    }
   },
@@ -1443,7 +1443,7 @@
    "result": {
     "ok": true,
     "method": "web-chromium (sem rede)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: banner,navigation,main,contentinfo"
    }
   },
@@ -1530,7 +1530,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <article class=\"card\" data-categoria=\"cafeteria\"><div class=\"card-banner\"></div><div class=\"card-body\"><span class=\"badg"
    }
   },
@@ -1617,7 +1617,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <article class=\"card\"><h2 class=\"card-title\">Card 1</h2><a href=\"detalhe.html?id=1\" class=\"card-link\">Ver</a></article><"
    }
   },
@@ -1704,7 +1704,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T01:00:47.281Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: lang-e-title"
    }
   },

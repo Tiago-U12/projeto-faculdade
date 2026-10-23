@@ -22,7 +22,7 @@ export function Library({ go }: { go: (to: string) => void }) {
       <p className="sub">Só entram aqui questões <b>aprovadas</b>: verificadas (matemática por SymPy e conferência numérica; código executado de verdade), com explicação e referência, e revisadas. Rascunhos nunca aparecem. Nenhuma IA é chamada durante suas sessões.</p>
 
       <section className="panel" aria-labelledby="h-count">
-        <div className="panel-head"><h2 id="h-count">Banco em construção</h2><small className="muted">v{bank.manifest.bankVersion}</small></div>
+        <div className="panel-head"><h2 id="h-count">Banco completo · revisão humana pendente</h2><small className="muted">v{bank.manifest.bankVersion}</small></div>
         <p><b>{bank.questions.length}</b> de {goal} questões aprovadas.</p>
         {bank.taxonomy.disciplines.map((d) => {
           const per = countByTopic(bank.questions, d.id);

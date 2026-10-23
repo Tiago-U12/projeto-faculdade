@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export type Route = { name: 'home' } | { name: 'setup'; disciplineId?: string; preset?: string } | { name: 'quiz' } | { name: 'results' } | { name: 'progress' } | { name: 'library' };
+export type Route = { name: 'home' } | { name: 'setup'; disciplineId?: string; preset?: string } | { name: 'quiz' } | { name: 'results'; id?: string } | { name: 'progress' } | { name: 'library' };
 
 export function parseHash(hash: string): Route {
   const [path, query] = hash.replace(/^#\/?/, '').split('?');
@@ -11,7 +11,7 @@ export function parseHash(hash: string): Route {
     case 'quiz':
       return { name: 'quiz' };
     case 'results':
-      return { name: 'results' };
+      return { name: 'results', id: params.get('id') ?? undefined };
     case 'progress':
       return { name: 'progress' };
     case 'library':

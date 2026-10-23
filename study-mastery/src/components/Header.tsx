@@ -1,6 +1,7 @@
 import { BarChart3, BookOpen, Moon, Sun } from 'lucide-react';
 import { useStudy } from '../state';
 import type { Route } from '../lib/route';
+import { RadioPlayer } from './RadioPlayer';
 
 export function Header({ route, go }: { route: Route; go: (to: string) => void }) {
   const { state, updateSettings } = useStudy();
@@ -14,9 +15,11 @@ export function Header({ route, go }: { route: Route; go: (to: string) => void }
   return (
     <header className="top">
       <button type="button" className="brand" onClick={() => go('#/')} aria-label="Study Mastery — início">
-        <span className="star" aria-hidden="true">✳</span> STUDY<span>MASTERY</span>
+        <span className="star" aria-hidden="true">✳</span>
+        <span className="brand-text">STUDY<span>MASTERY</span></span>
       </button>
       <nav className="top-actions" aria-label="Principal">
+        <RadioPlayer />
         {nav('#/progress', 'progress', 'Meu progresso', <BarChart3 size={19} />)}
         {nav('#/library', 'library', 'Acervo e fontes', <BookOpen size={19} />)}
         <button type="button" className="icon-btn" onClick={() => updateSettings({ theme: dark ? 'light' : 'dark' })} aria-label={dark ? 'Usar tema claro' : 'Usar tema escuro'} title="Alternar tema">

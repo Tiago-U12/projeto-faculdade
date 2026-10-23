@@ -104,7 +104,8 @@ function pickReview(pool: PublishedQuestion[], n: number, stats: Record<string, 
   const due = shuffle(pool.filter((q) => stats[q.id]?.lastCorrect && isDue(stats[q.id], now)), rng).sort((a, b) => t(a.id) - t(b.id));
   const fresh = pool.filter((q) => !stats[q.id]);
   // assuntos mais fracos primeiro entre as novas
-  const acc = topicAccuracy(stats, (id) => pool.find((q) => q.id === id)?.topicId);
+  const topicById = new Map(pool.map((q) => [q.id, q.topicId]));
+  const acc = topicAccuracy(stats, (id) => topicById.get(id));
   const score = (topicId: string) => {
     const a = acc.get(topicId);
     return a && a.seen ? a.correct / a.seen : 0.5;

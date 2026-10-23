@@ -55,6 +55,7 @@ export function StudyProvider({ bank, store, children }: { bank: Bank; store?: K
           pool = pool.filter((q) => ids.has(q.id));
         }
         if (!pool.length) return null;
+        if (stateRef.current.active && !window.confirm('Substituir a sessão em andamento? As respostas não concluídas serão descartadas.')) return null;
         const session = buildSession(pool, config, { stats: stateRef.current.stats }, randomSeed());
         const active: ActiveSession = { session, answers: {}, index: 0, startedAt: new Date().toISOString() };
         update((s) => ({ ...s, active, settings: { ...s.settings, lastConfig: config } }));

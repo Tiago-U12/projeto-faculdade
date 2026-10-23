@@ -70,11 +70,13 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
       <h1 className="screen-title">Configure seu <em>foco.</em></h1>
       <p className="sub">Você controla o escopo: só os assuntos marcados aparecem na sessão.</p>
 
+      {state.active && <div className="notice"><span>Há uma sessão em andamento. Iniciar outra pedirá confirmação para substituí-la.</span><button type="button" className="text-btn" onClick={() => go('#/quiz')}>Continuar sessão</button></div>}
+
       <section className="panel" aria-labelledby="h-disc">
         <div className="panel-head"><h2 id="h-disc">Disciplina</h2></div>
-        <div className="seg" role="tablist" aria-label="Disciplina">
+        <div className="seg" role="group" aria-label="Disciplina">
           {bank.taxonomy.disciplines.map((d) => (
-            <button key={d.id} type="button" role="tab" aria-selected={d.id === disciplineId} className={d.id === disciplineId ? 'seg-btn active' : 'seg-btn'} onClick={() => switchDiscipline(d.id)}>{d.short}</button>
+            <button key={d.id} type="button" aria-pressed={d.id === disciplineId} className={d.id === disciplineId ? 'seg-btn active' : 'seg-btn'} onClick={() => switchDiscipline(d.id)}>{d.short}</button>
           ))}
         </div>
       </section>
