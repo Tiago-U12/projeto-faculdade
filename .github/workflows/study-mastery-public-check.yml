@@ -6,6 +6,7 @@ permissions:
   contents: read
 jobs:
   public-check:
+    if: ${{ !contains(github.event.head_commit.message, 'smoke-only') }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
@@ -87,3 +88,71 @@ jobs:
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
         run: npm run e2e:homologacao
+  public-site:
+    if: ${{ contains(github.event.head_commit.message, 'smoke-only') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      STUDY_SMOKE_URL: https://c971133e.study-mastery.pages.dev/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependencias existentes
+        working-directory: study-mastery
+        run: npm ci --no-audit --no-fund
+      - name: Testar URL real com recarga online e offline
+        working-directory: study-mastery
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { chromium } from 'playwright-core';
+          const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
+          try{
+          const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,serviceWorkers:'allow'});
+          const page=await context.newPage();
+          const errors=[];
+          page.on('pageerror',e=>errors.push(String(e)));
+          const base=process.env.STUDY_SMOKE_URL;
+          const r=await page.goto(base,{waitUntil:'domcontentloaded'});
+          await page.getByRole('heading',{name:/Aprenda mais/}).waitFor();
+          assert.equal(r.status(),200);
+          assert.ok((await page.locator('footer').innerText()).includes('0.5.2'));
+          await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+          const cacheRows=await page.evaluate(async()=>{
+           const rows=[];
+           for(const name of await caches.keys()){
+            const c=await caches.open(name);
+            for(const key of await c.keys()){
+             if(key.url.endsWith('/')||key.url.endsWith('index.html')){
+              const r=await c.match(key);rows.push({key:key.url,url:r.url,redirected:r.redirected});
+             }
+            }
+           }
+           return rows;
+          });
+          console.log(JSON.stringify({url:page.url(),title:await page.title(),version:await page.locator('footer').innerText(),cachedDocuments:cacheRows}));
+          await page.reload();
+          await page.getByRole('heading',{name:/Aprenda mais/}).waitFor();
+          await page.getByRole('button',{name:'Começar a estudar'}).click();
+          await page.getByRole('heading',{name:/Configure seu/}).waitFor();
+          await page.locator('label.seg-btn',{hasText:/^\s*5\s*$/}).click();
+          await page.getByRole('button',{name:/Iniciar sessão/}).click();
+          await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor();
+          await page.keyboard.press('1');
+          await page.locator('.feedback').waitFor();
+          const state=await page.evaluate(()=>localStorage.getItem('study-mastery:state:v1'));
+          await page.reload();
+          await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor();
+          await page.locator('.feedback').waitFor();
+          await context.setOffline(true);
+          await page.reload();
+          await page.getByRole('heading',{name:'Questão 1 de 5',exact:true}).waitFor();
+          await page.locator('.feedback').waitFor();
+          assert.equal(await page.evaluate(()=>localStorage.getItem('study-mastery:state:v1')),state);
+          assert.deepEqual(errors,[]);
+          console.log(JSON.stringify({base,onlineReload:true,quizAnswered:true,offlineReload:true,sessionPreserved:true,pageErrors:errors}));
+          await context.close();
+          }finally{await browser.close();}
+          NODE
