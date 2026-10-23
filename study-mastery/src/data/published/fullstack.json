@@ -2353,5 +2353,1355 @@
   "status": "approved",
   "verifiedBy": "node-exec (--permission, sandbox)",
   "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-001",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "calcularMedia",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nfunction calcularMedia(avaliacoes) {\n  if (avaliacoes.length === 0) return 0;\n  const soma = avaliacoes.reduce((total, a) => total + a.nota, 0);\n  return Math.round((soma / avaliacoes.length) * 10) / 10;\n}\nconsole.log(calcularMedia([{ nota: 5 }, { nota: 4 }]));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`5`"
+   },
+   {
+    "id": "b",
+    "text": "`4`"
+   },
+   {
+    "id": "c",
+    "text": "`4.5`"
+   },
+   {
+    "id": "d",
+    "text": "`9`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A soma das notas é 5 + 4 = 9; dividindo por 2 avaliações dá 4,5. O arredondamento `Math.round(4.5 * 10) / 10` mantém 1 casa decimal e o resultado impresso é `4.5`. É exatamente a função `calcularMedia` pedida na Aula 03.",
+   "wrong": {
+    "d": "`9` é só a soma das notas (5 + 4); falta dividir pela quantidade de avaliações (2).",
+    "b": "A média de 5 e 4 é 4,5; o arredondamento é para 1 casa decimal (`Math.round(x * 10) / 10`), não para inteiro.",
+    "a": "`5` é a maior nota, não a média."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "calcularMedia(avaliacoes): média arredondada para 1 casa decimal",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.610Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-002",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Divisão por zero",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [];\nconst soma = avaliacoes.reduce((total, a) => total + a.nota, 0);\nconsole.log(soma / avaliacoes.length);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`NaN`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`Infinity`"
+   },
+   {
+    "id": "d",
+    "text": "`0`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Com a lista vazia a soma é `0` e o tamanho é `0`, então a conta é `0 / 0`, que resulta em `NaN`. Por isso a Aula 03 exige “lista vazia deve retornar 0 (nunca dividir por zero)”: o `calcularMedia` precisa de uma verificação antes da divisão.",
+   "wrong": {
+    "d": "`0 / 0` não é 0 em JavaScript: é indefinido, e o resultado é `NaN`.",
+    "c": "`Infinity` ocorreria com numerador positivo (por exemplo `5 / 0`); aqui o numerador também é 0.",
+    "b": "Operações aritméticas retornam número; para `0 / 0` o valor é `NaN`, não `undefined`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "calcularMedia([]) deve retornar 0, sem dividir por zero",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-003",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "filter + map",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [\n  { id: 1, lugarId: 1, nota: 5 },\n  { id: 2, lugarId: 1, nota: 4 },\n  { id: 3, lugarId: 2, nota: 3 },\n];\nconst doLugar1 = avaliacoes.filter((a) => a.lugarId === 1);\nconsole.log(doLugar1.map((a) => a.nota));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[5,4]`"
+   },
+   {
+    "id": "b",
+    "text": "`[1,1]`"
+   },
+   {
+    "id": "c",
+    "text": "`[{\"id\":1,\"lugarId\":1,\"nota\":5},{\"id\":2,\"lugarId\":1,\"nota\":4}]`"
+   },
+   {
+    "id": "d",
+    "text": "`[5,4,3]`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`filter` mantém as avaliações de `lugarId === 1` (ids 1 e 2) e `map` extrai a nota de cada uma: `[5, 4]` (o console mostra o array). É o padrão de `filtrarPorLugar` combinado com um `map`.",
+   "wrong": {
+    "d": "O `filter` deixa só as avaliações do lugar 1; a nota 3 é do lugar 2.",
+    "b": "O `map` devolve as *notas*, não os `lugarId`.",
+    "c": "Essa seria a saída de `doLugar1` sem o `map`; o `map` transforma cada avaliação na sua nota."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "filtrarPorLugar(avaliacoes, lugarId) usando Array.prototype.filter",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-004",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Nota mínima (>=)",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst notas = [5, 4, 5, 3, 4, 5, 2, 5, 3];\nconsole.log(notas.filter((n) => n >= 4).length);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`5`"
+   },
+   {
+    "id": "b",
+    "text": "`6`"
+   },
+   {
+    "id": "c",
+    "text": "`9`"
+   },
+   {
+    "id": "d",
+    "text": "`4`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Notas ≥ 4 no array: 5, 4, 5, 4, 5, 5 — seis valores (as notas 3, 2 e 3 saem). A Aula 03 define `filtrarPorNotaMinima` como “nota maior ou igual à mínima”, por isso o `4` conta.",
+   "wrong": {
+    "d": "`4` seria o resultado com `n > 4` (só os 5); o filtro da aula usa “maior ou igual” (`>=`).",
+    "a": "Há seis notas maiores ou iguais a 4: 5, 4, 5, 4, 5 e 5.",
+    "c": "`9` é o tamanho do array original; o `filter` remove as notas 3, 2 e 3."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "filtrarPorNotaMinima: nota maior ou igual à mínima",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-005",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Cópia antes de ordenar",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst original = [3, 1, 2];\nconst copia = original.slice().sort((a, b) => b - a);\nconsole.log(original, copia);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[3,1,2] [3,2,1]`"
+   },
+   {
+    "id": "b",
+    "text": "`[3,1,2] [3,1,2]`"
+   },
+   {
+    "id": "c",
+    "text": "`[1,2,3] [3,2,1]`"
+   },
+   {
+    "id": "d",
+    "text": "`[3,2,1] [3,2,1]`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`original.slice()` cria uma cópia; o `sort` com comparador `(a, b) => b - a` ordena a cópia do maior para o menor (`[3,2,1]`) e o original continua `[3,1,2]`. É a técnica pedida em `ordenarPorNota`: nunca ordenar o array recebido diretamente.",
+   "wrong": {
+    "d": "O `sort` foi aplicado à cópia criada por `slice()`; o array original não é alterado.",
+    "c": "O original não foi ordenado, então continua `[3,1,2]` (e não `[1,2,3]`).",
+    "b": "A cópia foi ordenada em ordem decrescente pelo comparador `b - a`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "ordenarPorNota: crie uma cópia com slice() e ordene a cópia",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-006",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Arredondamento a 1 casa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(Math.round((23 / 6) * 10) / 10);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`3.83`"
+   },
+   {
+    "id": "b",
+    "text": "`4`"
+   },
+   {
+    "id": "c",
+    "text": "`3.9`"
+   },
+   {
+    "id": "d",
+    "text": "`3.8`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "23 ÷ 6 ≈ 3,8333. Multiplicando por 10: 38,33; `Math.round` → 38; dividindo por 10: `3.8`. É a técnica sugerida na Aula 03 para arredondar a média a 1 casa decimal.",
+   "wrong": {
+    "c": "`23 / 6 ≈ 3,8333`; multiplicado por 10 dá 38,33, que arredonda para 38 (e não 39).",
+    "b": "`Math.round(x * 10) / 10` mantém 1 casa decimal; arredondar para inteiro seria `Math.round(x)`.",
+    "a": "O truque multiplica por 10 (1 casa), não por 100 (2 casas)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "dica: Math.round(valor * 10) / 10",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-007",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Funções puras",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Considere as funções abaixo, todas recebendo uma lista de avaliações. Qual delas é **pura** (mesma entrada → mesma saída, sem efeitos colaterais)?\n\n```js\nlet contador = 0;\nconst f1 = (lista) => lista.map((a) => a.nota);\nconst f2 = (lista) => lista.sort((a, b) => a.nota - b.nota);\nconst f3 = (lista) => { contador++; return lista.length + contador; };\nconst f4 = (lista) => lista.length * Math.random();\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`f3`"
+   },
+   {
+    "id": "b",
+    "text": "`f2`"
+   },
+   {
+    "id": "c",
+    "text": "`f1`"
+   },
+   {
+    "id": "d",
+    "text": "`f4`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Uma função pura devolve sempre o mesmo resultado para os mesmos argumentos e não altera nada fora dela. `f1` só lê a lista e cria um array novo. `f2` altera o array recebido; `f3` depende e altera `contador`; `f4` usa aleatoriedade. A Aula 03 pede justamente funções puras, “sem efeitos colaterais, sem tocar no DOM”.",
+   "wrong": {
+    "b": "`sort` modifica o array recebido (efeito colateral); uma função pura não altera suas entradas.",
+    "a": "O resultado depende de uma variável externa que muda a cada chamada (`contador`).",
+    "d": "`Math.random()` torna o resultado imprevisível para a mesma entrada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "objetivo: funções puras (sem efeitos colaterais, sem tocar no DOM)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-008",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "forEach não retorna valor",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst resultado = [1, 2, 3].forEach((x) => x * 2);\nconsole.log(resultado);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`[1,2,3]`"
+   },
+   {
+    "id": "c",
+    "text": "`[2,4,6]`"
+   },
+   {
+    "id": "d",
+    "text": "`6`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`Array.prototype.forEach` executa a função para cada item e sempre retorna `undefined`, ignorando o valor de retorno do callback. Para transformar uma lista em outra usa-se `map`; para acumular, `reduce`.",
+   "wrong": {
+    "c": "Quem devolve um novo array é o `map`; o `forEach` só percorre, sem retornar nada.",
+    "b": "O `forEach` não devolve o array original como retorno.",
+    "d": "`forEach` não acumula valores (isso é função do `reduce`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "uso de métodos de array (filter, sort) em funções que devolvem dados",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-009",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "find",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst notas = [3, 5, 4];\nconsole.log(notas.find((n) => n >= 4));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[5,4]`"
+   },
+   {
+    "id": "b",
+    "text": "`5`"
+   },
+   {
+    "id": "c",
+    "text": "`true`"
+   },
+   {
+    "id": "d",
+    "text": "`4`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`find` percorre o array em ordem e devolve o primeiro elemento que satisfaz a condição: 3 não passa, 5 passa. Resultado: `5`. Se nenhum passar, devolve `undefined`.",
+   "wrong": {
+    "a": "Esse seria o resultado de `filter` (todas as notas ≥ 4). O `find` devolve só o *primeiro* elemento que atende.",
+    "d": "A varredura segue a ordem do array: o primeiro elemento ≥ 4 é o 5 (índice 1).",
+    "c": "`find` devolve o elemento, não um booleano (isso seria `some`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "Array.prototype.filter e variações para selecionar avaliações",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-010",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Igualdade estrita",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [{ lugarId: \"1\", nota: 5 }, { lugarId: \"1\", nota: 4 }];\nconsole.log(avaliacoes.filter((a) => a.lugarId === 1).length);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`0`"
+   },
+   {
+    "id": "d",
+    "text": "`2`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O operador `===` compara valor *e tipo*: `\"1\" === 1` é `false`. Como os `lugarId` vieram como texto, o `filter` devolve um array vazio e o `length` é `0`. Em dados reais (JSON, formulários, URLs) é comum precisar converter com `Number(...)` antes de comparar.",
+   "wrong": {
+    "d": "`===` não faz conversão de tipos: a string `\"1\"` é diferente do número `1`.",
+    "a": "Nenhuma das duas avaliações passa no teste, pois ambas têm `lugarId` do tipo string.",
+    "b": "`filter` sempre devolve um array; o `length` de um array vazio é `0`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "filtrarPorLugar(avaliacoes, lugarId): lugarId igual ao parâmetro (number)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-011",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "reduce sem valor inicial",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\ntry {\n  [].reduce((total, n) => total + n);\n} catch (erro) {\n  console.log(erro.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`NaN`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`TypeError`"
+   },
+   {
+    "id": "d",
+    "text": "`0`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`reduce` sem valor inicial usa o primeiro elemento como acumulador; em um array vazio não há elemento, então lança `TypeError: Reduce of empty array with no initial value`. Por isso o `calcularMedia` da aula usa `reduce(..., 0)` (e checa a lista vazia).",
+   "wrong": {
+    "d": "Sem o segundo argumento (valor inicial) o `reduce` de um array vazio não devolve 0: ele lança erro.",
+    "b": "Não há retorno: o erro é lançado e capturado pelo `catch`, que imprime o nome do erro.",
+    "a": "O `reduce` nem chega a executar o callback; o erro acontece antes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "calcularMedia: lista vazia deve retornar 0",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-012",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "sort sem comparador",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log([10, 9, 1].sort());\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[10,9,1]`"
+   },
+   {
+    "id": "b",
+    "text": "`[1,10,9]`"
+   },
+   {
+    "id": "c",
+    "text": "`[9,10,1]`"
+   },
+   {
+    "id": "d",
+    "text": "`[1,9,10]`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Por padrão o `sort` compara as *strings*: `\"1\"` < `\"10\"` < `\"9\"`. Para ordenar números é preciso um comparador, como `(a, b) => a - b` — exatamente o que o `ordenarPorNota` da Aula 03 faz com a nota.",
+   "wrong": {
+    "d": "Sem comparador o `sort` converte os itens em texto e ordena alfabeticamente: `\"10\"` vem antes de `\"9\"`.",
+    "a": "Esse seria o resultado de ordem decrescente (`(a, b) => b - a`).",
+    "c": "Nem alfabética nem numérica: a ordem de texto coloca `\"1\"` primeiro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "ordenarPorNota: comparando a nota com Array.prototype.sort",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-013",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Comparador ascendente",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [{ nota: 3 }, { nota: 5 }, { nota: 4 }];\navaliacoes.sort((a, b) => a.nota - b.nota);\nconsole.log(avaliacoes.map((a) => a.nota));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[4,3,5]`"
+   },
+   {
+    "id": "b",
+    "text": "`[3,4,5]`"
+   },
+   {
+    "id": "c",
+    "text": "`[3,5,4]`"
+   },
+   {
+    "id": "d",
+    "text": "`[5,4,3]`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Quando o comparador devolve negativo, `a` vem antes de `b`. Com `a.nota - b.nota`, a menor nota precede a maior: `[3,4,5]`. O parâmetro `ordem === \"asc\"` do `ordenarPorNota` equivale a esse comparador.",
+   "wrong": {
+    "d": "`a.nota - b.nota` coloca a menor nota primeiro (ascendente); o decrescente seria `b.nota - a.nota`.",
+    "c": "O array foi de fato ordenado pelo comparador; ele não permanece na ordem original.",
+    "a": "A ordem resultante é totalmente crescente: 3, 4, 5."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "ordenarPorNota(avaliacoes, ordem): \"asc\" menor para o maior",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-014",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Cópia rasa",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst original = [{ nota: 5 }, { nota: 4 }];\nconst copia = [...original];\ncopia[0].nota = 1;\nconsole.log(original[0].nota);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1`"
+   },
+   {
+    "id": "b",
+    "text": "`4`"
+   },
+   {
+    "id": "c",
+    "text": "`5`"
+   },
+   {
+    "id": "d",
+    "text": "`undefined`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`[...original]` cria um array novo, mas com *as mesmas referências* de objetos. `copia[0]` e `original[0]` são o mesmo objeto; mudar `nota` por um aparece no outro. Copiar o array evita mutar a *ordem* (como no `sort`), mas não protege os objetos internos.",
+   "wrong": {
+    "c": "O spread copia o array, mas os objetos dentro dele continuam sendo os mesmos (cópia rasa); alterar um objeto pela cópia altera o original.",
+    "d": "`original[0]` existe e continua sendo um objeto com a propriedade `nota`.",
+    "b": "`4` é a nota do segundo item, que não foi tocado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "não modifique o array original (efeito colateral indesejado)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-015",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "sort retorna a mesma referência",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst a = [3, 1, 2];\nconst b = a.sort();\nconsole.log(a === b, a);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true [1,2,3]`"
+   },
+   {
+    "id": "b",
+    "text": "`false [3,1,2]`"
+   },
+   {
+    "id": "c",
+    "text": "`true [3,1,2]`"
+   },
+   {
+    "id": "d",
+    "text": "`false [1,2,3]`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`Array.prototype.sort` modifica o array e retorna o próprio array. Logo `b` é a mesma referência de `a` (`a === b` é `true`) e `a` passa a ser `[1,2,3]`. É por isso que a Aula 03 manda ordenar uma *cópia* (`slice()`).",
+   "wrong": {
+    "b": "`sort` ordena *no próprio array* e devolve a mesma referência: `a === b` e `a` já está ordenado.",
+    "d": "`sort` não cria um array novo; `a` e `b` apontam para o mesmo array.",
+    "c": "O `sort` altera o array original: `a` fica `[1,2,3]`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "NÃO ordene o array recebido diretamente (isso mudaria o array original)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-016",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Ponto flutuante",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(0.1 + 0.2 === 0.3, Math.round((0.1 + 0.2) * 10) / 10);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`false 0.30000000000000004`"
+   },
+   {
+    "id": "b",
+    "text": "`false 0.3`"
+   },
+   {
+    "id": "c",
+    "text": "`true 0.30000000000000004`"
+   },
+   {
+    "id": "d",
+    "text": "`true 0.3`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Números em JavaScript são binários de ponto flutuante: `0.1 + 0.2` vale `0.30000000000000004`, diferente de `0.3` (comparação `false`). O arredondamento a 1 casa (`Math.round(x * 10) / 10`) “limpa” o resultado para `0.3`. Por isso médias são arredondadas antes de mostrar.",
+   "wrong": {
+    "d": "Na prática `0.1 + 0.2` dá `0.30000000000000004`, então a comparação com `0.3` é falsa.",
+    "a": "O segundo valor passou por `Math.round(x * 10) / 10`, que o arredonda para `0.3`.",
+    "c": "Nem a igualdade é verdadeira nem o valor arredondado mantém a cauda decimal."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "dica: arredondar o resultado com Math.round(valor * 10) / 10",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-017",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Math.round e metades",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log(Math.round(2.5), Math.round(-2.5));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`3 -3`"
+   },
+   {
+    "id": "b",
+    "text": "`2 -3`"
+   },
+   {
+    "id": "c",
+    "text": "`2 -2`"
+   },
+   {
+    "id": "d",
+    "text": "`3 -2`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`Math.round` leva a metade (±0,5) em direção a +∞: 2,5 → 3 e −2,5 → −2. Isso difere do arredondamento “longe de zero” usado em algumas linguagens e pode surpreender com notas negativas ou diferenças.",
+   "wrong": {
+    "a": "`Math.round` arredonda metades “para cima” (rumo a +∞); para −2,5 isso significa −2.",
+    "c": "`Math.round(2.5)` é `3` (a metade sobe).",
+    "b": "Nenhum dos dois valores está correto: `2.5` sobe para `3` e `-2.5` sobe para `-2`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "calcularMedia: arredondamento com Math.round",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-018",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "every e some em lista vazia",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log([].every((n) => n > 5), [].some((n) => n > 5));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true false`"
+   },
+   {
+    "id": "b",
+    "text": "`true true`"
+   },
+   {
+    "id": "c",
+    "text": "`false false`"
+   },
+   {
+    "id": "d",
+    "text": "`false true`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`every` devolve `true` se *nenhum* elemento falhar — numa lista vazia ninguém falha. `some` devolve `true` se *algum* elemento passar — numa lista vazia ninguém passa. Resultado: `true false`. Ao validar “todas as notas ≥ 4”, trate a lista vazia à parte.",
+   "wrong": {
+    "c": "`every` em lista vazia é “verdadeiro por vacuidade”: não existe nenhum elemento que falhe no teste.",
+    "b": "`some` precisa de *pelo menos um* elemento que passe; na lista vazia não existe, então é `false`.",
+    "d": "É o contrário: `every` dá `true` e `some` dá `false` em listas vazias."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "tratar lista vazia (calcularMedia([]) retorna 0)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-019",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Composição de funções puras",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [\n  { lugarId: 2, nota: 5 },\n  { lugarId: 2, nota: 3 },\n  { lugarId: 1, nota: 4 },\n];\nconst media = (lista) => lista.reduce((t, a) => t + a.nota, 0) / lista.length;\nconst doLugar2 = avaliacoes.filter((a) => a.lugarId === 2);\nconst boas = doLugar2.filter((a) => a.nota >= 4);\nconsole.log(media(boas));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`3`"
+   },
+   {
+    "id": "b",
+    "text": "`4.5`"
+   },
+   {
+    "id": "c",
+    "text": "`4`"
+   },
+   {
+    "id": "d",
+    "text": "`5`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Primeiro filtra o lugar 2 (notas 5 e 3), depois mantém notas ≥ 4 (só o 5) e por fim calcula a média de `[5]` = `5`. Compor funções puras pequenas (filtrar → filtrar → calcular) é o estilo da Aula 03.",
+   "wrong": {
+    "c": "`4` é a nota do lugar 1; o código só usa as avaliações do lugar 2.",
+    "b": "Só a nota 5 passa no filtro “≥ 4”; a nota 3 é descartada antes da média.",
+    "a": "A nota 3 é eliminada por `filter(a => a.nota >= 4)`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "filtrarPorLugar + filtrarPorNotaMinima + calcularMedia",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-020",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "map com parseInt",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log([\"1\", \"2\", \"3\"].map(parseInt));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[NaN,NaN,NaN]`"
+   },
+   {
+    "id": "b",
+    "text": "`[1,NaN,NaN]`"
+   },
+   {
+    "id": "c",
+    "text": "`[\"1\",\"2\",\"3\"]`"
+   },
+   {
+    "id": "d",
+    "text": "`[1,2,3]`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O `map` chama `parseInt(\"1\", 0, arr)`, `parseInt(\"2\", 1, arr)` e `parseInt(\"3\", 2, arr)`. Base 0 vale 10 (→ 1), base 1 é inválida (→ NaN) e base 2 não aceita o dígito 3 (→ NaN). Correção: `.map(Number)` ou `.map((s) => parseInt(s, 10))`.",
+   "wrong": {
+    "d": "O `map` passa *três* argumentos ao callback (item, índice, array), e o `parseInt` usa o segundo como base numérica.",
+    "a": "O primeiro item vira `1`: `parseInt(\"1\", 0)` trata a base 0 como 10.",
+    "c": "O `parseInt` converte para número; o resultado não são strings."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "métodos de array com callbacks (map/filter) e seus argumentos",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-021",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "var e closures em laço",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst fns = [];\nfor (var i = 0; i < 3; i++) {\n  fns.push(() => i);\n}\nconsole.log(fns.map((f) => f()));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[undefined,undefined,undefined]`"
+   },
+   {
+    "id": "b",
+    "text": "`[3,3,3]`"
+   },
+   {
+    "id": "c",
+    "text": "`[1,2,3]`"
+   },
+   {
+    "id": "d",
+    "text": "`[0,1,2]`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`var` tem escopo de função: existe um único `i`, que termina o laço valendo `3`. As três arrow functions fecham sobre essa mesma variável e, ao serem chamadas depois, retornam `3`. Com `for (let i...)` cada iteração teria seu próprio `i` e o resultado seria `[0,1,2]`.",
+   "wrong": {
+    "d": "Isso aconteceria com `let` (uma variável nova por iteração); com `var` há uma única variável compartilhada.",
+    "c": "O laço começa em 0; e, de qualquer modo, todas as funções leem o mesmo `i`.",
+    "a": "As funções retornam `i`, que continua existindo (valor final `3`) na função/escopo externo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "funções puras que não dependem de estado externo",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-022",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "reverse muda o original",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst a = [1, 2, 3];\nconst b = a.reverse().concat(a);\nconsole.log(b);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[3,2,1,3,2,1]`"
+   },
+   {
+    "id": "b",
+    "text": "`[1,2,3,3,2,1]`"
+   },
+   {
+    "id": "c",
+    "text": "`[3,2,1]`"
+   },
+   {
+    "id": "d",
+    "text": "`[3,2,1,1,2,3]`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`reverse()` inverte o array *no lugar* e retorna a mesma referência: depois dele `a` é `[3,2,1]`. Em seguida `concat(a)` junta os elementos de `a` (agora `[3,2,1]`) ao array invertido: `[3,2,1,3,2,1]`. Métodos que mutam (`sort`, `reverse`, `splice`) exigem cópia quando a função deve ser pura.",
+   "wrong": {
+    "d": "O `reverse()` já inverteu `a` no lugar, então o `concat(a)` acrescenta `[3,2,1]` (e não o original).",
+    "b": "A ordem das operações importa: `a.reverse()` roda antes do `concat` e altera `a`.",
+    "c": "O `concat(a)` acrescenta os elementos de `a` ao final, dobrando o tamanho."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "efeito colateral indesejado: mudar o array original",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-023",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "reduce para contar por grupo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [{ lugarId: 1 }, { lugarId: 2 }, { lugarId: 1 }, { lugarId: 3 }, { lugarId: 1 }];\nconst contagem = avaliacoes.reduce((acc, a) => {\n  acc[a.lugarId] = (acc[a.lugarId] || 0) + 1;\n  return acc;\n}, {});\nconsole.log(contagem);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`{\"1\":3,\"2\":1,\"3\":1}`"
+   },
+   {
+    "id": "b",
+    "text": "`[3,1,1]`"
+   },
+   {
+    "id": "c",
+    "text": "`{\"1\":1,\"2\":1,\"3\":1}`"
+   },
+   {
+    "id": "d",
+    "text": "`{\"1\":5}`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O `reduce` começa com um objeto vazio e, para cada avaliação, incrementa o contador da chave `lugarId`: o lugar 1 aparece 3 vezes, o 2 uma vez e o 3 uma vez. Resultado: `{\"1\":3,\"2\":1,\"3\":1}` — o padrão para agrupar/contar dados por categoria.",
+   "wrong": {
+    "c": "O acumulador soma 1 a cada ocorrência (`(acc[id] || 0) + 1`); o lugar 1 aparece três vezes.",
+    "b": "O acumulador é um objeto (`{}`), não um array; as chaves são os `lugarId`.",
+    "d": "Cada `lugarId` distinto cria sua própria chave; a contagem não é global."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "calcularMedia usa reduce; o mesmo padrão agrega dados",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-024",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Ordenação por dois critérios",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst avaliacoes = [\n  { id: 1, nota: 5 },\n  { id: 2, nota: 4 },\n  { id: 3, nota: 5 },\n  { id: 4, nota: 4 },\n];\navaliacoes.sort((a, b) => b.nota - a.nota || a.id - b.id);\nconsole.log(avaliacoes.map((a) => a.id));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[2,4,1,3]`"
+   },
+   {
+    "id": "b",
+    "text": "`[1,2,3,4]`"
+   },
+   {
+    "id": "c",
+    "text": "`[1,3,2,4]`"
+   },
+   {
+    "id": "d",
+    "text": "`[3,1,4,2]`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O comparador `b.nota - a.nota || a.id - b.id` ordena por nota decrescente; quando as notas são iguais (diferença 0, que é “falsy”), o operador `||` passa para o desempate por id crescente. Notas 5: ids 1 e 3; notas 4: ids 2 e 4 → `[1,3,2,4]`.",
+   "wrong": {
+    "b": "Primeiro vem o critério da nota (decrescente): as notas 5 (ids 1 e 3) precedem as notas 4 (ids 2 e 4).",
+    "d": "No empate de nota o desempate é `a.id - b.id` (id *crescente*), então 1 vem antes de 3.",
+    "a": "O comparador usa `b.nota - a.nota` (decrescente): as maiores notas vêm primeiro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "ordenarPorNota com Array.prototype.sort (comparador)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-025",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "toSorted (ES2023)",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconst original = [3, 1, 2];\nconst ordenada = original.toSorted();\nconsole.log(original, ordenada);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[1,2,3] [1,2,3]`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined [1,2,3]`"
+   },
+   {
+    "id": "c",
+    "text": "`[3,1,2] [1,2,3]`"
+   },
+   {
+    "id": "d",
+    "text": "`[3,1,2] [3,1,2]`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`Array.prototype.toSorted()` é a versão não destrutiva do `sort()`: retorna um novo array ordenado sem alterar o original (por isso `original` segue `[3,1,2]`). Equivale a `[...original].sort()` e dispensa o `slice()` da aula em ambientes que o suportam.",
+   "wrong": {
+    "a": "`toSorted()` (ES2023) devolve uma cópia ordenada e deixa o array original intacto, diferente de `sort()`.",
+    "d": "A cópia retornada é a que está ordenada.",
+    "b": "O original continua sendo o array `[3,1,2]`; nada o torna `undefined`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "ordenarPorNota: devolver cópia ordenada, sem alterar o original",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-026",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Coerção em comparações",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código abaixo imprime no console?\n\n```js\nconsole.log([3, 4, 5].filter((n) => n >= \"4\"), [3, 4, 5].filter((n) => n === \"4\"));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[] []`"
+   },
+   {
+    "id": "b",
+    "text": "`[4,5] [4]`"
+   },
+   {
+    "id": "c",
+    "text": "`[3,4,5] [4]`"
+   },
+   {
+    "id": "d",
+    "text": "`[4,5] []`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Operadores relacionais (`>=`) convertem os operandos para número, então `n >= \"4\"` funciona e mantém `[4,5]`. Já `===` exige o mesmo tipo: nenhum número é estritamente igual a `\"4\"` e o segundo filtro devolve `[]`. Por isso parâmetros vindos de formulários/URLs (texto) devem ser convertidos com `Number(...)`.",
+   "wrong": {
+    "b": "`===` não converte tipos: o número `4` não é estritamente igual à string `\"4\"`.",
+    "a": "O operador relacional `>=` converte a string `\"4\"` em número antes de comparar.",
+    "c": "O primeiro filtro remove o 3 (3 >= 4 é falso)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "filtrarPorNotaMinima(avaliacoes, notaMinima) com comparação >=",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-js-funcoes-027",
+  "disciplineId": "fullstack",
+  "topicId": "js-funcoes",
+  "subtopic": "Soma que vira concatenação",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Uma API devolve as notas como texto (`[\"5\",\"4\"]`). O que o código abaixo imprime?\n\n```js\nconst notas = JSON.parse('[\"5\",\"4\"]');\nconst soma = notas.reduce((t, n) => t + n, 0);\nconsole.log(soma, typeof soma);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`9 number`"
+   },
+   {
+    "id": "b",
+    "text": "`NaN number`"
+   },
+   {
+    "id": "c",
+    "text": "`54 string`"
+   },
+   {
+    "id": "d",
+    "text": "`054 string`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O valor inicial é o número `0`. Na primeira iteração `0 + \"5\"` vira a string `\"05\"` (o `+` concatena se um dos lados é texto); depois `\"05\" + \"4\"` → `\"054\"`. O `typeof` confirma: `string`. Antes de somar notas vindas de JSON/formulário, converta com `Number(n)` ou `parseFloat`.",
+   "wrong": {
+    "a": "Com strings, o operador `+` concatena em vez de somar: `0 + \"5\"` resulta em `\"05\"`.",
+    "b": "Não há conversão numérica aqui; o resultado é uma string, não `NaN`.",
+    "c": "A soma começa em `0` (número), que também entra na concatenação: `\"0\" + \"5\" + \"4\"` → `\"054\"`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-03",
+    "locator": "calcularMedia: soma das notas (que devem ser números)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:08:09.611Z",
+  "updatedAt": "2026-10-23T01:08:25.996Z",
+  "status": "approved",
+  "verifiedBy": "js-exec (node --permission)",
+  "reviewedBy": "ai-assisted"
  }
 ]

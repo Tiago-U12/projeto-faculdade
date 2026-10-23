@@ -4,8 +4,10 @@
 const lines = [];
 const fmt = (v) => {
   if (typeof v === 'string') return v;
+  if (typeof v === 'number') return String(v); // NaN, Infinity e -0 aparecem como no console (JSON.stringify daria "null")
   try {
-    return JSON.stringify(v) ?? String(v);
+    const marcar = (k, x) => (typeof x === 'number' && !Number.isFinite(x) ? `__${x}__` : typeof x === 'undefined' ? '__undefined__' : x);
+    return (JSON.stringify(v, marcar) ?? String(v)).replace(/"__(NaN|Infinity|-Infinity|undefined)__"/g, '$1');
   } catch {
     return String(v);
   }
