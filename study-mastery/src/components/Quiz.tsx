@@ -74,7 +74,7 @@ export function Quiz({ go }: { go: (to: string) => void }) {
       if (k.length === 1 && pos >= 0 && pos < item.order.length) {
         e.preventDefault();
         answer(q.id, item.order[pos]);
-      } else if ((k === 'enter' || k === 'arrowright') && (simulado || revealed) && t?.tagName !== 'BUTTON') {
+      } else if ((k === 'enter' || k === 'arrowright') && (simulado || revealed) && !/^(BUTTON|A)$/.test(t?.tagName ?? '')) {
         e.preventDefault();
         next();
       } else if (k === 'arrowleft' && simulado && idx > 0) goTo(idx - 1);
@@ -114,7 +114,7 @@ export function Quiz({ go }: { go: (to: string) => void }) {
             const cls = ['choice', isChosen ? 'chosen' : '', revealed && isRight ? 'correct' : '', revealed && isChosen && !isRight ? 'incorrect' : '', revealed && !isChosen && !isRight ? 'dim' : ''].join(' ');
             return (
               <button key={o.id} type="button" role="radio" aria-checked={isChosen} className={cls} disabled={revealed} onClick={() => answer(q.id, o.id)}>
-                <span className="letter" aria-hidden="true">{'ABCD'[i]}</span>
+                <span className="letter">{'ABCD'[i]}</span>
                 <RichText text={o.text} className="choice-text" />
                 {revealed && isRight && <Check size={18} aria-label="alternativa correta" />}
                 {revealed && isChosen && !isRight && <X size={18} aria-label="sua resposta, incorreta" />}
