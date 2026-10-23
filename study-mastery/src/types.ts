@@ -39,8 +39,8 @@ export interface Explanation {
 
 /** Resultado de verificação automática registrado na questão. */
 export interface VerificationSpec {
-  /** sympy = verificação simbólica + numérica; js = execução isolada; node = execução com bibliotecas (Express, JWT, React…); web = HTML/CSS no Chromium; source = checagem contra fonte oficial */
-  kind: 'limit' | 'form' | 'derivative' | 'integral' | 'definite' | 'double' | 'expr' | 'function' | 'js' | 'node' | 'web' | 'source';
+  /** sympy = verificação simbólica + numérica; js = execução isolada; node = execução com bibliotecas (Express, JWT, React…); sql = consultas reais em um MariaDB (compatível com MySQL) temporário; web = HTML/CSS no Chromium; source = checagem contra fonte oficial */
+  kind: 'limit' | 'form' | 'derivative' | 'integral' | 'definite' | 'double' | 'expr' | 'function' | 'js' | 'node' | 'sql' | 'web' | 'source';
   /** parâmetros específicos de cada tipo (ver tools/lib/verify) */
   params?: Record<string, unknown>;
   /** valor verificável de cada alternativa, por id (expressões sympy, saídas do js ou rótulos) */

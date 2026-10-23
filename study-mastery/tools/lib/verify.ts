@@ -228,17 +228,82 @@ export async function verifyWebAll(qs: Question[]): Promise<VerifyOutcome[]> {
   return out;
 }
 
+/** Sobe um MariaDB descartável (compatível com MySQL; sem autenticação, só em 127.0.0.1) para verificar questões de SQL. */
+async function startMariaDb(): Promise<{ port: number; stop: () => Promise<void> } | null> {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'sm-mariadb-'));
+  const data = path.join(dir, 'data');
+  const free = await new Promise<number>((resolve) => {
+    const s = http.createServer();
+    s.listen(0, '127.0.0.1', () => {
+      const port = (s.address() as AddressInfo).port;
+      s.close(() => resolve(port));
+    });
+  });
+  const install = await run('mariadb-install-db', ['--no-defaults', `--datadir=${data}`, '--auth-root-authentication-method=normal', '--skip-test-db', '--user=root'], null, 60000);
+  if (install.code !== 0) {
+    fs.rmSync(dir, { recursive: true, force: true });
+    return null;
+  }
+  const child = spawn('mariadbd', ['--no-defaults', `--datadir=${data}`, `--socket=${path.join(dir, 's.sock')}`, `--port=${free}`, '--bind-address=127.0.0.1', '--skip-grant-tables', '--user=root', '--skip-name-resolve', '--innodb-buffer-pool-size=32M', '--innodb-log-file-size=16M', '--skip-log-bin'], { stdio: 'ignore', env: { PATH: process.env.PATH ?? '' } });
+  const stop = async () => {
+    child.kill('SIGTERM');
+    await new Promise<void>((r) => {
+      const t = setTimeout(() => (child.kill('SIGKILL'), r()), 5000);
+      child.once('exit', () => (clearTimeout(t), r()));
+    });
+    fs.rmSync(dir, { recursive: true, force: true });
+  };
+  const net = await import('node:net');
+  for (let i = 0; i < 100; i++) {
+    const ok = await new Promise<boolean>((resolve) => {
+      const c = net.connect(free, '127.0.0.1');
+      c.once('connect', () => (c.end(), resolve(true)));
+      c.once('error', () => resolve(false));
+    });
+    if (ok) return { port: free, stop };
+    await new Promise((r) => setTimeout(r, 150));
+  }
+  await stop();
+  return null;
+}
+
+/** kind=sql: roda params.code (JS com `conn` do mysql2 já conectado a um banco novo) contra o MariaDB temporário. */
+async function verifySql(q: Question, port: number): Promise<VerifyOutcome> {
+  const p = (q.verification!.params ?? {}) as { code?: string };
+  if (!p.code) return { id: q.id, ok: false, method: 'sql', details: 'sem params.code', errors: ['params.code ausente'] };
+  const modo = "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION";
+  const prefix = `import mysql from 'mysql2/promise';
+const conn = await mysql.createConnection({ host: '127.0.0.1', port: ${port}, user: 'root', multipleStatements: true });
+await conn.query("DROP DATABASE IF EXISTS q; CREATE DATABASE q; USE q; SET SESSION sql_mode='${modo}'");
+`;
+  const clone = { ...q, verification: { ...q.verification!, kind: 'node' as const, params: { code: `${prefix}${p.code}\nawait conn.end();\nprocess.exit(0);` } } } as Question;
+  const o = await verifyNode(clone);
+  return { ...o, method: 'sql (MariaDB 10.x compatível com MySQL, sql_mode do MySQL 8)' };
+}
+
 export async function verifyAll(qs: Question[]): Promise<VerifyOutcome[]> {
   const math = qs.filter((q) => q.verification && needsPython(q.verification.kind));
   const js = qs.filter((q) => q.verification?.kind === 'js');
   const nodeQs = qs.filter((q) => q.verification?.kind === 'node');
   const web = qs.filter((q) => q.verification?.kind === 'web');
+  const sql = qs.filter((q) => q.verification?.kind === 'sql');
   const src = qs.filter((q) => q.verification?.kind === 'source');
   const res: VerifyOutcome[] = [];
   if (math.length) res.push(...(await verifyMath(math)));
   for (const q of js) res.push(await verifyJs(q));
   for (const q of nodeQs) res.push(await verifyNode(q));
   res.push(...(await verifyWebAll(web)));
+  if (sql.length) {
+    const db = await startMariaDb();
+    if (!db) res.push(...sql.map((q) => ({ id: q.id, ok: false, method: 'sql', details: 'MariaDB indisponível', errors: ['não foi possível iniciar o MariaDB (apt-get install mariadb-server)'] })));
+    else {
+      try {
+        for (const q of sql) res.push(await verifySql(q, db.port));
+      } finally {
+        await db.stop();
+      }
+    }
+  }
   for (const q of src) res.push({ id: q.id, ok: true, method: 'source-review', details: 'sem execução: ' + (q.verification!.claims?.length ?? 0) + ' afirmação(ões) conferida(s) contra a fonte', errors: [] });
   return res;
 }
