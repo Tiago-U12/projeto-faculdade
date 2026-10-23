@@ -66,12 +66,20 @@ async function run(page: Page) {
   const lh = page.getByRole('checkbox', { name: /Regra de L’Hôpital|Regra de L'Hôpital/ });
   check(await lh.isChecked(), "L'Hôpital marcado pelo preset da prova");
   const deriv = page.getByRole('checkbox', { name: /Regras de derivação/ });
-  check(await deriv.isDisabled(), 'assunto sem questões aprovadas fica desabilitado (sem inventar conteúdo)');
+  check(!(await deriv.isDisabled()), 'assunto com questões aprovadas pode ser selecionado');
   check(await noHScroll(page), 'sem rolagem horizontal na configuração');
   await page.screenshot({ path: shot('02-setup.png'), fullPage: true });
   const summary = page.getByRole('region', { name: 'Resumo da sessão' });
   check(/elegíveis/.test(await summary.innerText()), 'resumo de elegíveis visível');
-  check(/Só há \d+ questões aprovadas/.test(await summary.innerText()), 'avisa quando há menos questões do que o pedido (20) em vez de completar');
+  // só “Regras de derivação” (17 aprovadas, menos que 20 elegíveis) com sessão de 20: o app avisa em vez de completar com outro conteúdo
+  await page.getByRole('button', { name: 'Selecionar todos' }).click();
+  await page.getByRole('button', { name: 'Limpar' }).click();
+  await deriv.check();
+  await page.locator('label.seg-btn', { hasText: /^\s*20\s*$/ }).click();
+  check(/Só há (\d+) questões aprovadas/.test(await summary.innerText()) && Number(/Só há (\d+)/.exec(await summary.innerText())![1]) < 20, 'avisa quando há menos questões do que o pedido (20) em vez de completar');
+  await page.getByRole('button', { name: 'Foco da prova' }).click();
+  await page.getByRole('checkbox', { name: /Regra de L’Hôpital|Regra de L'Hôpital/ }).waitFor();
+  check(await page.getByRole('checkbox', { name: /Regra de L’Hôpital|Regra de L'Hôpital/ }).isChecked(), 'preset da prova restaurado');
 
   console.log('Modo Aprender');
   await page.getByRole('radio', { name: /^Aprender/ }).check();
@@ -155,6 +163,29 @@ async function run(page: Page) {
   await page.getByText(/Importado:/).waitFor();
   check(/2/.test(await page.locator('.metrics').first().innerText()), 'importação restaura o histórico');
   fs.rmSync(file);
+
+  console.log('Full Stack (código e explicações)');
+  await page.evaluate(() => { location.hash = '#/setup?d=fullstack'; });
+  await page.getByRole('heading', { name: /Configure seu/ }).waitFor();
+  if (await page.getByRole('button', { name: 'Selecionar todos' }).count()) await page.getByRole('button', { name: 'Selecionar todos' }).click();
+  await page.getByRole('radio', { name: /^Aprender/ }).check();
+  await page.locator('label.seg-btn', { hasText: /^\s*10\s*$/ }).click();
+  await page.getByRole('button', { name: /Iniciar/ }).click();
+  await page.getByRole('radiogroup').first().waitFor();
+  let codigos = 0;
+  for (let i = 0; i < 10; i++) {
+    codigos += await page.locator('#q-stem code, .choice code').count();
+    await page.keyboard.press('1');
+    await page.locator('.feedback').waitFor();
+    if (i === 0) {
+      check(await page.getByText('Por que a alternativa correta está certa').isVisible(), 'Full Stack mostra a explicação detalhada');
+      await page.screenshot({ path: shot('10-fullstack-feedback.png'), fullPage: true });
+    }
+    await page.getByRole('button', { name: /Próxima|Ver resultados/ }).click();
+  }
+  check(codigos > 0, 'Full Stack renderiza trechos de código (inline ou em bloco)');
+  check(await noHScroll(page), 'sem rolagem horizontal em Full Stack (390px)');
+  await page.getByRole('heading', { name: /Resultado|Sessão concluída|acertos/i }).first().waitFor().catch(() => undefined);
 
   console.log('Acervo e tema');
   await page.getByRole('button', { name: 'Acervo e fontes' }).click();

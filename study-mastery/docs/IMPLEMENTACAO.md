@@ -17,5 +17,9 @@ P1 — validadores, painel editorial, matemática com KaTeX, ingestão manual do
 P2 — revisão espaçada e calibração por taxa de acerto.
 P3 — automação controlada de ingestão externa; Supabase opcional para login/sincronização e pipeline editorial.
 
-## Nota de implementação
-Protótipo criado nesta entrega; não confundir telas do Figma com app hospedado e nem pipeline planejado com código existente.
+## Estado da implementação (v0.4)
+
+- Entregue e testado: app React/Vite (4 modos, filtros estritos, Leitner, histórico local, exportar/importar, PWA), pipeline editorial completo (`tools/sm.ts`) e **600 questões aprovadas** (300 Cálculo II + 300 Full Stack) com verificação executável (SymPy/mpmath, Node isolado, React, Express, MariaDB temporário, Chromium).
+- Suíte: testes unitários e do pipeline (`npm test`) e E2E em Chromium a 390 px (`npm run e2e`, inclui sessão de Full Stack com código).
+- Pendências conscientes: revisão humana (todas as aprovações são `ai-assisted`); provedor de IA real e download real do Google Drive nunca rodaram contra as APIs (apenas mocks); fontes externas (`ext-*`) continuam `accessed: false` porque os domínios estavam bloqueados; deploy público não foi feito (depende de autorização).
+- As 50 questões legadas de Full Stack não foram publicadas: veja `docs/AUDITORIA_LEGADO.md`.

@@ -1,12 +1,12 @@
-# Study Mastery v0.3
+# Study Mastery v0.4
 
 Plataforma de estudos universitária gratuita e mobile-first: questões, simulados, explicações e acompanhamento do aprendizado — **sem cadastro e sem chamadas de IA durante as sessões**. O estudante usa um banco de questões **previamente verificado e aprovado**, versionado em JSON; todo o progresso fica no próprio aparelho.
 
-> Estado real: veja [`PROGRESSO.md`](PROGRESSO.md) (contagens geradas do banco, sem arredondar). Meta: 600 questões aprovadas (100 fáceis + 100 médias + 100 difíceis por disciplina). Nada foi publicado na internet; o deploy depende da sua autorização.
+> Estado real: veja [`PROGRESSO.md`](PROGRESSO.md) (contagens geradas do banco, sem arredondar). Meta de 600 questões aprovadas **atingida** (100 fáceis + 100 médias + 100 difíceis por disciplina), todas com revisão assistida por IA e verificação executável; falta revisão humana. Nada foi publicado na internet; o deploy depende da sua autorização.
 
 ## Executar
 
-Requer Node 22+ (e Python 3 com `sympy`/`mpmath` apenas para o processo editorial).
+Requer Node 22+ (e, apenas para o processo editorial: Python 3 com `sympy`/`mpmath`, `npm run sandbox:install`, Chromium e, para questões de SQL, `mariadb-server`).
 
 ```bash
 npm install

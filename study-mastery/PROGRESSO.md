@@ -5,7 +5,7 @@ Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-23T01:53:36.374Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-23T02:00:38.270Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
 **Total aprovado: 600 de 600** (faltam 0).
 
@@ -66,15 +66,17 @@ Revisão das aprovadas: 600 `ai-assisted`. **Nenhuma questão passou por revisã
 | P1 — UI navegável, 4 modos, filtros estritos, histórico local, E2E | **feito e testado** | testes unitários + E2E em Chromium 390 px (`npm run e2e`), capturas em `docs/screenshots/` |
 | P2 — schema, importação, validadores, fila de revisão, cobertura | **feito e testado** | `tools/` + testes em `tools/lib/__tests__/` |
 | P3 — gerador de rascunhos por lotes com provedor injetável | **feito**; provedor real **não testado contra a API** (sem chave neste ambiente) | testado com `MockProvider` e `fetch` simulado |
-| P4 — expansão até 600 aprovadas | **em andamento** | ver contagens |
+| P4 — expansão até 600 aprovadas | **feito** (600/600 aprovadas, 100 por dificuldade e disciplina) | ver contagens; Full Stack verificado por execução (Node, React, Express, MariaDB, Chromium) |
 | P5 — PWA/offline, acessibilidade, deploy gratuito | PWA (service worker + manifest) feito; deploy **não feito** (precisa da sua autorização) | `public/sw.js` |
 
 ## Pendências e riscos
 
-- **Próximo passo — Full Stack (0/300)**: auditar/reescrever as 50 questões legadas (`content/legacy/legacy-v01.json`), montar a verificação de Full Stack (sandbox Node com express/jsonwebtoken/bcryptjs/mysql2/react SSR, Chromium para HTML/CSS, SQLite para SQL), registrar as fontes (READMEs das aulas) e escrever os lotes por assunto conforme `content/taxonomy.json`. Cálculo II está completo (300/300).
+- **Próximo passo recomendado — revisão humana**: amostrar e aprovar (`--type human`) especialmente as questões de aprofundamento/desafio; só então considerar `publish --require-human`.
+- **Ambiente de verificação**: questões de Full Stack exigem `npm run sandbox:install`, Chromium e `mariadb-server` (veja `docs/PIPELINE.md`); sem eles, `validate` falha nessas questões (por desenho: nada é aprovado sem execução).
 - **Cálculo II sem aula no material**: derivadas parciais, integrais duplas e otimização usam o conteúdo programático (`c2-programa`) como fonte; os enunciados são originais e verificados por SymPy/mpmath. Se a professora enviar slides desses temas, vale conferir o alinhamento de notação.
-
+- **MariaDB × MySQL**: as 26 questões de SQL foram executadas em MariaDB com o `sql_mode` do MySQL 8; diferenças exclusivas do MySQL 8 não foram cobertas (questões evitam depender delas).
+- **Legado**: as 50 questões antigas de Full Stack não foram publicadas (veja `docs/AUDITORIA_LEGADO.md`).
 - **Revisão humana**: toda aprovação até aqui é "assistida por IA" (verificação automática + leitura crítica em passada separada da autoria). Recomenda-se amostragem humana; `npm run sm -- publish --require-human` publica só o que um humano aprovou.
-- **Rede bloqueada para fontes externas** (OpenStax, MDN, react.dev, RFCs, dev.mysql.com): nenhuma questão cita essas fontes (a validação recusa fontes não lidas). Para liberar, adicione os hosts em *Allowed domains* do ambiente.
+- **Fontes externas não lidas** (OpenStax, MDN, react.dev, RFCs, dev.mysql.com, docs do Render/Netlify): nenhuma questão cita essas fontes (a validação recusa fontes não lidas). Para liberar, adicione os hosts em *Allowed domains* do ambiente.
 - **Materiais não lidos**: `Lista_CalcII.pdf` (Revisão NI1) e `3a Lista CB — Máximos e Mínimos` nunca foram recebidos (registrado no Drive). O PDF da 2ª lista de L'Hôpital/integrais tem matemática em imagem; foi lida por renderização.
 - **Deploy**: nada foi publicado. O workflow `.github/workflows/deploy.yml` do repositório não foi alterado.
