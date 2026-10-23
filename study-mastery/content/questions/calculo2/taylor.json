@@ -1,0 +1,1924 @@
+[
+ {
+  "id": "c2-taylor-001",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Polinômio de Maclaurin",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule o polinômio de Taylor de 3ª ordem de $f(x)=x^{2}+1$ em torno de $x=0$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$P_3(x)=1+2x$"
+   },
+   {
+    "id": "b",
+    "text": "$P_3(x)=x^{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$P_3(x)=1+x+x^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$P_3(x)=1+x^{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f(0)=1$, $f'(x)=2x\\Rightarrow f'(0)=0$, $f''(x)=2\\Rightarrow\\frac{f''(0)}{2!}=1$ e $f'''=0$. Logo $P_3(x)=1+0\\cdot x+1\\cdot x^2+0\\cdot x^3=1+x^2$. (Um polinômio de grau $\\le3$ coincide com o seu próprio Taylor.)",
+   "steps": [
+    "$f(0)=1$.",
+    "$f'(0)=0$ e $\\dfrac{f''(0)}{2!}=1$.",
+    "$f'''(0)=0$ ⇒ $P_{3}(x)=1+x^{2}$."
+   ],
+   "wrong": {
+    "a": "Esse é o polinômio de 1ª ordem (reta tangente); o de 3ª ordem inclui o termo $\\frac{f''(0)}{2}x^2=x^2$.",
+    "c": "O coeficiente de $x$ é $f'(0)=0$ (pois $f'(x)=2x$), e não $1$.",
+    "b": "Faltou o termo constante $f(0)=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-lista",
+    "locator": "item 1",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6 (coeficientes e fatoriais)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.136Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(x**2+1,x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "x**2+1",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "d": "1+x**2",
+    "a": "1+2*x",
+    "c": "1+x+x**2",
+    "b": "x**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**2 + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-002",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Conceito",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que é o polinômio de Maclaurin de uma função $f$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O polinômio de Taylor de $f$ centrado em $x=0$"
+   },
+   {
+    "id": "b",
+    "text": "Um polinômio que coincide com $f$ em todos os pontos"
+   },
+   {
+    "id": "c",
+    "text": "O polinômio de Taylor centrado em $x=1$"
+   },
+   {
+    "id": "d",
+    "text": "A derivada de $f$ em $x=0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O polinômio de Taylor de ordem $n$ em torno de $a$ é $\\sum_{k=0}^{n}\\dfrac{f^{(k)}(a)}{k!}(x-a)^k$. Quando o centro é $a=0$, ele é chamado de polinômio de **Maclaurin**: $f(0)+f'(0)x+\\dfrac{f''(0)}{2!}x^2+\\cdots$.",
+   "wrong": {
+    "c": "O centro $x=a$ é arbitrário no Taylor; o nome Maclaurin é reservado ao caso $a=0$.",
+    "b": "O polinômio só aproxima $f$ perto do centro; em geral não coincide com $f$ fora dele.",
+    "d": "A derivada em $0$ é apenas um número ($c_1$); o polinômio usa todos os coeficientes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6 (centrado em 0; “e se centrar em a?”)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-programa",
+    "locator": "bloco 1: Polinômio de Taylor e Maclaurin",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.136Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 5: polinômio “genérico centrado em 0”; slide 6: “E se centrar em a? Cada x vira (x − a)”.",
+    "Programa: “Polinômio de Taylor e Maclaurin”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-003",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Linearização",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A linearização de $f(x)=\\sqrt{x}$ em torno de $a=4$ é o polinômio de Taylor de 1ª ordem. Qual é ela?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$L(x)=2+\\dfrac{x}{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$L(x)=2+\\dfrac{x-4}{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$L(x)=\\dfrac{x-4}{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$L(x)=2+\\dfrac{x-4}{2}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$L(x)=f(a)+f'(a)(x-a)$. Com $f(4)=2$ e $f'(x)=\\dfrac1{2\\sqrt x}\\Rightarrow f'(4)=\\dfrac14$: $L(x)=2+\\dfrac{x-4}{4}$. Perto de $x=4$, $\\sqrt x\\approx L(x)$ (ex.: $\\sqrt{4{,}2}\\approx2{,}05$).",
+   "steps": [
+    "$f(4)=2$.",
+    "$f'(x)=\\dfrac{1}{2\\sqrt{x}}\\Rightarrow f'(4)=\\dfrac14$.",
+    "$L(x)=2+\\dfrac14(x-4)$."
+   ],
+   "wrong": {
+    "d": "$f'(4)=\\frac{1}{2\\sqrt4}=\\frac14$, e não $\\frac12$.",
+    "c": "Faltou o termo $f(4)=2$ (valor da função no ponto).",
+    "a": "O termo linear usa $(x-a)=(x-4)$, e não $x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 4 (mesmo valor, mesma inclinação)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 13 (linearização de 1ª ordem)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.136Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(sqrt(x),x,4,1)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "sqrt(x)",
+     "at": "4",
+     "order": 1
+    }
+   },
+   "optionValues": {
+    "b": "2+(x-4)/4",
+    "d": "2+(x-4)/2",
+    "c": "(x-4)/4",
+    "a": "2+x/4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x/4 + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-004",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Coeficientes",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No polinômio de Maclaurin de $f(x)=e^{x}$, qual é o coeficiente de $x^{2}$ (ou seja, $\\dfrac{f''(0)}{2!}$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac14$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Todas as derivadas de $e^x$ valem $e^0=1$ em $x=0$. O coeficiente de $x^2$ é $\\dfrac{f''(0)}{2!}=\\dfrac12$. Por isso $e^x\\approx1+x+\\dfrac{x^2}{2}+\\cdots$.",
+   "steps": [
+    "$f''(x)=e^{x}\\Rightarrow f''(0)=1$.",
+    "$c_{2}=\\dfrac{f''(0)}{2!}=\\dfrac12$."
+   ],
+   "wrong": {
+    "c": "$f''(0)=1$, mas o coeficiente divide por $2!=2$.",
+    "d": "Multiplicou por $2!$ em vez de dividir.",
+    "b": "Dividiu por $2^2$ em vez de por $2!$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–7 (c₂ = f″(0)/2; eˣ)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(diff(exp(x),x,2),x,0)/factorial(2)",
+    "numeric": "0.5"
+   },
+   "optionValues": {
+    "a": "1/2",
+    "c": "1",
+    "d": "2",
+    "b": "1/4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "valor = 1/2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-005",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série de eˣ",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $e^{x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+x+x^{2}+x^{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Como $f^{(k)}(0)=1$, o termo de ordem $k$ é $\\dfrac{x^k}{k!}$: $P_3(x)=1+x+\\dfrac{x^2}{2!}+\\dfrac{x^3}{3!}=1+x+\\dfrac{x^2}{2}+\\dfrac{x^3}{6}$.",
+   "steps": [
+    "$f^{(k)}(0)=1$ para todo $k$.",
+    "Termos: $1,\\ x,\\ \\dfrac{x^{2}}{2!},\\ \\dfrac{x^{3}}{3!}$."
+   ],
+   "wrong": {
+    "a": "Esqueceu os fatoriais: eles “limpam” a sobra das derivadas ($2!=2$, $3!=6$).",
+    "c": "O denominador do termo cúbico é $3!=6$, e não $3$.",
+    "b": "Faltou o termo constante $f(0)=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7 (eˣ: o exemplo mais amigável)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(exp(x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "exp(x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "d": "1+x+x**2/2+x**3/6",
+    "a": "1+x+x**2+x**3",
+    "c": "1+x+x**2/2+x**3/3",
+    "b": "x+x**2/2+x**3/6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**3/6 + x**2/2 + x + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-006",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Aproximar e",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Somando os três primeiros termos da série de $e^{x}$ em $x=1$ ($1+1+\\tfrac{1}{2!}$), que valor se obtém como aproximação de $e$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac52=2{,}5$"
+   },
+   {
+    "id": "b",
+    "text": "$3$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac83\\approx2{,}67$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$1+1+\\dfrac12=2{,}5$. A tabela da aula mostra o erro caindo rapidamente ao acrescentar termos: $2{,}5\\to2{,}667\\to2{,}708\\to\\cdots\\to e=2{,}71828\\ldots$",
+   "steps": [
+    "Termo de ordem $0$: $1$.",
+    "Termo de ordem $1$: $x=1$; ordem $2$: $\\dfrac{1}{2!}=\\dfrac12$.",
+    "Soma: $1+1+\\dfrac12=\\dfrac52$."
+   ],
+   "wrong": {
+    "b": "Somou $1+1+1$, esquecendo que o terceiro termo é $\\frac1{2!}=\\frac12$.",
+    "c": "Isso inclui o quarto termo $\\frac1{3!}$; o enunciado pede só três termos.",
+    "d": "Contou apenas dois termos ($1+1$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 8 (Vendo convergir: calculando e)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sum([1/factorial(k) for k in range(3)])",
+    "numeric": "1+1+0.5"
+   },
+   "optionValues": {
+    "a": "5/2",
+    "b": "3",
+    "c": "8/3",
+    "d": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "valor = 5/2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-007",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série do seno",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $\\sin x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "b",
+    "text": "$x-\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$1-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$x-\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\sin x=x-\\dfrac{x^3}{3!}+\\dfrac{x^5}{5!}-\\cdots$. Só aparecem potências ímpares, porque o seno é função ímpar ($\\sin(-x)=-\\sin x$): os coeficientes pares são zero.",
+   "steps": [
+    "Derivadas de $\\sin$ em $0$: $0,\\ 1,\\ 0,\\ -1$.",
+    "Divida por $k!$: $0,\\ 1,\\ 0,\\ -\\dfrac{1}{6}$.",
+    "$P_{3}(x)=x-\\dfrac{x^{3}}{6}$."
+   ],
+   "wrong": {
+    "a": "Os sinais alternam: o termo cúbico é negativo, pois $f'''(0)=-\\cos0=-1$.",
+    "b": "O denominador é $3!=6$, e não $3$.",
+    "c": "Esse é o polinômio de $\\cos x$; o seno tem só potências ímpares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9 (sin x: o padrão se repete)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(sin(x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "sin(x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "d": "x-x**3/6",
+    "a": "x+x**3/6",
+    "b": "x-x**3/3",
+    "c": "1-x**2/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = -x**3/6 + x; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-008",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Taylor em torno de a ≠ 0",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule o polinômio de Taylor de 2ª ordem de $f(x)=\\ln x$ em torno de $x=1$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$P_2(x)=(x-1)-\\dfrac{(x-1)^{2}}{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$P_2(x)=(x-1)+\\dfrac{(x-1)^{2}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$P_2(x)=x-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$P_2(x)=1-\\dfrac{(x-1)^{2}}{2}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f(1)=0$, $f'(x)=\\frac1x\\Rightarrow f'(1)=1$, $f''(x)=-\\frac1{x^2}\\Rightarrow\\dfrac{f''(1)}{2!}=-\\dfrac12$. Logo $P_2(x)=(x-1)-\\dfrac{(x-1)^2}{2}$.",
+   "steps": [
+    "$f(1)=0$, $f'(1)=1$.",
+    "$f''(1)=-1\\Rightarrow\\dfrac{f''(1)}{2!}=-\\dfrac12$.",
+    "$P_{2}(x)=(x-1)-\\dfrac{(x-1)^{2}}{2}$."
+   ],
+   "wrong": {
+    "b": "$f''(x)=-\\frac1{x^2}$, então $f''(1)=-1$ e o termo quadrático é negativo.",
+    "c": "Está centrado em $0$ (e $\\ln$ não existe em $0$); para o centro $a=1$ usam-se potências de $(x-1)$.",
+    "d": "O termo constante é $f(1)=\\ln1=0$, e não $1$; e falta o termo linear $f'(1)(x-1)=x-1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-lista",
+    "locator": "item 2",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 6 (E se centrar em a?)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(log(x),x,1,2)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "log(x)",
+     "at": "1",
+     "order": 2
+    }
+   },
+   "optionValues": {
+    "a": "(x-1)-(x-1)**2/2",
+    "b": "(x-1)+(x-1)**2/2",
+    "c": "x-x**2/2",
+    "d": "1-(x-1)**2/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x - (x - 1)**2/2 - 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-009",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Taylor em torno de a ≠ 0",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Reescreva $f(x)=x^{3}-2x^{2}+1$ em potências de $(x-5)$: qual é o seu polinômio de Taylor de 3ª ordem centrado em $x=5$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$76+55(x-5)+13(x-5)^{2}+(x-5)^{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$76+55(x-5)+13(x-5)^{2}+6(x-5)^{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$76+55(x-5)+26(x-5)^{2}+(x-5)^{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$76+55(x-5)+13(x-5)^{2}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f(5)=125-50+1=76$; $f'(x)=3x^2-4x\\Rightarrow f'(5)=55$; $f''(x)=6x-4\\Rightarrow f''(5)=26\\Rightarrow\\dfrac{26}{2!}=13$; $f'''=6\\Rightarrow\\dfrac{6}{3!}=1$. Logo $P_3(x)=76+55(x-5)+13(x-5)^2+(x-5)^3$ (que é o próprio $f$ reescrito em potências de $x-5$).",
+   "steps": [
+    "$f(5)=76$, $f'(5)=55$.",
+    "$\\dfrac{f''(5)}{2!}=\\dfrac{26}{2}=13$.",
+    "$\\dfrac{f'''(5)}{3!}=\\dfrac66=1$."
+   ],
+   "wrong": {
+    "c": "Esqueceu de dividir $f''(5)=26$ por $2!$: o coeficiente é $13$.",
+    "b": "Esqueceu de dividir $f'''=6$ por $3!$: o coeficiente cúbico é $1$.",
+    "d": "Isso é o polinômio de 2ª ordem; o pedido é de 3ª ordem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-lista",
+    "locator": "item 3",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(x**3-2*x**2+1,x,5,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "x**3-2*x**2+1",
+     "at": "5",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "a": "76+55*(x-5)+13*(x-5)**2+(x-5)**3",
+    "c": "76+55*(x-5)+26*(x-5)**2+(x-5)**3",
+    "b": "76+55*(x-5)+13*(x-5)**2+6*(x-5)**3",
+    "d": "76+55*(x-5)+13*(x-5)**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = 55*x + (x - 5)**3 + 13*(x - 5)**2 - 199; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-010",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série do cosseno",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 4ª ordem de $\\cos x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x-\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "b",
+    "text": "$1-\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$1-\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{24}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{24}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O cosseno é par, então só há potências pares, com sinais alternados: $\\cos x=1-\\dfrac{x^2}{2!}+\\dfrac{x^4}{4!}-\\cdots$. Até a 4ª ordem: $1-\\dfrac{x^2}{2}+\\dfrac{x^4}{24}$.",
+   "steps": [
+    "Derivadas em $0$: $1,\\ 0,\\ -1,\\ 0,\\ 1$.",
+    "Divida por $k!$: $1,\\ 0,\\ -\\tfrac12,\\ 0,\\ \\tfrac1{24}$."
+   ],
+   "wrong": {
+    "b": "O denominador do termo de 4ª ordem é $4!=24$, e não $4$.",
+    "d": "Os sinais alternam: $\\cos x=1-\\frac{x^2}{2!}+\\frac{x^4}{4!}-\\cdots$.",
+    "a": "Esse é o polinômio de $\\sin x$; o cosseno só tem potências pares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9 (padrão do seno e relação com paridade)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(cos(x),x,0,4)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "cos(x)",
+     "at": "0",
+     "order": 4
+    }
+   },
+   "optionValues": {
+    "c": "1-x**2/2+x**4/24",
+    "b": "1-x**2/2+x**4/4",
+    "d": "1+x**2/2+x**4/24",
+    "a": "x-x**3/6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**4/24 - x**2/2 + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-011",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Aplicação numérica",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Usando $\\sin x\\approx x-\\dfrac{x^{3}}{6}$, qual é o valor aproximado de $\\sin(0{,}1)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0{,}1$"
+   },
+   {
+    "id": "b",
+    "text": "$0{,}0998333$"
+   },
+   {
+    "id": "c",
+    "text": "$0{,}0996667$"
+   },
+   {
+    "id": "d",
+    "text": "$0{,}1001667$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$x=0{,}1$: $x^3=0{,}001$, então $0{,}1-\\dfrac{0{,}001}{6}=0{,}1-0{,}000166667=0{,}0998333$. O valor “verdadeiro” $\\sin(0{,}1)=0{,}0998334\\ldots$ difere só na 7ª casa: perto do centro, poucos termos bastam.",
+   "steps": [
+    "$x^{3}=0{,}1^{3}=0{,}001$.",
+    "$\\dfrac{x^{3}}{6}\\approx0{,}000166667$.",
+    "$0{,}1-0{,}000166667\\approx0{,}0998333$."
+   ],
+   "wrong": {
+    "a": "Usou só o primeiro termo ($\\sin x\\approx x$); o termo $-\\frac{x^3}{6}$ corrige $0{,}1\\to0{,}09983$.",
+    "d": "Erro de sinal: o termo cúbico é subtraído, e não somado.",
+    "c": "Dividiu por $3$ em vez de $3!=6$: $0{,}1-\\frac{0{,}001}{3}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 9–10 (poucos termos, perto do centro)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "0.1-0.1**3/6",
+    "numeric": "float(sin(0.1))"
+   },
+   "optionValues": {
+    "b": "0.09983333333333",
+    "a": "0.1",
+    "d": "0.10016666666667",
+    "c": "0.09966666666667"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "valor = 0.0998333333333333; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-012",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Composição",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=e^{2x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+2x+x^{2}+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+2x+2x^{2}+\\dfrac{4}{3}x^{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$2+2x+2x^{2}+2x^{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Substituindo $x\\to2x$ em $e^x=\\sum\\frac{x^k}{k!}$: $e^{2x}=1+2x+\\dfrac{(2x)^2}{2}+\\dfrac{(2x)^3}{6}=1+2x+2x^2+\\dfrac43x^3$. (Conferência: $f^{(k)}(0)=2^k$.)",
+   "steps": [
+    "$f^{(k)}(x)=2^{k}e^{2x}\\Rightarrow f^{(k)}(0)=2^{k}$.",
+    "Coeficientes: $\\dfrac{2^{k}}{k!}$: $1,\\ 2,\\ 2,\\ \\dfrac43$."
+   ],
+   "wrong": {
+    "d": "Esse é o de $e^{x}$; com $e^{2x}$ cada $x$ é substituído por $2x$.",
+    "a": "Os termos $(2x)^k/k!$ são $\\frac{4x^2}{2}=2x^2$ e $\\frac{8x^3}{6}=\\frac43x^3$.",
+    "c": "O termo constante é $f(0)=e^0=1$, e não $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7 (eˣ)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(exp(2*x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "exp(2*x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "b": "1+2*x+2*x**2+4*x**3/3",
+    "d": "1+x+x**2/2+x**3/6",
+    "a": "1+2*x+x**2+x**3/3",
+    "c": "2+2*x+2*x**2+2*x**3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = 4*x**3/3 + 2*x**2 + 2*x + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-013",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Série geométrica",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\dfrac{1}{1-x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1-x+x^{2}-x^{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$1+x+2x^{2}+6x^{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x+x^{2}+x^{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f^{(k)}(x)=\\dfrac{k!}{(1-x)^{k+1}}$, logo $f^{(k)}(0)=k!$ e o coeficiente é $\\dfrac{k!}{k!}=1$. Assim $\\dfrac1{1-x}\\approx1+x+x^2+x^3$ (soma da progressão geométrica).",
+   "steps": [
+    "$f^{(k)}(0)=k!$.",
+    "Coeficientes: $\\dfrac{k!}{k!}=1$.",
+    "$P_{3}(x)=1+x+x^{2}+x^{3}$."
+   ],
+   "wrong": {
+    "a": "Os sinais alternados são do desenvolvimento de $\\frac1{1+x}$; aqui todas as derivadas em $0$ são positivas.",
+    "b": "Esse é o de $e^x$; para $\\frac{1}{1-x}$, $f^{(k)}(0)=k!$, que cancela com o fatorial.",
+    "c": "Esqueceu de dividir $f^{(k)}(0)=k!$ por $k!$: os coeficientes são todos $1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6 (de onde vêm os fatoriais)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(1/(1-x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "1/(1-x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "d": "1+x+x**2+x**3",
+    "a": "1-x+x**2-x**3",
+    "b": "1+x+x**2/2+x**3/6",
+    "c": "1+x+2*x**2+6*x**3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**3 + x**2 + x + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-014",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Raiz",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 2ª ordem de $f(x)=\\sqrt{1+x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+x-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+\\dfrac{x}{2}-\\dfrac{x^{2}}{8}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{x}{2}-\\dfrac{x^{2}}{8}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+\\dfrac{x}{2}+\\dfrac{x^{2}}{8}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f(0)=1$; $f'(x)=\\dfrac{1}{2}(1+x)^{-1/2}\\Rightarrow f'(0)=\\dfrac12$; $f''(x)=-\\dfrac14(1+x)^{-3/2}\\Rightarrow\\dfrac{f''(0)}{2!}=-\\dfrac18$. Logo $P_2(x)=1+\\dfrac x2-\\dfrac{x^2}{8}$ (boa para $\\sqrt{1{,}1}\\approx1{,}0488$).",
+   "steps": [
+    "$f(0)=1$.",
+    "$f'(0)=\\dfrac12$.",
+    "$\\dfrac{f''(0)}{2!}=\\dfrac{-1/4}{2}=-\\dfrac18$."
+   ],
+   "wrong": {
+    "d": "$f''(x)=-\\frac14(1+x)^{-3/2}$ é negativa: o termo quadrático é $-\\frac{x^2}{8}$.",
+    "a": "$f'(0)=\\frac{1}{2\\sqrt1}=\\frac12$, e não $1$.",
+    "c": "Faltou o termo constante $f(0)=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(sqrt(1+x),x,0,2)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "sqrt(1+x)",
+     "at": "0",
+     "order": 2
+    }
+   },
+   "optionValues": {
+    "b": "1+x/2-x**2/8",
+    "d": "1+x/2+x**2/8",
+    "a": "1+x-x**2/2",
+    "c": "x/2-x**2/8"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = -x**2/8 + x/2 + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-015",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\ln(1+x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x-\\dfrac{x^{2}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$x-\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "d",
+    "text": "$x-\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f'(x)=\\dfrac1{1+x}$, $f''(x)=-\\dfrac1{(1+x)^2}$, $f'''(x)=\\dfrac2{(1+x)^3}$. Em $0$: $0,\\ 1,\\ -1,\\ 2$. Coeficientes $\\dfrac{f^{(k)}(0)}{k!}$: $0,\\ 1,\\ -\\dfrac12,\\ \\dfrac13$. Logo $P_3(x)=x-\\dfrac{x^2}2+\\dfrac{x^3}3$.",
+   "steps": [
+    "$f(0)=0$, $f'(0)=1$.",
+    "$\\dfrac{f''(0)}{2!}=-\\dfrac12$.",
+    "$\\dfrac{f'''(0)}{3!}=\\dfrac{2}{6}=\\dfrac13$."
+   ],
+   "wrong": {
+    "a": "Os sinais alternam: $f''(0)=-1$.",
+    "c": "$f'''(0)=2$ e $\\frac{2}{3!}=\\frac13$, e não $\\frac16$.",
+    "b": "$f(0)=\\ln1=0$: não há termo constante."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(log(1+x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "log(1+x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "d": "x-x**2/2+x**3/3",
+    "a": "x+x**2/2+x**3/3",
+    "c": "x-x**2/2+x**3/6",
+    "b": "1+x-x**2/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**3/3 - x**2/2 + x; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-016",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Taylor para calcular limites",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Use $\\cos x=1-\\dfrac{x^{2}}{2}+\\dfrac{x^{4}}{24}-\\cdots$ para calcular $\\displaystyle\\lim_{x\\to0}\\frac{\\cos x-1+\\tfrac{x^{2}}{2}}{x^{4}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{24}$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\dfrac{1}{24}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{12}$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\cos x-1+\\dfrac{x^2}{2}=\\left(1-\\dfrac{x^2}{2}+\\dfrac{x^4}{24}-\\cdots\\right)-1+\\dfrac{x^2}{2}=\\dfrac{x^4}{24}-\\dfrac{x^6}{720}+\\cdots$. Dividindo por $x^4$: $\\dfrac1{24}-\\dfrac{x^2}{720}+\\cdots\\to\\dfrac1{24}$. (Com L’Hôpital seriam quatro aplicações.)",
+   "steps": [
+    "Cancelar $1$ e $-\\frac{x^{2}}{2}$ com $-1+\\frac{x^{2}}{2}$.",
+    "Sobra $\\dfrac{x^{4}}{24}-\\dfrac{x^{6}}{720}+\\cdots$.",
+    "$\\dfrac{1}{24}-\\dfrac{x^{2}}{720}+\\cdots\\to\\dfrac{1}{24}$."
+   ],
+   "wrong": {
+    "b": "O primeiro termo que sobra após cancelar $1-\\frac{x^2}{2}$ é $+\\frac{x^4}{24}$, positivo.",
+    "d": "O numerador vai a zero tão rápido quanto $x^4$ (ordem do denominador), então o limite não é nulo.",
+    "c": "O fatorial correto é $4!=24$, e não $12$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 6 e 9",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 6 (L’Hôpital e Taylor de 1ª ordem)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(cos(x)-1+x**2/2)/x**4",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "a": "1/24",
+    "b": "-1/24",
+    "d": "0",
+    "c": "1/12"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "limite = 1/24; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-017",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Coeficiente específico",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o coeficiente de $x^{5}$ no polinômio de Maclaurin de $\\sin x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac15$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{1}{24}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{120}$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{1}{120}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O coeficiente de $x^k$ é $\\dfrac{f^{(k)}(0)}{k!}$. As derivadas de $\\sin$ em $0$ ciclam $0,1,0,-1,0,1,\\ldots$; a 5ª derivada em $0$ vale $1$. Logo o coeficiente é $\\dfrac{1}{5!}=\\dfrac1{120}$.",
+   "steps": [
+    "$f^{(5)}(x)=\\cos x\\Rightarrow f^{(5)}(0)=1$.",
+    "$\\dfrac{f^{(5)}(0)}{5!}=\\dfrac{1}{120}$."
+   ],
+   "wrong": {
+    "d": "O sinal do termo em $x^5$ é positivo: $\\sin x=x-\\frac{x^3}{3!}+\\frac{x^5}{5!}-\\cdots$.",
+    "b": "O fatorial correto é $5!=120$ (e $4!=24$ aparece no cosseno).",
+    "a": "Dividiu pelo expoente em vez de pelo fatorial."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(diff(sin(x),x,5),x,0)/factorial(5)",
+    "numeric": "1/120"
+   },
+   "optionValues": {
+    "c": "1/120",
+    "d": "-1/120",
+    "b": "1/24",
+    "a": "1/5"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "valor = 1/120; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-018",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Quão longe do centro?",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Pela aula, ao aproximar $e^{x}$ por um polinômio de Maclaurin com poucos termos, como se compara a qualidade em $x=0{,}1$ e em $x=5$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Perto do centro ($x=0{,}1$) poucos termos bastam; longe ($x=5$) são necessários muitos mais"
+   },
+   {
+    "id": "b",
+    "text": "A qualidade é a mesma em qualquer $x$, pois o polinômio é o mesmo"
+   },
+   {
+    "id": "c",
+    "text": "Não há como saber sem calcular $e^{5}$ exatamente"
+   },
+   {
+    "id": "d",
+    "text": "Longe do centro ($x=5$) a aproximação é melhor, pois $x^k$ é maior"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Na aula: em $x=0{,}1$, três termos ($1+0{,}1+0{,}005$) já dão 4 casas corretas; em $x=1$ são ~6 termos para 3 casas; em $x=5$ são necessários muitos termos. “Perto do centro é barato e preciso; longe é caro” — o resto/raio de convergência fica para depois.",
+   "wrong": {
+    "b": "O erro cresce com a distância ao centro; por isso a aula diz “perto do centro = barato e preciso; longe = caro”.",
+    "d": "Termos maiores não significam aproximação melhor: o resto é que cresce com a distância.",
+    "c": "A aula mostra o comportamento geral: a precisão depende da distância ao centro e do número de termos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 10 (A ressalva honesta)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 10: “A aproximação é melhor perto do ponto central. Quanto mais longe, mais termos você precisa.”",
+    "Slide 10: eˣ em x=0,1 → 4 casas certas com 3 termos; em x=5 → muitos termos."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-019",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Tangente",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\tan x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x-\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x^{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$x+\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$x+\\dfrac{x^{3}}{6}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f'=\\sec^2x$, $f''=2\\sec^2x\\tan x$, $f'''=2\\sec^4x+4\\sec^2x\\tan^2x$. Em $0$: $0,\\ 1,\\ 0,\\ 2$. Coeficientes: $0,\\ 1,\\ 0,\\ \\dfrac{2}{3!}=\\dfrac13$. Logo $\\tan x\\approx x+\\dfrac{x^3}{3}$.",
+   "steps": [
+    "$f'(0)=\\sec^{2}0=1$.",
+    "$f''(0)=0$.",
+    "$f'''(0)=2\\Rightarrow\\dfrac{2}{3!}=\\dfrac13$."
+   ],
+   "wrong": {
+    "a": "Diferente do seno, o termo cúbico da tangente é positivo: $f'''(0)=2$.",
+    "d": "$f'''(0)=2$ e $\\frac{2}{3!}=\\frac13$, e não $\\frac16$.",
+    "b": "$f(0)=\\tan 0=0$ e a função é ímpar: só há potências ímpares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slides 5–6",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(tan(x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "tan(x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "c": "x+x**3/3",
+    "a": "x-x**3/3",
+    "d": "x+x**3/6",
+    "b": "1+x**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**3/3 + x; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-020",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Composição",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Substituindo $u=x^{2}$ na série de $e^{u}$, qual é o polinômio de Maclaurin de 4ª ordem de $f(x)=e^{x^{2}}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1+2x+2x^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$1+x^{2}+\\dfrac{x^{4}}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$1+x+\\dfrac{x^{2}}{2}+\\dfrac{x^{3}}{6}+\\dfrac{x^{4}}{24}$"
+   },
+   {
+    "id": "d",
+    "text": "$1+x^{2}+x^{4}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "De $e^u=1+u+\\dfrac{u^2}{2!}+\\cdots$ com $u=x^2$: $e^{x^2}=1+x^2+\\dfrac{x^4}{2}+\\cdots$. A função é par, então só há potências pares; até a 4ª ordem: $1+x^2+\\dfrac{x^4}{2}$.",
+   "steps": [
+    "$e^{u}=1+u+\\dfrac{u^{2}}{2}+\\cdots$.",
+    "Com $u=x^{2}$: $1+x^{2}+\\dfrac{x^{4}}{2}+\\cdots$."
+   ],
+   "wrong": {
+    "d": "O termo de ordem 2 em $u$ é $\\frac{u^2}{2!}=\\frac{x^4}{2}$ (esqueceu o fatorial).",
+    "c": "Essa é a série de $e^x$ (com $x$, e não com $x^2$).",
+    "a": "Isso é a série de $e^{2x}$; aqui o expoente é $x^2$, e só aparecem potências pares."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(exp(x**2),x,0,4)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "exp(x**2)",
+     "at": "0",
+     "order": 4
+    }
+   },
+   "optionValues": {
+    "b": "1+x**2+x**4/2",
+    "d": "1+x**2+x**4",
+    "c": "1+x+x**2/2+x**3/6+x**4/24",
+    "a": "1+2*x+2*x**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = x**4/2 + x**2 + 1; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-taylor-021",
+  "disciplineId": "calculo2",
+  "topicId": "taylor",
+  "subtopic": "Produto de funções",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o polinômio de Maclaurin de 3ª ordem de $f(x)=\\sin x\\cos x$? (Dica: $\\sin x\\cos x=\\tfrac12\\sin 2x$.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x-\\dfrac{x^{3}}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$x-\\dfrac{x^{3}}{6}$"
+   },
+   {
+    "id": "c",
+    "text": "$x-\\dfrac{2x^{3}}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$x-\\dfrac{4x^{3}}{3}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$\\sin x\\cos x=\\dfrac12\\sin2x=\\dfrac12\\left(2x-\\dfrac{(2x)^3}{6}+\\cdots\\right)=x-\\dfrac{8x^3}{12}+\\cdots=x-\\dfrac{2x^3}{3}+\\cdots$.",
+   "steps": [
+    "$\\sin x\\cos x=\\tfrac12\\sin 2x$.",
+    "$\\sin 2x=2x-\\dfrac{(2x)^{3}}{6}$.",
+    "$\\tfrac12\\left(2x-\\tfrac{8x^{3}}{6}\\right)=x-\\dfrac{2x^{3}}{3}$."
+   ],
+   "wrong": {
+    "b": "Esse é o polinômio de $\\sin x$; aqui $\\frac12\\sin2x$ troca $x$ por $2x$ e multiplica por $\\frac12$.",
+    "a": "$\\frac12\\cdot\\frac{(2x)^3}{6}=\\frac{8x^3}{12}=\\frac{2x^3}{3}$, e não $\\frac{x^3}{3}$.",
+    "d": "Esqueceu o fator $\\frac12$ da identidade: $\\frac12\\cdot\\frac{8x^3}{6}=\\frac{2x^3}{3}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:31:48.137Z",
+  "updatedAt": "2026-10-22T23:32:16.276Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "taylor(sin(x)*cos(x),x,0,3)",
+    "var": "x",
+    "numericTaylor": {
+     "f": "sin(x)*cos(x)",
+     "at": "0",
+     "order": 3
+    }
+   },
+   "optionValues": {
+    "c": "x-2*x**3/3",
+    "b": "x-x**3/6",
+    "a": "x-x**3/3",
+    "d": "x-4*x**3/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem+mpmath.taylor",
+    "ranAt": "2026-10-22T23:32:07.928Z",
+    "details": "função de referência = -2*x**3/3 + x; coeficientes numéricos (mpmath.taylor) ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:32:16.276Z",
+   "notes": "Leitura crítica separada da autoria (duplicatas por enunciado de lista reformuladas); SymPy series + mpmath.taylor independentes. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

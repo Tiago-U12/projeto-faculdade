@@ -1,0 +1,138 @@
+// Lote c2-defin-b — Integral definida, Riemann, TFC e áreas: 14 difíceis (027–040).
+import { m } from '../../tools/lib/dsl.ts';
+
+const LD = 'c2-lista-def-basica';
+const SR = 'c2-integral-riemann-slides';
+const D = (n, o) => ({ d: 'calculo2', topic: 'integral-definida', ...o, id: `c2-integral-definida-${String(n).padStart(3, '0')}` });
+const def = (expr, a, b, values) => ({ kind: 'definite', params: { expr, var: 'x', a, b }, values });
+const ex = (expr, numeric, values, extra = {}) => ({ kind: 'expr', params: { expr, numeric }, values, ...extra });
+const fn = (expr, values) => ({ kind: 'function', params: { expr, var: 'x' }, values });
+
+export default [
+  D(27, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Limite de somas de Riemann',
+    stem: m`Interpretando como soma de Riemann, calcule $\displaystyle\lim_{n\to\infty}\sum_{i=1}^{n}\left(\frac{i}{n}\right)^{2}\cdot\frac1n$.`,
+    opts: [m`$\dfrac13$`, [m`$0$`, m`Cada termo tende a $0$, mas há $n$ termos: a soma de muitos termos pequenos pode ter limite não nulo.`], [m`$1$`, m`$1$ seria $f(1)\cdot1$ (um só retângulo); a soma com $n\to\infty$ retângulos converge para a integral.`], [m`$\infty$`, m`Cada termo é da ordem de $\frac1n$ e a soma fica limitada: converge para uma área finita.`]],
+    exp: m`A soma é uma soma de Riemann à direita de $f(x)=x^2$ em $[0,1]$, com $\Delta x=\frac1n$ e pontos $x_i=\frac in$. No limite, ela converge para $\displaystyle\int_0^1x^2\,dx=\dfrac{x^3}{3}\Big|_0^1=\dfrac13$.`,
+    steps: [m`$\Delta x=\dfrac1n$ e $x_i=\dfrac in$ ⇒ $\sum f(x_i)\,\Delta x$ com $f(x)=x^{2}$ em $[0,1]$.`, m`O limite é $\int_{0}^{1}x^{2}dx$.`, m`$=\dfrac13$.`],
+    src: [[SR, 'slides 3–4 (soma de Riemann → integral)', 'aprofundamento']],
+    verify: ex('limit(summation((k/n)**2/n,(k,1,n)),n,oo)', 'integrate(x**2,(x,0,1))', ['1/3', '0', '1', 'oo']),
+  }),
+  D(28, {
+    diff: 'dificil', scope: 'aula', sub: 'Simetria (função ímpar)',
+    stem: m`Calcule $\displaystyle\int_{-1}^{1}\left(x^{7}+x^{3}+x\right)dx$ usando simetria.`,
+    opts: [m`$0$, pois a função é ímpar`, [m`$\dfrac74$, o dobro de $\int_0^1$`, m`O dobro só vale para função **par**; aqui todos os termos têm expoente ímpar, então a função é ímpar.`], [m`$\dfrac78$, o valor de $\int_0^1$`, m`$\frac78$ é $\int_0^1(x^7+x^3+x)\,dx$; em $[-1,0]$ a integral vale $-\frac78$ e cancela.`], [m`$1$, pela soma dos coeficientes`, m`Somar coeficientes não calcula a integral; a primitiva é par e $F(1)-F(-1)=0$.`]],
+    exp: m`Cada parcela $x^7$, $x^3$ e $x$ é ímpar, logo $f(-x)=-f(x)$ e $\displaystyle\int_{-a}^af=0$. Conferindo: $F(x)=\dfrac{x^8}{8}+\dfrac{x^4}{4}+\dfrac{x^2}{2}$ é par, então $F(1)-F(-1)=0$.`,
+    steps: [m`$f(-x)=-x^{7}-x^{3}-x=-f(x)$ (ímpar).`, m`$F(x)=\dfrac{x^{8}}{8}+\dfrac{x^{4}}{4}+\dfrac{x^{2}}{2}$ é par.`, m`$F(1)-F(-1)=0$.`],
+    src: [[LD, 'item 23'], [LD, 'item 22']],
+    verify: def('x**7+x**3+x', '-1', '1', ['0', '7/4', '7/8', '1']),
+  }),
+  D(29, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Simetria: parte par + parte ímpar',
+    stem: m`Calcule $\displaystyle\int_{-2}^{2}\left(x^{3}+x^{2}\right)dx$. Dica: separe a parte ímpar e a parte par.`,
+    opts: [m`$\dfrac{16}{3}$`, [m`$0$`, m`Só a parte ímpar ($x^3$) se anula; a parte par ($x^2$) soma em dobro.`], [m`$\dfrac83$`, m`$\frac83$ é $\int_0^2x^2dx$; o intervalo $[-2,0]$ contribui com o mesmo valor (função par).`], [m`$\dfrac{32}{3}$`, m`Dobrou duas vezes: $2\int_0^2x^2\,dx=\frac{16}{3}$, sem outro fator $2$.`]],
+    exp: m`$x^3$ é ímpar: $\displaystyle\int_{-2}^2x^3dx=0$. $x^2$ é par: $\displaystyle\int_{-2}^2x^2dx=2\int_0^2x^2dx=2\cdot\dfrac83=\dfrac{16}{3}$. Soma: $\dfrac{16}{3}$.`,
+    steps: [m`$\int_{-2}^{2}x^{3}dx=0$ (ímpar).`, m`$\int_{-2}^{2}x^{2}dx=2\cdot\dfrac{8}{3}$ (par).`, m`Total: $\dfrac{16}{3}$.`],
+    src: [[LD, 'itens 22 e 23 (simetria)', 'aprofundamento']],
+    verify: def('x**3+x**2', '-2', '2', ['16/3', '0', '8/3', '32/3']),
+  }),
+  D(30, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'TFC parte 1 com regra da cadeia',
+    stem: m`Seja $H(x)=\displaystyle\int_{0}^{x^{2}}\cos t\,dt$. Qual é $H'(x)$?`,
+    opts: [m`$2x\cos\!\left(x^{2}\right)$`, [m`$\cos\!\left(x^{2}\right)$`, m`Esqueceu a regra da cadeia: o limite superior é $x^2$ e sua derivada $2x$ multiplica o integrando.`], [m`$\sin\!\left(x^{2}\right)$`, m`$\sin(x^2)$ é o valor de $H(x)$ (a integral), e não de sua derivada.`], [m`$-2x\sin\!\left(x^{2}\right)$`, m`Derivou $\cos(x^2)$ em vez de aplicar o TFC ao integrando.`]],
+    exp: m`Pelo TFC (parte 1) com a regra da cadeia: $\dfrac{d}{dx}\displaystyle\int_0^{u(x)}f(t)\,dt=f(u(x))\,u'(x)$. Aqui $u=x^2$ e $f=\cos$: $H'(x)=\cos(x^2)\cdot2x$. (Conferência: $H(x)=\sin(x^2)$, e $\left(\sin x^2\right)'=2x\cos x^2$.)`,
+    steps: [m`$u(x)=x^{2}$, $u'(x)=2x$.`, m`$H'(x)=\cos\left(u(x)\right)\cdot u'(x)$.`, m`$=2x\cos(x^{2})$.`],
+    mistakes: [m`Esquecer o fator $u'(x)$ quando o limite superior não é $x$.`],
+    src: [[SR, 'slide 7 (Parte 1 — a derivada da acumulada)', 'aprofundamento']],
+    verify: fn('diff(integrate(cos(t),(t,0,x**2)),x)', ['2*x*cos(x**2)', 'cos(x**2)', 'sin(x**2)', '-2*x*sin(x**2)']),
+  }),
+  D(31, {
+    diff: 'dificil', scope: 'desafio', sub: 'TFC parte 1 com regra da cadeia',
+    stem: m`Para $x>0$, seja $G(x)=\displaystyle\int_{1}^{x^{2}}\frac{1}{t}\,dt$. Qual é $G'(x)$?`,
+    opts: [m`$\dfrac{2}{x}$`, [m`$\dfrac{1}{x^{2}}$`, m`Aplicou o TFC sem a regra da cadeia: faltou multiplicar por $(x^2)'=2x$.`], [m`$\ln\!\left(x^{2}\right)$`, m`Esse é o valor de $G(x)$ (a integral), e não de $G'(x)$.`], [m`$\dfrac{1}{x}$`, m`$\frac{1}{x^2}\cdot2x=\frac2x$; o fator $2$ não pode ser perdido.`]],
+    exp: m`TFC com cadeia: $G'(x)=f(u(x))\,u'(x)$ com $f(t)=\dfrac1t$ e $u=x^2$. Então $G'(x)=\dfrac{1}{x^2}\cdot2x=\dfrac2x$. (Conferência: $G(x)=\ln(x^2)=2\ln x$, cuja derivada é $\dfrac2x$.)`,
+    steps: [m`$f(t)=\dfrac1t$, $u=x^{2}$, $u'=2x$.`, m`$G'(x)=\dfrac{1}{x^{2}}\cdot2x$.`, m`$=\dfrac{2}{x}$.`],
+    src: [[SR, 'slide 7 (Parte 1)', 'aprofundamento']],
+    verify: fn('diff(integrate(1/t,(t,1,x**2)),x)', ['2/x', '1/x**2', 'log(x**2)', '1/x']),
+  }),
+  D(32, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Módulo e aditividade',
+    stem: m`Calcule $\displaystyle\int_{-1}^{2}|x|\,dx$.`,
+    opts: [m`$\dfrac52$`, [m`$\dfrac32$`, m`É $\int_{-1}^2x\,dx$, sem o módulo: a parte negativa ($x<0$) entra subtraindo, mas $|x|$ a torna positiva.`], [m`$2$`, m`Só a parte $[0,2]$ foi contada; falta $\int_{-1}^0(-x)\,dx=\frac12$.`], [m`$\dfrac12$`, m`Só a parte $[-1,0]$ foi contada; falta $\int_0^2x\,dx=2$.`]],
+    exp: m`Separe no ponto onde $|x|$ muda de expressão: $\displaystyle\int_{-1}^0(-x)\,dx+\int_0^2x\,dx=\dfrac12+2=\dfrac52$. A integral de $|x|$ é a área dos dois triângulos (base $1$, altura $1$) e (base $2$, altura $2$).`,
+    steps: [m`Em $[-1,0]$: $|x|=-x$ ⇒ $\int_{-1}^{0}(-x)dx=\dfrac12$.`, m`Em $[0,2]$: $|x|=x$ ⇒ $\int_{0}^{2}x\,dx=2$.`, m`Soma: $\dfrac12+2=\dfrac52$.`],
+    src: [[SR, 'slide 6 (aditividade em intervalos)', 'aprofundamento']],
+    verify: ex('integrate(-x,(x,-1,0)) + integrate(x,(x,0,2))', '0.5+2', ['5/2', '3/2', '2', '1/2']),
+  }),
+  D(33, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Área entre curvas',
+    stem: m`Qual é a área da região entre as curvas $y=x$ e $y=x^{2}$ para $0\le x\le1$ (onde $x\ge x^{2}$)?`,
+    opts: [m`$\dfrac16$`, [m`$-\dfrac16$`, m`Área não é negativa: integrar (curva de cima) − (curva de baixo) dá $\int_0^1(x-x^2)\,dx>0$.`], [m`$\dfrac56$`, m`Somou as áreas em vez de subtrair: $\frac12+\frac13=\frac56$.`], [m`$\dfrac12$`, m`$\frac12$ é a área sob $y=x$; falta descontar a área sob $y=x^2$ ($\frac13$).`]],
+    exp: m`Entre $0$ e $1$, $x\ge x^2$. A área é $\displaystyle\int_0^1\left(x-x^2\right)dx=\dfrac{x^2}{2}-\dfrac{x^3}{3}\Big|_0^1=\dfrac12-\dfrac13=\dfrac16$.`,
+    steps: [m`Curva de cima: $y=x$; de baixo: $y=x^{2}$.`, m`$\int_{0}^{1}(x-x^{2})\,dx=\dfrac12-\dfrac13$.`, m`$=\dfrac16$.`],
+    src: [[SR, 'slides 4 e 6 (área e linearidade)', 'aprofundamento']],
+    verify: ex('integrate(x-x**2,(x,0,1))', 'integrate(x,(x,0,1)) - integrate(x**2,(x,0,1))', ['1/6', '-1/6', '5/6', '1/2']),
+  }),
+  D(34, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Área entre curvas',
+    stem: m`Calcule a área da região limitada pelas curvas $y=\sqrt{x}$ e $y=x^{2}$ entre $x=0$ e $x=1$ (nesse intervalo, $\sqrt x\ge x^{2}$).`,
+    opts: [m`$\dfrac13$`, [m`$1$`, m`Somou as áreas ($\frac23+\frac13$) em vez de subtrair a de baixo da de cima.`], [m`$-\dfrac13$`, m`Inverteu a subtração: a área é $\int(\text{cima}-\text{baixo})$, que é positiva.`], [m`$\dfrac23$`, m`$\frac23$ é a área sob $y=\sqrt x$; falta descontar a área sob $y=x^2$ ($\frac13$).`]],
+    exp: m`Área $=\displaystyle\int_0^1\left(\sqrt x-x^2\right)dx=\dfrac23x^{3/2}-\dfrac{x^3}{3}\Big|_0^1=\dfrac23-\dfrac13=\dfrac13$.`,
+    steps: [m`Cima: $\sqrt{x}$; baixo: $x^{2}$.`, m`$\int_{0}^{1}\sqrt{x}\,dx=\dfrac23$ e $\int_{0}^{1}x^{2}dx=\dfrac13$.`, m`$\dfrac23-\dfrac13=\dfrac13$.`],
+    src: [[SR, 'slides 4 e 6', 'aprofundamento'], [LD, 'item 14 (∫√x)', 'aprofundamento']],
+    verify: ex('integrate(sqrt(x)-x**2,(x,0,1))', 'integrate(sqrt(x),(x,0,1)) - integrate(x**2,(x,0,1))', ['1/3', '1', '-1/3', '2/3']),
+  }),
+  D(35, {
+    diff: 'dificil', scope: 'desafio', sub: 'Área com mudança de sinal',
+    stem: m`Qual é a **área** da região entre $y=x^{3}-x$ e o eixo $x$ para $-1\le x\le1$? (A curva está acima do eixo em $[-1,0]$ e abaixo em $[0,1]$.)`,
+    opts: [m`$\dfrac12$`, [m`$0$`, m`$0$ é o valor da integral (áreas com sinais opostos se cancelam), e não a área geométrica.`], [m`$1$`, m`$1$ dobraria a área: cada metade vale $\frac14$, totalizando $\frac12$.`], [m`$\dfrac14$`, m`$\frac14$ é a área de apenas uma das duas partes.`]],
+    exp: m`Em $[-1,0]$, $x^3-x\ge0$; em $[0,1]$, $\le0$. Área $=\displaystyle\int_{-1}^0(x^3-x)\,dx-\int_0^1(x^3-x)\,dx=\dfrac14-\left(-\dfrac14\right)=\dfrac12$. (A integral sem módulo seria $0$, por ser função ímpar.)`,
+    steps: [m`$\int_{-1}^{0}(x^{3}-x)\,dx=\dfrac14$ (acima do eixo).`, m`$\int_{0}^{1}(x^{3}-x)\,dx=-\dfrac14$ (abaixo do eixo).`, m`Área $=\dfrac14+\dfrac14=\dfrac12$.`],
+    src: [[SR, 'slide 4 (área com sinal)', 'aprofundamento']],
+    verify: ex('integrate(x**3-x,(x,-1,0)) - integrate(x**3-x,(x,0,1))', '0.25+0.25', ['1/2', '0', '1', '1/4']),
+  }),
+  D(36, {
+    diff: 'dificil', scope: 'desafio', sub: 'Valor médio',
+    stem: m`O *valor médio* de $f$ em $[a,b]$ é $\dfrac{1}{b-a}\displaystyle\int_a^bf(x)\,dx$. Qual é o valor médio de $f(x)=x^{2}$ em $[0,3]$?`,
+    opts: [m`$3$`, [m`$9$`, m`$9$ é a integral $\int_0^3x^2dx$; o valor médio divide por $b-a=3$.`], [m`$\dfrac92$`, m`Fez a média dos valores nos extremos, $\frac{f(0)+f(3)}2$, que não é o valor médio de uma função não linear.`], [m`$1$`, m`Dividiu por $9$ em vez de por $b-a=3$.`]],
+    exp: m`$\displaystyle\int_0^3x^2dx=9$ e $b-a=3$. Valor médio $=\dfrac{9}{3}=3$. (A média dos extremos, $\frac92$, só coincidiria para funções lineares.)`,
+    steps: [m`$\int_{0}^{3}x^{2}dx=\dfrac{27}{3}=9$.`, m`$b-a=3$.`, m`Valor médio $=\dfrac93=3$.`],
+    src: [[SR, 'slides 4 e 7 (integral e TFC)', 'aprofundamento']],
+    verify: ex('integrate(x**2,(x,0,3))/3', '27/9', ['3', '9', '9/2', '1']),
+  }),
+  D(37, {
+    diff: 'dificil', scope: 'desafio', sub: 'Estimativa por monotonicidade',
+    stem: m`Em $[0,1]$ vale $1\le e^{x^{2}}\le e$. Usando a monotonicidade da integral, qual estimativa para $\displaystyle\int_{0}^{1}e^{x^{2}}\,dx$ é **verdadeira**?`,
+    opts: [m`$1\le\displaystyle\int_{0}^{1}e^{x^{2}}dx\le e$`, [m`$0\le\displaystyle\int_{0}^{1}e^{x^{2}}dx\le1$`, m`Como $e^{x^2}\ge1$, a integral é pelo menos $1\cdot(1-0)=1$ (de fato $\approx1{,}46$), então não pode ser $\le1$.`], [m`$e\le\displaystyle\int_{0}^{1}e^{x^{2}}dx\le2e$`, m`A integral vale cerca de $1{,}46$, menor que $e\approx2{,}72$: o limite inferior $e$ é falso (a função só atinge $e$ em $x=1$).`], [m`$\displaystyle\int_{0}^{1}e^{x^{2}}dx\le\dfrac12$`, m`Como $e^{x^2}\ge1$, a integral é pelo menos $1$, então não pode ser $\le\frac12$.`]],
+    exp: m`Se $1\le f\le e$ em $[0,1]$, a monotonicidade e o fato de $\int_0^1c\,dx=c$ dão $1\le\int_0^1f\le e$. Numericamente, $\int_0^1e^{x^2}dx\approx1{,}4627$, que está nesse intervalo — mesmo sem ter primitiva elementar.`,
+    steps: [m`$1\le e^{x^{2}}\le e$ em $[0,1]$.`, m`Integre cada lado: $\int_{0}^{1}1\,dx=1$ e $\int_{0}^{1}e\,dx=e$.`, m`$1\le\int_{0}^{1}e^{x^{2}}dx\le e$.`],
+    src: [[SR, 'slide 6 (Monotonicidade)', 'aprofundamento']],
+    verify: { kind: 'expr', params: { target: 'v' }, perOption: [{ expr: "'v' if 1 <= float(integrate(exp(x**2),(x,0,1))) <= float(E) else 'f'", numeric: "'v' if 1 <= 1.4626517 <= 2.7182818 else 'f'" }, { expr: "'v' if 0 <= float(integrate(exp(x**2),(x,0,1))) <= 1 else 'f'", numeric: "'v' if 0 <= 1.4626517 <= 1 else 'f'" }, { expr: "'v' if float(E) <= float(integrate(exp(x**2),(x,0,1))) <= 2*float(E) else 'f'", numeric: "'v' if 2.7182818 <= 1.4626517 <= 5.4365 else 'f'" }, { expr: "'v' if float(integrate(exp(x**2),(x,0,1))) <= 0.5 else 'f'", numeric: "'v' if 1.4626517 <= 0.5 else 'f'" }], values: ['v', 'f', 'f', 'f'] },
+  }),
+  D(38, {
+    diff: 'dificil', scope: 'desafio', sub: 'Função definida por partes',
+    stem: m`Seja $f(x)=2$ para $0\le x<1$ e $f(x)=x$ para $1\le x\le2$. Qual é o valor de $\displaystyle\int_{0}^{2}f(x)\,dx$?`,
+    opts: [m`$\dfrac72$`, [m`$3$`, m`Tratou $f$ como constante $1$ em $[1,2]$; mas $\int_1^2x\,dx=\frac32$, e não $1$.`], [m`$4$`, m`Tratou $f$ como constante $2$ em $[1,2]$ (valor em $x=2$); a integral correta de $x$ nesse trecho é $\frac32$.`], [m`$2$`, m`Contou apenas o primeiro trecho ($2\cdot1$); falta $\int_1^2x\,dx=\frac32$.`]],
+    exp: m`Pela aditividade, divida em $[0,1]$ e $[1,2]$: $\displaystyle\int_0^12\,dx+\int_1^2x\,dx=2+\dfrac{x^2}{2}\Big|_1^2=2+\left(2-\dfrac12\right)=\dfrac72$.`,
+    steps: [m`$\int_{0}^{1}2\,dx=2$.`, m`$\int_{1}^{2}x\,dx=2-\dfrac12=\dfrac32$.`, m`Soma: $2+\dfrac32=\dfrac72$.`],
+    src: [[SR, 'slide 6 (aditividade em intervalos)', 'aprofundamento']],
+    verify: ex('integrate(2,(x,0,1)) + integrate(x,(x,1,2))', '2+1.5', ['7/2', '3', '4', '2']),
+  }),
+  D(39, {
+    diff: 'dificil', scope: 'aula', sub: 'TFC: enunciado',
+    stem: m`Seja $f$ contínua em $[a,b]$ e $F(x)=\displaystyle\int_{a}^{x}f(t)\,dt$. Qual afirmação decorre da parte 1 do Teorema Fundamental do Cálculo?`,
+    opts: [m`$F'(x)=f(x)$ para todo $x\in[a,b]$`, [m`$F(x)=f'(x)$ para todo $x$`, m`A relação está invertida: é a *derivada de $F$* que devolve $f$ (e não o contrário).`], [m`$F(a)=f(a)$`, m`$F(a)=\int_a^af=0$, em geral diferente de $f(a)$.`], [m`$F'(x)=f(x)-f(a)$`, m`Misturou com $F(x)-F(a)$ da parte 2; a derivada da integral acumulada é exatamente $f(x)$.`]],
+    exp: m`A parte 1 do TFC diz que a função acumulada $F(x)=\int_a^xf(t)\,dt$ é derivável e $F'(x)=f(x)$. Como consequência, $F(a)=0$. A parte 2 usa uma primitiva qualquer $G$: $\int_a^bf=G(b)-G(a)$.`,
+    src: [[SR, 'slide 7 (Parte 1 — a derivada da acumulada)']],
+    verify: { kind: 'source', claims: [m`Slide 7, Parte 1: “Se f é contínua, a função-acumulada F é derivável e sua derivada é a própria f”.`, m`Slide 7, Parte 2: o cálculo pela primitiva (G(b) − G(a)).`] },
+  }),
+  D(40, {
+    diff: 'dificil', scope: 'aprofundamento', sub: 'Pontos médios',
+    stem: m`Para $f(x)=x^{2}$ em $[0,3]$ com $n=3$ subintervalos de largura $1$, qual é a soma de Riemann com **pontos médios**? Compare com as somas à esquerda ($5$) e à direita ($14$) e com a integral exata ($9$).`,
+    opts: [m`$\dfrac{35}{4}$`, [m`$9$`, m`$9$ é o valor exato da integral; a soma de pontos médios com $n=3$ é uma aproximação (aqui $\frac{35}{4}$).`], [m`$5$`, m`É a soma à **esquerda** ($0+1+4$), e não a de pontos médios.`], [m`$14$`, m`É a soma à **direita** ($1+4+9$), e não a de pontos médios.`]],
+    exp: m`Pontos médios: $\frac12,\frac32,\frac52$, com $f=\frac14,\frac94,\frac{25}{4}$ e $\Delta x=1$. A soma é $\dfrac{35}{4}=8{,}75$, bem mais próxima da integral exata $9$ do que as somas à esquerda ($5$) e à direita ($14$).`,
+    steps: [m`Pontos médios: $\tfrac12,\ \tfrac32,\ \tfrac52$.`, m`$f$: $\tfrac14,\ \tfrac94,\ \tfrac{25}{4}$.`, m`Soma: $1\cdot\dfrac{35}{4}=\dfrac{35}{4}$.`],
+    src: [[SR, 'slide 3 (pontos t_i escolhidos em cada subintervalo)', 'aprofundamento']],
+    verify: ex('sum([(k+Rational(1,2))**2 for k in range(3)])', '0.25+2.25+6.25', ['35/4', '9', '5', '14']),
+  }),
+];

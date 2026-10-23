@@ -1,0 +1,2243 @@
+[
+ {
+  "id": "fs-react-hooks-forms-001",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "useState e re-renderização",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O componente é montado e o usuário clica **duas vezes** no botão. Que texto aparece no parágrafo `#v`?\n\n```jsx\nfunction Contador() {\n  const [n, setN] = useState(0);\n  return (\n    <div>\n      <p id=\"v\">{n}</p>\n      <button id=\"b\" onClick={() => setN(n + 1)}>+1</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`0`"
+   },
+   {
+    "id": "b",
+    "text": "`1`"
+   },
+   {
+    "id": "c",
+    "text": "`2`"
+   },
+   {
+    "id": "d",
+    "text": "`n`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`useState(0)` cria o estado com valor inicial 0. Cada clique executa `setN(n + 1)`: o estado muda e o React re-renderiza o componente. Após dois cliques o parágrafo mostra `2`. É o mecanismo que faz a nota média mudar “na hora” quando uma avaliação é enviada.",
+   "wrong": {
+    "a": "Cada clique chama `setN`, que atualiza o estado e faz o React renderizar de novo com o novo valor.",
+    "b": "Foram dois cliques; entre eles o componente renderizou novamente e o `n` já valia 1.",
+    "d": "As chaves `{n}` exibem o valor do estado, não o nome da variável."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "Enviar uma avaliação atualiza a nota média do lugar na hora (estado controlado)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.325Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Contador() {\n  const [n, setN] = useState(0);\n  return (\n    <div>\n      <p id=\"v\">{n}</p>\n      <button id=\"b\" onClick={() => setN(n + 1)}>+1</button>\n    </div>\n  );\n}\nawait montar(<Contador />);\nawait clicar($('b'));\nawait clicar($('b'));\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "c": "2",
+    "a": "0",
+    "b": "1",
+    "d": "n"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 2"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-002",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Valor inicial do estado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual texto o componente mostra logo após ser montado?\n\n```jsx\nfunction Nota() {\n  const [nota] = useState(5);\n  return <p id=\"v\">Nota: {nota}</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Nota: 5`"
+   },
+   {
+    "id": "b",
+    "text": "`Nota: undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`Nota: `"
+   },
+   {
+    "id": "d",
+    "text": "`Nota: 0`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O argumento de `useState` é o valor do estado na primeira renderização. Na aula, os estados do formulário começam com `nota: 5`, `comentario: \"\"` e `erro: null`.",
+   "wrong": {
+    "d": "O valor inicial é o argumento de `useState` (aqui `5`), não zero por padrão.",
+    "c": "O estado já começa com o valor inicial no primeiro render.",
+    "b": "Só seria `undefined` se `useState()` fosse chamado sem argumento."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "3. FormularioAvaliacao: nota (inicial: 5), comentario (inicial: \"\")",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.326Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Nota() {\n  const [nota] = useState(5);\n  return <p id=\"v\">Nota: {nota}</p>;\n}\nawait montar(<Nota />);\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "a": "Nota: 5",
+    "d": "Nota: 0",
+    "c": "Nota: ",
+    "b": "Nota: undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: Nota: 5"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-003",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Atualizar lista no estado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Depois de um clique em “add”, qual é o texto concatenado dos itens da lista `#l`?\n\n```jsx\nfunction Lista() {\n  const [itens, setItens] = useState([\"A\", \"B\"]);\n  return (\n    <div>\n      <ul id=\"l\">{itens.map((i) => <li key={i}>{i}</li>)}</ul>\n      <button id=\"b\" onClick={() => setItens([...itens, \"C\"])}>add</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ABC`"
+   },
+   {
+    "id": "b",
+    "text": "`AB`"
+   },
+   {
+    "id": "c",
+    "text": "`ABCABC`"
+   },
+   {
+    "id": "d",
+    "text": "`C`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Para adicionar a um array de estado, cria-se *um novo array* com o spread: `[...itens, \"C\"]`. É o padrão pedido em `lidarComNovaAvaliacao`: “nunca modifique o array anterior diretamente — crie um novo com o spread”.",
+   "wrong": {
+    "b": "O clique chama `setItens` com um *novo* array (`[...itens, \"C\"]`), o que atualiza a tela.",
+    "d": "O spread `...itens` preserva os itens anteriores e acrescenta o novo no fim.",
+    "c": "Houve um único clique; o array novo tem 3 itens."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "2. lidarComNovaAvaliacao: crie um novo array com o spread [...atual, novoItem]",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Lista() {\n  const [itens, setItens] = useState([\"A\", \"B\"]);\n  return (\n    <div>\n      <ul id=\"l\">{itens.map((i) => <li key={i}>{i}</li>)}</ul>\n      <button id=\"b\" onClick={() => setItens([...itens, \"C\"])}>add</button>\n    </div>\n  );\n}\nawait montar(<Lista />);\nawait clicar($('b'));\nconsole.log($('l').textContent);"
+   },
+   "optionValues": {
+    "a": "ABC",
+    "b": "AB",
+    "d": "C",
+    "c": "ABCABC"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: ABC"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-004",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "useEffect com array vazio",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O componente é montado e o botão é clicado duas vezes (o estado muda duas vezes). Qual é o valor de `execucoes` no final?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, []);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`2`"
+   },
+   {
+    "id": "b",
+    "text": "`0`"
+   },
+   {
+    "id": "c",
+    "text": "`3`"
+   },
+   {
+    "id": "d",
+    "text": "`1`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`useEffect(fn, [])` executa `fn` apenas depois da primeira renderização (montagem). É por isso que a Aula 07 busca os dados dentro de um `useEffect` com `[]`: “roda uma vez, na montagem do componente”.",
+   "wrong": {
+    "c": "Com o array de dependências vazio (`[]`) o efeito roda só na montagem, não a cada renderização.",
+    "a": "Os cliques provocam re-renderizações, mas não reexecutam um efeito com `[]`.",
+    "b": "O efeito roda uma vez, logo após a primeira renderização."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "1. useEffect: roda uma vez, na montagem, por causa do array de dependências vazio []",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, []);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\nawait montar(<Tela />);\nawait clicar($('b'));\nawait clicar($('b'));\nconsole.log(execucoes);"
+   },
+   "optionValues": {
+    "d": "1",
+    "c": "3",
+    "a": "2",
+    "b": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-005",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Campo controlado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O usuário digita “Oi” no campo. O que mostra o parágrafo `#v`?\n\n```jsx\nfunction Campo() {\n  const [texto, setTexto] = useState(\"\");\n  return (\n    <div>\n      <input id=\"i\" value={texto} onChange={(e) => setTexto(e.target.value)} />\n      <p id=\"v\">Você digitou: {texto}</p>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Você digitou: `"
+   },
+   {
+    "id": "b",
+    "text": "`Você digitou: undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`Você digitou: texto`"
+   },
+   {
+    "id": "d",
+    "text": "`Você digitou: Oi`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Em um campo controlado, o valor exibido vem do estado (`value={texto}`) e cada digitação chama `onChange`, que atualiza o estado (`setTexto(e.target.value)`). Assim o React é a “fonte da verdade” — padrão da Aula 07: `value={estado} onChange={(e) => setEstado(e.target.value)}`.",
+   "wrong": {
+    "a": "O `onChange` atualiza o estado a cada alteração, e o parágrafo reflete o estado.",
+    "c": "As chaves `{texto}` mostram o *valor* do estado, não o nome da variável.",
+    "b": "O estado começou como `\"\"` e foi atualizado com o texto digitado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "Dica: todo campo controlado segue o padrão value={estado} onChange={(e) => setEstado(e.target.value)}",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Campo() {\n  const [texto, setTexto] = useState(\"\");\n  return (\n    <div>\n      <input id=\"i\" value={texto} onChange={(e) => setTexto(e.target.value)} />\n      <p id=\"v\">Você digitou: {texto}</p>\n    </div>\n  );\n}\nawait montar(<Campo />);\nawait digitar($('i'), 'Oi');\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "d": "Você digitou: Oi",
+    "a": "Você digitou: ",
+    "c": "Você digitou: texto",
+    "b": "Você digitou: undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: Você digitou: Oi"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-006",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "preventDefault no submit",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quando o formulário é enviado, qual é o valor de `evento.defaultPrevented` (isto é, a página foi impedida de recarregar)?\n\n```jsx\nfunction Form() {\n  const [enviado, setEnviado] = useState(false);\n  function lidarComEnvio(evento) {\n    evento.preventDefault();\n    setEnviado(true);\n  }\n  return (\n    <form id=\"f\" onSubmit={lidarComEnvio}>\n      <button>Enviar</button>\n      {enviado && <p>ok</p>}\n    </form>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`undefined`"
+   },
+   {
+    "id": "b",
+    "text": "`null`"
+   },
+   {
+    "id": "c",
+    "text": "`false`"
+   },
+   {
+    "id": "d",
+    "text": "`true`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O envio padrão de um `<form>` recarrega a página. `evento.preventDefault()` cancela isso, de modo que o React controla o fluxo (validar, atualizar estado). A aula avisa: “chama `evento.preventDefault()` (senão a página recarrega)”.",
+   "wrong": {
+    "c": "`preventDefault()` cancela o comportamento padrão do envio (recarregar a página); por isso o valor é `true`.",
+    "a": "A propriedade existe em todo evento e vale `true` ou `false`.",
+    "b": "`defaultPrevented` é sempre um booleano."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "2. lidarComEnvio(evento): chama evento.preventDefault() (senão a página recarrega)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Form() {\n  const [enviado, setEnviado] = useState(false);\n  function lidarComEnvio(evento) {\n    evento.preventDefault();\n    setEnviado(true);\n  }\n  return (\n    <form id=\"f\" onSubmit={lidarComEnvio}>\n      <button>Enviar</button>\n      {enviado && <p>ok</p>}\n    </form>\n  );\n}\nawait montar(<Form />);\nconst evt = await enviar($('f'));\nconsole.log(evt.defaultPrevented);"
+   },
+   "optionValues": {
+    "d": "true",
+    "c": "false",
+    "a": "undefined",
+    "b": "null"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-007",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "O que useState devolve",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o parágrafo mostra?\n\n```jsx\nfunction Par() {\n  const [a, b] = useState(0);\n  return <p id=\"v\">{typeof a}-{typeof b}</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`number-number`"
+   },
+   {
+    "id": "b",
+    "text": "`function-number`"
+   },
+   {
+    "id": "c",
+    "text": "`object-function`"
+   },
+   {
+    "id": "d",
+    "text": "`number-function`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`useState(valorInicial)` devolve um array com dois itens: o valor atual do estado e uma função para atualizá-lo. Por convenção usa-se desestruturação: `const [nota, setNota] = useState(5)`.",
+   "wrong": {
+    "a": "O segundo item do par é a função que atualiza o estado, não outro número.",
+    "b": "A ordem é [valor, atualizador]: o valor vem primeiro.",
+    "c": "O primeiro item é o valor atual do estado (aqui, o número inicial `0`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "3. FormularioAvaliacao: estados lugarId, nota, comentario e erro com useState",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Par() {\n  const [a, b] = useState(0);\n  return <p id=\"v\">{typeof a}-{typeof b}</p>;\n}\nawait montar(<Par />);\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "d": "number-function",
+    "a": "number-number",
+    "b": "function-number",
+    "c": "object-function"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: number-function"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-008",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Primeiro render",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual HTML o React produz no **primeiro** render (antes de qualquer efeito rodar)? Use `renderToStaticMarkup(<App />)` como referência.\n\n```jsx\nfunction App() {\n  const [carregando, setCarregando] = useState(true);\n  useEffect(() => {\n    setCarregando(false);\n  }, []);\n  return carregando ? <p>Carregando lugares...</p> : <p>Pronto</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<p>Carregando lugares...</p>`"
+   },
+   {
+    "id": "b",
+    "text": "`<p>true</p>`"
+   },
+   {
+    "id": "c",
+    "text": "Nada (string vazia)"
+   },
+   {
+    "id": "d",
+    "text": "`<p>Pronto</p>`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Efeitos (`useEffect`) rodam *depois* de o React desenhar a tela. No primeiro render `carregando` ainda é `true`, então aparece “Carregando lugares...”; depois o efeito atualiza o estado e a tela troca para o conteúdo. É a tela “Carregando...” da Aula 07.",
+   "wrong": {
+    "d": "O `useEffect` só roda depois do primeiro render; no primeiro HTML o estado ainda é `true`.",
+    "c": "O componente retorna um parágrafo mesmo antes de o efeito rodar.",
+    "b": "O JSX exibe um texto fixo, não o valor booleano."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "A tela sai do estado \"Carregando...\" sozinha, sem interação do usuário",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction App() {\n  const [carregando, setCarregando] = useState(true);\n  useEffect(() => {\n    setCarregando(false);\n  }, []);\n  return carregando ? <p>Carregando lugares...</p> : <p>Pronto</p>;\n}\nconsole.log(renderToStaticMarkup(<App />));"
+   },
+   "optionValues": {
+    "a": "<p>Carregando lugares...</p>",
+    "d": "<p>Pronto</p>",
+    "c": "",
+    "b": "<p>true</p>"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: <p>Carregando lugares...</p>"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-009",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "select controlado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Logo após a montagem, qual opção aparece selecionada?\n\n```jsx\nfunction Escolha() {\n  const [lugarId, setLugarId] = useState(2);\n  return (\n    <select id=\"s\" value={lugarId} onChange={(e) => setLugarId(Number(e.target.value))}>\n      <option value=\"1\">Café Aroma</option>\n      <option value=\"2\">Parque das Águas</option>\n    </select>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Café Aroma"
+   },
+   {
+    "id": "b",
+    "text": "Parque das Águas"
+   },
+   {
+    "id": "c",
+    "text": "As duas"
+   },
+   {
+    "id": "d",
+    "text": "Nenhuma"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Em um `<select>` controlado, a opção exibida é a cujo `value` coincide com o valor do estado (`2` → “Parque das Águas”). O `Number(e.target.value)` no `onChange` converte o texto do evento para número, mantendo o tipo do estado.",
+   "wrong": {
+    "a": "O `value={lugarId}` do select controlado é `2`, que corresponde à segunda opção.",
+    "d": "Um select controlado com valor existente já exibe a opção correspondente.",
+    "c": "Um `<select>` simples só mostra uma opção selecionada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "3. FormularioAvaliacao: <select> controlado (value={lugarId} onChange=...)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.327Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Escolha() {\n  const [lugarId, setLugarId] = useState(2);\n  return (\n    <select id=\"s\" value={lugarId} onChange={(e) => setLugarId(Number(e.target.value))}>\n      <option value=\"1\">Café Aroma</option>\n      <option value=\"2\">Parque das Águas</option>\n    </select>\n  );\n}\nawait montar(<Escolha />);\nconst s = $('s');\nconsole.log(s.options[s.selectedIndex].text);"
+   },
+   "optionValues": {
+    "b": "Parque das Águas",
+    "a": "Café Aroma",
+    "d": "Nenhuma",
+    "c": "As duas"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: Parque das Águas"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-010",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Atualizações com o mesmo valor",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Depois de **um** clique em “+”, que valor aparece em `#v`?\n\n```jsx\nfunction Duplo() {\n  const [n, setN] = useState(0);\n  function adicionar() {\n    setN(n + 1);\n    setN(n + 1);\n  }\n  return (\n    <div>\n      <p id=\"v\">{n}</p>\n      <button id=\"b\" onClick={adicionar}>+</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1`"
+   },
+   {
+    "id": "b",
+    "text": "`0`"
+   },
+   {
+    "id": "c",
+    "text": "`2`"
+   },
+   {
+    "id": "d",
+    "text": "`NaN`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Dentro de um mesmo handler, `n` é uma “foto” do estado daquele render (0). `setN(n + 1)` duas vezes equivale a `setN(1)` duas vezes, resultando em 1. Para depender do valor mais recente, use a forma funcional: `setN((atual) => atual + 1)` (resultaria em 2).",
+   "wrong": {
+    "c": "As duas chamadas usam o mesmo `n` (0) daquele render, então ambas pedem “0 + 1”; o resultado é 1. Para acumular use `setN((atual) => atual + 1)`.",
+    "b": "O estado foi atualizado para 1.",
+    "d": "Não há operação inválida: o resultado é o número 1."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "estado e re-renderização no useState (nota média atualiza na hora)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Duplo() {\n  const [n, setN] = useState(0);\n  function adicionar() {\n    setN(n + 1);\n    setN(n + 1);\n  }\n  return (\n    <div>\n      <p id=\"v\">{n}</p>\n      <button id=\"b\" onClick={adicionar}>+</button>\n    </div>\n  );\n}\nawait montar(<Duplo />);\nawait clicar($('b'));\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "a": "1",
+    "c": "2",
+    "b": "0",
+    "d": "NaN"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-011",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Não mutar o estado",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Depois de um clique em “add”, o que aparece em `#v`?\n\n```jsx\nfunction Lista() {\n  const [itens, setItens] = useState([\"A\", \"B\"]);\n  function adicionar() {\n    itens.push(\"C\");\n    setItens(itens);\n  }\n  return (\n    <div>\n      <p id=\"v\">{itens.join(\"\")}</p>\n      <button id=\"b\" onClick={adicionar}>add</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`C`"
+   },
+   {
+    "id": "b",
+    "text": "`AB` — a tela não é atualizada"
+   },
+   {
+    "id": "c",
+    "text": "`ABCC`"
+   },
+   {
+    "id": "d",
+    "text": "`ABC`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`itens.push(\"C\")` altera o array existente, e `setItens(itens)` passa a *mesma referência*. Para o React, o estado não mudou — sem re-renderização, o parágrafo continua “AB” (embora o array na memória já tenha “C”). Daí a regra da aula: nunca modificar o array anterior; crie um novo com spread.",
+   "wrong": {
+    "d": "O array foi alterado, mas a tela só atualiza quando o React percebe um *novo* valor de estado.",
+    "a": "O parágrafo mostra o array inteiro, não só o último item.",
+    "c": "O array só ganhou um “C”, e a tela nem chegou a ser atualizada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "2. lidarComNovaAvaliacao: nunca modifique o array anterior diretamente",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Lista() {\n  const [itens, setItens] = useState([\"A\", \"B\"]);\n  function adicionar() {\n    itens.push(\"C\");\n    setItens(itens);\n  }\n  return (\n    <div>\n      <p id=\"v\">{itens.join(\"\")}</p>\n      <button id=\"b\" onClick={adicionar}>add</button>\n    </div>\n  );\n}\nawait montar(<Lista />);\nawait clicar($('b'));\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "b": "AB",
+    "d": "ABC",
+    "a": "C",
+    "c": "ABCC"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: AB"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-012",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Array de dependências",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O componente é montado; depois o botão “b” é clicado duas vezes e o botão “a” é clicado uma vez. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, [a]);\n  return (\n    <div>\n      <button id=\"ba\" onClick={() => setA(a + 1)}>a</button>\n      <button id=\"bb\" onClick={() => setB(b + 1)}>b</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`4`"
+   },
+   {
+    "id": "b",
+    "text": "`3`"
+   },
+   {
+    "id": "c",
+    "text": "`2`"
+   },
+   {
+    "id": "d",
+    "text": "`1`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O efeito roda na montagem (1) e sempre que um valor do array de dependências muda. Mudar `b` não dispara; mudar `a` uma vez dispara mais uma. Total: 2. Listar corretamente as dependências é o que mantém os efeitos sincronizados com o estado.",
+   "wrong": {
+    "a": "O efeito só reexecuta quando algo do array de dependências (`[a]`) muda; o estado `b` não está lá.",
+    "d": "Além da montagem, a mudança de `a` (um clique) reexecuta o efeito: total 2.",
+    "b": "Os cliques em “b” não reexecutam o efeito."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "1. useEffect: array de dependências",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nlet execucoes = 0;\n\nfunction Tela() {\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  }, [a]);\n  return (\n    <div>\n      <button id=\"ba\" onClick={() => setA(a + 1)}>a</button>\n      <button id=\"bb\" onClick={() => setB(b + 1)}>b</button>\n    </div>\n  );\n}\nawait montar(<Tela />);\nawait clicar($('bb'));\nawait clicar($('bb'));\nawait clicar($('ba'));\nconsole.log(execucoes);"
+   },
+   "optionValues": {
+    "c": "2",
+    "a": "4",
+    "d": "1",
+    "b": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 2"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-013",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Função de limpeza",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O componente é montado e, em seguida, removido da tela (desmontado). O que é impresso no console, em ordem?\n\n```jsx\nfunction Relogio() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Apenas `ligou`"
+   },
+   {
+    "id": "b",
+    "text": "`desligou` e depois `ligou`"
+   },
+   {
+    "id": "c",
+    "text": "`ligou` e depois `desligou`"
+   },
+   {
+    "id": "d",
+    "text": "Apenas `desligou`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O efeito imprime “ligou” depois da montagem. A função retornada é a *limpeza*: o React a executa ao desmontar (ou antes de rodar o efeito de novo). Serve para cancelar timers, assinaturas e requisições pendentes.",
+   "wrong": {
+    "b": "A função de limpeza só roda quando o componente é desmontado (ou antes de o efeito reexecutar).",
+    "a": "Ao desmontar, o React executa a função retornada pelo efeito.",
+    "d": "O efeito também roda na montagem, imprimindo “ligou”."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "useEffect para buscar dados quando o componente monta",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Relogio() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\nconst raiz = await montar(<Relogio />);\nawait React.act(async () => raiz.unmount());"
+   },
+   "optionValues": {
+    "c": "ligou\ndesligou",
+    "b": "desligou\nligou",
+    "a": "ligou",
+    "d": "desligou"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: ligou ⏎ desligou"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-014",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Efeito async",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A Aula 07 diz: “não dá para marcar o próprio callback do useEffect como async”. O que o React faz ao receber o código abaixo?\n\n```jsx\nfunction Dados() {\n  useEffect(async () => {\n    await Promise.resolve();\n  }, []);\n  return <p>oi</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Avisa no console: o efeito devolveu uma Promise"
+   },
+   {
+    "id": "b",
+    "text": "Funciona normalmente, sem nenhum aviso"
+   },
+   {
+    "id": "c",
+    "text": "Executa o efeito duas vezes"
+   },
+   {
+    "id": "d",
+    "text": "Lança um erro e a tela fica em branco"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Uma função `async` sempre retorna uma Promise, mas o retorno de um efeito deve ser *a função de limpeza* (ou nada). Por isso a aula manda declarar uma função `async` separada dentro do efeito (`carregarDados`) e chamá-la: “Declare uma função async `carregarDados` (não dá para marcar o próprio callback do useEffect como async)”.",
+   "wrong": {
+    "b": "O React verifica o retorno do efeito e emite um aviso quando ele não é uma função.",
+    "d": "É um aviso (`console.error`), não uma exceção que derrube a renderização.",
+    "c": "O aviso não altera a quantidade de execuções."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "1. useEffect: declare uma função async carregarDados (não dá para marcar o callback como async)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Dados() {\n  useEffect(async () => {\n    await Promise.resolve();\n  }, []);\n  return <p>oi</p>;\n}\nawait montar(<Dados />);\nconsole.log(avisos.some((a) => a.includes('must not return anything besides a function')) ? 'aviso' : 'sem aviso');"
+   },
+   "optionValues": {
+    "a": "aviso",
+    "b": "sem aviso",
+    "d": "erro",
+    "c": "duas vezes"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: aviso"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-015",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Valor do evento é texto",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O usuário muda o select para “3”. O que o parágrafo `#v` mostra?\n\n```jsx\nfunction Seletor() {\n  const [nota, setNota] = useState(5);\n  return (\n    <div>\n      <select id=\"s\" value={nota} onChange={(e) => setNota(e.target.value)}>\n        {[1, 2, 3, 4, 5].map((n) => <option key={n} value={n}>{n}</option>)}\n      </select>\n      <p id=\"v\">{typeof nota}</p>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`number`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`string`"
+   },
+   {
+    "id": "d",
+    "text": "`object`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O valor lido de campos de formulário (`e.target.value`) é uma *string*, mesmo que pareça número. Por isso a aula converte: “`aoEnviar(Number(lugarId), { nota: Number(nota), comentario })`”.",
+   "wrong": {
+    "a": "`e.target.value` é sempre texto; sem `Number(...)` o estado passa a guardar uma string.",
+    "d": "O valor é um tipo primitivo (texto).",
+    "b": "O estado recebeu o valor do select."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "2. lidarComEnvio: aoEnviar(Number(lugarId), { nota: Number(nota), comentario })",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Seletor() {\n  const [nota, setNota] = useState(5);\n  return (\n    <div>\n      <select id=\"s\" value={nota} onChange={(e) => setNota(e.target.value)}>\n        {[1, 2, 3, 4, 5].map((n) => <option key={n} value={n}>{n}</option>)}\n      </select>\n      <p id=\"v\">{typeof nota}</p>\n    </div>\n  );\n}\nawait montar(<Seletor />);\nawait trocar($('s'), '3');\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "c": "string",
+    "a": "number",
+    "d": "object",
+    "b": "undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: string"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-016",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Validação no envio",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O usuário digita “  a ” (com espaços) e envia o formulário. Qual é o texto de `#e` (mensagem de erro) e quantas vezes `aoEnviar` foi chamado?\n\n```jsx\nfunction Form({ aoEnviar }) {\n  const [comentario, setComentario] = useState(\"\");\n  const [erro, setErro] = useState(null);\n  function lidarComEnvio(e) {\n    e.preventDefault();\n    if (comentario.trim().length < 3) {\n      setErro(\"Comentário muito curto\");\n      return;\n    }\n    setErro(null);\n    aoEnviar(comentario);\n  }\n  return (\n    <form id=\"f\" onSubmit={lidarComEnvio}>\n      <textarea id=\"t\" value={comentario} onChange={(e) => setComentario(e.target.value)} />\n      {erro && <p id=\"e\">{erro}</p>}\n      <button>Enviar</button>\n    </form>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`Comentário muito curto` e 1 chamada"
+   },
+   {
+    "id": "b",
+    "text": "Nenhuma mensagem e 0 chamadas"
+   },
+   {
+    "id": "c",
+    "text": "`Comentário muito curto` e 0 chamadas"
+   },
+   {
+    "id": "d",
+    "text": "Nenhuma mensagem e 1 chamada"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "O comentário é validado com `trim().length < 3`: “  a ” vira “a” (1 caractere). Falhou: define a mensagem, mostra o parágrafo de erro e encerra com `return`, sem chamar `aoEnviar`. Cumpre o critério de aceite “comentário vazio (ou muito curto) mostra uma mensagem de erro, sem quebrar a página”.",
+   "wrong": {
+    "d": "Depois do `trim()` sobra só “a” (1 caractere), menor que 3: a validação falha e `aoEnviar` não é chamado.",
+    "a": "O `return` logo após `setErro` impede a chamada de `aoEnviar`.",
+    "b": "Como a validação falha, o estado `erro` é definido e a mensagem aparece."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "Tentar enviar com comentário vazio (ou muito curto) mostra uma mensagem de erro",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Form({ aoEnviar }) {\n  const [comentario, setComentario] = useState(\"\");\n  const [erro, setErro] = useState(null);\n  function lidarComEnvio(e) {\n    e.preventDefault();\n    if (comentario.trim().length < 3) {\n      setErro(\"Comentário muito curto\");\n      return;\n    }\n    setErro(null);\n    aoEnviar(comentario);\n  }\n  return (\n    <form id=\"f\" onSubmit={lidarComEnvio}>\n      <textarea id=\"t\" value={comentario} onChange={(e) => setComentario(e.target.value)} />\n      {erro && <p id=\"e\">{erro}</p>}\n      <button>Enviar</button>\n    </form>\n  );\n}\nlet chamadas = 0;\nawait montar(<Form aoEnviar={() => { chamadas++; }} />);\nawait digitar($('t'), '  a ');\nawait enviar($('f'));\nconsole.log(($('e') ? $('e').textContent : 'nenhuma mensagem') + ' / ' + chamadas);"
+   },
+   "optionValues": {
+    "c": "Comentário muito curto / 0",
+    "d": "nenhuma mensagem / 1",
+    "a": "Comentário muito curto / 1",
+    "b": "nenhuma mensagem / 0"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: Comentário muito curto / 0"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-017",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Limpar o campo após o envio",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O usuário digita “ótimo!” e envia. Qual é o valor do `textarea` entre colchetes e quantas vezes `aoEnviar` foi chamado?\n\n```jsx\nfunction Form({ aoEnviar }) {\n  const [comentario, setComentario] = useState(\"\");\n  function lidarComEnvio(e) {\n    e.preventDefault();\n    if (comentario.trim().length < 3) return;\n    aoEnviar(comentario);\n    setComentario(\"\");\n  }\n  return (\n    <form id=\"f\" onSubmit={lidarComEnvio}>\n      <textarea id=\"t\" value={comentario} onChange={(e) => setComentario(e.target.value)} />\n      <button>Enviar</button>\n    </form>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[]` e 1 chamada"
+   },
+   {
+    "id": "b",
+    "text": "`[ótimo!]` e 0 chamadas"
+   },
+   {
+    "id": "c",
+    "text": "`[]` e 0 chamadas"
+   },
+   {
+    "id": "d",
+    "text": "`[ótimo!]` e 1 chamada"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "“ótimo!” tem mais de 3 caracteres: passa na validação, chama `aoEnviar` e depois `setComentario(\"\")` volta o campo ao valor inicial. Isso atende ao critério “o campo de comentário é limpo após o envio bem-sucedido”.",
+   "wrong": {
+    "d": "Depois do envio válido, `setComentario(\"\")` limpa o campo controlado.",
+    "c": "O comentário tem 6 caracteres, então a validação passa e `aoEnviar` é chamado.",
+    "b": "Com comentário válido, a função é chamada e o campo é limpo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "O campo de comentário é limpo após o envio bem-sucedido",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Form({ aoEnviar }) {\n  const [comentario, setComentario] = useState(\"\");\n  function lidarComEnvio(e) {\n    e.preventDefault();\n    if (comentario.trim().length < 3) return;\n    aoEnviar(comentario);\n    setComentario(\"\");\n  }\n  return (\n    <form id=\"f\" onSubmit={lidarComEnvio}>\n      <textarea id=\"t\" value={comentario} onChange={(e) => setComentario(e.target.value)} />\n      <button>Enviar</button>\n    </form>\n  );\n}\nlet chamadas = 0;\nawait montar(<Form aoEnviar={() => { chamadas++; }} />);\nawait digitar($('t'), 'ótimo!');\nawait enviar($('f'));\nconsole.log('[' + $('t').value + '] ' + chamadas);"
+   },
+   "optionValues": {
+    "a": "[] 1",
+    "d": "[ótimo!] 1",
+    "c": "[] 0",
+    "b": "[ótimo!] 0"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: [] 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-018",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Dados derivados do estado",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Depois de um clique em “add” (nova avaliação com nota 3), o que mostra `#v`?\n\n```jsx\nconst media = (lista) =>\n  lista.length ? lista.reduce((t, a) => t + a.nota, 0) / lista.length : 0;\n\nfunction App() {\n  const [avaliacoes, setAvaliacoes] = useState([{ nota: 5 }, { nota: 4 }]);\n  return (\n    <div>\n      <p id=\"v\">{media(avaliacoes)}</p>\n      <button id=\"b\" onClick={() => setAvaliacoes([...avaliacoes, { nota: 3 }])}>add</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`4`"
+   },
+   {
+    "id": "b",
+    "text": "`4.5`"
+   },
+   {
+    "id": "c",
+    "text": "`12`"
+   },
+   {
+    "id": "d",
+    "text": "`3`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A média não é guardada no estado: é *calculada* a cada render a partir de `avaliacoes` (como `lugaresComNota` no `App` da aula). Ao adicionar a nota 3, a média passa a (5 + 4 + 3) ÷ 3 = 4. Guardar só o dado “fonte” evita inconsistências.",
+   "wrong": {
+    "b": "Esse era o valor antes do clique; a nova avaliação entra no cálculo: (5 + 4 + 3) ÷ 3 = 4.",
+    "d": "Mostra a média de todas as avaliações, não só a nova.",
+    "c": "`12` é a soma; o código divide pela quantidade de avaliações."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "Enviar uma avaliação atualiza a nota média do lugar na hora",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nconst media = (lista) =>\n  lista.length ? lista.reduce((t, a) => t + a.nota, 0) / lista.length : 0;\n\nfunction App() {\n  const [avaliacoes, setAvaliacoes] = useState([{ nota: 5 }, { nota: 4 }]);\n  return (\n    <div>\n      <p id=\"v\">{media(avaliacoes)}</p>\n      <button id=\"b\" onClick={() => setAvaliacoes([...avaliacoes, { nota: 3 }])}>add</button>\n    </div>\n  );\n}\nawait montar(<App />);\nawait clicar($('b'));\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "a": "4",
+    "b": "4.5",
+    "d": "3",
+    "c": "12"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 4"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-019",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "O estado é uma foto do render",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Depois de um clique, o que é impresso no console e qual é o texto do botão no final?\n\n```jsx\nfunction Contador() {\n  const [n, setN] = useState(0);\n  function clicar() {\n    setN(n + 1);\n    console.log(\"handler:\", n);\n  }\n  return <button id=\"b\" onClick={clicar}>{n}</button>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`handler: 1` e o botão mostra `1`"
+   },
+   {
+    "id": "b",
+    "text": "`handler: 0` e o botão mostra `1`"
+   },
+   {
+    "id": "c",
+    "text": "`handler: 1` e o botão continua `0`"
+   },
+   {
+    "id": "d",
+    "text": "`handler: 0` e o botão continua `0`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Cada render tem seus próprios valores de estado. Dentro do handler, `n` continua valendo 0 mesmo depois de `setN(n + 1)` — a atualização só aparece no render seguinte, quando o botão passa a mostrar 1. Daí a necessidade do forma funcional e de efeitos para reagir a mudanças.",
+   "wrong": {
+    "a": "`n` dentro do handler é o valor do render atual (0); o novo valor só existe no próximo render.",
+    "d": "Depois do clique o componente re-renderiza com o novo estado, e o botão mostra 1.",
+    "c": "Nem o log vê o valor novo, nem o botão fica parado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "estado controlado: o React é a fonte da verdade",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Contador() {\n  const [n, setN] = useState(0);\n  function clicar() {\n    setN(n + 1);\n    console.log(\"handler:\", n);\n  }\n  return <button id=\"b\" onClick={clicar}>{n}</button>;\n}\nawait montar(<Contador />);\nawait clicar($('b'));\nconsole.log($('b').textContent);"
+   },
+   "optionValues": {
+    "b": "handler: 0\n1",
+    "a": "handler: 1\n1",
+    "d": "handler: 0\n0",
+    "c": "handler: 1\n0"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: handler: 0 ⏎ 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-020",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Atualizações em lote",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O componente é montado (1 render) e o botão é clicado uma vez. Quantas vezes a função `Tela` foi executada no total?\n\n```jsx\nlet renders = 0;\n\nfunction Tela() {\n  renders++;\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  function clicar() {\n    setA(a + 1);\n    setB(b + 1);\n  }\n  return <button id=\"b\" onClick={clicar}>{a}-{b}</button>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`4`"
+   },
+   {
+    "id": "b",
+    "text": "`1`"
+   },
+   {
+    "id": "c",
+    "text": "`2`"
+   },
+   {
+    "id": "d",
+    "text": "`3`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Desde o React 18 (e na versão do curso, 19), várias chamadas de `set...` dentro do mesmo evento são agrupadas em uma única renderização. Total: 1 (montagem) + 1 (clique) = 2 execuções de `Tela`.",
+   "wrong": {
+    "d": "O React agrupa (faz “batch” de) as duas atualizações do mesmo evento em *uma* nova renderização.",
+    "b": "Além da montagem, houve a re-renderização causada pelo clique.",
+    "a": "Não há uma renderização por chamada de `set`; elas são agrupadas."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "lidarComEnvio e atualização de estados no mesmo evento",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nlet renders = 0;\n\nfunction Tela() {\n  renders++;\n  const [a, setA] = useState(0);\n  const [b, setB] = useState(0);\n  function clicar() {\n    setA(a + 1);\n    setB(b + 1);\n  }\n  return <button id=\"b\" onClick={clicar}>{a}-{b}</button>;\n}\nawait montar(<Tela />);\nawait clicar($('b'));\nconsole.log(renders);"
+   },
+   "optionValues": {
+    "c": "2",
+    "d": "3",
+    "b": "1",
+    "a": "4"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 2"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-021",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Ordem render → efeito → render",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a sequência impressa no console quando o componente é montado?\n\n```jsx\nfunction Tela() {\n  const [n, setN] = useState(0);\n  console.log(\"render\", n);\n  useEffect(() => {\n    console.log(\"efeito\", n);\n    setN(1);\n  }, []);\n  return <p>{n}</p>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`render 0` e `efeito 0` apenas"
+   },
+   {
+    "id": "b",
+    "text": "`efeito 0`, `render 0` e `render 1`"
+   },
+   {
+    "id": "c",
+    "text": "`render 1`, `efeito 1`"
+   },
+   {
+    "id": "d",
+    "text": "`render 0`, `efeito 0` e `render 1`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Sequência: 1) render com `n = 0`; 2) o React aplica a tela e executa o efeito (`efeito 0`), que chama `setN(1)`; 3) novo render com `n = 1`. O efeito, com array vazio, não roda de novo. É o fluxo da Aula 07: primeiro “Carregando...”, depois os dados.",
+   "wrong": {
+    "b": "O efeito roda *depois* de o React renderizar e aplicar a tela; o primeiro log é o do render.",
+    "a": "`setN(1)` no efeito muda o estado e provoca um novo render (`render 1`).",
+    "c": "O primeiro render usa o valor inicial (0) e o efeito do mesmo render enxerga `n` = 0."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "1. useEffect: roda após a montagem; atualiza estados",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Tela() {\n  const [n, setN] = useState(0);\n  console.log(\"render\", n);\n  useEffect(() => {\n    console.log(\"efeito\", n);\n    setN(1);\n  }, []);\n  return <p>{n}</p>;\n}\nawait montar(<Tela />);"
+   },
+   "optionValues": {
+    "d": "render 0\nefeito 0\nrender 1",
+    "b": "efeito 0\nrender 0\nrender 1",
+    "a": "render 0\nefeito 0",
+    "c": "render 1\nefeito 1"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: render 0 ⏎ efeito 0 ⏎ render 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-022",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Efeito sem array de dependências",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Note que o `useEffect` está **sem** array de dependências. O componente é montado e o botão é clicado duas vezes. Quanto vale `execucoes`?\n\n```jsx\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  });\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`3`"
+   },
+   {
+    "id": "b",
+    "text": "`1`"
+   },
+   {
+    "id": "c",
+    "text": "`2`"
+   },
+   {
+    "id": "d",
+    "text": "`0`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Sem o segundo argumento, o efeito executa após cada renderização: montagem (1) + dois cliques (2) = 3. Se esse efeito alterasse o estado sem condição, criaria um laço infinito de renderizações (cada atualização dispara outra renderização e outro efeito). Por isso a Aula 07 enfatiza o array `[]` no `useEffect`.",
+   "wrong": {
+    "b": "Isso vale para `[]`. Sem array, o efeito roda depois de *toda* renderização.",
+    "c": "Há três renderizações (montagem + dois cliques), e o efeito roda após cada uma.",
+    "d": "O efeito roda pelo menos na montagem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "1. useEffect: array de dependências vazio [] no final",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.328Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nlet execucoes = 0;\n\nfunction Tela() {\n  const [n, setN] = useState(0);\n  useEffect(() => {\n    execucoes++;\n  });\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\nawait montar(<Tela />);\nawait clicar($('b'));\nawait clicar($('b'));\nconsole.log(execucoes);"
+   },
+   "optionValues": {
+    "a": "3",
+    "b": "1",
+    "c": "2",
+    "d": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 3"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-023",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "StrictMode em desenvolvimento",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "No modo de desenvolvimento, com `<React.StrictMode>`, o que é impresso ao montar o componente?\n\n```jsx\nfunction Tela() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\n\n// em main.jsx (modo de desenvolvimento):\nroot.render(\n  <React.StrictMode>\n    <Tela />\n  </React.StrictMode>\n);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Apenas `ligou`"
+   },
+   {
+    "id": "b",
+    "text": "`ligou` duas vezes, sem `desligou`"
+   },
+   {
+    "id": "c",
+    "text": "Nada, o StrictMode desativa efeitos"
+   },
+   {
+    "id": "d",
+    "text": "`ligou`, `desligou` e `ligou`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Em desenvolvimento o `<React.StrictMode>` simula uma desmontagem/remontagem: o efeito roda (“ligou”), a limpeza roda (“desligou”) e o efeito roda de novo (“ligou”). Em produção isso não acontece. Por isso efeitos precisam ter limpeza correta (e a busca de dados do Aula 07 pode aparecer duas vezes no console em dev).",
+   "wrong": {
+    "a": "Em desenvolvimento o StrictMode monta, desmonta e monta de novo para revelar efeitos sem limpeza correta.",
+    "b": "A simulação inclui a limpeza entre as duas execuções.",
+    "c": "O StrictMode não desativa efeitos: ele os executa de forma extra para testá-los."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "client/src/main.jsx (Vite) renderiza <App /> dentro de React.StrictMode",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.329Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Tela() {\n  useEffect(() => {\n    console.log(\"ligou\");\n    return () => console.log(\"desligou\");\n  }, []);\n  return <p>oi</p>;\n}\nconst raiz = createRoot($('root'));\nawait React.act(async () => raiz.render(<React.StrictMode><Tela /></React.StrictMode>));"
+   },
+   "optionValues": {
+    "d": "ligou\ndesligou\nligou",
+    "a": "ligou",
+    "b": "ligou\nligou",
+    "c": ""
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: ligou ⏎ desligou ⏎ ligou"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-024",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "key reinicia o estado",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "`Pai` é montado com `lugarId = 1` e o botão é clicado duas vezes (mostrando 2). Em seguida, `Pai` é renderizado novamente com `lugarId = 2`. O que o botão mostra?\n\n```jsx\nfunction Contador() {\n  const [n, setN] = useState(0);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction Pai({ lugarId }) {\n  return <Contador key={lugarId} />;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`2`"
+   },
+   {
+    "id": "b",
+    "text": "`0`"
+   },
+   {
+    "id": "c",
+    "text": "`1`"
+   },
+   {
+    "id": "d",
+    "text": "`3`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A `key` identifica a “identidade” do componente. Quando muda, o React descarta a instância anterior (com seu estado) e cria uma nova, que começa com `useState(0)`. É uma forma de “resetar” um formulário ao trocar o lugar selecionado.",
+   "wrong": {
+    "a": "Mudar a `key` faz o React tratar como outro componente: o antigo é desmontado e o novo nasce com o estado inicial.",
+    "c": "Não há reaproveitamento parcial do estado.",
+    "d": "Nada incrementa o contador ao trocar a `key`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "key={lugar.id} nas listas (aula 06) e identidade de componentes",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.329Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Contador() {\n  const [n, setN] = useState(0);\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction Pai({ lugarId }) {\n  return <Contador key={lugarId} />;\n}\nconst raiz = await montar(<Pai lugarId={1} />);\nawait clicar($('b'));\nawait clicar($('b'));\nawait React.act(async () => raiz.render(<Pai lugarId={2} />));\nconsole.log($('b').textContent);"
+   },
+   "optionValues": {
+    "b": "0",
+    "a": "2",
+    "c": "1",
+    "d": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 0"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-025",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Campo com value sem onChange",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o React faz com este campo?\n\n```jsx\nfunction Campo() {\n  return <input value=\"Marina\" />;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Renderiza o campo travado (somente leitura) e avisa no console que falta o `onChange`"
+   },
+   {
+    "id": "b",
+    "text": "Converte automaticamente em campo não controlado"
+   },
+   {
+    "id": "c",
+    "text": "Renderiza um campo editável sem nenhum aviso"
+   },
+   {
+    "id": "d",
+    "text": "Lança um erro e não renderiza"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Um campo com `value` é *controlado*: o React espera um `onChange` que atualize o estado. Sem ele, o usuário não consegue editar o campo e o React emite “You provided a value prop to a form field without an onChange handler”. Soluções: adicionar `onChange` + estado, usar `readOnly` ou `defaultValue`.",
+   "wrong": {
+    "c": "Com `value` fixo e sem `onChange`, o campo fica preso ao valor e o React avisa sobre isso.",
+    "d": "É um aviso no console, não uma exceção.",
+    "b": "O React não altera sozinho o tipo do campo; avisa para você corrigir."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "Dica: campo controlado segue o padrão value={estado} onChange=...",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.329Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Campo() {\n  return <input value=\"Marina\" />;\n}\nawait montar(<Campo />);\nconsole.log(avisos.some((a) => a.includes('without an `onChange`')) ? 'aviso' : 'sem aviso');"
+   },
+   "optionValues": {
+    "a": "aviso",
+    "c": "sem aviso",
+    "d": "erro",
+    "b": "convertido"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: aviso"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-026",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "Inicialização preguiçosa",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Cada componente é montado e clicado uma vez (2 renderizações cada). Quantas chamadas a `caro()` ocorrem em (A) `Tela` e em (B) `TelaLazy`, respectivamente?\n\n```jsx\nlet chamadas = 0;\nfunction caro() {\n  chamadas++;\n  return 10;\n}\n\nfunction Tela() {\n  const [n, setN] = useState(caro()); // (A)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction TelaLazy() {\n  const [n, setN] = useState(() => caro()); // (B)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "(A) 2 e (B) 1"
+   },
+   {
+    "id": "b",
+    "text": "(A) 1 e (B) 2"
+   },
+   {
+    "id": "c",
+    "text": "(A) 1 e (B) 1"
+   },
+   {
+    "id": "d",
+    "text": "(A) 2 e (B) 2"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "`useState(caro())` chama `caro()` a cada render (o resultado é ignorado depois do primeiro). `useState(() => caro())` passa uma função inicializadora, que o React executa *só na montagem*. Para valores caros de calcular (ex.: ler algo grande), prefira a forma preguiçosa.",
+   "wrong": {
+    "c": "Em (A) `caro()` é executada em *todo* render, pois é avaliada antes de chamar `useState`; só em (B) o React ignora a função depois da primeira vez.",
+    "d": "Em (B) a função inicializadora roda apenas na primeira renderização.",
+    "b": "Está invertido: (A) chama em todo render; (B) só na montagem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "useState: valor inicial dos estados do formulário",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.329Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nlet chamadas = 0;\nfunction caro() {\n  chamadas++;\n  return 10;\n}\n\nfunction Tela() {\n  const [n, setN] = useState(caro()); // (A)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\n\nfunction TelaLazy() {\n  const [n, setN] = useState(() => caro()); // (B)\n  return <button id=\"b\" onClick={() => setN(n + 1)}>{n}</button>;\n}\nchamadas = 0;\nawait montar(<Tela />);\nawait clicar($('b'));\nconst a = chamadas;\nchamadas = 0;\nawait React.act(async () => {});\ndocument.getElementById('root').innerHTML = '';\nconst raizB = await montar(<TelaLazy />);\nawait clicar($('b'));\nconsole.log('(A) ' + a + ' e (B) ' + chamadas);"
+   },
+   "optionValues": {
+    "a": "(A) 2 e (B) 1",
+    "c": "(A) 1 e (B) 1",
+    "d": "(A) 2 e (B) 2",
+    "b": "(A) 1 e (B) 2"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: (A) 2 e (B) 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-react-hooks-forms-027",
+  "disciplineId": "fullstack",
+  "topicId": "react-hooks-forms",
+  "subtopic": "useRef não re-renderiza",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O botão é clicado 3 vezes. O que o parágrafo `#v` mostra?\n\n```jsx\nfunction Tela() {\n  const cliques = useRef(0);\n  return (\n    <div>\n      <p id=\"v\">{cliques.current}</p>\n      <button id=\"b\" onClick={() => { cliques.current++; }}>+</button>\n    </div>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1`"
+   },
+   {
+    "id": "b",
+    "text": "`undefined`"
+   },
+   {
+    "id": "c",
+    "text": "`0`, pois o ref não re-renderiza"
+   },
+   {
+    "id": "d",
+    "text": "`3`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`useRef` guarda um valor mutável que persiste entre renderizações, mas *mudá-lo não dispara re-renderização*. O parágrafo continua exibindo o 0 do primeiro render. Para que a tela reflita o valor, use estado (`useState`).",
+   "wrong": {
+    "d": "Mudar `ref.current` não avisa o React; sem re-renderização o DOM não é atualizado.",
+    "a": "Nada atualiza o parágrafo: ele continua com o valor da primeira renderização.",
+    "b": "O valor inicial do ref é `0` (o argumento do `useRef`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-07",
+    "locator": "estado do React é o que dispara a atualização da tela",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:24:37.329Z",
+  "updatedAt": "2026-10-23T01:25:59.637Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "jsx": true,
+    "code": "import { JSDOM } from 'jsdom';\nimport { renderToStaticMarkup } from 'react-dom/server';\nconst dom = new JSDOM('<!doctype html><div id=\"root\"></div>');\nglobalThis.window = dom.window;\nglobalThis.document = dom.window.document;\nglobalThis.IS_REACT_ACT_ENVIRONMENT = true;\nconst React = (await import('react')).default;\nconst { useState, useEffect, useRef } = React;\nconst { createRoot } = await import('react-dom/client');\nconst avisos = [];\nconst erroOriginal = console.error;\nconsole.error = (...a) => avisos.push(a.join(' '));\nconst $ = (id) => document.getElementById(id);\nconst montar = async (el) => { const root = createRoot($('root')); await React.act(async () => root.render(el)); return root; };\nconst clicar = (el) => React.act(async () => { el.dispatchEvent(new window.MouseEvent('click', { bubbles: true })); });\nconst digitar = (el, v) => React.act(async () => { Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), 'value').set.call(el, v); el.dispatchEvent(new window.Event('input', { bubbles: true })); });\nconst trocar = (el, v) => React.act(async () => { el.value = v; el.dispatchEvent(new window.Event('change', { bubbles: true })); });\nconst enviar = async (form) => { const evt = new window.Event('submit', { bubbles: true, cancelable: true }); await React.act(async () => { form.dispatchEvent(evt); }); return evt; };\nfunction Tela() {\n  const cliques = useRef(0);\n  return (\n    <div>\n      <p id=\"v\">{cliques.current}</p>\n      <button id=\"b\" onClick={() => { cliques.current++; }}>+</button>\n    </div>\n  );\n}\nawait montar(<Tela />);\nawait clicar($('b'));\nawait clicar($('b'));\nawait clicar($('b'));\nconsole.log($('v').textContent);"
+   },
+   "optionValues": {
+    "c": "0",
+    "d": "3",
+    "a": "1",
+    "b": "undefined"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:25:37.511Z",
+    "details": "saída: 0"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:25:59.637Z",
+   "notes": "React hooks/forms: React 19 cliente no jsdom com act(); eventos reais; avisos capturados; uma questão de laço infinito foi trocada porque a execução mostrou que React só avisa",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

@@ -1,0 +1,1472 @@
+[
+ {
+  "id": "fs-validacao-erros-001",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "ErroNaoEncontrado",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Com o error handler central da aula, qual é a resposta de `GET /lugares/999`?\n\n```js\napp.get(\"/lugares/:id\", (req, res) => {\n  throw new ErroNaoEncontrado(\"Lugar não encontrado.\");\n});\n\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`400` com `{\"erro\":\"Lugar não encontrado.\"}`"
+   },
+   {
+    "id": "b",
+    "text": "`404` com `{\"erro\":\"Lugar não encontrado.\"}`"
+   },
+   {
+    "id": "c",
+    "text": "`500` com uma página HTML de erro"
+   },
+   {
+    "id": "d",
+    "text": "`200` com corpo vazio"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "A rota apenas *lança* `new ErroNaoEncontrado(...)`. O Express encaminha a exceção ao middleware de erro, que (por ser `instanceof ErroApi`) responde com o `statusCode` do próprio erro (404) e o JSON `{ erro: mensagem }` — critério da aula: “`GET /lugares/999` responde 404 com JSON, não uma página HTML”.",
+   "wrong": {
+    "c": "O handler reconhece o erro como `ErroApi` e usa o `statusCode` (404) em JSON.",
+    "d": "A rota lança uma exceção; o handler responde com o status do erro.",
+    "a": "`ErroNaoEncontrado` carrega o status 404, não 400."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "GET /lugares/999 responde 404 com JSON { erro: \"...\" } (não uma página HTML)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/lugares/:id\", (req, res) => {\n  throw new ErroNaoEncontrado(\"Lugar não encontrado.\");\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/lugares/999');\nconsole.log(r.status, r.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "404 {\"erro\":\"Lugar não encontrado.\"}",
+    "c": "500 <html>",
+    "d": "200 ",
+    "a": "400 {\"erro\":\"Lugar não encontrado.\"}"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 404 {\"erro\":\"Lugar não encontrado.\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-002",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "ErroValidacao com campo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é a resposta quando uma rota lança `new ErroValidacao(\"Nota deve ser inteira de 1 a 5.\", \"nota\")`?\n\n```js\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\n\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`500` genérico"
+   },
+   {
+    "id": "b",
+    "text": "`400`, com `erro` e `campo`"
+   },
+   {
+    "id": "c",
+    "text": "`400`, só com `erro`"
+   },
+   {
+    "id": "d",
+    "text": "`422`, com `erro` e `campo`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "`ErroValidacao` estende `ErroApi` com status 400 e guarda o `campo`. O handler monta `{ erro: mensagem }` e acrescenta `campo` quando existe — por isso o front consegue marcar o campo errado, como no critério “avaliação com nota fora de 1–5 responde 400 com `campo: \"nota\"`”.",
+   "wrong": {
+    "c": "Quando o erro tem `campo`, o handler o inclui no JSON (permite destacar o campo no formulário).",
+    "a": "`ErroValidacao` é um `ErroApi` com status 400.",
+    "d": "A aula usa 400 para erros de validação."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Avaliação com nota fora de 1-5 responde 400 com campo: \"nota\"",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.post(\"/avaliacoes\", (req, res) => {\n  throw new ErroValidacao(\"Nota deve ser inteira de 1 a 5.\", \"nota\");\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('POST', '/avaliacoes', {});\nconsole.log(r.status, r.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "400 {\"erro\":\"Nota deve ser inteira de 1 a 5.\",\"campo\":\"nota\"}",
+    "c": "400 {\"erro\":\"Nota deve ser inteira de 1 a 5.\"}",
+    "a": "500 ",
+    "d": "422 {\"erro\":\"Nota deve ser inteira de 1 a 5.\",\"campo\":\"nota\"}"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 400 {\"erro\":\"Nota deve ser inteira de 1 a 5.\",\"campo\":\"nota\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-003",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Erro inesperado vira 500 genérico",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A rota tem um bug (acessa propriedade de `undefined`). O que o cliente recebe, usando o handler central da aula?\n\n```js\napp.get(\"/x\", (req, res) => {\n  const lugar = undefined;\n  res.json(lugar.nome);\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`404`"
+   },
+   {
+    "id": "b",
+    "text": "`500` com mensagem genérica"
+   },
+   {
+    "id": "c",
+    "text": "`400`"
+   },
+   {
+    "id": "d",
+    "text": "`500` com a mensagem do `TypeError`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Erros que não são `ErroApi` são inesperados: o handler os registra no servidor (`console.error`) e responde 500 genérico, “sem vazar detalhes internos para quem chamou a API” (nomes de arquivos, queries, stack...). Isso reduz a superfície de ataque.",
+   "wrong": {
+    "d": "O handler só expõe a mensagem de erros *conhecidos* (`ErroApi`); erros inesperados recebem texto genérico.",
+    "c": "Um bug do servidor não é erro do cliente: o status é 500.",
+    "a": "A rota existe; o problema é uma exceção inesperada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Nenhuma resposta de erro expõe stack trace ou detalhes internos do servidor",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/x\", (req, res) => {\n  const lugar = undefined;\n  res.json(lugar.nome);\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(r.status, r.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "500 {\"erro\":\"Erro interno do servidor.\"}",
+    "d": "500 {\"erro\":\"Cannot read properties of undefined (reading 'nome')\"}",
+    "c": "400 ",
+    "a": "404 "
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 500 {\"erro\":\"Erro interno do servidor.\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-004",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Hierarquia de erros",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime?\n\n```js\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\nconst e = new ErroConflito(\"E-mail já cadastrado.\");\nconsole.log(e instanceof ErroApi, e instanceof ErroValidacao, e instanceof Error);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`true false true`"
+   },
+   {
+    "id": "b",
+    "text": "`true true true`"
+   },
+   {
+    "id": "c",
+    "text": "`true false false`"
+   },
+   {
+    "id": "d",
+    "text": "`false false true`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A hierarquia é `Error` → `ErroApi` → (`ErroValidacao`, `ErroNaoEncontrado`, `ErroNaoAutorizado`, `ErroConflito`). Por isso o handler pode testar só `erro instanceof ErroApi` para reconhecer todos os erros “conhecidos”.",
+   "wrong": {
+    "b": "`ErroConflito` e `ErroValidacao` são classes irmãs (ambas estendem `ErroApi`); uma não é instância da outra.",
+    "d": "`ErroConflito` estende `ErroApi`, então é uma instância dela.",
+    "c": "Toda subclasse de `Error` também é instância de `Error`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "ErroApi (base, com statusCode) e subclasses ErroValidacao, ErroNaoEncontrado, ErroNaoAutorizado, ErroConflito",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "class ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\nconst e = new ErroConflito(\"E-mail já cadastrado.\");\nconsole.log(e instanceof ErroApi, e instanceof ErroValidacao, e instanceof Error);"
+   },
+   "optionValues": {
+    "a": "true false true",
+    "b": "true true true",
+    "d": "false false true",
+    "c": "true false false"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: true false true"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-005",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Status de cada erro",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quais são os `statusCode` de `ErroValidacao`, `ErroNaoEncontrado`, `ErroNaoAutorizado` e `ErroConflito`, nesta ordem?\n\n```js\nconsole.log(\n  new ErroValidacao(\"x\", \"campo\").statusCode,\n  new ErroNaoEncontrado().statusCode,\n  new ErroNaoAutorizado().statusCode,\n  new ErroConflito().statusCode\n);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`400 400 401 409`"
+   },
+   {
+    "id": "b",
+    "text": "`400 404 403 409`"
+   },
+   {
+    "id": "c",
+    "text": "`422 404 401 400`"
+   },
+   {
+    "id": "d",
+    "text": "`400 404 401 409`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "400 Bad Request (validação), 404 Not Found (inexistente), 401 Unauthorized (não autenticado: token ausente/ inválido) e 409 Conflict (e-mail duplicado). Cada classe “sabe” o seu status, então a rota só precisa lançar o erro certo.",
+   "wrong": {
+    "b": "`ErroNaoAutorizado` usa 401 (não autenticado); 403 seria “autenticado mas sem permissão”.",
+    "c": "Validação usa 400 e conflito usa 409.",
+    "a": "Recurso inexistente é 404, não 400."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "ErroApi base com statusCode: ErroValidacao (400), ErroNaoEncontrado (404), ErroNaoAutorizado (401), ErroConflito (409)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "js",
+   "params": {
+    "code": "class ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\nconsole.log(new ErroValidacao(\"x\", \"campo\").statusCode, new ErroNaoEncontrado().statusCode, new ErroNaoAutorizado().statusCode, new ErroConflito().statusCode);"
+   },
+   "optionValues": {
+    "d": "400 404 401 409",
+    "b": "400 404 403 409",
+    "c": "422 404 401 400",
+    "a": "400 400 401 409"
+   },
+   "result": {
+    "ok": true,
+    "method": "js-exec (node --permission)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 400 404 401 409"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-006",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Posição do error handler",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O error handler foi registrado **antes** das rotas. Qual é o tipo de conteúdo da resposta de erro da rota abaixo?\n\n```js\napp.use((erro, req, res, next) => {\n  res.status(500).json({ erro: \"tratado\" });\n});\napp.get(\"/x\", () => {\n  throw new Error(\"falhou\");\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`application/json`"
+   },
+   {
+    "id": "b",
+    "text": "`text/html`"
+   },
+   {
+    "id": "c",
+    "text": "Resposta vazia"
+   },
+   {
+    "id": "d",
+    "text": "`text/plain`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O Express percorre a cadeia na ordem: um erro lançado numa rota só é entregue a middlewares de erro que vêm *depois* dela. Registrado antes, o handler é ignorado e vale o tratador padrão (HTML). Por isso a aula diz: “precisa ser registrado depois de todas as rotas”.",
+   "wrong": {
+    "a": "Erros só chegam a middlewares de erro registrados *depois* do ponto em que ocorreram; este foi registrado antes da rota.",
+    "c": "O Express sempre responde: se ninguém trata, usa o tratador padrão.",
+    "d": "O tratador padrão do Express responde com uma página HTML."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Middleware de erro: precisa ser registrada depois de todas as rotas",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.use((erro, req, res, next) => {\n  res.status(500).json({ erro: \"tratado\" });\n});\napp.get(\"/x\", () => {\n  throw new Error(\"falhou\");\n});\n\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(r.tipo.split(';')[0]);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "text/html",
+    "a": "application/json",
+    "c": "sem resposta",
+    "d": "text/plain"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: text/html"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-007",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "throw versus next(erro)",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "As duas rotas sinalizam o mesmo erro, de formas diferentes. Quais status voltam para `GET /a` e `GET /b`?\n\n```js\napp.get(\"/a\", () => {\n  throw new ErroNaoEncontrado();\n});\napp.get(\"/b\", (req, res, next) => {\n  next(new ErroNaoEncontrado());\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`404 500`"
+   },
+   {
+    "id": "b",
+    "text": "`500 404`"
+   },
+   {
+    "id": "c",
+    "text": "`404 404`"
+   },
+   {
+    "id": "d",
+    "text": "`500 500`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Em rotas síncronas (e, no Express 5, também nas assíncronas) `throw` e `next(erro)` levam ao mesmo caminho: o middleware de erro. A aula padroniza o `throw new ErroX(...)`, que deixa o código mais limpo.",
+   "wrong": {
+    "a": "Chamar `next(erro)` também encaminha o erro ao middleware de erro, com o mesmo resultado do `throw`.",
+    "b": "No Express, exceções lançadas em rotas síncronas são capturadas e viram erro para o handler.",
+    "d": "Ambos chegam ao handler central, que usa o `statusCode` do erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Rotas agora fazem throw new ErroX(...) em vez de res.status(...).json(...)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/a\", () => {\n  throw new ErroNaoEncontrado();\n});\napp.get(\"/b\", (req, res, next) => {\n  next(new ErroNaoEncontrado());\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst a = await req('GET', '/a');\nconst b = await req('GET', '/b');\nconsole.log(a.status, b.status);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "404 404",
+    "a": "404 500",
+    "b": "500 404",
+    "d": "500 500"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 404 404"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-008",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Não vazar detalhes",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Uma rota lança um erro cuja mensagem contém um detalhe sensível. O corpo da resposta contém a palavra “senha”?\n\n```js\napp.get(\"/x\", () => {\n  throw new Error(\"falha ao conectar: senha do banco = abc123\");\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Sim, mas apenas no cabeçalho"
+   },
+   {
+    "id": "b",
+    "text": "Não — o handler devolve apenas a mensagem genérica"
+   },
+   {
+    "id": "c",
+    "text": "Depende do navegador"
+   },
+   {
+    "id": "d",
+    "text": "Sim — a mensagem do erro é repassada ao cliente"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Mensagens de erros inesperados podem conter credenciais, caminhos, SQL etc. O handler registra o erro completo no servidor e devolve ao cliente apenas “Erro interno do servidor.”. Assim o critério “nenhuma resposta de erro expõe detalhes internos” é atendido.",
+   "wrong": {
+    "d": "Só mensagens de `ErroApi` vão ao cliente; um `Error` comum recebe “Erro interno do servidor.”.",
+    "a": "Nenhum cabeçalho carrega a mensagem do erro.",
+    "c": "A resposta é definida no servidor, igual para qualquer cliente."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Erro inesperado: console.error e 500 genérico sem vazar detalhes internos",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/x\", () => {\n  throw new Error(\"falha ao conectar: senha do banco = abc123\");\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(r.texto.includes('senha') ? 'sim' : 'nao');\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "nao",
+    "d": "sim",
+    "a": "sim, apenas no cabeçalho",
+    "c": "depende"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: nao"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-009",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Ordem das validações",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para o corpo `{ nome: \"A\", email: \"x\", senha: \"1\" }` (os três campos inválidos), qual `campo` o erro devolve?\n\n```js\nfunction validarCredenciaisRegistro({ nome, email, senha }) {\n  if (typeof nome !== \"string\" || nome.trim().length < 2) throw new ErroValidacao(\"Nome deve ter pelo menos 2 caracteres.\", \"nome\");\n  if (typeof email !== \"string\" || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) throw new ErroValidacao(\"Email inválido.\", \"email\");\n  if (typeof senha !== \"string\" || senha.length < 6) throw new ErroValidacao(\"Senha deve ter pelo menos 6 caracteres.\", \"senha\");\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`nome`"
+   },
+   {
+    "id": "b",
+    "text": "`email`"
+   },
+   {
+    "id": "c",
+    "text": "`senha`"
+   },
+   {
+    "id": "d",
+    "text": "Os três: `nome,email,senha`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Os validadores *lançam* o primeiro erro encontrado, na ordem do código (nome → e-mail → senha). O cliente corrige um campo e, se necessário, recebe o próximo erro. (Para devolver todos de uma vez seria preciso acumular as mensagens antes de lançar.)",
+   "wrong": {
+    "c": "O primeiro `throw` encerra a função; as demais validações nem são executadas.",
+    "d": "Cada validador lança um erro e para; só o primeiro campo inválido é reportado por requisição.",
+    "b": "O nome é validado antes do e-mail e já está inválido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "2. validarCredenciaisRegistro: mesma regra da aula 05/11 (nome, email, senha), lançando ErroValidacao",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.453Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\nfunction validarCredenciaisRegistro({ nome, email, senha }) {\n  if (typeof nome !== \"string\" || nome.trim().length < 2) throw new ErroValidacao(\"Nome deve ter pelo menos 2 caracteres.\", \"nome\");\n  if (typeof email !== \"string\" || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) throw new ErroValidacao(\"Email inválido.\", \"email\");\n  if (typeof senha !== \"string\" || senha.length < 6) throw new ErroValidacao(\"Senha deve ter pelo menos 6 caracteres.\", \"senha\");\n}\napp.post(\"/registro\", (req, res) => {\n  validarCredenciaisRegistro(req.body);\n  res.status(201).end();\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('POST', '/registro', { nome: 'A', email: 'x', senha: '1' });\nconsole.log(JSON.parse(r.texto).campo);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "a": "nome",
+    "c": "senha",
+    "d": "nome,email,senha",
+    "b": "email"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: nome"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-010",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Erro sem campo",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quais chaves tem o JSON devolvido quando o erro é um `ErroNaoEncontrado` (que não tem `campo`)?\n\n```js\napp.get(\"/x\", () => {\n  throw new ErroNaoEncontrado(\"Lugar não encontrado.\");\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[\"mensagem\",\"statusCode\"]`"
+   },
+   {
+    "id": "b",
+    "text": "Somente `[\"erro\"]`"
+   },
+   {
+    "id": "c",
+    "text": "`[]`"
+   },
+   {
+    "id": "d",
+    "text": "`[\"erro\",\"campo\"]`, com `campo` vazio"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O handler monta `{ erro: erro.message }` e acrescenta `campo` apenas quando o erro o possui (`ErroValidacao`). Para `ErroNaoEncontrado` a resposta é só `{ \"erro\": \"Lugar não encontrado.\" }`.",
+   "wrong": {
+    "d": "O handler só inclui `campo` quando o erro tem esse atributo (`if (erro.campo)`).",
+    "a": "O corpo usa a chave `erro` (padrão da API desde a Aula 09).",
+    "c": "O corpo traz pelo menos a mensagem em `erro`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "error handler: responda com o statusCode e a mensagem certos (incluindo campo, se existir)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/x\", () => {\n  throw new ErroNaoEncontrado(\"Lugar não encontrado.\");\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(JSON.stringify(Object.keys(JSON.parse(r.texto))));\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "[\"erro\"]",
+    "d": "[\"erro\",\"campo\"]",
+    "a": "[\"mensagem\",\"statusCode\"]",
+    "c": "[]"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: [\"erro\"]"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-011",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "404 pelo mesmo caminho",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A API usa o mesmo mecanismo para rotas inexistentes. Qual é a resposta de `GET /nao-existe`?\n\n```js\napp.get(\"/\", (req, res) => res.json({ ok: true }));\n\napp.use((req, res, next) => {\n  next(new ErroNaoEncontrado(\"Rota não encontrada.\"));\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`500` com `{\"erro\":\"Erro interno do servidor.\"}`"
+   },
+   {
+    "id": "b",
+    "text": "`404` em HTML (“Cannot GET /nao-existe”)"
+   },
+   {
+    "id": "c",
+    "text": "`404` com `{\"erro\":\"Rota não encontrada.\"}`"
+   },
+   {
+    "id": "d",
+    "text": "`200`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Um middleware sem caminho no fim da cadeia só roda se nenhuma rota respondeu. Ele cria um `ErroNaoEncontrado` e o passa ao handler central, mantendo o *mesmo formato JSON* para todos os erros da API.",
+   "wrong": {
+    "b": "O middleware final converte a requisição não tratada em `ErroNaoEncontrado`, e o handler central devolve JSON.",
+    "a": "`ErroNaoEncontrado` é um `ErroApi` conhecido: usa seu próprio status (404).",
+    "d": "Nenhuma rota casa; o pega-tudo dispara o erro 404."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "tudo passa pelos validadores + erros tipados + error handler central",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/\", (req, res) => res.json({ ok: true }));\napp.use((req, res, next) => {\n  next(new ErroNaoEncontrado(\"Rota não encontrada.\"));\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/nao-existe');\nconsole.log(r.status, r.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "404 {\"erro\":\"Rota não encontrada.\"}",
+    "b": "404 <html>",
+    "a": "500 {\"erro\":\"Erro interno do servidor.\"}",
+    "d": "200 "
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 404 {\"erro\":\"Rota não encontrada.\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-012",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Erro assíncrono no Express 5",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A rota é assíncrona e lança um erro **depois** de um `await`, sem `try/catch`. Qual é a resposta?\n\n```js\napp.post(\"/registro\", async (req, res) => {\n  await Promise.resolve(); // ex.: consulta ao banco\n  throw new ErroConflito(\"Email já cadastrado.\");\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "O servidor encerra o processo"
+   },
+   {
+    "id": "b",
+    "text": "A requisição fica pendurada (Express 4)"
+   },
+   {
+    "id": "c",
+    "text": "`500` com a mensagem do conflito"
+   },
+   {
+    "id": "d",
+    "text": "`409` com `{\"erro\":\"Email já cadastrado.\"}`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O README destaca: “no Express 5, se uma Promise rejeitar ou uma exceção for lançada em rota `async`, o Express encaminha automaticamente para o middleware de erro — sem try/catch manual em cada rota”. Resultado: 409 com a mensagem do erro.",
+   "wrong": {
+    "b": "No Express 5 as Promises rejeitadas são encaminhadas automaticamente ao middleware de erro.",
+    "c": "O handler identifica o `ErroConflito` e usa o status 409.",
+    "a": "O erro é capturado e tratado; o processo continua."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Express 5 e erros assíncronos: encaminha automaticamente para o middleware de erro",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.post(\"/registro\", async (req, res) => {\n  await Promise.resolve();\n  throw new ErroConflito(\"Email já cadastrado.\");\n});\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('POST', '/registro', {});\nconsole.log(r.status, r.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "d": "409 {\"erro\":\"Email já cadastrado.\"}",
+    "b": "pendurada",
+    "c": "500 {\"erro\":\"Email já cadastrado.\"}",
+    "a": "processo encerrou"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 409 {\"erro\":\"Email já cadastrado.\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-013",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Erros do body-parser",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O cliente envia JSON malformado ao app abaixo (com `express.json()` e o handler central da aula). Qual é o status?\n\n```js\napp.use(express.json());\napp.post(\"/x\", (req, res) => res.status(201).json(req.body));\n// ... error handler central da aula (só trata ErroApi; o resto vira 500)\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`500`"
+   },
+   {
+    "id": "b",
+    "text": "`422`"
+   },
+   {
+    "id": "c",
+    "text": "`201`"
+   },
+   {
+    "id": "d",
+    "text": "`400`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "O `express.json()` lança um `SyntaxError` com `status = 400`, mas esse erro não é instância de `ErroApi`. O handler da aula só reconhece os próprios erros e converte o resto em 500 genérico. Para tratar corretamente, adicione um ramo: `if (erro.type === \"entity.parse.failed\") ...` ou respeite `erro.status` de erros HTTP conhecidos.",
+   "wrong": {
+    "d": "O parser lança um erro com status 400, mas como ele não é um `ErroApi`, o handler da aula o trata como inesperado (500).",
+    "c": "A rota nem é executada: o parser rejeita o corpo antes.",
+    "b": "Nenhum código 422 é produzido por esse caminho."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "error handler central: ErroApi → statusCode; qualquer outro erro → 500 genérico",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.post(\"/x\", (req, res) => res.status(201).json(req.body));\napp.use((erro, req, res, next) => {\n  if (erro instanceof ErroApi) {\n    const corpo = { erro: erro.message };\n    if (erro.campo) corpo.campo = erro.campo;\n    return res.status(erro.statusCode).json(corpo);\n  }\n  console.error(erro);\n  res.status(500).json({ erro: \"Erro interno do servidor.\" });\n});\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('POST', '/x', '{\"a\": ');\nconsole.log(r.status);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "a": "500",
+    "d": "400",
+    "c": "201",
+    "b": "422"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 500"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-014",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Promise sem await",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Uma chamada assíncrona falha, mas não é aguardada. O que o cliente recebe e quantas rejeições não tratadas ocorrem?\n\n```js\napp.get(\"/x\", async (req, res) => {\n  Promise.reject(new Error(\"falhou\")); // sem await nem return\n  res.json({ ok: true });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`500` e 0 rejeições"
+   },
+   {
+    "id": "b",
+    "text": "`500` e 1 rejeição"
+   },
+   {
+    "id": "c",
+    "text": "`200` e 1 rejeição não tratada"
+   },
+   {
+    "id": "d",
+    "text": "`200` e 0 rejeições"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "No Express 5 as rejeições são capturadas quando o handler *retorna/aguarda* a Promise. Uma Promise “solta” escapa ao Express: o cliente recebe 200 e o Node registra uma rejeição não tratada (que pode derrubar o processo em versões atuais). Sempre use `await` nas operações assíncronas.",
+   "wrong": {
+    "a": "O Express só encaminha ao handler erros *aguardados* (ou retornados) pelo handler; aqui a Promise ficou solta.",
+    "d": "A rejeição acontece e, sem tratamento, vira “unhandled rejection” do processo.",
+    "b": "A resposta já foi enviada com sucesso; o Express nunca viu o erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Express 5 e erros assíncronos (encaminha para o middleware de erro)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nlet rejeicoes = 0;\nprocess.removeAllListeners('unhandledRejection');\nprocess.on('unhandledRejection', () => { rejeicoes++; });\nconst app = express();\napp.get('/x', async (req, res) => {\n  Promise.reject(new Error('falhou'));\n  res.json({ ok: true });\n});\napp.use((erro, req, res, next) => res.status(500).json({ erro: 'tratado' }));\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst r = await fetch('http://127.0.0.1:' + srv.address().port + '/x');\nawait new Promise((r) => setTimeout(r, 50));\nconsole.log(r.status, rejeicoes);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "200 1",
+    "a": "500 0",
+    "d": "200 0",
+    "b": "500 1"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 200 1"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-015",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Aridade do middleware de erro",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O handler foi escrito com valor padrão no último parâmetro. Qual é o tipo de conteúdo da resposta de erro?\n\n```js\napp.get(\"/x\", () => {\n  throw new ErroNaoEncontrado();\n});\napp.use((erro, req, res, next = null) => {\n  res.status(erro.statusCode).json({ erro: erro.message });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhum: o servidor trava"
+   },
+   {
+    "id": "b",
+    "text": "`text/html`"
+   },
+   {
+    "id": "c",
+    "text": "`text/plain`"
+   },
+   {
+    "id": "d",
+    "text": "`application/json`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O Express decide se um middleware é de erro olhando `fn.length`. Com `next = null` o comprimento é 3 (parâmetros com padrão não contam), então o Express o trata como middleware comum e o *pula* quando há erro, caindo no tratador padrão (HTML). Mantenha exatamente quatro parâmetros simples: `(erro, req, res, next)`.",
+   "wrong": {
+    "d": "O Express identifica handlers de erro pelo `function.length` (4); parâmetros com valor padrão não entram na contagem, então este handler tem “3” parâmetros.",
+    "a": "Como o handler não é reconhecido, o tratador padrão responde.",
+    "c": "O tratador padrão do Express usa HTML."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "Middleware de erro: função com 4 parâmetros (erro, req, res, next)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/x\", () => {\n  throw new ErroNaoEncontrado();\n});\napp.use((erro, req, res, next = null) => {\n  res.status(erro.statusCode).json({ erro: erro.message });\n});\n\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(r.tipo.split(';')[0]);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "text/html",
+    "d": "application/json",
+    "a": "travou",
+    "c": "text/plain"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: text/html"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-016",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "401 versus 403",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Na hierarquia da aula, qual erro e status representam “o token é válido, mas o usuário **não tem permissão** para esta ação” (por exemplo, editar a avaliação de outra pessoa)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "`ErroNaoEncontrado` (404)"
+   },
+   {
+    "id": "b",
+    "text": "`ErroConflito` (409)"
+   },
+   {
+    "id": "c",
+    "text": "`ErroNaoAutorizado` (401)"
+   },
+   {
+    "id": "d",
+    "text": "Um novo erro com status `403`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "401 = “quem é você?” (credenciais ausentes/ inválidas); 403 = “sei quem você é, mas você não pode”. A aula implementa `ErroNaoAutorizado` (401); um `ErroProibido` com 403 seria uma extensão natural da hierarquia `ErroApi`.",
+   "wrong": {
+    "c": "401 significa “não autenticado” (token ausente/ inválido). Para “autenticado, mas sem permissão” o status adequado é 403.",
+    "b": "409 indica conflito de estado (como e-mail duplicado), não falta de permissão.",
+    "a": "404 seria usado se o recurso não existisse (ou se quiséssemos esconder sua existência)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "ErroNaoAutorizado (401) na hierarquia de erros tipados",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "README Aula 12: “ErroApi (base, com statusCode), ErroValidacao (400, com campo), ErroNaoEncontrado (404), ErroNaoAutorizado (401) e ErroConflito (409).”"
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-017",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "Handler que vaza mensagens",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um handler “preguiçoso” devolve sempre a mensagem do erro. O que o cliente vê para a rota com bug?\n\n```js\napp.get(\"/x\", () => {\n  const lugar = undefined;\n  return lugar.nome;\n});\napp.use((erro, req, res, next) => {\n  res.status(erro.statusCode || 500).json({ erro: erro.message });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`404`"
+   },
+   {
+    "id": "b",
+    "text": "`200` com corpo vazio"
+   },
+   {
+    "id": "c",
+    "text": "`500` com a mensagem do `TypeError`"
+   },
+   {
+    "id": "d",
+    "text": "`500` com `{\"erro\":\"Erro interno do servidor.\"}`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Sem o teste `erro instanceof ErroApi`, qualquer mensagem interna vai para o cliente (aqui, “Cannot read properties of undefined (reading 'nome')”). O handler da aula separa: erros *conhecidos* → mensagem própria; *inesperados* → log no servidor + mensagem genérica.",
+   "wrong": {
+    "d": "Este handler não distingue erros conhecidos de inesperados; repassa qualquer mensagem.",
+    "a": "Sem `statusCode` cai no 500 padrão.",
+    "b": "A rota lança uma exceção e o handler responde com erro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "se não é ErroApi, é inesperado: console.error e 500 genérico, sem vazar detalhes",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/x\", () => {\n  const lugar = undefined;\n  return lugar.nome;\n});\napp.use((erro, req, res, next) => {\n  res.status(erro.statusCode || 500).json({ erro: erro.message });\n});\n\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(r.status, r.texto);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "c": "500 {\"erro\":\"Cannot read properties of undefined (reading 'nome')\"}",
+    "d": "500 {\"erro\":\"Erro interno do servidor.\"}",
+    "a": "404 ",
+    "b": "200 "
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 500 {\"erro\":\"Cannot read properties of undefined (reading 'nome')\"}"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "fs-validacao-erros-018",
+  "disciplineId": "fullstack",
+  "topicId": "validacao-erros",
+  "subtopic": "statusCode indefinido",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O handler usa diretamente `erro.statusCode` para qualquer erro. Para um `Error` comum (sem esse atributo), o que acontece?\n\n```js\napp.get(\"/x\", () => {\n  throw new Error(\"falhou\");\n});\napp.use((erro, req, res, next) => {\n  res.status(erro.statusCode).json({ erro: erro.message });\n});\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Responde `404`"
+   },
+   {
+    "id": "b",
+    "text": "Falha no handler: `500` em HTML"
+   },
+   {
+    "id": "c",
+    "text": "Responde `500` em JSON com a mensagem"
+   },
+   {
+    "id": "d",
+    "text": "Responde `200` com a mensagem"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Para erros que não são `ErroApi`, `erro.statusCode` é `undefined`; chamar `res.status(undefined)` lança uma exceção dentro do próprio handler, resultando no tratador padrão (500 em HTML). Daí a necessidade do teste `instanceof ErroApi` e do ramo “inesperado → 500 genérico”.",
+   "wrong": {
+    "d": "Um status indefinido é inválido: o Express lança um erro ao usá-lo.",
+    "a": "Nada define 404 aqui.",
+    "c": "O handler quebra antes de montar o JSON, e o erro gerado cai no tratador padrão (HTML)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-12",
+    "locator": "se o erro é instância de ErroApi, use seu statusCode; senão, 500 genérico",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T01:46:10.454Z",
+  "updatedAt": "2026-10-23T01:46:56.049Z",
+  "verification": {
+   "kind": "node",
+   "params": {
+    "code": "import express from 'express';\nprocess.env.NODE_ENV = 'test';\nconsole.error = () => {}; // o registro do servidor não faz parte da saída verificada\nconst app = express();\napp.use(express.json());\nclass ErroApi extends Error {\n  constructor(mensagem, statusCode) {\n    super(mensagem);\n    this.statusCode = statusCode;\n  }\n}\nclass ErroValidacao extends ErroApi {\n  constructor(mensagem, campo) {\n    super(mensagem, 400);\n    this.campo = campo;\n  }\n}\nclass ErroNaoEncontrado extends ErroApi {\n  constructor(mensagem = \"Não encontrado.\") { super(mensagem, 404); }\n}\nclass ErroNaoAutorizado extends ErroApi {\n  constructor(mensagem = \"Não autenticado.\") { super(mensagem, 401); }\n}\nclass ErroConflito extends ErroApi {\n  constructor(mensagem = \"Conflito.\") { super(mensagem, 409); }\n}\napp.get(\"/x\", () => {\n  throw new Error(\"falhou\");\n});\napp.use((erro, req, res, next) => {\n  res.status(erro.statusCode).json({ erro: erro.message });\n});\n\nconst srv = app.listen(0, '127.0.0.1');\nawait new Promise((r) => srv.once('listening', r));\nconst url = 'http://127.0.0.1:' + srv.address().port;\nconst req = async (metodo, caminho, corpo, tipo = 'application/json') => {\n  const r = await fetch(url + caminho, { method: metodo, headers: corpo !== undefined ? { 'content-type': tipo } : {}, body: corpo === undefined ? undefined : typeof corpo === 'string' ? corpo : JSON.stringify(corpo) });\n  return { status: r.status, texto: await r.text(), tipo: r.headers.get('content-type') || '' };\n};\nconst r = await req('GET', '/x');\nconsole.log(r.status, r.tipo.split(';')[0]);\nsrv.close();\nprocess.exit(0);"
+   },
+   "optionValues": {
+    "b": "500 text/html",
+    "d": "200 application/json",
+    "a": "404 application/json",
+    "c": "500 application/json"
+   },
+   "result": {
+    "ok": true,
+    "method": "node-exec (--permission, sandbox)",
+    "ranAt": "2026-10-23T01:46:52.049Z",
+    "details": "saída: 500 text/html"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T01:46:56.049Z",
+   "notes": "Validação/erros: app Express 5 com classes e error handler da aula executado; 401×403 apoiado só no README (hierarquia) e no significado padrão de HTTP",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

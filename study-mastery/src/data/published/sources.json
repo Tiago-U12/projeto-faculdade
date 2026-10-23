@@ -1,0 +1,192 @@
+[
+ {
+  "id": "c2-lhopital-slides",
+  "title": "Regra de L'Hôpital (slides, 18 pp.)",
+  "kind": "aula-pdf",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-lhopital-lista",
+  "title": "Lista de Exercícios · Regra de L'Hôpital (8 limites)",
+  "kind": "lista",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-integral-riemann-slides",
+  "title": "Integral de Riemann, propriedades, TFC e mudança de variável (slides, 10 pp.)",
+  "kind": "aula-pdf",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-lista-def-basica",
+  "title": "Lista de Exercícios — Integrais Definidas (28 itens), 28/09/2026",
+  "kind": "lista",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-lista-subst",
+  "title": "Lista de Exercícios — Integrais por substituição (itens a–k), 28/09/2026",
+  "kind": "lista",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-taylor-slides",
+  "title": "Polinômio de Taylor (slides, 15 pp.)",
+  "kind": "aula-pdf",
+  "author": "Profa. Paula Astorino",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-taylor-lista",
+  "title": "2ª Lista: Teorema de Taylor — MacLaurin",
+  "kind": "lista",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-derivadas-slides",
+  "title": "Aula 0-1: Revisão de Derivadas — Regras de Derivação (slides)",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-derivadas-lista",
+  "title": "Lista 0-1: Derivadas — Regras de Derivação",
+  "kind": "lista",
+  "author": "Profa. Dra. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-derivadas-tabela",
+  "title": "Aula 0-1 — Tabela de Derivadas",
+  "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-maxmin-a3",
+  "title": "Aula 3: A Derivada e o Comportamento de uma Função — Máximos e Mínimos",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-maxmin-a4",
+  "title": "Aula 4: A Derivada e o Comportamento de uma Função — Máximos e Mínimos (parte 2)",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-f2v-intro",
+  "title": "Aula 12: Funções de Várias Variáveis — introdução",
+  "kind": "aula-pdf",
+  "author": "Profa. Cristina Leite",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "c2-programa",
+  "title": "TOP Cálculo II CCOMP (ementa, conteúdo programático e bibliografia)",
+  "kind": "programa",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-01",
+  "title": "Aula 01 — HTML semântico com Emmet (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-02",
+  "title": "Aula 02 — CSS: Flexbox, Grid e mobile-first (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-03",
+  "title": "Aula 03 — Funções utilitárias sobre avaliações (JavaScript puro) (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-04",
+  "title": "Aula 04 — Fetch de dados mockados (Promises, CORS) (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-05",
+  "title": "Aula 05 — Classes de modelo com validação e erro customizado (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-06",
+  "title": "Aula 06 — Componentes React: LugarCard, ListaLugares, Estrelas (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-07",
+  "title": "Aula 07 — Formulário controlado + useEffect (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-08",
+  "title": "Aula 08 — React Router: Home, Detalhe e NotFound (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-09",
+  "title": "Aula 09 — API Express em memória (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-10",
+  "title": "Aula 10 — Persistência real em MySQL (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-11",
+  "title": "Aula 11 — Autenticação com JWT e bcrypt (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-12",
+  "title": "Aula 12 — Validação centralizada + error handler (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-aula-13",
+  "title": "Aula 13 — Deploy: Render + MySQL gerenciado + Netlify (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-apostila-01-02",
+  "title": "Apostila Aulas 01–02: HTML, Emmet e CSS (15 pp.)",
+  "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-slides-aula01",
+  "title": "Slides Aula 01: HTML Semântico e Emmet (31 pp.)",
+  "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-slides-aula02",
+  "title": "Slides Aula 02: CSS Flexbox e Grid (25 pp.)",
+  "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ }
+]

@@ -1,0 +1,3606 @@
+[
+ {
+  "id": "c2-integral-definida-001",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Cálculo direto",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\int_{0}^{1}(x+3)\\,dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac72$"
+   },
+   {
+    "id": "d",
+    "text": "$4$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Uma primitiva de $x+3$ é $F(x)=\\dfrac{x^2}{2}+3x$. Pelo TFC (parte 2): $F(1)-F(0)=\\dfrac12+3-0=\\dfrac72$.",
+   "steps": [
+    "Primitiva: $F(x)=\\dfrac{x^{2}}{2}+3x$.",
+    "$F(1)=\\dfrac12+3=\\dfrac72$.",
+    "$F(0)=0$ ⇒ $\\dfrac72-0=\\dfrac72$."
+   ],
+   "wrong": {
+    "a": "Esqueceu a contribuição do termo $x$: $\\int_0^1x\\,dx=\\frac12$.",
+    "d": "Substituiu apenas o limite superior em $x+3$ ($1+3$): isso não é integrar.",
+    "b": "Integrou só o termo $x$ e ignorou a constante $3$, cuja integral em $[0,1]$ vale $3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 1",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 2: cálculo pela primitiva)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x+3",
+    "var": "x",
+    "a": "0",
+    "b": "1"
+   },
+   "optionValues": {
+    "c": "7/2",
+    "a": "3",
+    "d": "4",
+    "b": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 7/2 ≈ 3.50000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-002",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Cálculo direto",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-1}^{1}(2x+1)\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$F(x)=x^2+x$. $F(1)=2$ e $F(-1)=1-1=0$, logo $F(1)-F(-1)=2$. (O termo $2x$ é ímpar e contribui $0$; a constante $1$ sobre largura $2$ contribui $2$.)",
+   "steps": [
+    "$F(x)=x^{2}+x$.",
+    "$F(1)=2$ e $F(-1)=0$.",
+    "$F(1)-F(-1)=2$."
+   ],
+   "wrong": {
+    "d": "O termo $2x$ se cancela por simetria, mas a constante $1$ integra para $2$ em $[-1,1]$.",
+    "c": "A constante $1$ sobre um intervalo de largura $2$ contribui $2$ (e não $1$); o termo $2x$ contribui $0$.",
+    "b": "Somou $F(1)=2$ com $F(-1)=0$ e dobrou; o correto é a diferença $F(1)-F(-1)=2-0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 2",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "2*x+1",
+    "var": "x",
+    "a": "-1",
+    "b": "1"
+   },
+   "optionValues": {
+    "a": "2",
+    "d": "0",
+    "c": "1",
+    "b": "4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 2 ≈ 2.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-003",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Interpretação geométrica",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A integral $\\displaystyle\\int_{0}^{4}\\frac12\\,dx$ pode ser vista como a área de qual figura, e qual é o valor?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Um quadrado de lado $4$; valor $16$"
+   },
+   {
+    "id": "b",
+    "text": "Um retângulo de base $\\frac12$ e altura $1$; valor $\\frac12$"
+   },
+   {
+    "id": "c",
+    "text": "Um triângulo de base $4$ e altura $\\frac12$; valor $1$"
+   },
+   {
+    "id": "d",
+    "text": "Um retângulo de base $4$ e altura $\\frac12$; valor $2$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O gráfico de $f(x)=\\frac12$ é uma reta horizontal; a região sob ele em $[0,4]$ é um retângulo de base $4$ e altura $\\frac12$. A área é $4\\cdot\\frac12=2$, que coincide com $\\left[\\frac x2\\right]_0^4=2$.",
+   "steps": [
+    "Base: $4-0=4$.",
+    "Altura: $f(x)=\\frac12$.",
+    "Área $=4\\cdot\\dfrac12=2$."
+   ],
+   "wrong": {
+    "c": "A função é constante, então o gráfico é uma reta horizontal e a região sob ela é um retângulo, não um triângulo.",
+    "a": "A altura da região é $\\frac12$ (valor da função), e não $4$.",
+    "b": "O intervalo de integração é $[0,4]$ (base $4$), e $\\frac12$ é a altura."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 3",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 4 (integral como área sob o gráfico)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "1/2",
+    "var": "x",
+    "a": "0",
+    "b": "4"
+   },
+   "optionValues": {
+    "d": "2",
+    "c": "1",
+    "a": "16",
+    "b": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 2.00000000000000 ≈ 2.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-004",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Integral zero ≠ área zero",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-2}^{1}\\left(x^{2}-1\\right)dx$ e responda: o resultado ser $0$ significa que a região entre a curva e o eixo $x$ tem área zero?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O valor é $-2$ e a área também"
+   },
+   {
+    "id": "b",
+    "text": "O valor é $0$ e a área é zero, pois a região desaparece"
+   },
+   {
+    "id": "c",
+    "text": "O valor é $\\dfrac{2}{3}$ e a área é $\\dfrac{2}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "O valor é $0$, mas a área não é zero: há partes acima e abaixo do eixo que se cancelam"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$F(x)=\\dfrac{x^3}{3}-x$. $F(1)=-\\dfrac23$ e $F(-2)=-\\dfrac83+2=-\\dfrac23$. Logo $\\int_{-2}^1(x^2-1)\\,dx=0$. A integral é uma área **com sinal**: em $[-2,-1]$ a curva está acima do eixo e em $[-1,1]$, abaixo; as contribuições se cancelam, mas a área geométrica total é positiva.",
+   "steps": [
+    "$F(x)=\\dfrac{x^{3}}{3}-x$.",
+    "$F(1)=-\\dfrac23$ e $F(-2)=-\\dfrac83+2=-\\dfrac23$.",
+    "$F(1)-F(-2)=0$ (área com sinal)."
+   ],
+   "wrong": {
+    "b": "A região existe (a parábola cruza o eixo em $x=\\pm1$); a integral soma áreas com sinal, por isso o resultado pode ser $0$.",
+    "a": "$F(x)=\\frac{x^3}{3}-x$ dá $F(1)=-\\frac23$ e $F(-2)=-\\frac23$: a diferença é $0$.",
+    "c": "Ao avaliar $F(1)-F(-2)$ obtém-se $0$; o $\\frac23$ aparece apenas como o valor da primitiva em cada limite."
+   },
+   "commonMistakes": [
+    "Confundir integral definida (área com sinal) com área geométrica."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 4",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 4 e 7",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(x**2-1,(x,-2,1))",
+    "numeric": "0"
+   },
+   "optionValues": {
+    "d": "0",
+    "b": "'wrong'",
+    "a": "-2",
+    "c": "2/3"
+   },
+   "claims": [
+    "Slide 4: a integral de Riemann é o limite das somas — uma área com sinal (partes abaixo do eixo contribuem negativamente)."
+   ],
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 0; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-005",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Potência negativa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{1}^{3}\\frac{1}{x^{3}}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\ln 3$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac49$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{18}$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac49$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$F(x)=\\dfrac{x^{-2}}{-2}=-\\dfrac{1}{2x^2}$. $F(3)-F(1)=-\\dfrac1{18}+\\dfrac12=\\dfrac{9-1}{18}=\\dfrac49$.",
+   "steps": [
+    "$F(x)=-\\dfrac{1}{2x^{2}}$.",
+    "$F(3)=-\\dfrac{1}{18}$ e $F(1)=-\\dfrac12$.",
+    "$F(3)-F(1)=\\dfrac{4}{9}$."
+   ],
+   "wrong": {
+    "d": "A primitiva $-\\frac{1}{2x^2}$ é negativa, mas ao calcular $F(3)-F(1)=-\\frac1{18}+\\frac12$ o resultado é positivo.",
+    "c": "Só o termo do limite superior foi usado; falta somar $+\\frac12$ do limite inferior.",
+    "a": "$\\ln$ é a primitiva de $x^{-1}$; aqui o expoente é $-3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 7",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "1/x**3",
+    "var": "x",
+    "a": "1",
+    "b": "3"
+   },
+   "optionValues": {
+    "b": "4/9",
+    "d": "-4/9",
+    "c": "1/18",
+    "a": "log(3)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 4/9 ≈ 0.444444444444; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-006",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Polinômio",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int_{0}^{2}\\left(x^{2}+3x-3\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac83$"
+   },
+   {
+    "id": "b",
+    "text": "$8$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\dfrac83$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{14}{3}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$F(x)=\\dfrac{x^3}{3}+\\dfrac{3x^2}{2}-3x$. $F(2)=\\dfrac83+6-6=\\dfrac83$ e $F(0)=0$. Logo $\\dfrac83$.",
+   "steps": [
+    "$F(x)=\\dfrac{x^{3}}{3}+\\dfrac{3x^{2}}{2}-3x$.",
+    "$F(2)=\\dfrac83+6-6=\\dfrac83$.",
+    "$F(0)=0$."
+   ],
+   "wrong": {
+    "d": "Esqueceu o termo constante $-3$ (que contribui $-6$ em $[0,2]$).",
+    "c": "O sinal global está trocado: o valor é positivo.",
+    "b": "Não dividiu pelos novos expoentes ao integrar $x^2$ e $3x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 9",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**2+3*x-3",
+    "var": "x",
+    "a": "0",
+    "b": "2"
+   },
+   "optionValues": {
+    "a": "8/3",
+    "d": "14/3",
+    "c": "-8/3",
+    "b": "8"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 8/3 ≈ 2.66666666667; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-007",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Orientação dos limites",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Quanto vale $\\displaystyle\\int_{1}^{0}(2x+3)\\,dx$? (Atenção: o limite inferior é maior que o superior.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-4$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$-3$"
+   },
+   {
+    "id": "d",
+    "text": "$4$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Pela propriedade de orientação, $\\displaystyle\\int_1^0f=-\\int_0^1f$. Como $\\displaystyle\\int_0^1(2x+3)\\,dx=\\left[x^2+3x\\right]_0^1=4$, resulta $-4$. Já $\\displaystyle\\int_1^1(2x+3)\\,dx=0$.",
+   "steps": [
+    "$F(x)=x^{2}+3x$.",
+    "$\\int_{1}^{0}=F(0)-F(1)=0-4$.",
+    "$=-4$."
+   ],
+   "wrong": {
+    "d": "Trocar a ordem dos limites troca o sinal: $\\int_1^0=-\\int_0^1$.",
+    "b": "Só vale $0$ quando os limites são iguais ($\\int_1^1$), e não quando são invertidos.",
+    "c": "Considerou só a constante $3$ (esqueceu o termo $2x$) e aplicou a inversão de sinal: o valor correto é $-(1+3)=-4$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "itens 11 e 12",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (propriedades)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "2*x+3",
+    "var": "x",
+    "a": "1",
+    "b": "0"
+   },
+   "optionValues": {
+    "a": "-4",
+    "d": "4",
+    "b": "0",
+    "c": "-3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = -4 ≈ -4.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-008",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Raiz",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{0}^{4}\\sqrt{x}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{8}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{16}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{32}{3}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$F(x)=\\dfrac23x^{3/2}$. $F(4)=\\dfrac23\\cdot8=\\dfrac{16}3$ e $F(0)=0$. Portanto $\\dfrac{16}{3}$.",
+   "steps": [
+    "$F(x)=\\dfrac23x^{3/2}$.",
+    "$F(4)=\\dfrac23\\cdot8=\\dfrac{16}{3}$.",
+    "$F(0)=0$."
+   ],
+   "wrong": {
+    "a": "Usou $\\frac23\\cdot4=\\frac83$: esqueceu que o expoente é $\\frac32$ e que $4^{3/2}=8$.",
+    "c": "Substituiu $x=4$ em $\\sqrt x$ sem integrar.",
+    "d": "Multiplicou por $2$ a mais: $4^{3/2}=8$ e o coeficiente é $\\frac23$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 14",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "sqrt(x)",
+    "var": "x",
+    "a": "0",
+    "b": "4"
+   },
+   "optionValues": {
+    "b": "16/3",
+    "a": "8/3",
+    "c": "2",
+    "d": "32/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 16/3 ≈ 5.33333333333; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-009",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Raiz no denominador",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{1}^{4}\\frac{1}{\\sqrt{x}}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "c",
+    "text": "$\\ln 4$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{3}{2}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\dfrac1{\\sqrt x}=x^{-1/2}$, com primitiva $F(x)=2\\sqrt x$. $F(4)-F(1)=4-2=2$.",
+   "steps": [
+    "$F(x)=2\\sqrt{x}$.",
+    "$F(4)=4$ e $F(1)=2$.",
+    "$4-2=2$."
+   ],
+   "wrong": {
+    "b": "$\\frac{1}{\\sqrt4}=\\frac12$ é o valor do integrando em $x=4$; isso não é a integral.",
+    "c": "$\\ln$ é a primitiva de $x^{-1}$; aqui o expoente é $-\\frac12$.",
+    "d": "Subtraiu os valores do integrando ($1-\\frac12$) em vez dos da primitiva $2\\sqrt x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 15",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "1/sqrt(x)",
+    "var": "x",
+    "a": "1",
+    "b": "4"
+   },
+   "optionValues": {
+    "a": "2",
+    "b": "1/2",
+    "c": "log(4)",
+    "d": "3/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 2 ≈ 2.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-010",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Função ímpar",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Sem calcular a primitiva, qual é o valor de $\\displaystyle\\int_{-3}^{3}x^{3}\\,dx$? Dica: $f(x)=x^{3}$ é uma função ímpar.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$81$, pois $3^4=81$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{81}{2}$, o dobro de $\\int_0^3x^3dx$"
+   },
+   {
+    "id": "c",
+    "text": "$0$, pois a parte negativa cancela a positiva"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{81}{4}$, como em $[0,3]$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Para $f$ ímpar, $f(-x)=-f(x)$, e $\\displaystyle\\int_{-a}^af=0$. Conferindo: $F(x)=\\dfrac{x^4}{4}$ é par, logo $F(3)-F(-3)=\\dfrac{81}4-\\dfrac{81}4=0$.",
+   "steps": [
+    "$f(x)=x^{3}$ é ímpar.",
+    "$F(x)=\\dfrac{x^{4}}{4}$ é par ⇒ $F(3)=F(-3)$.",
+    "$F(3)-F(-3)=0$."
+   ],
+   "wrong": {
+    "b": "O dobro só vale para funções **pares**; $x^3$ é ímpar e as contribuições se cancelam.",
+    "d": "$\\frac{81}{4}$ é o valor de $\\int_0^3x^3dx$, mas o intervalo $[-3,0]$ contribui com o oposto.",
+    "a": "$3^4=81$ é parte da conta de $\\frac{x^4}{4}$; a primitiva é par e $F(3)-F(-3)=0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 22",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**3",
+    "var": "x",
+    "a": "-3",
+    "b": "3"
+   },
+   "optionValues": {
+    "c": "0",
+    "b": "81/2",
+    "d": "81/4",
+    "a": "81"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 0 ≈ 0; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-011",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Constante somada a 1/x²",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{1}^{3}\\left(5+\\frac{1}{x^{2}}\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{28}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{10}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$10$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{32}{3}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$F(x)=5x-\\dfrac1x$. $F(3)=15-\\dfrac13=\\dfrac{44}{3}$ e $F(1)=5-1=4=\\dfrac{12}{3}$. Logo $F(3)-F(1)=\\dfrac{32}{3}$.",
+   "steps": [
+    "$F(x)=5x-\\dfrac{1}{x}$.",
+    "$F(3)=15-\\dfrac13=\\dfrac{44}{3}$; $F(1)=4$.",
+    "$\\dfrac{44}{3}-4=\\dfrac{32}{3}$."
+   ],
+   "wrong": {
+    "a": "Errou o sinal da parte $\\int_1^3x^{-2}dx=+\\frac23$: usar $-\\frac23$ dá $10-\\frac23=\\frac{28}{3}$.",
+    "c": "Só a constante $5$ foi integrada; falta a parte $\\int_1^3x^{-2}dx=\\frac23$.",
+    "b": "Dividiu o valor total por $3$ sem razão: integrar não envolve esse fator."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 21",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.028Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "5+1/x**2",
+    "var": "x",
+    "a": "1",
+    "b": "3"
+   },
+   "optionValues": {
+    "d": "32/3",
+    "a": "28/3",
+    "c": "10",
+    "b": "10/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 32/3 ≈ 10.6666666667; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-012",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Soma de Riemann: vocabulário",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em uma soma de Riemann sobre $[a,b]$, o que é a *norma* $\\|P\\|$ de uma partição $P$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A largura do maior subintervalo da partição"
+   },
+   {
+    "id": "b",
+    "text": "O número de subintervalos da partição"
+   },
+   {
+    "id": "c",
+    "text": "A soma das áreas de todos os retângulos"
+   },
+   {
+    "id": "d",
+    "text": "O valor da função no ponto escolhido em cada subintervalo"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Uma partição $P$ divide $[a,b]$ em subintervalos $[x_{i-1},x_i]$; a **norma** $\\|P\\|$ é a largura do maior deles e mede o quão “grossa” é a partição. Quanto menor $\\|P\\|$, mais fina a partição e menor o erro entre a soma e a área.",
+   "wrong": {
+    "b": "O número de subintervalos é $n$; a norma mede o tamanho dos subintervalos, e não a quantidade.",
+    "d": "Esse valor é $f(t_i)$ (altura do retângulo), associado ao ponto $t_i$ escolhido.",
+    "c": "Essa é a própria soma de Riemann, não a norma."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 3 (Soma de Riemann — definição)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 3: “Norma ‖P‖: a largura do maior subintervalo — mede o quão ‘grossa’ é a partição”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-013",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Soma de Riemann: ideia",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A integral de Riemann de $f$ em $[a,b]$ é obtida como:",
+  "options": [
+   {
+    "id": "a",
+    "text": "O produto $f(b)\\cdot(b-a)$"
+   },
+   {
+    "id": "b",
+    "text": "A derivada de $f$ avaliada em $b$"
+   },
+   {
+    "id": "c",
+    "text": "O limite das somas de Riemann quando a partição se torna cada vez mais fina"
+   },
+   {
+    "id": "d",
+    "text": "A média dos valores de $f$ nos extremos $a$ e $b$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Divide-se $[a,b]$ em subintervalos, escolhe-se um ponto em cada um e somam-se as áreas dos retângulos $f(t_i)\\,\\Delta x_i$. Quando a partição se afina, essa soma se aproxima da área sob o gráfico — o limite é a integral de Riemann.",
+   "wrong": {
+    "d": "$\\frac{f(a)+f(b)}{2}$ é uma estimativa grosseira (um único trapézio), não a definição.",
+    "a": "Isso é a área de um único retângulo de altura $f(b)$; só é exata se $f$ for constante.",
+    "b": "A derivada mede taxa de variação, e não área acumulada."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 3–4 (definição e intuição)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 4: “É o limite da soma de Riemann quando a partição se afina cada vez mais”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-014",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Soma de Riemann à esquerda",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{2}$ em $[0,2]$, calcule a soma de Riemann **à esquerda** com $n=4$ subintervalos de mesma largura.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{8}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{21}{8}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{15}{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac74$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\Delta x=\\dfrac{2-0}{4}=\\dfrac12$. Pontos da esquerda: $0,\\ \\dfrac12,\\ 1,\\ \\dfrac32$. Soma: $\\dfrac12\\left(0+\\dfrac14+1+\\dfrac94\\right)=\\dfrac12\\cdot\\dfrac{7}{2}=\\dfrac74$. Como $x^2$ é crescente, a soma à esquerda **subestima** a integral exata $\\dfrac83$.",
+   "steps": [
+    "$\\Delta x=\\dfrac{2}{4}=\\dfrac12$.",
+    "Pontos: $x=0,\\ \\tfrac12,\\ 1,\\ \\tfrac32$ ⇒ $f=0,\\ \\tfrac14,\\ 1,\\ \\tfrac94$.",
+    "Soma: $\\dfrac12\\cdot\\dfrac72=\\dfrac74$."
+   ],
+   "wrong": {
+    "c": "É a soma à **direita** (pontos $\\frac12,1,\\frac32,2$); à esquerda os pontos são $0,\\frac12,1,\\frac32$.",
+    "b": "É a soma com pontos **médios** ($\\frac14,\\frac34,\\frac54,\\frac74$); o enunciado pede os pontos da esquerda.",
+    "a": "É o valor **exato** da integral $\\int_0^2x^2dx$, e não da soma à esquerda com $n=4$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 3 (partição, pontos e soma)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sum([(k*Rational(1,2))**2*Rational(1,2) for k in range(4)])",
+    "numeric": "0.5*(0+0.25+1+2.25)"
+   },
+   "optionValues": {
+    "d": "7/4",
+    "c": "15/4",
+    "b": "21/8",
+    "a": "8/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 7/4; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-015",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Soma de Riemann à direita",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x$ em $[0,1]$, a soma de Riemann à direita com $n=4$ vale $\\dfrac58$, enquanto a integral exata é $\\dfrac12$. Por que a soma à direita **superestima** a área aqui?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Porque $f$ é crescente: à direita de cada subintervalo ela atinge o maior valor"
+   },
+   {
+    "id": "b",
+    "text": "Porque $f$ é decrescente: o valor à direita é o maior"
+   },
+   {
+    "id": "c",
+    "text": "Porque $n=4$ é par"
+   },
+   {
+    "id": "d",
+    "text": "Porque a soma à direita sempre superestima, seja qual for $f$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Largura $\\dfrac14$; alturas à direita: $\\dfrac14,\\dfrac12,\\dfrac34,1$. Soma: $\\dfrac14\\cdot\\dfrac{10}4=\\dfrac58>\\dfrac12$. Em função crescente, o extremo direito de cada subintervalo tem o maior valor, então os retângulos excedem a área. O erro diminui quando $n$ cresce (partição mais fina).",
+   "steps": [
+    "$\\Delta x=\\dfrac14$; alturas: $\\frac14,\\frac12,\\frac34,1$.",
+    "Soma: $\\dfrac14\\left(\\tfrac14+\\tfrac12+\\tfrac34+1\\right)=\\dfrac58$.",
+    "Compare com $\\int_0^1x\\,dx=\\dfrac12$: $\\dfrac58>\\dfrac12$."
+   ],
+   "wrong": {
+    "b": "$f(x)=x$ cresce; em função decrescente seria a soma à esquerda a que superestima.",
+    "d": "O erro depende da monotonia de $f$: para $f$ decrescente, a soma à direita **subestima**.",
+    "c": "A paridade de $n$ não influencia: o que importa é onde o ponto é escolhido e como $f$ varia."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 4 (quanto mais fina a partição, menor o erro)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "(sum([Rational(k,4)*Rational(1,4) for k in range(1,5)]), integrate(x,(x,0,1)))",
+    "numeric": "(0.25*(0.25+0.5+0.75+1.0), 0.5)"
+   },
+   "optionValues": {
+    "a": "(5/8, 1/2)",
+    "b": "'wrong'",
+    "d": "'wrong2'",
+    "c": "'wrong3'"
+   },
+   "claims": [
+    "Para f crescente, f(extremo direito) ≥ f(ponto do subintervalo): a soma à direita é um limite superior da integral."
+   ],
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = (5/8, 1/2); checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-016",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Linearidade",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Sabendo que $\\displaystyle\\int_{0}^{2}f(x)\\,dx=3$ e $\\displaystyle\\int_{0}^{2}g(x)\\,dx=-1$, calcule $\\displaystyle\\int_{0}^{2}\\bigl(2f(x)-3g(x)\\bigr)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$9$"
+   },
+   {
+    "id": "c",
+    "text": "$5$"
+   },
+   {
+    "id": "d",
+    "text": "$7$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Pela linearidade: $\\displaystyle\\int(2f-3g)=2\\int f-3\\int g=2\\cdot3-3\\cdot(-1)=6+3=9$. Constantes saem da integral e a integral da soma é a soma das integrais.",
+   "steps": [
+    "$\\int(2f-3g)=2\\int f-3\\int g$.",
+    "$=2\\cdot3-3\\cdot(-1)$.",
+    "$=6+3=9$."
+   ],
+   "wrong": {
+    "d": "Esqueceu o coeficiente $3$ de $g$: $2\\cdot3-(-1)=7$; o correto é $2\\cdot3-3\\cdot(-1)=9$.",
+    "a": "Errou o sinal de $g$: $6-3=3$; como $\\int g=-1$, o termo $-3\\int g$ vale $+3$.",
+    "c": "Perdeu o sinal de $\\int g$ (usou $+1$): $6-1=5$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (Linearidade)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "2*3-3*(-1)",
+    "numeric": "6+3"
+   },
+   "optionValues": {
+    "b": "9",
+    "d": "7",
+    "a": "3",
+    "c": "5"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 9; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-017",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Aditividade",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Se $\\displaystyle\\int_{0}^{5}f(x)\\,dx=7$ e $\\displaystyle\\int_{0}^{2}f(x)\\,dx=3$, quanto vale $\\displaystyle\\int_{5}^{2}f(x)\\,dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-4$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$10$"
+   },
+   {
+    "id": "d",
+    "text": "$-10$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Aditividade: $\\displaystyle\\int_0^5f=\\int_0^2f+\\int_2^5f$, logo $\\displaystyle\\int_2^5f=7-3=4$. Com os limites invertidos: $\\displaystyle\\int_5^2f=-\\int_2^5f=-4$.",
+   "steps": [
+    "$\\int_{2}^{5}f=\\int_{0}^{5}f-\\int_{0}^{2}f=7-3=4$.",
+    "$\\int_{5}^{2}f=-\\int_{2}^{5}f$.",
+    "$=-4$."
+   ],
+   "wrong": {
+    "b": "$\\int_2^5f=7-3=4$, mas aqui o intervalo está de $5$ para $2$ (orientação invertida), então o sinal muda.",
+    "c": "Somou em vez de subtrair: a aditividade dá $\\int_0^5=\\int_0^2+\\int_2^5$.",
+    "d": "Mesmo erro de somar os valores, com sinal trocado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (Aditividade em intervalos)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "-(7-3)",
+    "numeric": "-4"
+   },
+   "optionValues": {
+    "a": "-4",
+    "b": "4",
+    "c": "10",
+    "d": "-10"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = -4; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-018",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Monotonicidade",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Pela monotonicidade da integral (se $f\\le g$ em $[a,b]$, então $\\int_a^bf\\le\\int_a^bg$), qual das afirmações a seguir é **verdadeira**?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\displaystyle\\int_{0}^{1}x^{3}\\,dx\\ge\\int_{0}^{1}x^{2}\\,dx$"
+   },
+   {
+    "id": "b",
+    "text": "$\\displaystyle\\int_{0}^{1}x\\,dx\\le\\int_{0}^{1}x^{2}\\,dx$"
+   },
+   {
+    "id": "c",
+    "text": "$\\displaystyle\\int_{1}^{2}\\frac{1}{x}\\,dx\\ge\\int_{1}^{2}1\\,dx$"
+   },
+   {
+    "id": "d",
+    "text": "$\\displaystyle\\int_{0}^{1}x^{2}\\,dx\\le\\int_{0}^{1}x\\,dx$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Em $[0,1]$ vale $x^2\\le x$ (pois $0\\le x\\le1$). Pela monotonicidade, $\\int_0^1x^2\\,dx\\le\\int_0^1x\\,dx$, isto é, $\\frac13\\le\\frac12$ ✔. Nas demais, a desigualdade das integrais está invertida em relação à das funções.",
+   "steps": [
+    "Em $[0,1]$: $x^{2}\\le x$.",
+    "Logo $\\int_{0}^{1}x^{2}dx\\le\\int_{0}^{1}x\\,dx$.",
+    "Conferindo: $\\frac13\\le\\frac12$."
+   ],
+   "wrong": {
+    "a": "Em $[0,1]$ vale $x^3\\le x^2$, então a desigualdade correta é $\\int x^3\\le\\int x^2$ (aqui está invertida).",
+    "b": "Em $[0,1]$, $x^2\\le x$; a desigualdade está invertida ($\\frac12>\\frac13$).",
+    "c": "Em $[1,2]$, $\\frac1x\\le1$, então $\\int\\frac1x\\le\\int1$; a desigualdade está invertida."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (Monotonicidade)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "target": "v",
+    "perOption": {
+     "d": {
+      "expr": "'v' if integrate(x**2,(x,0,1)) <= integrate(x,(x,0,1)) else 'f'",
+      "numeric": "'v' if 1/3 <= 1/2 else 'f'"
+     },
+     "a": {
+      "expr": "'v' if integrate(x**3,(x,0,1)) >= integrate(x**2,(x,0,1)) else 'f'",
+      "numeric": "'v' if 1/4 >= 1/3 else 'f'"
+     },
+     "b": {
+      "expr": "'v' if integrate(x,(x,0,1)) <= integrate(x**2,(x,0,1)) else 'f'",
+      "numeric": "'v' if 1/2 <= 1/3 else 'f'"
+     },
+     "c": {
+      "expr": "'v' if integrate(1/x,(x,1,2)) >= integrate(1,(x,1,2)) else 'f'",
+      "numeric": "'v' if 0.6931 >= 1 else 'f'"
+     }
+    }
+   },
+   "optionValues": {
+    "d": "v",
+    "a": "f",
+    "b": "f",
+    "c": "f"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "d:valor=v; a:valor=f; b:valor=f; c:valor=f"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-019",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Área sob a curva",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é a área da região limitada pelo gráfico de $y=x^{2}$, pelo eixo $x$ e pelas retas $x=0$ e $x=3$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{27}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$9$"
+   },
+   {
+    "id": "d",
+    "text": "$27$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Como $x^2\\ge0$, a área é $\\displaystyle\\int_0^3x^2dx=\\dfrac{x^3}{3}\\Big|_0^3=\\dfrac{27}{3}=9$.",
+   "steps": [
+    "$f(x)=x^{2}\\ge0$ em $[0,3]$.",
+    "$F(x)=\\dfrac{x^{3}}{3}$.",
+    "$F(3)-F(0)=9$."
+   ],
+   "wrong": {
+    "d": "$27=3^3$ é o valor de $x^3$ em $x=3$; falta dividir por $3$: $F(3)=\\frac{27}{3}$.",
+    "a": "Calculou apenas $\\frac{x^2}{\\,3\\,}$ ao invés de $\\frac{x^3}{3}$.",
+    "b": "Dividiu por $2$ (como em $\\frac{x^2}{2}$) em vez de $3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 4 (área sob o gráfico)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 4 (mesma técnica)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**2",
+    "var": "x",
+    "a": "0",
+    "b": "3"
+   },
+   "optionValues": {
+    "c": "9",
+    "d": "27",
+    "a": "3",
+    "b": "27/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 9 ≈ 9.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-020",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Logaritmo",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{1}^{e}\\frac{1}{x}\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{e}$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$e-1$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A primitiva de $\\dfrac1x$ é $\\ln x$ (para $x>0$). Pelo Teorema Fundamental, a integral vale $\\ln e-\\ln1=1-0=1$.",
+   "steps": [
+    "$F(x)=\\ln x$.",
+    "$F(e)=1$ e $F(1)=0$.",
+    "$1-0=1$."
+   ],
+   "wrong": {
+    "c": "Integrou $1$ em vez de $\\frac1x$: a primitiva de $\\frac1x$ é $\\ln x$.",
+    "a": "$\\frac1e$ é o valor do integrando em $x=e$; falta integrar.",
+    "b": "$\\ln1=0$ é só o valor no limite inferior; no superior $\\ln e=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 2)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "1/x",
+    "var": "x",
+    "a": "1",
+    "b": "E"
+   },
+   "optionValues": {
+    "d": "1",
+    "c": "E-1",
+    "a": "1/E",
+    "b": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 1 ≈ 1.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-021",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "TFC — parte 1",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $G(x)=\\displaystyle\\int_{0}^{x}\\left(t^{2}+1\\right)dt$. Pela parte 1 do Teorema Fundamental do Cálculo, qual é o valor de $G'(2)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$5$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{14}{3}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A parte 1 do TFC afirma que, se $f$ é contínua, $G(x)=\\int_a^xf(t)\\,dt$ é derivável e $G'(x)=f(x)$. Aqui $G'(x)=x^2+1$, então $G'(2)=2^2+1=5$.",
+   "steps": [
+    "TFC-1: $G'(x)=f(x)=x^{2}+1$.",
+    "$G'(2)=4+1=5$."
+   ],
+   "wrong": {
+    "d": "É o valor de $G(2)=\\frac83+2=\\frac{14}{3}$, e não de $G'(2)$.",
+    "b": "Usou $f(2)=2^2$ e esqueceu o termo $+1$ do integrando.",
+    "a": "Derivou $x^2+1$ de forma errada ($2x$ em $x=2$ seria $4$); o TFC diz $G'(x)=f(x)=x^2+1$."
+   },
+   "commonMistakes": [
+    "Calcular $G(2)$ em vez de $G'(2)$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 1 — a derivada da acumulada)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(diff(integrate(t**2+1,(t,0,x)),x),x,2)",
+    "numeric": "2**2+1"
+   },
+   "optionValues": {
+    "c": "5",
+    "d": "14/3",
+    "b": "4",
+    "a": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 5; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-022",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Trigonométrica",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{0}^{\\pi}\\sin x\\,dx$ (a área sob um “arco” do seno).",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-2$"
+   },
+   {
+    "id": "b",
+    "text": "$2$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$F(x)=-\\cos x$. $F(\\pi)=-\\cos\\pi=1$ e $F(0)=-\\cos0=-1$. Logo $F(\\pi)-F(0)=1-(-1)=2$.",
+   "steps": [
+    "$F(x)=-\\cos x$.",
+    "$F(\\pi)=1$ e $F(0)=-1$.",
+    "$1-(-1)=2$."
+   ],
+   "wrong": {
+    "c": "Avaliou $-\\cos x$ nos dois extremos com o mesmo sinal; na verdade $-\\cos\\pi=1$ e $-\\cos0=-1$, e a diferença é $2$.",
+    "a": "Erro de sinal: $F(x)=-\\cos x$ e $F(\\pi)-F(0)=1-(-1)=2$.",
+    "d": "Só se usou $\\sin\\frac\\pi2=1$; a integral soma toda a área do arco."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 2)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "sin(x)",
+    "var": "x",
+    "a": "0",
+    "b": "pi"
+   },
+   "optionValues": {
+    "b": "2",
+    "c": "0",
+    "a": "-2",
+    "d": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 2 ≈ 2.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-023",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Área × integral",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a **área** da região entre o gráfico de $y=\\sin x$ e o eixo $x$ para $0\\le x\\le2\\pi$? (Lembre que $\\int_0^{2\\pi}\\sin x\\,dx=0$.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$4$"
+   },
+   {
+    "id": "d",
+    "text": "$2\\pi$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A área geométrica soma os valores absolutos: $\\displaystyle\\int_0^{2\\pi}|\\sin x|\\,dx=\\int_0^\\pi\\sin x\\,dx+\\int_\\pi^{2\\pi}(-\\sin x)\\,dx=2+2=4$.",
+   "steps": [
+    "$\\sin x\\ge0$ em $[0,\\pi]$ e $\\le0$ em $[\\pi,2\\pi]$.",
+    "Área $=\\int_{0}^{\\pi}\\sin x\\,dx-\\int_{\\pi}^{2\\pi}\\sin x\\,dx$.",
+    "$=2-(-2)=4$."
+   ],
+   "wrong": {
+    "b": "$0$ é o valor da integral (áreas com sinal se cancelam), e não a área geométrica.",
+    "a": "$2$ é a área de um único arco; a região de $0$ a $2\\pi$ tem dois arcos (um acima e um abaixo).",
+    "d": "$2\\pi$ é o comprimento do intervalo, não a área."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 4",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(Abs(sin(x)),(x,0,2*pi))",
+    "numeric": "2*integrate(sin(x),(x,0,pi))"
+   },
+   "optionValues": {
+    "c": "4",
+    "b": "0",
+    "a": "2",
+    "d": "2*pi"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 4; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-024",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Limites negativos",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-2}^{-1}\\left(\\frac{1}{x^{2}}+x\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-1$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\dfrac{3}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{5}{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$F(x)=-\\dfrac1x+\\dfrac{x^2}{2}$. $F(-1)=1+\\dfrac12=\\dfrac32$ e $F(-2)=\\dfrac12+2=\\dfrac52$. Logo $F(-1)-F(-2)=\\dfrac32-\\dfrac52=-1$.",
+   "steps": [
+    "$F(x)=-\\dfrac{1}{x}+\\dfrac{x^{2}}{2}$.",
+    "$F(-1)=1+\\dfrac12=\\dfrac32$; $F(-2)=\\dfrac12+2=\\dfrac52$.",
+    "$\\dfrac32-\\dfrac52=-1$."
+   ],
+   "wrong": {
+    "d": "Erro de sinal: $F(x)=-\\frac1x+\\frac{x^2}{2}$ dá $F(-1)=\\frac32$ e $F(-2)=\\frac52$; a diferença é $-1$.",
+    "b": "Só se usou $F(-1)=\\frac32$ (com sinal trocado); falta subtrair $F(-2)$.",
+    "c": "$\\frac52$ é o valor de $F(-2)$, e não da diferença $F(-1)-F(-2)$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 13",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "1/x**2+x",
+    "var": "x",
+    "a": "-2",
+    "b": "-1"
+   },
+   "optionValues": {
+    "a": "-1",
+    "d": "1",
+    "b": "-3/2",
+    "c": "5/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = -1 ≈ -1.00000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-025",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Polinômio cúbico",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\int_{-1}^{0}\\left(x^{3}-2x+3\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac{15}{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{15}{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac74$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$F(x)=\\dfrac{x^4}{4}-x^2+3x$. $F(0)=0$ e $F(-1)=\\dfrac14-1-3=-\\dfrac{15}{4}$. Logo $F(0)-F(-1)=\\dfrac{15}{4}$.",
+   "steps": [
+    "$F(x)=\\dfrac{x^{4}}{4}-x^{2}+3x$.",
+    "$F(-1)=\\dfrac14-1-3=-\\dfrac{15}{4}$.",
+    "$F(0)-F(-1)=\\dfrac{15}{4}$."
+   ],
+   "wrong": {
+    "d": "Errou o sinal do termo $-x^2$ da primitiva (usou $+x^2$): $F(-1)=\\frac14+1-3=-\\frac74$.",
+    "a": "Erro de sinal ao avaliar $F(0)-F(-1)$: $F(-1)=\\frac14-1-3=-\\frac{15}{4}$, então $0-\\left(-\\frac{15}4\\right)=+\\frac{15}{4}$.",
+    "c": "Só a constante $3$ foi integrada em $[-1,0]$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 17",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**3-2*x+3",
+    "var": "x",
+    "a": "-1",
+    "b": "0"
+   },
+   "optionValues": {
+    "b": "15/4",
+    "d": "7/4",
+    "a": "-15/4",
+    "c": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 15/4 ≈ 3.75000000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-026",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Soma de potências",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{1}^{2}\\left(x^{3}+x+\\frac{1}{x^{3}}\\right)dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{45}{8}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{21}{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{47}{8}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{39}{8}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$F(x)=\\dfrac{x^4}{4}+\\dfrac{x^2}{2}-\\dfrac{1}{2x^2}$. $F(2)=4+2-\\dfrac18=\\dfrac{47}{8}$ e $F(1)=\\dfrac14+\\dfrac12-\\dfrac12=\\dfrac14$. Logo $\\dfrac{47}{8}-\\dfrac{2}{8}=\\dfrac{45}{8}$.",
+   "steps": [
+    "$F(x)=\\dfrac{x^{4}}{4}+\\dfrac{x^{2}}{2}-\\dfrac{1}{2x^{2}}$.",
+    "$F(2)=\\dfrac{47}{8}$; $F(1)=\\dfrac14$.",
+    "$\\dfrac{47}{8}-\\dfrac{2}{8}=\\dfrac{45}{8}$."
+   ],
+   "wrong": {
+    "c": "É o valor de $F(2)$; falta subtrair $F(1)=\\frac14$.",
+    "b": "Esqueceu o termo $\\frac1{x^3}$ (cuja primitiva é $-\\frac{1}{2x^2}$): $\\int_1^2(x^3+x)\\,dx=\\frac{21}{4}$.",
+    "d": "Trocou o sinal do termo da primitiva (usou $+\\frac{1}{2x^2}$ em vez de $-\\frac{1}{2x^2}$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 19",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:23:53.029Z",
+  "updatedAt": "2026-10-22T23:24:21.458Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**3+x+1/x**3",
+    "var": "x",
+    "a": "1",
+    "b": "2"
+   },
+   "optionValues": {
+    "a": "45/8",
+    "c": "47/8",
+    "b": "21/4",
+    "d": "39/8"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:24:19.353Z",
+    "details": "valor = 45/8 ≈ 5.62500000000; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:24:21.458Z",
+   "notes": "Leitura crítica separada da autoria (vários distratores reescritos, duplicata de texto e alternativas ambíguas corrigidas); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-027",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Limite de somas de Riemann",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Interpretando como soma de Riemann, calcule $\\displaystyle\\lim_{n\\to\\infty}\\sum_{i=1}^{n}\\left(\\frac{i}{n}\\right)^{2}\\cdot\\frac1n$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$\\infty$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A soma é uma soma de Riemann à direita de $f(x)=x^2$ em $[0,1]$, com $\\Delta x=\\frac1n$ e pontos $x_i=\\frac in$. No limite, ela converge para $\\displaystyle\\int_0^1x^2\\,dx=\\dfrac{x^3}{3}\\Big|_0^1=\\dfrac13$.",
+   "steps": [
+    "$\\Delta x=\\dfrac1n$ e $x_i=\\dfrac in$ ⇒ $\\sum f(x_i)\\,\\Delta x$ com $f(x)=x^{2}$ em $[0,1]$.",
+    "O limite é $\\int_{0}^{1}x^{2}dx$.",
+    "$=\\dfrac13$."
+   ],
+   "wrong": {
+    "c": "Cada termo tende a $0$, mas há $n$ termos: a soma de muitos termos pequenos pode ter limite não nulo.",
+    "b": "$1$ seria $f(1)\\cdot1$ (um só retângulo); a soma com $n\\to\\infty$ retângulos converge para a integral.",
+    "d": "Cada termo é da ordem de $\\frac1n$ e a soma fica limitada: converge para uma área finita."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 3–4 (soma de Riemann → integral)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.164Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "limit(summation((k/n)**2/n,(k,1,n)),n,oo)",
+    "numeric": "integrate(x**2,(x,0,1))"
+   },
+   "optionValues": {
+    "a": "1/3",
+    "c": "0",
+    "b": "1",
+    "d": "oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 1/3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-028",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Simetria (função ímpar)",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-1}^{1}\\left(x^{7}+x^{3}+x\\right)dx$ usando simetria.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac74$, o dobro de $\\int_0^1$"
+   },
+   {
+    "id": "b",
+    "text": "$0$, pois a função é ímpar"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac78$, o valor de $\\int_0^1$"
+   },
+   {
+    "id": "d",
+    "text": "$1$, pela soma dos coeficientes"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Cada parcela $x^7$, $x^3$ e $x$ é ímpar, logo $f(-x)=-f(x)$ e $\\displaystyle\\int_{-a}^af=0$. Conferindo: $F(x)=\\dfrac{x^8}{8}+\\dfrac{x^4}{4}+\\dfrac{x^2}{2}$ é par, então $F(1)-F(-1)=0$.",
+   "steps": [
+    "$f(-x)=-x^{7}-x^{3}-x=-f(x)$ (ímpar).",
+    "$F(x)=\\dfrac{x^{8}}{8}+\\dfrac{x^{4}}{4}+\\dfrac{x^{2}}{2}$ é par.",
+    "$F(1)-F(-1)=0$."
+   ],
+   "wrong": {
+    "a": "O dobro só vale para função **par**; aqui todos os termos têm expoente ímpar, então a função é ímpar.",
+    "c": "$\\frac78$ é $\\int_0^1(x^7+x^3+x)\\,dx$; em $[-1,0]$ a integral vale $-\\frac78$ e cancela.",
+    "d": "Somar coeficientes não calcula a integral; a primitiva é par e $F(1)-F(-1)=0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 23",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 22",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**7+x**3+x",
+    "var": "x",
+    "a": "-1",
+    "b": "1"
+   },
+   "optionValues": {
+    "b": "0",
+    "a": "7/4",
+    "c": "7/8",
+    "d": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 0 ≈ 0; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-029",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Simetria: parte par + parte ímpar",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-2}^{2}\\left(x^{3}+x^{2}\\right)dx$. Dica: separe a parte ímpar e a parte par.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{32}{3}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{16}{3}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac83$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$x^3$ é ímpar: $\\displaystyle\\int_{-2}^2x^3dx=0$. $x^2$ é par: $\\displaystyle\\int_{-2}^2x^2dx=2\\int_0^2x^2dx=2\\cdot\\dfrac83=\\dfrac{16}{3}$. Soma: $\\dfrac{16}{3}$.",
+   "steps": [
+    "$\\int_{-2}^{2}x^{3}dx=0$ (ímpar).",
+    "$\\int_{-2}^{2}x^{2}dx=2\\cdot\\dfrac{8}{3}$ (par).",
+    "Total: $\\dfrac{16}{3}$."
+   ],
+   "wrong": {
+    "d": "Só a parte ímpar ($x^3$) se anula; a parte par ($x^2$) soma em dobro.",
+    "c": "$\\frac83$ é $\\int_0^2x^2dx$; o intervalo $[-2,0]$ contribui com o mesmo valor (função par).",
+    "a": "Dobrou duas vezes: $2\\int_0^2x^2\\,dx=\\frac{16}{3}$, sem outro fator $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "itens 22 e 23 (simetria)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "definite",
+   "params": {
+    "expr": "x**3+x**2",
+    "var": "x",
+    "a": "-2",
+    "b": "2"
+   },
+   "optionValues": {
+    "b": "16/3",
+    "d": "0",
+    "c": "8/3",
+    "a": "32/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.quad",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 16/3 ≈ 5.33333333333; quadratura ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-030",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "TFC parte 1 com regra da cadeia",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Seja $H(x)=\\displaystyle\\int_{0}^{x^{2}}\\cos t\\,dt$. Qual é $H'(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x\\cos\\!\\left(x^{2}\\right)$"
+   },
+   {
+    "id": "b",
+    "text": "$-2x\\sin\\!\\left(x^{2}\\right)$"
+   },
+   {
+    "id": "c",
+    "text": "$\\sin\\!\\left(x^{2}\\right)$"
+   },
+   {
+    "id": "d",
+    "text": "$\\cos\\!\\left(x^{2}\\right)$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Pelo TFC (parte 1) com a regra da cadeia: $\\dfrac{d}{dx}\\displaystyle\\int_0^{u(x)}f(t)\\,dt=f(u(x))\\,u'(x)$. Aqui $u=x^2$ e $f=\\cos$: $H'(x)=\\cos(x^2)\\cdot2x$. (Conferência: $H(x)=\\sin(x^2)$, e $\\left(\\sin x^2\\right)'=2x\\cos x^2$.)",
+   "steps": [
+    "$u(x)=x^{2}$, $u'(x)=2x$.",
+    "$H'(x)=\\cos\\left(u(x)\\right)\\cdot u'(x)$.",
+    "$=2x\\cos(x^{2})$."
+   ],
+   "wrong": {
+    "d": "Esqueceu a regra da cadeia: o limite superior é $x^2$ e sua derivada $2x$ multiplica o integrando.",
+    "c": "$\\sin(x^2)$ é o valor de $H(x)$ (a integral), e não de sua derivada.",
+    "b": "Derivou $\\cos(x^2)$ em vez de aplicar o TFC ao integrando."
+   },
+   "commonMistakes": [
+    "Esquecer o fator $u'(x)$ quando o limite superior não é $x$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 1 — a derivada da acumulada)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "diff(integrate(cos(t),(t,0,x**2)),x)",
+    "var": "x"
+   },
+   "optionValues": {
+    "a": "2*x*cos(x**2)",
+    "d": "cos(x**2)",
+    "c": "sin(x**2)",
+    "b": "-2*x*sin(x**2)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "função de referência = 2*x*cos(x**2)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-031",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "TFC parte 1 com regra da cadeia",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, seja $G(x)=\\displaystyle\\int_{1}^{x^{2}}\\frac{1}{t}\\,dt$. Qual é $G'(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{1}{x^{2}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\ln\\!\\left(x^{2}\\right)$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{2}{x}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{1}{x}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "TFC com cadeia: $G'(x)=f(u(x))\\,u'(x)$ com $f(t)=\\dfrac1t$ e $u=x^2$. Então $G'(x)=\\dfrac{1}{x^2}\\cdot2x=\\dfrac2x$. (Conferência: $G(x)=\\ln(x^2)=2\\ln x$, cuja derivada é $\\dfrac2x$.)",
+   "steps": [
+    "$f(t)=\\dfrac1t$, $u=x^{2}$, $u'=2x$.",
+    "$G'(x)=\\dfrac{1}{x^{2}}\\cdot2x$.",
+    "$=\\dfrac{2}{x}$."
+   ],
+   "wrong": {
+    "a": "Aplicou o TFC sem a regra da cadeia: faltou multiplicar por $(x^2)'=2x$.",
+    "b": "Esse é o valor de $G(x)$ (a integral), e não de $G'(x)$.",
+    "d": "$\\frac{1}{x^2}\\cdot2x=\\frac2x$; o fator $2$ não pode ser perdido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 1)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "diff(integrate(1/t,(t,1,x**2)),x)",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "2/x",
+    "a": "1/x**2",
+    "b": "log(x**2)",
+    "d": "1/x"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "função de referência = 2/x"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-032",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Módulo e aditividade",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\int_{-1}^{2}|x|\\,dx$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac52$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac32$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Separe no ponto onde $|x|$ muda de expressão: $\\displaystyle\\int_{-1}^0(-x)\\,dx+\\int_0^2x\\,dx=\\dfrac12+2=\\dfrac52$. A integral de $|x|$ é a área dos dois triângulos (base $1$, altura $1$) e (base $2$, altura $2$).",
+   "steps": [
+    "Em $[-1,0]$: $|x|=-x$ ⇒ $\\int_{-1}^{0}(-x)dx=\\dfrac12$.",
+    "Em $[0,2]$: $|x|=x$ ⇒ $\\int_{0}^{2}x\\,dx=2$.",
+    "Soma: $\\dfrac12+2=\\dfrac52$."
+   ],
+   "wrong": {
+    "c": "É $\\int_{-1}^2x\\,dx$, sem o módulo: a parte negativa ($x<0$) entra subtraindo, mas $|x|$ a torna positiva.",
+    "d": "Só a parte $[0,2]$ foi contada; falta $\\int_{-1}^0(-x)\\,dx=\\frac12$.",
+    "b": "Só a parte $[-1,0]$ foi contada; falta $\\int_0^2x\\,dx=2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (aditividade em intervalos)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(-x,(x,-1,0)) + integrate(x,(x,0,2))",
+    "numeric": "0.5+2"
+   },
+   "optionValues": {
+    "a": "5/2",
+    "c": "3/2",
+    "d": "2",
+    "b": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 5/2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-033",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Área entre curvas",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a área da região entre as curvas $y=x$ e $y=x^{2}$ para $0\\le x\\le1$ (onde $x\\ge x^{2}$)?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac16$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac56$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac16$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Entre $0$ e $1$, $x\\ge x^2$. A área é $\\displaystyle\\int_0^1\\left(x-x^2\\right)dx=\\dfrac{x^2}{2}-\\dfrac{x^3}{3}\\Big|_0^1=\\dfrac12-\\dfrac13=\\dfrac16$.",
+   "steps": [
+    "Curva de cima: $y=x$; de baixo: $y=x^{2}$.",
+    "$\\int_{0}^{1}(x-x^{2})\\,dx=\\dfrac12-\\dfrac13$.",
+    "$=\\dfrac16$."
+   ],
+   "wrong": {
+    "d": "Área não é negativa: integrar (curva de cima) − (curva de baixo) dá $\\int_0^1(x-x^2)\\,dx>0$.",
+    "c": "Somou as áreas em vez de subtrair: $\\frac12+\\frac13=\\frac56$.",
+    "b": "$\\frac12$ é a área sob $y=x$; falta descontar a área sob $y=x^2$ ($\\frac13$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 4 e 6 (área e linearidade)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(x-x**2,(x,0,1))",
+    "numeric": "integrate(x,(x,0,1)) - integrate(x**2,(x,0,1))"
+   },
+   "optionValues": {
+    "a": "1/6",
+    "d": "-1/6",
+    "c": "5/6",
+    "b": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 1/6; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-034",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Área entre curvas",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule a área da região limitada pelas curvas $y=\\sqrt{x}$ e $y=x^{2}$ entre $x=0$ e $x=1$ (nesse intervalo, $\\sqrt x\\ge x^{2}$).",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\dfrac13$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac23$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Área $=\\displaystyle\\int_0^1\\left(\\sqrt x-x^2\\right)dx=\\dfrac23x^{3/2}-\\dfrac{x^3}{3}\\Big|_0^1=\\dfrac23-\\dfrac13=\\dfrac13$.",
+   "steps": [
+    "Cima: $\\sqrt{x}$; baixo: $x^{2}$.",
+    "$\\int_{0}^{1}\\sqrt{x}\\,dx=\\dfrac23$ e $\\int_{0}^{1}x^{2}dx=\\dfrac13$.",
+    "$\\dfrac23-\\dfrac13=\\dfrac13$."
+   ],
+   "wrong": {
+    "b": "Somou as áreas ($\\frac23+\\frac13$) em vez de subtrair a de baixo da de cima.",
+    "c": "Inverteu a subtração: a área é $\\int(\\text{cima}-\\text{baixo})$, que é positiva.",
+    "d": "$\\frac23$ é a área sob $y=\\sqrt x$; falta descontar a área sob $y=x^2$ ($\\frac13$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 4 e 6",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-lista-def-basica",
+    "locator": "item 14 (∫√x)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(sqrt(x)-x**2,(x,0,1))",
+    "numeric": "integrate(sqrt(x),(x,0,1)) - integrate(x**2,(x,0,1))"
+   },
+   "optionValues": {
+    "a": "1/3",
+    "b": "1",
+    "c": "-1/3",
+    "d": "2/3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 1/3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-035",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Área com mudança de sinal",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é a **área** da região entre $y=x^{3}-x$ e o eixo $x$ para $-1\\le x\\le1$? (A curva está acima do eixo em $[-1,0]$ e abaixo em $[0,1]$.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac14$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Em $[-1,0]$, $x^3-x\\ge0$; em $[0,1]$, $\\le0$. Área $=\\displaystyle\\int_{-1}^0(x^3-x)\\,dx-\\int_0^1(x^3-x)\\,dx=\\dfrac14-\\left(-\\dfrac14\\right)=\\dfrac12$. (A integral sem módulo seria $0$, por ser função ímpar.)",
+   "steps": [
+    "$\\int_{-1}^{0}(x^{3}-x)\\,dx=\\dfrac14$ (acima do eixo).",
+    "$\\int_{0}^{1}(x^{3}-x)\\,dx=-\\dfrac14$ (abaixo do eixo).",
+    "Área $=\\dfrac14+\\dfrac14=\\dfrac12$."
+   ],
+   "wrong": {
+    "d": "$0$ é o valor da integral (áreas com sinais opostos se cancelam), e não a área geométrica.",
+    "b": "$1$ dobraria a área: cada metade vale $\\frac14$, totalizando $\\frac12$.",
+    "a": "$\\frac14$ é a área de apenas uma das duas partes."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 4 (área com sinal)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(x**3-x,(x,-1,0)) - integrate(x**3-x,(x,0,1))",
+    "numeric": "0.25+0.25"
+   },
+   "optionValues": {
+    "c": "1/2",
+    "d": "0",
+    "b": "1",
+    "a": "1/4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 1/2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-036",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Valor médio",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O *valor médio* de $f$ em $[a,b]$ é $\\dfrac{1}{b-a}\\displaystyle\\int_a^bf(x)\\,dx$. Qual é o valor médio de $f(x)=x^{2}$ em $[0,3]$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac92$"
+   },
+   {
+    "id": "b",
+    "text": "$3$"
+   },
+   {
+    "id": "c",
+    "text": "$9$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\displaystyle\\int_0^3x^2dx=9$ e $b-a=3$. Valor médio $=\\dfrac{9}{3}=3$. (A média dos extremos, $\\frac92$, só coincidiria para funções lineares.)",
+   "steps": [
+    "$\\int_{0}^{3}x^{2}dx=\\dfrac{27}{3}=9$.",
+    "$b-a=3$.",
+    "Valor médio $=\\dfrac93=3$."
+   ],
+   "wrong": {
+    "c": "$9$ é a integral $\\int_0^3x^2dx$; o valor médio divide por $b-a=3$.",
+    "a": "Fez a média dos valores nos extremos, $\\frac{f(0)+f(3)}2$, que não é o valor médio de uma função não linear.",
+    "d": "Dividiu por $9$ em vez de por $b-a=3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slides 4 e 7 (integral e TFC)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(x**2,(x,0,3))/3",
+    "numeric": "27/9"
+   },
+   "optionValues": {
+    "b": "3",
+    "c": "9",
+    "a": "9/2",
+    "d": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-037",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Estimativa por monotonicidade",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Em $[0,1]$ vale $1\\le e^{x^{2}}\\le e$. Usando a monotonicidade da integral, qual estimativa para $\\displaystyle\\int_{0}^{1}e^{x^{2}}\\,dx$ é **verdadeira**?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0\\le\\displaystyle\\int_{0}^{1}e^{x^{2}}dx\\le1$"
+   },
+   {
+    "id": "b",
+    "text": "$1\\le\\displaystyle\\int_{0}^{1}e^{x^{2}}dx\\le e$"
+   },
+   {
+    "id": "c",
+    "text": "$e\\le\\displaystyle\\int_{0}^{1}e^{x^{2}}dx\\le2e$"
+   },
+   {
+    "id": "d",
+    "text": "$\\displaystyle\\int_{0}^{1}e^{x^{2}}dx\\le\\dfrac12$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Se $1\\le f\\le e$ em $[0,1]$, a monotonicidade e o fato de $\\int_0^1c\\,dx=c$ dão $1\\le\\int_0^1f\\le e$. Numericamente, $\\int_0^1e^{x^2}dx\\approx1{,}4627$, que está nesse intervalo — mesmo sem ter primitiva elementar.",
+   "steps": [
+    "$1\\le e^{x^{2}}\\le e$ em $[0,1]$.",
+    "Integre cada lado: $\\int_{0}^{1}1\\,dx=1$ e $\\int_{0}^{1}e\\,dx=e$.",
+    "$1\\le\\int_{0}^{1}e^{x^{2}}dx\\le e$."
+   ],
+   "wrong": {
+    "a": "Como $e^{x^2}\\ge1$, a integral é pelo menos $1\\cdot(1-0)=1$ (de fato $\\approx1{,}46$), então não pode ser $\\le1$.",
+    "c": "A integral vale cerca de $1{,}46$, menor que $e\\approx2{,}72$: o limite inferior $e$ é falso (a função só atinge $e$ em $x=1$).",
+    "d": "Como $e^{x^2}\\ge1$, a integral é pelo menos $1$, então não pode ser $\\le\\frac12$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (Monotonicidade)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "target": "v",
+    "perOption": {
+     "b": {
+      "expr": "'v' if 1 <= float(integrate(exp(x**2),(x,0,1))) <= float(E) else 'f'",
+      "numeric": "'v' if 1 <= 1.4626517 <= 2.7182818 else 'f'"
+     },
+     "a": {
+      "expr": "'v' if 0 <= float(integrate(exp(x**2),(x,0,1))) <= 1 else 'f'",
+      "numeric": "'v' if 0 <= 1.4626517 <= 1 else 'f'"
+     },
+     "c": {
+      "expr": "'v' if float(E) <= float(integrate(exp(x**2),(x,0,1))) <= 2*float(E) else 'f'",
+      "numeric": "'v' if 2.7182818 <= 1.4626517 <= 5.4365 else 'f'"
+     },
+     "d": {
+      "expr": "'v' if float(integrate(exp(x**2),(x,0,1))) <= 0.5 else 'f'",
+      "numeric": "'v' if 1.4626517 <= 0.5 else 'f'"
+     }
+    }
+   },
+   "optionValues": {
+    "b": "v",
+    "a": "f",
+    "c": "f",
+    "d": "f"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "b:valor=v; a:valor=f; c:valor=f; d:valor=f"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-038",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Função definida por partes",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=2$ para $0\\le x<1$ e $f(x)=x$ para $1\\le x\\le2$. Qual é o valor de $\\displaystyle\\int_{0}^{2}f(x)\\,dx$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac72$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$3$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Pela aditividade, divida em $[0,1]$ e $[1,2]$: $\\displaystyle\\int_0^12\\,dx+\\int_1^2x\\,dx=2+\\dfrac{x^2}{2}\\Big|_1^2=2+\\left(2-\\dfrac12\\right)=\\dfrac72$.",
+   "steps": [
+    "$\\int_{0}^{1}2\\,dx=2$.",
+    "$\\int_{1}^{2}x\\,dx=2-\\dfrac12=\\dfrac32$.",
+    "Soma: $2+\\dfrac32=\\dfrac72$."
+   ],
+   "wrong": {
+    "d": "Tratou $f$ como constante $1$ em $[1,2]$; mas $\\int_1^2x\\,dx=\\frac32$, e não $1$.",
+    "b": "Tratou $f$ como constante $2$ em $[1,2]$ (valor em $x=2$); a integral correta de $x$ nesse trecho é $\\frac32$.",
+    "c": "Contou apenas o primeiro trecho ($2\\cdot1$); falta $\\int_1^2x\\,dx=\\frac32$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 6 (aditividade em intervalos)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "integrate(2,(x,0,1)) + integrate(x,(x,1,2))",
+    "numeric": "2+1.5"
+   },
+   "optionValues": {
+    "a": "7/2",
+    "d": "3",
+    "b": "4",
+    "c": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 7/2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-039",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "TFC: enunciado",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f$ contínua em $[a,b]$ e $F(x)=\\displaystyle\\int_{a}^{x}f(t)\\,dt$. Qual afirmação decorre da parte 1 do Teorema Fundamental do Cálculo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$F'(x)=f(x)-f(a)$"
+   },
+   {
+    "id": "b",
+    "text": "$F(a)=f(a)$"
+   },
+   {
+    "id": "c",
+    "text": "$F(x)=f'(x)$ para todo $x$"
+   },
+   {
+    "id": "d",
+    "text": "$F'(x)=f(x)$ para todo $x\\in[a,b]$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A parte 1 do TFC diz que a função acumulada $F(x)=\\int_a^xf(t)\\,dt$ é derivável e $F'(x)=f(x)$. Como consequência, $F(a)=0$. A parte 2 usa uma primitiva qualquer $G$: $\\int_a^bf=G(b)-G(a)$.",
+   "wrong": {
+    "c": "A relação está invertida: é a *derivada de $F$* que devolve $f$ (e não o contrário).",
+    "b": "$F(a)=\\int_a^af=0$, em geral diferente de $f(a)$.",
+    "a": "Misturou com $F(x)-F(a)$ da parte 2; a derivada da integral acumulada é exatamente $f(x)$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 7 (Parte 1 — a derivada da acumulada)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 7, Parte 1: “Se f é contínua, a função-acumulada F é derivável e sua derivada é a própria f”.",
+    "Slide 7, Parte 2: o cálculo pela primitiva (G(b) − G(a))."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-integral-definida-040",
+  "disciplineId": "calculo2",
+  "topicId": "integral-definida",
+  "subtopic": "Pontos médios",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para $f(x)=x^{2}$ em $[0,3]$ com $n=3$ subintervalos de largura $1$, qual é a soma de Riemann com **pontos médios**? Compare com as somas à esquerda ($5$) e à direita ($14$) e com a integral exata ($9$).",
+  "options": [
+   {
+    "id": "a",
+    "text": "$9$"
+   },
+   {
+    "id": "b",
+    "text": "$5$"
+   },
+   {
+    "id": "c",
+    "text": "$14$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{35}{4}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Pontos médios: $\\frac12,\\frac32,\\frac52$, com $f=\\frac14,\\frac94,\\frac{25}{4}$ e $\\Delta x=1$. A soma é $\\dfrac{35}{4}=8{,}75$, bem mais próxima da integral exata $9$ do que as somas à esquerda ($5$) e à direita ($14$).",
+   "steps": [
+    "Pontos médios: $\\tfrac12,\\ \\tfrac32,\\ \\tfrac52$.",
+    "$f$: $\\tfrac14,\\ \\tfrac94,\\ \\tfrac{25}{4}$.",
+    "Soma: $1\\cdot\\dfrac{35}{4}=\\dfrac{35}{4}$."
+   ],
+   "wrong": {
+    "a": "$9$ é o valor exato da integral; a soma de pontos médios com $n=3$ é uma aproximação (aqui $\\frac{35}{4}$).",
+    "b": "É a soma à **esquerda** ($0+1+4$), e não a de pontos médios.",
+    "c": "É a soma à **direita** ($1+4+9$), e não a de pontos médios."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-integral-riemann-slides",
+    "locator": "slide 3 (pontos t_i escolhidos em cada subintervalo)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:25:47.165Z",
+  "updatedAt": "2026-10-22T23:26:00.849Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sum([(k+Rational(1,2))**2 for k in range(3)])",
+    "numeric": "0.25+2.25+6.25"
+   },
+   "optionValues": {
+    "d": "35/4",
+    "a": "9",
+    "b": "5",
+    "c": "14"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:25:58.848Z",
+    "details": "valor = 35/4; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:26:00.849Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath (somas, TFC, áreas) ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

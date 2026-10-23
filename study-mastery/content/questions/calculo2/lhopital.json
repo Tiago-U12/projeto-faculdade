@@ -1,0 +1,4240 @@
+[
+ {
+  "id": "c2-lhopital-001",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Condições de aplicação",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Antes de aplicar a regra de L’Hôpital diretamente a um limite do tipo $\\lim \\dfrac{f(x)}{g(x)}$, quais formas indeterminadas o limite deve apresentar?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0\\cdot\\infty$ ou $\\infty-\\infty$"
+   },
+   {
+    "id": "b",
+    "text": "Somente $\\dfrac{0}{0}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{0}{0}$ ou $\\dfrac{\\infty}{\\infty}$"
+   },
+   {
+    "id": "d",
+    "text": "Qualquer quociente cujo denominador tende a zero"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A regra de L’Hôpital vale diretamente para quocientes nas formas $\\dfrac{0}{0}$ e $\\dfrac{\\infty}{\\infty}$. As demais indeterminações ($0\\cdot\\infty$, $\\infty-\\infty$, $1^\\infty$, $0^0$, $\\infty^0$) são convertidas nessas duas por manobras algébricas antes da derivação.",
+   "wrong": {
+    "a": "Essas formas não são quocientes: precisam ser reescritas como fração antes de usar a regra.",
+    "d": "Se o numerador tende a um número não nulo e o denominador a zero, o limite é infinito (ou não existe) e a regra não vale.",
+    "b": "$\\dfrac{\\infty}{\\infty}$ também é uma forma em que a regra se aplica diretamente."
+   },
+   "commonMistakes": [
+    "Aplicar a regra sem conferir a forma — é o erro mais comum e leva a respostas erradas."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 5 (A regra) e slide 4 (Formas indeterminadas)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.197Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 5: “A forma precisa ser 0/0 ou ∞/∞ — cheque antes de aplicar”.",
+    "Slide 4: 0/0 e ∞/∞ são as formas “nativas”; as outras são convertidas."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-002",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Identificar a forma",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Ao substituir $x=0$ em $\\displaystyle\\lim_{x\\to 0}\\frac{e^{x}-1}{x}$, que forma indeterminada aparece?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Nenhuma: o limite é determinado e vale $1$ por substituição"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{\\infty}{\\infty}$"
+   },
+   {
+    "id": "c",
+    "text": "$0\\cdot\\infty$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{0}{0}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Com $x=0$: numerador $e^{0}-1=0$ e denominador $0$. A forma é $\\dfrac{0}{0}$, indeterminada — o valor do limite não está decidido pela forma, e a regra de L’Hôpital pode ser usada.",
+   "steps": [
+    "Numerador: $\\lim_{x\\to0}(e^x-1)=e^0-1=0$.",
+    "Denominador: $\\lim_{x\\to0}x=0$.",
+    "Logo, a forma é $0/0$."
+   ],
+   "wrong": {
+    "b": "Nem o numerador nem o denominador crescem sem limite: ambos tendem a $0$.",
+    "c": "Não há produto aqui, e o denominador não é um fator que cresce.",
+    "a": "Substituindo, $e^0-1=0$ e o denominador também é $0$: a forma é indeterminada, e não dá para concluir o valor só substituindo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 7 (Exemplo 1: checar a forma)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 1",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "form",
+   "params": {
+    "type": "quotient",
+    "parts": [
+     "exp(x)-1",
+     "x"
+    ],
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "d": "0/0",
+    "b": "oo/oo",
+    "c": "0*oo",
+    "a": "determinada"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (forma)",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "quotient: lim f=0, lim g=0 → 0/0; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-003",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicação direta",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0}\\frac{e^{x}-1}{x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "b",
+    "text": "$e$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Como a forma é $0/0$, derive numerador e denominador separadamente: $(e^x-1)'=e^x$ e $(x)'=1$. O novo limite é $\\lim_{x\\to0}\\dfrac{e^x}{1}=e^0=1$.",
+   "steps": [
+    "Forma $0/0$ ✔.",
+    "Derive: $\\dfrac{(e^x-1)'}{(x)'}=\\dfrac{e^x}{1}$.",
+    "Limite: $\\lim_{x\\to0}e^x=1$."
+   ],
+   "wrong": {
+    "d": "O erro é concluir que “0/0 vale 0”: a forma é indeterminada, não um valor.",
+    "a": "A razão das derivadas, $e^x/1$, é limitada e vale $1$ em $x=0$ — não diverge.",
+    "b": "$e$ seria o valor de $e^{x}$ em $x=1$; aqui, após derivar, calcula-se $e^{0}=1$."
+   },
+   "commonMistakes": [
+    "Dizer que $\\frac{0}{0}=0$ ou $=1$ “por simplificação”."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 1",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 5",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(exp(x)-1)/x",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "c": "1",
+    "d": "0",
+    "a": "oo",
+    "b": "E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-004",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Identificar a forma",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No limite $\\displaystyle\\lim_{x\\to\\infty}\\frac{\\ln x}{\\sqrt{x}}$, qual é a forma indeterminada obtida ao “substituir” $x\\to\\infty$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\infty-\\infty$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{0}{0}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{\\infty}{\\infty}$"
+   },
+   {
+    "id": "d",
+    "text": "$1^{\\infty}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Quando $x\\to\\infty$, $\\ln x\\to\\infty$ e $\\sqrt x\\to\\infty$. A razão tem a forma $\\dfrac{\\infty}{\\infty}$ — outra forma em que L’Hôpital se aplica diretamente.",
+   "steps": [
+    "$\\lim_{x\\to\\infty}\\ln x=\\infty$.",
+    "$\\lim_{x\\to\\infty}\\sqrt x=\\infty$.",
+    "Forma: $\\infty/\\infty$."
+   ],
+   "wrong": {
+    "b": "Nem o numerador nem o denominador tendem a zero quando $x\\to\\infty$.",
+    "a": "Não há subtração entre duas expressões que crescem; o limite é um quociente.",
+    "d": "Não há base tendendo a $1$ elevada a um expoente que cresce."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 3",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 4",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "form",
+   "params": {
+    "type": "quotient",
+    "parts": [
+     "log(x)",
+     "sqrt(x)"
+    ],
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "c": "oo/oo",
+    "b": "0/0",
+    "a": "oo-oo",
+    "d": "1^oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (forma)",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "quotient: lim f=oo, lim g=oo → oo/oo; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-005",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicação direta",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to\\infty}\\frac{\\ln x}{x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "d",
+    "text": "$e$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A forma é $\\dfrac{\\infty}{\\infty}$. Derivando: $\\dfrac{(\\ln x)'}{(x)'}=\\dfrac{1/x}{1}=\\dfrac1x\\to0$. Interpretação: $x$ cresce muito mais rápido que $\\ln x$.",
+   "steps": [
+    "Forma $\\infty/\\infty$ ✔.",
+    "$\\dfrac{(\\ln x)'}{(x)'}=\\dfrac{1/x}{1}$.",
+    "$\\lim_{x\\to\\infty}\\dfrac1x=0$."
+   ],
+   "wrong": {
+    "b": "$x$ cresce muito mais rápido que $\\ln x$, então a razão não se estabiliza em $1$.",
+    "c": "O numerador cresce, mas lentamente; o denominador domina e a razão não diverge.",
+    "d": "$e$ não aparece: após derivar, resta $\\dfrac{1/x}{1}\\to0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 8 (Exemplo 2: forma ∞/∞)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "log(x)/x",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "0",
+    "b": "1",
+    "c": "oo",
+    "d": "E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-006",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Erros comuns",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para calcular $\\displaystyle\\lim_{x\\to 0}\\frac{\\sin x}{x}$ com L’Hôpital, qual é o procedimento correto?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Derivar numerador e denominador separadamente: $\\dfrac{(\\sin x)'}{(x)'}=\\dfrac{\\cos x}{1}$"
+   },
+   {
+    "id": "b",
+    "text": "Derivar a fração inteira pela regra do quociente: $\\left(\\dfrac{\\sin x}{x}\\right)'$"
+   },
+   {
+    "id": "c",
+    "text": "Substituir $x=0$ e concluir que o limite vale $0$"
+   },
+   {
+    "id": "d",
+    "text": "Derivar só o numerador e manter o denominador: $\\dfrac{\\cos x}{x}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A regra manda derivar o numerador e o denominador **separadamente** e depois recalcular o limite do novo quociente $\\dfrac{f'}{g'}$. Aqui: $\\dfrac{\\cos x}{1}\\to1$. Usar $\\left(\\dfrac fg\\right)'$ é o erro clássico apontado nas “três armadilhas”.",
+   "wrong": {
+    "b": "Esse é justamente o erro clássico: L’Hôpital não é a regra do quociente.",
+    "d": "Isso muda a razão: $\\dfrac{\\cos x}{x}$ não tem o mesmo limite que $\\dfrac{\\sin x}{x}$ (ela diverge perto de $0$). A regra exige derivar também o denominador.",
+    "c": "$\\dfrac00$ é indeterminada: o valor não pode ser lido só por substituição."
+   },
+   "commonMistakes": [
+    "Confundir $\\dfrac{f'}{g'}$ com $\\left(\\dfrac{f}{g}\\right)'$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 10 (Três armadilhas)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 7",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 10: “Não é a regra do quociente! Você deriva topo e base SEPARADAMENTE: f′/g′”.",
+    "Slide 10: “para sin x / x, o certo é (sin x)′/(x)′ = cos x / 1”."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-007",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Variações de limites notáveis",
+  "difficulty": "facil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0}\\frac{\\sin(3x)}{x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$3$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac13$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$. Derive: $(\\sin 3x)'=3\\cos 3x$ e $(x)'=1$. Então $\\lim_{x\\to0}3\\cos(3x)=3$. Observe o fator $3$ vindo da regra da cadeia.",
+   "steps": [
+    "Forma $0/0$ ✔.",
+    "$\\dfrac{3\\cos 3x}{1}$.",
+    "Em $x=0$: $3\\cos 0=3$."
+   ],
+   "wrong": {
+    "a": "Esquecer a regra da cadeia: a derivada de $\\sin(3x)$ é $3\\cos(3x)$, não $\\cos(3x)$.",
+    "d": "Esse seria o resultado se a derivada de $\\sin(3x)$ fosse $\\cos(3x)/3$, o que não ocorre.",
+    "c": "A forma $0/0$ é indeterminada; o valor vem da razão das derivadas, que é $3$."
+   },
+   "commonMistakes": [
+    "Ignorar a regra da cadeia ao derivar $\\sin(3x)$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 7",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "sin(3*x)/x",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "b": "3",
+    "a": "1",
+    "d": "1/3",
+    "c": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 3; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-008",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Comparar com outros métodos",
+  "difficulty": "facil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 1}\\frac{x^{2}-1}{x-1}$. Esse limite também pode ser resolvido por fatoração, sem derivadas.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$\\infty$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$. Por L’Hôpital: $\\dfrac{2x}{1}\\to2$. Por fatoração: $\\dfrac{(x-1)(x+1)}{x-1}=x+1\\to2$. Os dois caminhos coincidem — L’Hôpital é uma ferramenta, não a única.",
+   "steps": [
+    "$f(1)=0$ e $g(1)=0$: forma $0/0$.",
+    "$\\dfrac{(x^2-1)'}{(x-1)'}=\\dfrac{2x}{1}$.",
+    "$\\lim_{x\\to1}2x=2$."
+   ],
+   "wrong": {
+    "b": "A forma $0/0$ não significa que o valor é zero: após fatorar ou derivar, resta um valor não nulo.",
+    "a": "$1$ seria o valor de $\\frac{x-1}{x-1}$; falta o fator $(x+1)$, que vale $2$ em $x=1$.",
+    "d": "O denominador anula, mas o numerador anula junto; o fator comum $(x-1)$ cancela e o limite é finito."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 10 (“troque de estratégia — fatore…”)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(x**2-1)/(x-1)",
+    "var": "x",
+    "at": "1",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "c": "2",
+    "b": "0",
+    "a": "1",
+    "d": "oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-009",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Quando NÃO usar",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Considere $\\displaystyle\\lim_{x\\to 2}\\frac{x^{2}+1}{x-1}$. Qual afirmação está correta?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O limite vale $5$ e a regra de L’Hôpital não se aplica, pois a forma não é indeterminada"
+   },
+   {
+    "id": "b",
+    "text": "O limite vale $2x/1=4$, aplicando L’Hôpital"
+   },
+   {
+    "id": "c",
+    "text": "O limite vale $0$, porque a forma é $\\dfrac00$"
+   },
+   {
+    "id": "d",
+    "text": "O limite não existe, pois a forma é $\\dfrac{\\infty}{\\infty}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Em $x=2$: numerador $2^2+1=5$ e denominador $2-1=1$. O quociente é contínuo e vale $5/1=5$. Como a forma não é $\\dfrac00$ nem $\\dfrac\\infty\\infty$, aplicar L’Hôpital seria um erro (daria $\\dfrac{2x}{1}=4$, resposta incorreta).",
+   "steps": [
+    "Numerador em $x=2$: $2^2+1=5$.",
+    "Denominador em $x=2$: $2-1=1$.",
+    "Quociente contínuo: $5/1=5$ (forma determinada, sem L’Hôpital)."
+   ],
+   "wrong": {
+    "c": "O numerador vai a $5$ (não a $0$) e o denominador vai a $1$; não há forma $0/0$.",
+    "b": "Aplicar L’Hôpital a um limite que não é indeterminado dá resposta errada; aqui bastaria substituir.",
+    "d": "Nada tende a infinito quando $x\\to2$: tudo é contínuo em $x=2$."
+   },
+   "commonMistakes": [
+    "Aplicar L’Hôpital “por reflexo”, sem conferir a forma."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 10 (“Cheque a forma primeiro”)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(x**2+1)/(x-1)",
+    "var": "x",
+    "at": "2",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "a": "5",
+    "c": "0",
+    "b": "4",
+    "d": "DNE"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 5; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-010",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to\\infty}\\frac{x^{2}}{e^{x}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Forma $\\dfrac\\infty\\infty$. Primeira aplicação: $\\dfrac{2x}{e^x}$ (ainda $\\infty/\\infty$). Segunda: $\\dfrac{2}{e^x}\\to0$. Conclusão: $e^x$ domina qualquer potência de $x$.",
+   "steps": [
+    "$\\dfrac{x^2}{e^x}\\ \\to\\ \\dfrac{2x}{e^x}$ (ainda $\\infty/\\infty$).",
+    "$\\dfrac{2x}{e^x}\\ \\to\\ \\dfrac{2}{e^x}$.",
+    "$\\lim_{x\\to\\infty}\\dfrac2{e^x}=0$."
+   ],
+   "wrong": {
+    "c": "O $2$ vem de derivar $x^2$ uma vez e esquecer que o denominador continua crescendo.",
+    "b": "$e^x$ cresce mais rápido que qualquer potência de $x$, então a razão não diverge.",
+    "a": "$1$ só ocorreria se numerador e denominador tivessem o mesmo ritmo de crescimento, o que não é o caso."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9 (Aplicar mais de uma vez)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x**2/exp(x)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "d": "0",
+    "c": "2",
+    "b": "oo",
+    "a": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-011",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Identificar a forma",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual dos limites abaixo (todos com $x\\to\\infty$) aparece a forma $\\dfrac{\\infty}{\\infty}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\displaystyle\\lim_{x\\to\\infty}\\frac{x^{3}}{e^{x}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\displaystyle\\lim_{x\\to\\infty}\\frac{5}{x^{2}+1}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\displaystyle\\lim_{x\\to\\infty}\\frac{1}{x}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\displaystyle\\lim_{x\\to\\infty}\\frac{x+1}{3}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\dfrac\\infty\\infty$ exige numerador **e** denominador tendendo a infinito. Só em $\\dfrac{x^3}{e^x}$ isso ocorre. Nos outros, um dos lados é constante e o limite já é determinado.",
+   "steps": [
+    "$x^3\\to\\infty$ e $e^x\\to\\infty$: forma $\\infty/\\infty$.",
+    "$1/x$: numerador constante, denominador $\\to\\infty$ ⇒ limite $0$.",
+    "$5/(x^2+1)\\to0$ e $(x+1)/3\\to\\infty$: ambos determinados."
+   ],
+   "wrong": {
+    "c": "Numerador constante e denominador $\\to\\infty$: o limite é $0$, sem indeterminação.",
+    "b": "O numerador é constante: a forma é “número / $\\infty$”, que vale $0$.",
+    "d": "O denominador é constante: o quociente cresce sem limite, mas não é uma forma indeterminada $\\infty/\\infty$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 4 (Formas indeterminadas)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "form",
+   "params": {
+    "target": "oo/oo",
+    "perOption": {
+     "a": {
+      "type": "quotient",
+      "parts": [
+       "x**3",
+       "exp(x)"
+      ],
+      "at": "oo",
+      "dir": "-"
+     },
+     "c": {
+      "type": "quotient",
+      "parts": [
+       "1",
+       "x"
+      ],
+      "at": "oo",
+      "dir": "-"
+     },
+     "b": {
+      "type": "quotient",
+      "parts": [
+       "5",
+       "x**2+1"
+      ],
+      "at": "oo",
+      "dir": "-"
+     },
+     "d": {
+      "type": "quotient",
+      "parts": [
+       "x+1",
+       "3"
+      ],
+      "at": "oo",
+      "dir": "-"
+     }
+    }
+   },
+   "optionValues": {
+    "a": "oo/oo",
+    "c": "determinada",
+    "b": "determinada",
+    "d": "determinada"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "a:quotient: lim f=oo, lim g=oo → oo/oo; c:quotient: lim f=1, lim g=oo → determinada; b:quotient: lim f=5, lim g=oo → determinada; d:quotient: lim f=oo, lim g=3 → determinada"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-012",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Taxas de crescimento",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Dois algoritmos têm custos $T_A(n)=\\log n$ e $T_B(n)=n^{0{,}1}$. Pela análise do limite $\\displaystyle\\lim_{n\\to\\infty}\\frac{\\ln n}{n^{0{,}1}}$, o que se conclui para $n$ muito grande?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O limite é $0$: $\\log n$ cresce mais devagar que $n^{0{,}1}$, então $A$ é assintoticamente melhor"
+   },
+   {
+    "id": "b",
+    "text": "O limite é $\\infty$: $\\log n$ cresce mais rápido, então $B$ é melhor"
+   },
+   {
+    "id": "c",
+    "text": "O limite é $1$: os dois crescem no mesmo ritmo"
+   },
+   {
+    "id": "d",
+    "text": "O limite não existe: não é possível comparar"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Forma $\\dfrac\\infty\\infty$. L’Hôpital: $\\dfrac{1/n}{0{,}1\\,n^{-0{,}9}}=10\\,n^{-0{,}1}\\to0$. Razão $\\to 0$ significa que o numerador cresce mais devagar: $\\log n\\prec n^{0{,}1}$, e $A$ tem custo assintoticamente menor.",
+   "steps": [
+    "$\\dfrac{(\\ln n)'}{(n^{0{,}1})'}=\\dfrac{1/n}{0{,}1\\,n^{-0{,}9}}$.",
+    "$=10\\,n^{-0{,}1}=\\dfrac{10}{n^{0{,}1}}$.",
+    "$\\lim_{n\\to\\infty}\\dfrac{10}{n^{0{,}1}}=0$."
+   ],
+   "wrong": {
+    "b": "Derivando, $\\frac{1/n}{0{,}1\\,n^{-0{,}9}}=10\\,n^{-0{,}1}\\to0$, e não $\\infty$.",
+    "c": "Se o limite fosse $1$, as razões seriam equivalentes; mas $n^{0{,}1}$ domina qualquer logaritmo.",
+    "d": "O limite existe e vale $0$ — essa é exatamente a ideia de que qualquer potência positiva vence o logaritmo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slides 3 e 15 (A hierarquia de crescimento)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 16 (Comparando dois algoritmos)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "log(x)/x**Rational(1,10)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "0",
+    "b": "oo",
+    "c": "1",
+    "d": "DNE"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-013",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Taxas de crescimento",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Se $L=\\displaystyle\\lim_{n\\to\\infty}\\frac{T_A(n)}{T_B(n)}$ vale $\\infty$ (com $T_A,T_B\\to\\infty$), qual conclusão é correta sobre os algoritmos?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Os dois têm a mesma ordem de crescimento"
+   },
+   {
+    "id": "b",
+    "text": "$T_A$ cresce mais rápido que $T_B$; $B$ é assintoticamente melhor"
+   },
+   {
+    "id": "c",
+    "text": "$T_A$ cresce mais devagar que $T_B$; $A$ é assintoticamente melhor"
+   },
+   {
+    "id": "d",
+    "text": "Nada pode ser concluído, pois o limite é infinito"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\dfrac{T_A}{T_B}\\to\\infty$ significa que $T_A$ explode mais rápido que $T_B$. Assim, $B$ é assintoticamente melhor (menor custo). Se $L=0$, vale o contrário; se $L=c>0$, a ordem de crescimento é a mesma.",
+   "wrong": {
+    "c": "Seria a conclusão se $L=0$.",
+    "a": "$L$ finito e positivo indicaria mesma ordem de crescimento.",
+    "d": "Um limite infinito é informativo: o numerador domina o denominador."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 16 (Comparando dois algoritmos)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "source",
+   "claims": [
+    "Slide 16: L = 0 → A cresce mais devagar (melhor); L = ∞ → B cresce mais devagar (B ganha); L = c > 0 → mesma ordem (empatam em Big-O)."
+   ],
+   "result": {
+    "ok": true,
+    "method": "source-review",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-014",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "facil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Em um trecho de análise de custo, aparece o limite $\\displaystyle\\lim_{x\\to\\infty}\\frac{3x^{2}+2x}{5x^{2}-1}$. Qual é o seu valor?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac35$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Forma $\\dfrac\\infty\\infty$. Primeira derivação: $\\dfrac{6x+2}{10x}$ (ainda $\\infty/\\infty$). Segunda: $\\dfrac{6}{10}=\\dfrac35$. O resultado coincide com a razão dos coeficientes dos termos de maior grau.",
+   "steps": [
+    "$\\dfrac{(3x^2+2x)'}{(5x^2-1)'}=\\dfrac{6x+2}{10x}$ (ainda $\\infty/\\infty$).",
+    "$\\dfrac{(6x+2)'}{(10x)'}=\\dfrac{6}{10}$.",
+    "$\\dfrac{6}{10}=\\dfrac35$."
+   ],
+   "wrong": {
+    "b": "O numerador e o denominador têm o mesmo grau; por isso a razão não tende a $0$.",
+    "a": "Os graus são iguais, então o quociente fica limitado e não diverge.",
+    "c": "$3$ ignora o denominador: o coeficiente $5$ do termo de maior grau também entra na razão."
+   },
+   "commonMistakes": [
+    "Parar na primeira derivação sem conferir que a forma continua $\\infty/\\infty$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9 (Aplicar mais de uma vez)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(3*x**2+2*x)/(5*x**2-1)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "d": "3/5",
+    "b": "0",
+    "a": "oo",
+    "c": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 3/5; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-015",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicação direta",
+  "difficulty": "facil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to 1}\\frac{\\ln x}{x-1}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$e$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Em $x=1$: $\\ln1=0$ e $x-1=0$, forma $\\dfrac00$. Derivando: $\\dfrac{1/x}{1}\\to1$. (Esse limite é a derivada de $\\ln x$ em $x=1$, por definição.)",
+   "steps": [
+    "$\\ln 1=0$ e $1-1=0$: forma $0/0$.",
+    "$\\dfrac{(\\ln x)'}{(x-1)'}=\\dfrac{1/x}{1}$.",
+    "$\\lim_{x\\to1}\\dfrac1x=1$."
+   ],
+   "wrong": {
+    "a": "A forma $0/0$ não determina o valor; derivando, $\\frac{1/x}{1}\\to1$.",
+    "b": "O logaritmo se anula em $x=1$, mas o denominador também: o limite é finito e não é infinito.",
+    "d": "$e$ não surge: $\\frac{d}{dx}\\ln x=\\frac1x$, que vale $1$ em $x=1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 5",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:29:06.198Z",
+  "updatedAt": "2026-10-22T22:30:10.688Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "log(x)/(x-1)",
+    "var": "x",
+    "at": "1",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "c": "1",
+    "a": "0",
+    "b": "oo",
+    "d": "E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:30:10.688Z",
+   "notes": "Leitura crítica em passada separada da autoria; verificação SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-016",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um estudante resolve $\\displaystyle\\lim_{x\\to 0}\\frac{1-\\cos x}{x^{2}}$ e, na primeira aplicação de L’Hôpital, chega a $\\dfrac{\\sin x}{2x}$. Como proceder e qual é o valor do limite?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Conferir que $\\dfrac{\\sin x}{2x}$ ainda é $\\dfrac00$ e aplicar de novo: $\\dfrac{\\cos x}{2}\\to\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "Substituir $x=0$ em $\\dfrac{\\sin x}{2x}$ e concluir que o limite é $0$"
+   },
+   {
+    "id": "c",
+    "text": "Parar aqui: como $\\sin x\\approx x$, o limite é $1$"
+   },
+   {
+    "id": "d",
+    "text": "Aplicar a regra do quociente em $\\dfrac{\\sin x}{2x}$ e concluir que o limite é $\\infty$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Após a primeira aplicação, $\\dfrac{\\sin x}{2x}$ continua na forma $\\dfrac00$ em $x=0$, então aplica-se a regra mais uma vez: $\\dfrac{(\\sin x)'}{(2x)'}=\\dfrac{\\cos x}{2}\\to\\dfrac12$. Regra prática: repetir enquanto a forma continuar indeterminada, conferindo a forma a cada passo.",
+   "steps": [
+    "$\\dfrac{(1-\\cos x)'}{(x^2)'}=\\dfrac{\\sin x}{2x}$, que ainda é $\\dfrac00$.",
+    "$\\dfrac{(\\sin x)'}{(2x)'}=\\dfrac{\\cos x}{2}$.",
+    "$\\lim_{x\\to0}\\dfrac{\\cos x}{2}=\\dfrac12$."
+   ],
+   "wrong": {
+    "b": "Substituir $x=0$ dá $\\frac00$ de novo — ainda indeterminada, não $0$.",
+    "c": "$\\sin x\\approx x$ dá $\\frac{x}{2x}=\\frac12$, e não $1$: o fator $2$ do denominador conta.",
+    "d": "A regra do quociente não é o procedimento de L’Hôpital e o limite é finito."
+   },
+   "commonMistakes": [
+    "Parar na 1ª aplicação sem conferir se a forma continua indeterminada."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 2",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.095Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(1-cos(x))/x**2",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "a": "1/2",
+    "b": "0",
+    "c": "1",
+    "d": "oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1/2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-017",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Ao calcular $\\displaystyle\\lim_{x\\to\\infty}\\frac{x^{3}}{e^{x}}$ por L’Hôpital, quantas aplicações da regra são necessárias até que o numerador vire uma constante?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$4$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Derivadas sucessivas do numerador: $3x^2$, $6x$, $6$. Só na terceira o numerador é constante, enquanto o denominador segue sendo $e^x\\to\\infty$. O limite é $\\dfrac{6}{e^x}\\to0$.",
+   "steps": [
+    "$(x^3)'=3x^2$ (ainda $\\infty/\\infty$).",
+    "$(3x^2)'=6x$ (ainda $\\infty/\\infty$).",
+    "$(6x)'=6$: numerador constante e $e^x\\to\\infty$ ⇒ limite $0$."
+   ],
+   "wrong": {
+    "a": "Duas derivações dão $6x$, que ainda cresce; falta mais uma para chegar à constante $6$.",
+    "b": "Uma derivação dá $3x^2$, que ainda tende a $\\infty$.",
+    "d": "A terceira derivação de $x^3$ já é a constante $6$; uma quarta daria $0$ e não seria necessária."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 4",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.096Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "3 if (diff(x**3,x,3)==6 and diff(x**3,x,2)==6*x) else -1",
+    "numeric": "3"
+   },
+   "optionValues": {
+    "c": "3",
+    "a": "2",
+    "b": "1",
+    "d": "4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "valor = 3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-018",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 0·∞",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0^{+}} x^{2}\\ln x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\infty$"
+   },
+   {
+    "id": "d",
+    "text": "$-2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A forma é $0\\cdot\\infty$. Reescreva como fração: $x^2\\ln x=\\dfrac{\\ln x}{1/x^2}$, forma $\\dfrac{\\infty}{\\infty}$. Derivando: $\\dfrac{1/x}{-2/x^{3}}=-\\dfrac{x^{2}}{2}\\to0$.",
+   "steps": [
+    "$x^2\\ln x=\\dfrac{\\ln x}{x^{-2}}$ (forma $\\infty/\\infty$).",
+    "$\\dfrac{(\\ln x)'}{(x^{-2})'}=\\dfrac{1/x}{-2x^{-3}}=-\\dfrac{x^{2}}{2}$.",
+    "$\\lim_{x\\to0^+}\\left(-\\dfrac{x^2}{2}\\right)=0$."
+   ],
+   "wrong": {
+    "c": "A forma $0\\cdot(-\\infty)$ é indeterminada; reescrita como $\\frac{\\ln x}{1/x^2}$ e derivada, mostra que $x^2$ vence o logaritmo.",
+    "b": "O produto $0\\cdot\\infty$ não vale $1$ por “cancelamento”: é preciso transformar em fração.",
+    "d": "O $-2$ aparece na derivada de $x^{-2}$, mas ele multiplica $x^{2}$ no resultado: $\\frac{1/x}{-2/x^{3}}=-\\frac{x^{2}}{2}\\to0$."
+   },
+   "commonMistakes": [
+    "Tentar derivar o produto $x^2\\ln x$ diretamente — L’Hôpital pede um quociente."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 5",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12 (Formas 0·∞ e ∞−∞)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.096Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x**2*log(x)",
+    "var": "x",
+    "at": "0",
+    "dir": "+"
+   },
+   "optionValues": {
+    "a": "0",
+    "c": "-oo",
+    "b": "1",
+    "d": "-2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (+:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-019",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 0·∞",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para usar L’Hôpital em $\\displaystyle\\lim_{x\\to 0^{+}} x\\ln x$ é preciso transformar o produto em quociente. Qual das reescritas abaixo (todas algebricamente equivalentes a $x\\ln x$) leva à forma $\\dfrac{\\infty}{\\infty}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{2}\\ln x}{x}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{x}{1/\\ln x}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{\\ln x}{1/x}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{x\\ln x}{1}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Em $\\dfrac{\\ln x}{1/x}$, quando $x\\to0^+$: $\\ln x\\to-\\infty$ e $\\dfrac1x\\to+\\infty$, ou seja, $\\dfrac{\\infty}{\\infty}$ em módulo. Essa é a escolha clássica: coloque no denominador o fator que torna a derivada mais simples. As outras reescritas são válidas algebricamente, mas levam a $\\dfrac00$ ou a nenhuma indeterminação.",
+   "steps": [
+    "$\\ln x\\to-\\infty$ e $\\frac1x\\to+\\infty$ em $x\\to0^+$.",
+    "Forma $\\dfrac{\\infty}{\\infty}$ ⇒ $\\dfrac{1/x}{-1/x^2}=-x\\to0$."
+   ],
+   "wrong": {
+    "b": "Aqui $x\\to0$ e $1/\\ln x\\to0$: a forma é $\\frac00$, não $\\frac\\infty\\infty$.",
+    "d": "O denominador é constante e o numerador tende a $0$: não há indeterminação para a regra.",
+    "a": "Numerador e denominador tendem a $0$: a forma é $\\frac00$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.096Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "form",
+   "params": {
+    "target": "oo/oo",
+    "perOption": {
+     "c": {
+      "type": "quotient",
+      "parts": [
+       "log(x)",
+       "1/x"
+      ],
+      "at": "0",
+      "dir": "+"
+     },
+     "b": {
+      "type": "quotient",
+      "parts": [
+       "x",
+       "1/log(x)"
+      ],
+      "at": "0",
+      "dir": "+"
+     },
+     "d": {
+      "type": "quotient",
+      "parts": [
+       "x*log(x)",
+       "1"
+      ],
+      "at": "0",
+      "dir": "+"
+     },
+     "a": {
+      "type": "quotient",
+      "parts": [
+       "x**2*log(x)",
+       "x"
+      ],
+      "at": "0",
+      "dir": "+"
+     }
+    }
+   },
+   "optionValues": {
+    "c": "oo/oo",
+    "b": "0/0",
+    "d": "determinada",
+    "a": "0/0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "c:quotient: lim f=-oo, lim g=oo → oo/oo; b:quotient: lim f=0, lim g=0 → 0/0; d:quotient: lim f=0, lim g=1 → determinada; a:quotient: lim f=0, lim g=0 → 0/0"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-020",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma ∞−∞",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to 0}\\left(\\frac1x-\\frac1{\\sin x}\\right)$? (Dica: junte numa só fração.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Com denominador comum: $\\dfrac1x-\\dfrac1{\\sin x}=\\dfrac{\\sin x-x}{x\\sin x}$, forma $\\dfrac00$. Derivando: $\\dfrac{\\cos x-1}{\\sin x+x\\cos x}$ (ainda $\\dfrac00$). Derivando de novo: $\\dfrac{-\\sin x}{2\\cos x-x\\sin x}\\to\\dfrac{0}{2}=0$.",
+   "steps": [
+    "$\\dfrac1x-\\dfrac1{\\sin x}=\\dfrac{\\sin x-x}{x\\sin x}$ (forma $0/0$).",
+    "1ª aplicação: $\\dfrac{\\cos x-1}{\\sin x+x\\cos x}$ (ainda $0/0$).",
+    "2ª aplicação: $\\dfrac{-\\sin x}{2\\cos x-x\\sin x}\\to\\dfrac02=0$."
+   ],
+   "wrong": {
+    "d": "A forma $\\infty-\\infty$ não vale $1$ de imediato; após juntar as frações e derivar, resulta $0$.",
+    "b": "Os dois termos divergem, mas a diferença é limitada: o numerador $\\sin x-x$ vai a zero mais rápido que o denominador.",
+    "a": "O sinal não é o problema: o limite é $0$, nem $1$ nem $-1$."
+   },
+   "commonMistakes": [
+    "Concluir que $\\infty-\\infty=0$ “porque são iguais” sem juntar numa fração."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12 (∞−∞: junte numa fração só)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.096Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "1/x-1/sin(x)",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "c": "0",
+    "d": "1",
+    "b": "oo",
+    "a": "-1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-021",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicação direta",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to\\infty}\\frac{\\ln x}{\\sqrt{x}}$ e como se interpreta o resultado?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$: a raiz cresce mais rápido que o logaritmo"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$: o logaritmo cresce mais rápido que a raiz"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac12$: os dois crescem na mesma ordem"
+   },
+   {
+    "id": "d",
+    "text": "$1$: coincidem assintoticamente"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Forma $\\dfrac\\infty\\infty$. L’Hôpital: $\\dfrac{(\\ln x)'}{(\\sqrt x)'}=\\dfrac{1/x}{1/(2\\sqrt x)}=\\dfrac{2\\sqrt x}{x}=\\dfrac{2}{\\sqrt x}\\to0$. Portanto $\\sqrt x$ domina $\\ln x$.",
+   "steps": [
+    "$\\dfrac{1/x}{\\tfrac{1}{2\\sqrt x}}=\\dfrac{2\\sqrt x}{x}$.",
+    "$=\\dfrac{2}{\\sqrt x}$.",
+    "$\\lim_{x\\to\\infty}\\dfrac{2}{\\sqrt x}=0$."
+   ],
+   "wrong": {
+    "b": "Derivando, $\\frac{1/x}{1/(2\\sqrt x)}=\\frac{2}{\\sqrt x}\\to0$; o logaritmo não ganha.",
+    "c": "Se a razão tendesse a um número positivo, as ordens seriam iguais; aqui a razão tende a $0$.",
+    "d": "Mesmo raciocínio: a razão vai a $0$, não a $1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 3",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slides 15–16",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "log(x)/sqrt(x)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "0",
+    "b": "oo",
+    "c": "1/2",
+    "d": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-022",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\lim_{x\\to 0}\\frac{e^{x}-1-x}{x^{2}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac12$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$ ($e^0-1-0=0$). 1ª aplicação: $\\dfrac{e^x-1}{2x}$ (ainda $\\dfrac00$). 2ª: $\\dfrac{e^x}{2}\\to\\dfrac12$. Isso é coerente com Taylor: $e^x=1+x+\\dfrac{x^2}{2}+\\cdots$.",
+   "steps": [
+    "$\\dfrac{(e^x-1-x)'}{(x^2)'}=\\dfrac{e^x-1}{2x}$ (ainda $0/0$).",
+    "$\\dfrac{(e^x-1)'}{(2x)'}=\\dfrac{e^x}{2}$.",
+    "$\\lim_{x\\to0}\\dfrac{e^x}{2}=\\dfrac12$."
+   ],
+   "wrong": {
+    "a": "Resulta de tratar a segunda derivada de $x^2$ como $1$: ela é $2$, então $\\frac{e^x}{2}\\to\\frac12$.",
+    "b": "A forma $\\frac00$ é indeterminada: o valor só aparece após derivar duas vezes e não é $0$.",
+    "c": "$2$ é a segunda derivada de $x^2$, mas ela fica no denominador: o limite é $\\frac{e^x}{2}\\to\\frac12$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slides 6 e 9",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 7 (série de eˣ)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(exp(x)-1-x)/x**2",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "d": "1/2",
+    "a": "1",
+    "b": "0",
+    "c": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1/2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-023",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0}\\frac{x-\\sin x}{x^{3}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac16$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$. 1ª: $\\dfrac{1-\\cos x}{3x^2}$ (ainda $\\dfrac00$). 2ª: $\\dfrac{\\sin x}{6x}$ (ainda $\\dfrac00$). 3ª: $\\dfrac{\\cos x}{6}\\to\\dfrac16$. Confere com Taylor: $\\sin x=x-\\dfrac{x^3}{6}+\\cdots$.",
+   "steps": [
+    "$\\dfrac{1-\\cos x}{3x^2}$ (ainda $0/0$).",
+    "$\\dfrac{\\sin x}{6x}$ (ainda $0/0$).",
+    "$\\dfrac{\\cos x}{6}\\to\\dfrac16$."
+   ],
+   "wrong": {
+    "c": "Esse seria o valor se a terceira derivada de $x^3$ fosse $3$; ela é $6$, e $\\frac{\\cos 0}{6}=\\frac16$.",
+    "d": "Não: após uma aplicação resta $\\frac{1-\\cos x}{3x^2}$, ainda $\\frac00$, e o valor sai só na 3ª.",
+    "a": "$\\frac12$ é o limite de $\\frac{1-\\cos x}{x^2}$, que é outra questão."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9 (série de sen x)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(x-sin(x))/x**3",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "b": "1/6",
+    "c": "1/3",
+    "d": "0",
+    "a": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1/6; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-024",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Aplicar mais de uma vez",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to\\infty}\\frac{(\\ln x)^{2}}{x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Forma $\\dfrac\\infty\\infty$. 1ª aplicação: $\\dfrac{2\\ln x\\cdot\\frac1x}{1}=\\dfrac{2\\ln x}{x}$, ainda $\\dfrac\\infty\\infty$. 2ª aplicação: $\\dfrac{2/x}{1}=\\dfrac2x\\to0$.",
+   "steps": [
+    "$\\dfrac{((\\ln x)^2)'}{(x)'}=\\dfrac{2\\ln x}{x}$ (ainda $\\infty/\\infty$).",
+    "$\\dfrac{(2\\ln x)'}{(x)'}=\\dfrac{2/x}{1}$.",
+    "$\\lim_{x\\to\\infty}\\dfrac2x=0$."
+   ],
+   "wrong": {
+    "b": "Derivando uma vez, $\\frac{2\\ln x/x}{1}$ ainda tende a $0$ (e não a $\\infty$): $x$ domina qualquer potência de $\\ln x$.",
+    "c": "O fator $2$ vem da regra da cadeia, mas $\\frac{2\\ln x}{x}$ ainda tende a $0$.",
+    "a": "Nada indica razão de mesma ordem: o denominador cresce muito mais rápido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slides 9 e 15",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "log(x)**2/x",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "d": "0",
+    "b": "oo",
+    "c": "2",
+    "a": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-025",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Taxas de crescimento",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um algoritmo $A$ custa $T_A(n)=n\\ln n$ e outro, $B$, custa $T_B(n)=n^{2}$. Calculando $\\displaystyle\\lim_{n\\to\\infty}\\frac{T_A(n)}{T_B(n)}$, qual conclusão está correta?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O limite é $\\infty$: $A$ cresce mais rápido e é pior"
+   },
+   {
+    "id": "b",
+    "text": "O limite vale $\\ln n$, então depende de $n$"
+   },
+   {
+    "id": "c",
+    "text": "O limite é $1$: têm a mesma ordem de crescimento"
+   },
+   {
+    "id": "d",
+    "text": "O limite é $0$: $A$ cresce mais devagar e é assintoticamente melhor"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Simplifique: $\\dfrac{n\\ln n}{n^2}=\\dfrac{\\ln n}{n}$. Forma $\\dfrac\\infty\\infty$; por L’Hôpital, $\\dfrac{1/n}{1}\\to0$. Razão $\\to0$: $T_A$ cresce mais devagar, logo $n\\log n\\prec n^2$.",
+   "steps": [
+    "$\\dfrac{n\\ln n}{n^2}=\\dfrac{\\ln n}{n}$.",
+    "L’Hôpital: $\\dfrac{1/n}{1}=\\dfrac1n$.",
+    "$\\lim_{n\\to\\infty}\\dfrac1n=0$ ⇒ $A$ é assintoticamente melhor."
+   ],
+   "wrong": {
+    "a": "$\\frac{n\\ln n}{n^2}=\\frac{\\ln n}{n}\\to0$, e não $\\infty$.",
+    "c": "Isso exigiria $\\frac{\\ln n}{n}\\to1$, o que é falso.",
+    "b": "Um limite com $n\\to\\infty$ não depende de $n$: o que importa é o valor para o qual a razão tende."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slides 15–16 (hierarquia e comparação)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x*log(x)/x**2",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "d": "0",
+    "a": "oo",
+    "c": "1",
+    "b": "wrong"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-026",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Taxas de crescimento",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em Big-O, a base do logaritmo costuma ser omitida. Pelo limite $\\displaystyle\\lim_{n\\to\\infty}\\frac{\\log_2 n}{n}$, o que acontece com a razão?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Vale $0$ — a base só multiplica por uma constante e não muda o fato de $n$ dominar o logaritmo"
+   },
+   {
+    "id": "b",
+    "text": "Vale $\\infty$ — logaritmo em base $2$ cresce mais rápido que $n$"
+   },
+   {
+    "id": "c",
+    "text": "Não existe, pois $\\log_2 n$ é limitado"
+   },
+   {
+    "id": "d",
+    "text": "Vale $\\log_2 e$ — a base altera o limite"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\log_2 n=\\dfrac{\\ln n}{\\ln 2}$: trocar a base apenas multiplica por uma constante. Assim, $\\dfrac{\\log_2 n}{n}=\\dfrac{1}{\\ln 2}\\cdot\\dfrac{\\ln n}{n}\\to\\dfrac{1}{\\ln2}\\cdot0=0$.",
+   "steps": [
+    "$\\log_2 n=\\dfrac{\\ln n}{\\ln 2}$.",
+    "$\\dfrac{\\ln n}{n}\\to0$ (L’Hôpital: $\\dfrac{1/n}{1}$).",
+    "Constante $\\times\\,0=0$."
+   ],
+   "wrong": {
+    "b": "$n$ domina qualquer logaritmo; a razão não diverge.",
+    "d": "$\\log_2 n=\\frac{\\ln n}{\\ln 2}$ e $\\frac{\\ln n}{n}\\to0$; a constante $\\frac1{\\ln2}$ não altera o limite $0$.",
+    "c": "$\\log_2 n$ não é limitado: $\\log_2 n\\to\\infty$ quando $n\\to\\infty$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 15 (“Base do log não importa”)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "log(x,2)/x",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "0",
+    "b": "oo",
+    "d": "1/log(2)",
+    "c": "wrong"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-027",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Comparar com outros métodos",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 1}\\frac{x^{3}-1}{x^{2}-1}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac23$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac32$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$ em $x=1$. L’Hôpital: $\\dfrac{3x^2}{2x}=\\dfrac{3x}{2}\\to\\dfrac32$. Por fatoração: $\\dfrac{(x-1)(x^2+x+1)}{(x-1)(x+1)}=\\dfrac{x^2+x+1}{x+1}\\to\\dfrac32$.",
+   "steps": [
+    "$\\dfrac{(x^3-1)'}{(x^2-1)'}=\\dfrac{3x^2}{2x}=\\dfrac{3x}{2}$.",
+    "Em $x=1$: $\\dfrac32$."
+   ],
+   "wrong": {
+    "b": "Inverteu a razão das derivadas: $\\frac{3x^2}{2x}$ em $x=1$ é $\\frac32$, não $\\frac23$.",
+    "a": "A forma $\\frac00$ não indica valor $1$; as derivadas valem $3$ e $2$ em $x=1$.",
+    "c": "O numerador e o denominador anulam juntos, mas o limite é finito e não nulo."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 10 (alternativas: fatore, racionalize)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(x**3-1)/(x**2-1)",
+    "var": "x",
+    "at": "1",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "d": "3/2",
+    "b": "2/3",
+    "a": "1",
+    "c": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 3/2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-028",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 0·∞",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0^{+}}\\sqrt{x}\\,\\ln x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\infty$"
+   },
+   {
+    "id": "d",
+    "text": "$-1$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Forma $0\\cdot\\infty$. Reescreva: $\\sqrt x\\ln x=\\dfrac{\\ln x}{x^{-1/2}}$ ($\\dfrac{\\infty}{\\infty}$). Derivando: $\\dfrac{1/x}{-\\tfrac12x^{-3/2}}=-2\\sqrt x\\to0$.",
+   "steps": [
+    "$\\sqrt{x}\\ln x=\\dfrac{\\ln x}{x^{-1/2}}$.",
+    "$\\dfrac{1/x}{-\\tfrac12 x^{-3/2}}=-2x^{1/2}$.",
+    "$\\lim_{x\\to0^+}(-2\\sqrt x)=0$."
+   ],
+   "wrong": {
+    "c": "$\\sqrt x$ vai a zero mais rápido do que $\\ln x$ diverge: o produto, reescrito como $\\frac{\\ln x}{x^{-1/2}}$, resulta em $-2\\sqrt x\\to0$ e não diverge.",
+    "b": "Não há “cancelamento” de $0$ com $\\infty$ que dê $1$: é preciso reescrever como fração.",
+    "d": "O sinal negativo de $\\ln x$ é multiplicado por $\\sqrt x\\to0$, então o produto tende a $0$ e não a $-1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 5 (mesmo raciocínio)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "sqrt(x)*log(x)",
+    "var": "x",
+    "at": "0",
+    "dir": "+"
+   },
+   "optionValues": {
+    "a": "0",
+    "c": "-oo",
+    "b": "1",
+    "d": "-1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (+:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-029",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 0·∞",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to\\infty} x\\,\\sin\\!\\left(\\frac1x\\right)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$\\infty$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Forma $\\infty\\cdot0$. Reescreva: $x\\sin\\frac1x=\\dfrac{\\sin(1/x)}{1/x}$, forma $\\dfrac00$ com $u=\\dfrac1x\\to0$. Derivando em $x$: $\\dfrac{\\cos(1/x)\\cdot(-1/x^2)}{-1/x^2}=\\cos\\frac1x\\to1$. É o limite fundamental $\\dfrac{\\sin u}{u}\\to1$ disfarçado.",
+   "steps": [
+    "$x\\sin\\tfrac1x=\\dfrac{\\sin(1/x)}{1/x}$ (forma $0/0$).",
+    "$\\dfrac{\\cos(1/x)\\cdot(-1/x^2)}{-1/x^2}=\\cos\\dfrac1x$.",
+    "$\\lim_{x\\to\\infty}\\cos\\dfrac1x=\\cos0=1$."
+   ],
+   "wrong": {
+    "b": "$\\sin(1/x)\\to0$, mas é multiplicado por $x\\to\\infty$: forma $\\infty\\cdot0$ indeterminada; reescrita, o limite é $1$.",
+    "d": "$x\\sin(1/x)$ não diverge, pois $\\sin(1/x)\\approx 1/x$ compensa o fator $x$.",
+    "a": "Nada produz o fator $\\frac12$; a derivada de $1/x$ cancela com o termo do numerador."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x*sin(1/x)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "c": "1",
+    "b": "0",
+    "d": "oo",
+    "a": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-030",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Criar a fração certa",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Em $\\displaystyle\\lim_{x\\to 0}\\left(\\frac{1}{x}-\\frac{1}{e^{x}-1}\\right)$ aparece $\\infty-\\infty$. Depois de juntar as frações e aplicar L’Hôpital, qual é o valor?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac12$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\dfrac1x-\\dfrac1{e^x-1}=\\dfrac{e^x-1-x}{x(e^x-1)}$ (forma $\\dfrac00$). 1ª: $\\dfrac{e^x-1}{(e^x-1)+xe^x}$ (ainda $\\dfrac00$). 2ª: $\\dfrac{e^x}{2e^x+xe^x}\\to\\dfrac12$.",
+   "steps": [
+    "$\\dfrac{e^x-1-x}{x(e^x-1)}$ (forma $0/0$).",
+    "1ª: $\\dfrac{e^x-1}{e^x-1+xe^x}$ (ainda $0/0$).",
+    "2ª: $\\dfrac{e^x}{2e^x+xe^x}\\to\\dfrac{1}{2}$."
+   ],
+   "wrong": {
+    "b": "Ao juntar, $\\frac{e^x-1-x}{x(e^x-1)}$; aplicando duas vezes o valor é $+\\frac12$, e não $0$.",
+    "d": "Sinal trocado: $e^x-1-x\\ge0$, então o limite é positivo.",
+    "c": "Os termos divergem em $x\\to0$, mas a diferença tende a um valor finito: $\\frac12$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12 (∞−∞)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:39:39.097Z",
+  "updatedAt": "2026-10-22T22:41:05.683Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "1/x-1/(exp(x)-1)",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "a": "1/2",
+    "b": "0",
+    "d": "-1/2",
+    "c": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1/2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:41:05.683Z",
+   "notes": "Leitura crítica separada da autoria (4 motivos de distratores corrigidos); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-031",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 1^∞",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0^{+}}\\,(1+\\sin x)^{1/x}$. Dica: chame o limite de $y$, tome $\\ln y$ e depois volte com a exponencial.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$e$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Forma $1^{\\infty}$. Seja $y=(1+\\sin x)^{1/x}$; então $\\ln y=\\dfrac{\\ln(1+\\sin x)}{x}$, forma $\\dfrac00$. Derivando: $\\dfrac{\\cos x/(1+\\sin x)}{1}\\to1$. Logo $\\ln y\\to1$ e $y\\to e^{1}=e$.",
+   "steps": [
+    "$\\ln y=\\dfrac{\\ln(1+\\sin x)}{x}$ (forma $0/0$).",
+    "$\\dfrac{\\left(\\ln(1+\\sin x)\\right)'}{(x)'}=\\dfrac{\\cos x}{1+\\sin x}$.",
+    "$\\lim_{x\\to0^+}\\dfrac{\\cos x}{1+\\sin x}=1\\ \\Rightarrow\\ y\\to e^{1}$."
+   ],
+   "wrong": {
+    "d": "“$1^\\infty=1$” é falso: $1^\\infty$ é indeterminada. Aqui $\\ln y\\to1$, logo $y=e^{1}=e$, e não $1$.",
+    "b": "A base tende a $1$ e o expoente a $\\infty$, mas o efeito combinado é finito: $\\ln y=\\frac{\\ln(1+\\sin x)}{x}\\to1$.",
+    "a": "O limite de $\\ln y$ é $1$ (finito e positivo), portanto $y$ não pode tender a $0$."
+   },
+   "commonMistakes": [
+    "Parar em $\\ln y\\to1$ e responder $1$, esquecendo de voltar com $e^{(\\cdot)}$."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 6",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13 (Formas com expoente: tire o log)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(1+sin(x))**(1/x)",
+    "var": "x",
+    "at": "0",
+    "dir": "+"
+   },
+   "optionValues": {
+    "c": "E",
+    "d": "1",
+    "b": "oo",
+    "a": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = E; checagem numérica ok (+:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-032",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma ∞−∞",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 1}\\left(\\frac{1}{x-1}-\\frac{1}{\\ln x}\\right)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$-\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Juntando: $\\dfrac{1}{x-1}-\\dfrac1{\\ln x}=\\dfrac{\\ln x-(x-1)}{(x-1)\\ln x}$, forma $\\dfrac00$. 1ª aplicação: $\\dfrac{\\frac1x-1}{\\ln x+\\frac{x-1}{x}}$ (ainda $\\dfrac00$). 2ª aplicação: $\\dfrac{-1/x^2}{\\frac1x+\\frac1{x^2}}\\to\\dfrac{-1}{2}$.",
+   "steps": [
+    "$\\dfrac{\\ln x-(x-1)}{(x-1)\\ln x}$ (forma $0/0$).",
+    "1ª: $\\dfrac{1/x-1}{\\ln x+(x-1)/x}$ (ainda $0/0$).",
+    "2ª: $\\dfrac{-1/x^{2}}{1/x+1/x^{2}}\\Big|_{x=1}=\\dfrac{-1}{2}$."
+   ],
+   "wrong": {
+    "c": "Sinal trocado: perto de $1$, o numerador $\\ln x-(x-1)$ é negativo e o denominador $(x-1)\\ln x$ é positivo, então o limite é negativo ($-\\frac12$).",
+    "d": "$\\infty-\\infty$ não é automaticamente $0$: é preciso juntar numa só fração e derivar.",
+    "b": "Cada parcela diverge (com sinais opostos nos dois lados), mas a diferença é finita."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 8",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12 (∞−∞)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "1/(x-1)-1/log(x)",
+    "var": "x",
+    "at": "1",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "a": "-1/2",
+    "c": "1/2",
+    "d": "0",
+    "b": "-oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = -1/2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-033",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 0^0",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to 0^{+}} x^{x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac1e$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$1$"
+   },
+   {
+    "id": "d",
+    "text": "$e$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Forma $0^0$. Com $y=x^x$: $\\ln y=x\\ln x=\\dfrac{\\ln x}{1/x}$ ($\\dfrac{\\infty}{\\infty}$). Derivando: $\\dfrac{1/x}{-1/x^2}=-x\\to0$. Logo $\\ln y\\to0$ e $y\\to e^{0}=1$.",
+   "steps": [
+    "$\\ln y=x\\ln x=\\dfrac{\\ln x}{1/x}$.",
+    "$\\dfrac{1/x}{-1/x^{2}}=-x\\to0$.",
+    "$y=e^{\\ln y}\\to e^0=1$."
+   ],
+   "wrong": {
+    "b": "A base tende a $0$, mas o expoente também; $0^0$ é indeterminada e, aqui, $\\ln y=x\\ln x\\to0$ ⇒ $y\\to1$.",
+    "d": "$e$ seria o resultado de $1^\\infty$ do tipo $(1+1/x)^x$; aqui $\\ln y\\to0$ e $y=e^0=1$.",
+    "a": "Isso exigiria $x\\ln x\\to-1$, mas $x\\ln x\\to0$ (o $x$ vence o logaritmo)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-lista",
+    "locator": "item 7",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x**x",
+    "var": "x",
+    "at": "0",
+    "dir": "+"
+   },
+   "optionValues": {
+    "c": "1",
+    "b": "0",
+    "d": "E",
+    "a": "1/E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (+:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-034",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 1^∞",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\lim_{x\\to\\infty}\\left(1+\\frac{2}{x}\\right)^{x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$e$"
+   },
+   {
+    "id": "c",
+    "text": "$e^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Forma $1^\\infty$. $\\ln y=x\\ln\\!\\left(1+\\frac2x\\right)=\\dfrac{\\ln(1+2/x)}{1/x}$ (forma $\\dfrac00$). Derivando: $\\dfrac{\\frac{-2/x^2}{1+2/x}}{-1/x^2}=\\dfrac{2}{1+2/x}\\to2$. Portanto $y\\to e^{2}$.",
+   "steps": [
+    "$\\ln y=\\dfrac{\\ln(1+2/x)}{1/x}$ (forma $0/0$).",
+    "$\\dfrac{\\frac{-2/x^2}{1+2/x}}{-1/x^2}=\\dfrac{2}{1+2/x}$.",
+    "$\\ln y\\to2\\ \\Rightarrow\\ y\\to e^{2}$."
+   ],
+   "wrong": {
+    "b": "Esse é o limite de $(1+\\frac1x)^x$; aqui o numerador $2$ dobra o limite de $\\ln y$.",
+    "a": "$2$ é o valor de $\\ln y$, não de $y$: falta voltar com a exponencial.",
+    "d": "$1^\\infty$ é indeterminada: $\\ln y\\to2$ (não $0$), então $y\\to e^2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13 (exemplo estrela: (1+1/x)^x → e)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(1+2/x)**x",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "c": "exp(2)",
+    "b": "E",
+    "a": "2",
+    "d": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = exp(2); checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-035",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 0^0",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0^{+}} (\\sin x)^{x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac1e$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Forma $0^0$. $\\ln y=x\\ln(\\sin x)=\\dfrac{\\ln(\\sin x)}{1/x}$ ($\\dfrac\\infty\\infty$). Derivando: $\\dfrac{\\cos x/\\sin x}{-1/x^2}=-\\dfrac{x^2\\cos x}{\\sin x}=-x\\cos x\\cdot\\dfrac{x}{\\sin x}\\to0$. Então $y\\to e^{0}=1$.",
+   "steps": [
+    "$\\ln y=\\dfrac{\\ln(\\sin x)}{1/x}$ ($\\infty/\\infty$).",
+    "$\\dfrac{\\cos x/\\sin x}{-1/x^2}=-x\\cos x\\cdot\\dfrac{x}{\\sin x}$.",
+    "Como $\\frac{x}{\\sin x}\\to1$ e $x\\cos x\\to0$, o limite é $0$ ⇒ $y\\to1$."
+   ],
+   "wrong": {
+    "a": "A base tende a $0$, mas o expoente $x$ também tende a $0$: é $0^0$, indeterminada. Via $\\ln y=x\\ln(\\sin x)\\to0$ resulta $y\\to1$.",
+    "c": "Só ocorreria se $x\\ln(\\sin x)\\to-1$; na verdade tende a $0$.",
+    "b": "Como $\\sin x\\to0^+$, a base é pequena e o resultado não cresce sem limite: $\\ln y\\to0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "sin(x)**x",
+    "var": "x",
+    "at": "0",
+    "dir": "+"
+   },
+   "optionValues": {
+    "d": "1",
+    "a": "0",
+    "c": "1/E",
+    "b": "oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (+:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-036",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma ∞^0",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to\\infty} x^{1/x}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$e$"
+   },
+   {
+    "id": "c",
+    "text": "$\\infty$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Forma $\\infty^{0}$. $\\ln y=\\dfrac{\\ln x}{x}$, forma $\\dfrac\\infty\\infty$; L’Hôpital: $\\dfrac{1/x}{1}\\to0$. Portanto $y\\to e^{0}=1$.",
+   "steps": [
+    "$\\ln y=\\dfrac1x\\ln x=\\dfrac{\\ln x}{x}$.",
+    "$\\dfrac{1/x}{1}\\to0$.",
+    "$y\\to e^0=1$."
+   ],
+   "wrong": {
+    "c": "A base cresce, mas o expoente $1/x$ vai a $0$ e “achata” o resultado: $\\ln y=\\frac{\\ln x}{x}\\to0$.",
+    "d": "A base é grande ($x\\to\\infty$), não pequena; com $\\ln y\\to0$ obtém-se $y\\to1$.",
+    "b": "Só ocorreria se $\\ln y\\to1$, mas $\\frac{\\ln x}{x}\\to0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13 (formas ∞⁰)",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 8 (ln x / x → 0)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x**(1/x)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "1",
+    "c": "oo",
+    "d": "0",
+    "b": "E"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-037",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Quando L’Hôpital não decide",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Considere $\\displaystyle\\lim_{x\\to\\infty}\\frac{x+\\sin x}{x}$. Um colega aplica L’Hôpital e obtém $\\dfrac{1+\\cos x}{1}$. O que se pode concluir corretamente?",
+  "options": [
+   {
+    "id": "a",
+    "text": "O limite original vale $1$, e L’Hôpital confirma isso, pois $1+\\cos x\\to1$"
+   },
+   {
+    "id": "b",
+    "text": "O limite original vale $1$, mas L’Hôpital não decide: $1+\\cos x$ oscila e não tem limite"
+   },
+   {
+    "id": "c",
+    "text": "O limite original é $0$, pois $\\sin x$ é limitado"
+   },
+   {
+    "id": "d",
+    "text": "O limite original é $\\infty$, pois $1+\\cos x$ diverge"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "L’Hôpital só garante a igualdade quando o limite da razão das derivadas **existe** (ou é $\\pm\\infty$). Aqui, $\\dfrac{1+\\cos x}{1}$ oscila entre $0$ e $2$: não existe limite, então a regra é inconclusiva. Isso não significa que o limite original não exista: $\\dfrac{x+\\sin x}{x}=1+\\dfrac{\\sin x}{x}\\to1$ (dividindo por $x$).",
+   "steps": [
+    "$\\dfrac{(x+\\sin x)'}{(x)'}=1+\\cos x$, que oscila em $[0,2]$ e não tem limite.",
+    "Logo L’Hôpital não permite concluir nada.",
+    "Alternativa: $\\dfrac{x+\\sin x}{x}=1+\\dfrac{\\sin x}{x}\\to1+0=1$."
+   ],
+   "wrong": {
+    "a": "$\\cos x$ não tem limite quando $x\\to\\infty$ (oscila entre $-1$ e $1$); logo $1+\\cos x$ também não tem limite.",
+    "d": "$1+\\cos x$ é limitado (fica entre $0$ e $2$): não diverge para $\\infty$ — apenas oscila.",
+    "c": "$\\sin x$ é limitado, mas está somado a $x$ no numerador: $\\frac{x+\\sin x}{x}=1+\\frac{\\sin x}{x}\\to1$."
+   },
+   "commonMistakes": [
+    "Achar que, se a razão das derivadas não tem limite, então o limite original também não tem."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 5 (“o novo limite precisa existir”)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'orig=%s;lh=%s' % (limit((x+sin(x))/x,x,oo), str(limit(1+cos(x),x,oo)))",
+    "numeric": "'orig=%s;lh=%s' % (round(float((10**12+sin(10**12))/10**12)), 'AccumBounds(0, 2)')"
+   },
+   "optionValues": {
+    "b": "'orig=1;lh=AccumBounds(0, 2)'",
+    "a": "'orig=1;lh=1'",
+    "d": "'orig=oo;lh=oo'",
+    "c": "'orig=0;lh=0'"
+   },
+   "claims": [
+    "Slide 5: o novo limite precisa existir (ou ser ±∞) para a regra valer."
+   ],
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "valor = orig=1;lh=AccumBounds(0, 2); checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-038",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Quando L’Hôpital entra em ciclo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Ao tentar $\\displaystyle\\lim_{x\\to\\infty}\\frac{x}{\\sqrt{x^{2}+1}}$ por L’Hôpital, o que acontece e qual é o valor do limite?",
+  "options": [
+   {
+    "id": "a",
+    "text": "A derivação devolve o inverso do original (ciclo); dividindo por $x$, o limite é $1$"
+   },
+   {
+    "id": "b",
+    "text": "A regra funciona de imediato e o limite é $0$, pois a raiz domina o numerador"
+   },
+   {
+    "id": "c",
+    "text": "A regra dá $\\dfrac12$ após duas derivações seguidas"
+   },
+   {
+    "id": "d",
+    "text": "A regra dá $\\infty$ após uma derivação, pois o numerador cresce sem limite"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\dfrac{(x)'}{(\\sqrt{x^2+1})'}=\\dfrac{1}{x/\\sqrt{x^2+1}}=\\dfrac{\\sqrt{x^2+1}}{x}$: o inverso do quociente original. Derivar de novo devolve o quociente inicial — um ciclo. É caso de “trocar de estratégia”: $\\dfrac{x}{\\sqrt{x^2+1}}=\\dfrac{1}{\\sqrt{1+1/x^2}}\\to1$.",
+   "steps": [
+    "$\\dfrac{(x)'}{\\left(\\sqrt{x^2+1}\\right)'}=\\dfrac{\\sqrt{x^2+1}}{x}$ (inverso do original).",
+    "Derivar de novo volta ao quociente inicial: ciclo.",
+    "Dividindo por $x$: $\\dfrac{1}{\\sqrt{1+1/x^{2}}}\\to1$."
+   ],
+   "wrong": {
+    "b": "Os dois lados crescem na mesma ordem (ambos $\\approx x$); o limite é $1$, não $0$.",
+    "d": "O denominador também cresce sem limite e na mesma ordem; a razão se estabiliza em $1$.",
+    "c": "As derivações apenas alternam entre o quociente e o seu inverso e nunca chegam a $\\frac12$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 10 (“Pode entrar em loop” — troque de estratégia)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "x/sqrt(x**2+1)",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "1",
+    "b": "0",
+    "d": "oo",
+    "c": "1/2"
+   },
+   "claims": [
+    "Slide 10: “Às vezes derivar não simplifica (ou volta ao início). Aí troque de estratégia”.",
+    "d/dx[x] / d/dx[√(x²+1)] = √(x²+1)/x = inverso do quociente original (conferível por derivação)."
+   ],
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-039",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Várias aplicações com cadeia",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0}\\frac{e^{x^{2}}-1}{1-\\cos x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "d",
+    "text": "$0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$. 1ª: $\\dfrac{2x\\,e^{x^2}}{\\sin x}$ (ainda $\\dfrac00$). 2ª: $\\dfrac{2e^{x^2}+4x^2e^{x^2}}{\\cos x}\\to\\dfrac{2}{1}=2$. Conferência por Taylor: $e^{x^2}-1\\approx x^2$ e $1-\\cos x\\approx\\dfrac{x^2}{2}$, razão $2$.",
+   "steps": [
+    "$\\dfrac{(e^{x^2}-1)'}{(1-\\cos x)'}=\\dfrac{2xe^{x^2}}{\\sin x}$ (ainda $0/0$).",
+    "$\\dfrac{(2xe^{x^2})'}{(\\sin x)'}=\\dfrac{2e^{x^2}+4x^2e^{x^2}}{\\cos x}$.",
+    "Em $x=0$: $\\dfrac{2}{1}=2$."
+   ],
+   "wrong": {
+    "b": "Esquece a regra da cadeia em $e^{x^2}$ (derivada $2x\\,e^{x^2}$); com ela, após duas aplicações o valor é $2$.",
+    "d": "$\\frac{2xe^{x^2}}{\\sin x}$ ainda é $\\frac00$: o valor só aparece na 2ª aplicação e não é $0$.",
+    "c": "$\\frac12$ resulta de inverter a razão: $\\frac{1-\\cos x}{e^{x^2}-1}\\to\\frac12$. A razão pedida é a original, cujo limite é $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-taylor-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(exp(x**2)-1)/(1-cos(x))",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "a": "2",
+    "b": "1",
+    "d": "0",
+    "c": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 2; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-040",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Simplificação após a 1ª aplicação",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\lim_{x\\to 0}\\frac{\\sin x-x\\cos x}{x^{3}}$. Observe como a primeira derivação simplifica o numerador.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac13$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac16$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac12$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Forma $\\dfrac00$. Derivando o numerador: $\\cos x-(\\cos x-x\\sin x)=x\\sin x$. Logo, $\\dfrac{x\\sin x}{3x^2}=\\dfrac{\\sin x}{3x}\\to\\dfrac13$. A derivação “cancelou” os termos em $\\cos x$ — vale conferir se a expressão se simplifica antes de derivar de novo.",
+   "steps": [
+    "$(\\sin x-x\\cos x)'=\\cos x-\\cos x+x\\sin x=x\\sin x$.",
+    "$\\dfrac{x\\sin x}{3x^{2}}=\\dfrac{\\sin x}{3x}$.",
+    "$\\lim_{x\\to0}\\dfrac{\\sin x}{3x}=\\dfrac13$."
+   ],
+   "wrong": {
+    "c": "$\\frac16$ é o limite de $\\frac{x-\\sin x}{x^3}$; aqui o numerador tem o termo extra $-x\\cos x$ e o resultado é $\\frac13$.",
+    "a": "A forma $\\frac00$ não decide o valor; a 1ª derivação já dá $\\frac{x\\sin x}{3x^2}=\\frac{\\sin x}{3x}\\to\\frac13$.",
+    "d": "Confunde com $\\frac{1-\\cos x}{x^2}$; o numerador deste limite é outro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9",
+    "usage": "aprofundamento"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 7",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.901Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(sin(x)-x*cos(x))/x**3",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "b": "1/3",
+    "c": "1/6",
+    "a": "0",
+    "d": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 1/3; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-041",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma ∞−∞ avançada",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Calcule $\\displaystyle\\lim_{x\\to 0}\\left(\\frac{1}{x^{2}}-\\frac{1}{x\\sin x}\\right)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\infty$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac16$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac16$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$\\dfrac1{x^2}-\\dfrac1{x\\sin x}=\\dfrac{\\sin x-x}{x^2\\sin x}$ (forma $\\dfrac00$). Derivando: $\\dfrac{\\cos x-1}{2x\\sin x+x^2\\cos x}$ (ainda $\\dfrac00$) e de novo: $\\dfrac{-\\sin x}{2\\sin x+4x\\cos x-x^2\\sin x}$ (ainda $\\dfrac00$); uma terceira derivação dá $\\dfrac{-\\cos x}{6\\cos x-6x\\sin x-x^2\\cos x}\\to-\\dfrac16$.",
+   "steps": [
+    "$\\dfrac{\\sin x-x}{x^2\\sin x}$ (forma $0/0$).",
+    "Derivar numerador e denominador três vezes (a forma permanece $0/0$ nas duas primeiras).",
+    "$\\dfrac{-\\cos x}{6\\cos x-6x\\sin x-x^2\\cos x}\\to-\\dfrac16$."
+   ],
+   "wrong": {
+    "b": "O sinal: $\\sin x<x$ para $x>0$, então $\\frac{\\sin x-x}{x^2\\sin x}$ é negativo perto de $0$.",
+    "c": "$\\infty-\\infty$ não implica $0$: a diferença é $\\frac{\\sin x-x}{x^2\\sin x}$, com limite $-\\frac16$.",
+    "a": "O numerador $\\sin x-x\\approx-\\frac{x^3}{6}$ vai a zero tão rápido quanto o denominador $x^2\\sin x\\approx x^3$: o limite é finito."
+   },
+   "commonMistakes": [
+    "Esperar que bastem uma ou duas derivações; aqui a forma só se desfaz na terceira."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12 (∞−∞) e slide 9",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.902Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "1/x**2-1/(x*sin(x))",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "d": "-1/6",
+    "b": "1/6",
+    "c": "0",
+    "a": "-oo"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = -1/6; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-042",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma ∞−∞ trigonométrica",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor de $\\displaystyle\\lim_{x\\to\\frac{\\pi}{2}^{-}}(\\sec x-\\tan x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$0$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$-1$"
+   },
+   {
+    "id": "d",
+    "text": "$\\infty$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Junte as frações: $\\sec x-\\tan x=\\dfrac{1-\\sin x}{\\cos x}$. Em $x\\to\\frac\\pi2^-$: $1-\\sin x\\to0$ e $\\cos x\\to0$, forma $\\dfrac00$. Derivando: $\\dfrac{-\\cos x}{-\\sin x}=\\dfrac{\\cos x}{\\sin x}\\to\\dfrac{0}{1}=0$.",
+   "steps": [
+    "$\\sec x-\\tan x=\\dfrac{1-\\sin x}{\\cos x}$ (forma $0/0$).",
+    "$\\dfrac{(1-\\sin x)'}{(\\cos x)'}=\\dfrac{-\\cos x}{-\\sin x}=\\cot x$.",
+    "$\\cot\\frac\\pi2=0$."
+   ],
+   "wrong": {
+    "b": "$\\sec x$ e $\\tan x$ divergem, mas $\\sec x-\\tan x=\\frac{1-\\sin x}{\\cos x}$ tende a $0$, não a $1$.",
+    "d": "$\\infty-\\infty$ é indeterminada: a diferença é $\\frac{1-\\sin x}{\\cos x}$, que é $\\frac00$ e vale $0$.",
+    "c": "Para $x<\\frac\\pi2$ vale $\\sec x-\\tan x=\\frac{1-\\sin x}{\\cos x}>0$, então o limite não pode ser negativo; ele é $0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 12 (∞−∞: junte numa fração só)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.902Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "sec(x)-tan(x)",
+    "var": "x",
+    "at": "pi/2",
+    "dir": "-"
+   },
+   "optionValues": {
+    "a": "0",
+    "b": "1",
+    "d": "oo",
+    "c": "-1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = 0; checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-043",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 1^∞",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\lim_{x\\to 0}(\\cos x)^{1/x^{2}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$e^{1/2}$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{-1/2}$"
+   },
+   {
+    "id": "c",
+    "text": "$e^{-1}$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Forma $1^\\infty$. $\\ln y=\\dfrac{\\ln(\\cos x)}{x^2}$ (forma $\\dfrac00$). Derivando: $\\dfrac{-\\tan x}{2x}$ (ainda $\\dfrac00$); de novo: $\\dfrac{-\\sec^2x}{2}\\to-\\dfrac12$. Logo $y\\to e^{-1/2}$.",
+   "steps": [
+    "$\\ln y=\\dfrac{\\ln\\cos x}{x^2}$ (forma $0/0$).",
+    "$\\dfrac{-\\tan x}{2x}$ (ainda $0/0$) ⇒ $\\dfrac{-\\sec^2x}{2}$.",
+    "$\\ln y\\to-\\dfrac12\\ \\Rightarrow\\ y\\to e^{-1/2}$."
+   ],
+   "wrong": {
+    "a": "O sinal do expoente: $\\cos x<1$ perto de $0$, então $\\ln(\\cos x)<0$ e $\\ln y\\to-\\frac12$.",
+    "d": "$1^\\infty$ é indeterminada: $\\ln y=\\frac{\\ln\\cos x}{x^2}\\to-\\frac12$ (finito e não nulo).",
+    "c": "Erro típico de fator $2$: $\\frac{-\\tan x}{2x}\\to-\\frac12$, não $-1$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.902Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "cos(x)**(1/x**2)",
+    "var": "x",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "b": "exp(-1/2)",
+    "a": "exp(1/2)",
+    "d": "1",
+    "c": "exp(-1)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = exp(-1/2); checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-044",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Forma 1^∞",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Determine $\\displaystyle\\lim_{x\\to\\infty}\\left(1-\\frac1x\\right)^{x}$ e compare com o limite que define $e$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac1e$"
+   },
+   {
+    "id": "c",
+    "text": "$0$"
+   },
+   {
+    "id": "d",
+    "text": "$e$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Forma $1^\\infty$. $\\ln y=x\\ln\\!\\left(1-\\frac1x\\right)=\\dfrac{\\ln(1-1/x)}{1/x}$ ($\\dfrac00$). Derivando: $\\dfrac{\\frac{1/x^2}{1-1/x}}{-1/x^2}=-\\dfrac{1}{1-1/x}\\to-1$. Portanto $y\\to e^{-1}=\\dfrac1e$.",
+   "steps": [
+    "$\\ln y=\\dfrac{\\ln(1-1/x)}{1/x}$ ($0/0$).",
+    "$\\dfrac{\\frac{1/x^{2}}{1-1/x}}{-1/x^{2}}=-\\dfrac{1}{1-1/x}$.",
+    "$\\ln y\\to-1\\ \\Rightarrow\\ y\\to e^{-1}$."
+   ],
+   "wrong": {
+    "d": "Esse é o limite de $(1+\\frac1x)^x$; com o sinal “$-$”, $\\ln y=x\\ln(1-\\frac1x)\\to-1$.",
+    "a": "$1^\\infty$ é indeterminada; aqui $\\ln y\\to-1$, logo $y\\to e^{-1}$.",
+    "c": "$\\ln y\\to-1$ é finito: $y=e^{\\ln y}\\to e^{-1}\\neq0$ (só tenderia a $0$ se $\\ln y\\to-\\infty$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 13 (exemplo estrela)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.902Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "(1-1/x)**x",
+    "var": "x",
+    "at": "oo",
+    "dir": "-"
+   },
+   "optionValues": {
+    "b": "exp(-1)",
+    "d": "E",
+    "a": "1",
+    "c": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "limite = exp(-1); checagem numérica ok (-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-lhopital-045",
+  "disciplineId": "calculo2",
+  "topicId": "lhopital",
+  "subtopic": "Hierarquia de crescimento",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Em qual dos limites abaixo (todos com $x\\to\\infty$) o resultado é $\\infty$? Use a hierarquia de crescimento: logaritmo $\\prec$ potência $\\prec$ exponencial.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\displaystyle\\lim\\frac{(\\ln x)^{3}}{\\sqrt{x}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\displaystyle\\lim\\frac{\\ln x}{x}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\displaystyle\\lim\\frac{x^{100}}{e^{x}}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\displaystyle\\lim\\frac{e^{x}}{x^{100}}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Pela hierarquia $\\ln x\\prec x^{\\varepsilon}\\prec x^{k}\\prec e^{x}$, só $\\dfrac{e^x}{x^{100}}$ tem o numerador dominando o denominador, portanto tende a $\\infty$ (100 aplicações de L’Hôpital reduzem $x^{100}$ a uma constante, enquanto $e^x$ permanece). Nos demais, o denominador domina e o limite é $0$.",
+   "steps": [
+    "$\\dfrac{e^{x}}{x^{100}}\\ \\to\\ \\dfrac{e^x}{100x^{99}}\\to\\cdots\\to\\dfrac{e^x}{100!}\\to\\infty$.",
+    "Os outros três têm denominador dominante: limite $0$."
+   ],
+   "wrong": {
+    "c": "A exponencial domina qualquer potência, mas está no denominador: o limite é $0$.",
+    "a": "Qualquer potência positiva de $x$ domina qualquer potência de $\\ln x$: o limite é $0$.",
+    "b": "$x$ domina $\\ln x$: o limite é $0$ (visto em aula, por L’Hôpital)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 15 (A hierarquia de crescimento)",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-lhopital-slides",
+    "locator": "slide 9",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T22:42:58.902Z",
+  "updatedAt": "2026-10-22T22:43:57.656Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "target": "oo",
+    "perOption": {
+     "d": {
+      "expr": "exp(x)/x**100",
+      "at": "oo",
+      "dir": "-"
+     },
+     "c": {
+      "expr": "x**100/exp(x)",
+      "at": "oo",
+      "dir": "-"
+     },
+     "a": {
+      "expr": "log(x)**3/sqrt(x)",
+      "at": "oo",
+      "dir": "-"
+     },
+     "b": {
+      "expr": "log(x)/x",
+      "at": "oo",
+      "dir": "-"
+     }
+    }
+   },
+   "optionValues": {
+    "d": "oo",
+    "c": "0",
+    "a": "0",
+    "b": "0"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:11:49.656Z",
+    "details": "d:limite=oo; c:limite=0; a:limite=0; b:limite=0"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T22:43:57.656Z",
+   "notes": "Leitura crítica separada da autoria (2 motivos reforçados; alternativa numericamente inviável trocada); SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

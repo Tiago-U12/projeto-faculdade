@@ -1,0 +1,1339 @@
+[
+ {
+  "id": "c2-funcoes-2-var-001",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Valor numérico",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x,y)=3x-y^{2}$. Calcule $f(2,-3)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3$"
+   },
+   {
+    "id": "b",
+    "text": "$-3$"
+   },
+   {
+    "id": "c",
+    "text": "$15$"
+   },
+   {
+    "id": "d",
+    "text": "$-15$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Substitua $x=2$ e $y=-3$: $f(2,-3)=3\\cdot2-(-3)^{2}=6-9=-3$.",
+   "steps": [
+    "$3x=3\\cdot2=6$.",
+    "$y^{2}=(-3)^{2}=9$.",
+    "$f(2,-3)=6-9=-3$."
+   ],
+   "wrong": {
+    "c": "Ao calcular $y^2$ com $y=-3$ obtém-se $+9$, mas o termo entra com sinal negativo: $6-9=-3$, e não $6+9$.",
+    "a": "Trocou o sinal do resultado: $3\\cdot2-(-3)^2=6-9=-3$.",
+    "d": "Aplicou o sinal negativo também a $3x$: $-6-9=-15$. Só $y^2$ é subtraído."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 1: valor da função em pares ordenados",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.866Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(subs(3*x-y**2,x,2),y,-3)",
+    "numeric": "6-9"
+   },
+   "optionValues": {
+    "b": "-3",
+    "c": "15",
+    "a": "3",
+    "d": "-15"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = -3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-002",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Demanda com dois preços",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A demanda semanal de iogurte (em unidades) é $q=120-3x+2y$, em que $x$ é o preço do iogurte e $y$ é o preço de um produto substituto. Qual é a demanda se $x=15$ e $y=10$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$95$"
+   },
+   {
+    "id": "b",
+    "text": "$145$"
+   },
+   {
+    "id": "c",
+    "text": "$55$"
+   },
+   {
+    "id": "d",
+    "text": "$85$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Substituindo: $q=120-3\\cdot15+2\\cdot10=120-45+20=95$ unidades.",
+   "steps": [
+    "$-3x=-45$ e $2y=20$.",
+    "$q=120-45+20$.",
+    "$q=95$."
+   ],
+   "wrong": {
+    "c": "Subtraiu o termo do substituto: o coeficiente de $y$ é $+2$, logo soma-se $2\\cdot10=20$.",
+    "d": "Usou $-3x+y$ (esqueceu o coeficiente $2$ de $y$): $120-45+10=85$.",
+    "b": "Inverteu os sinais dos dois termos ($120+45-20$): o preço próprio reduz a demanda ($-3x$) e o substituto a aumenta ($+2y$)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 2: demanda q = f(p1, p2)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(subs(120-3*x+2*y,x,15),y,10)",
+    "numeric": "120-45+20"
+   },
+   "optionValues": {
+    "a": "95",
+    "c": "55",
+    "d": "85",
+    "b": "145"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = 95; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-003",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Receita de dois produtos",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Uma loja vende dois produtos: o primeiro a $450$ reais a unidade e o segundo a $700$ reais. Se foram vendidas $12$ unidades do primeiro e $8$ do segundo, qual foi a receita total, em reais?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$11000$"
+   },
+   {
+    "id": "b",
+    "text": "$12000$"
+   },
+   {
+    "id": "c",
+    "text": "$1150$"
+   },
+   {
+    "id": "d",
+    "text": "$20$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A receita é $R(x,y)=450x+700y$, com $x=12$ e $y=8$: $R=450\\cdot12+700\\cdot8=5400+5600=11000$ reais.",
+   "steps": [
+    "$R(x,y)=450x+700y$.",
+    "$450\\cdot12=5400$ e $700\\cdot8=5600$.",
+    "$R=11000$."
+   ],
+   "wrong": {
+    "b": "Multiplicou cruzado ($450\\cdot8+700\\cdot12$): cada preço deve ser multiplicado pela *sua* quantidade.",
+    "c": "Somou apenas os preços ($450+700$), sem multiplicar pelas quantidades.",
+    "d": "$20=12+8$ é o total de unidades, não a receita."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 5: receita com dois produtos",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(subs(450*x+700*y,x,12),y,8)",
+    "numeric": "5400+5600"
+   },
+   "optionValues": {
+    "a": "11000",
+    "b": "12000",
+    "c": "1150",
+    "d": "20"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = 11000; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-004",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Domínio",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o domínio de $f(x,y)=\\dfrac{1}{x-y}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "todos os pares $(x,y)$ com $x\\neq y$"
+   },
+   {
+    "id": "b",
+    "text": "todos os pares com $x\\neq0$ e $y\\neq0$"
+   },
+   {
+    "id": "c",
+    "text": "apenas os pares com $x=y$"
+   },
+   {
+    "id": "d",
+    "text": "todos os pares com $x>y$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A fração só não existe onde o denominador é zero: $x-y=0\\iff x=y$. Portanto o domínio é o plano inteiro menos a reta $y=x$.",
+   "steps": [
+    "Condição: $x-y\\neq0$.",
+    "$x-y=0\\iff x=y$ (reta).",
+    "Domínio: $x\\neq y$."
+   ],
+   "wrong": {
+    "c": "Em $x=y$ o denominador se anula e a função *não* está definida.",
+    "d": "Para $x<y$ o denominador é negativo mas não nulo, e a função está definida.",
+    "b": "O denominador depende de $x-y$; pontos como $(1,0)$ pertencem ao domínio."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 3: valor da função e restrição do denominador",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'x!=y' if (solve(x-y,x)==[y] and subs(subs(x-y,x,1),y,1)==0 and subs(subs(x-y,x,1),y,2)!=0 and subs(subs(x-y,x,2),y,1)!=0 and subs(subs(x-y,x,1),y,0)!=0) else 'outro'",
+    "numeric": "'x!=y'"
+   },
+   "optionValues": {
+    "a": "'x!=y'",
+    "c": "'x=y'",
+    "d": "'x>y'",
+    "b": "'x!=0,y!=0'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = x!=y; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-005",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Curva de nível",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual dos pontos pertence à curva de nível $f(x,y)=6$ da função $f(x,y)=2x+y$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(1,4)$"
+   },
+   {
+    "id": "b",
+    "text": "$(2,6)$"
+   },
+   {
+    "id": "c",
+    "text": "$(2,3)$"
+   },
+   {
+    "id": "d",
+    "text": "$(3,3)$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Um ponto está na curva de nível $6$ quando $2x+y=6$. Em $(1,4)$: $2\\cdot1+4=6$ ✓. Em $(2,3)$: $7$; em $(3,3)$: $9$; em $(2,6)$: $10$.",
+   "steps": [
+    "Teste $2x+y=6$ em cada ponto.",
+    "$(1,4)$: $2+4=6$ ✓.",
+    "Os demais dão $7$, $9$ e $10$."
+   ],
+   "wrong": {
+    "c": "$f(2,3)=4+3=7\\neq6$.",
+    "d": "$f(3,3)=6+3=9\\neq6$.",
+    "b": "$f(2,6)=4+6=10\\neq6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 4: f(x,y) = 2 (curva de nível)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "target": "v",
+    "perOption": {
+     "a": {
+      "expr": "'v' if subs(subs(2*x+y,x,1),y,4)==6 else 'f'",
+      "numeric": "'v' if 2*1+4==6 else 'f'"
+     },
+     "c": {
+      "expr": "'v' if subs(subs(2*x+y,x,2),y,3)==6 else 'f'",
+      "numeric": "'v' if 2*2+3==6 else 'f'"
+     },
+     "d": {
+      "expr": "'v' if subs(subs(2*x+y,x,3),y,3)==6 else 'f'",
+      "numeric": "'v' if 2*3+3==6 else 'f'"
+     },
+     "b": {
+      "expr": "'v' if subs(subs(2*x+y,x,2),y,6)==6 else 'f'",
+      "numeric": "'v' if 2*2+6==6 else 'f'"
+     }
+    }
+   },
+   "optionValues": {
+    "a": "v",
+    "c": "f",
+    "d": "f",
+    "b": "f"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath (por alternativa)",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "a:valor=v; c:valor=f; d:valor=f; b:valor=f"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-006",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Domínio com raiz",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o domínio de $f(x,y)=\\sqrt{9-x^{2}-y^{2}}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x^{2}+y^{2}\\le3$"
+   },
+   {
+    "id": "b",
+    "text": "$x^{2}+y^{2}\\ge9$"
+   },
+   {
+    "id": "c",
+    "text": "$x^{2}+y^{2}\\le9$ (disco de raio $3$)"
+   },
+   {
+    "id": "d",
+    "text": "$x+y\\le9$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "A raiz exige radicando não negativo: $9-x^2-y^2\\ge0\\iff x^2+y^2\\le9$. É o disco de centro na origem e raio $3$, incluindo a circunferência.",
+   "steps": [
+    "Radicando $\\ge0$: $9-x^{2}-y^{2}\\ge0$.",
+    "$x^{2}+y^{2}\\le9$.",
+    "Disco de raio $3$."
+   ],
+   "wrong": {
+    "b": "É a região *fora* do disco; lá o radicando $9-x^2-y^2$ é negativo.",
+    "a": "O raio é $\\sqrt9=3$, então a condição é $x^2+y^2\\le9$ (e não $\\le3$).",
+    "d": "A condição envolve $x^2+y^2$, não $x+y$; o domínio é um disco, não um semiplano."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "conceito de função de duas variáveis (domínio)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'x2+y2<=9' if (subs(subs(9-x**2-y**2,x,3),y,0)==0 and subs(subs(9-x**2-y**2,x,0),y,0)>0 and subs(subs(9-x**2-y**2,x,4),y,0)<0 and subs(subs(9-x**2-y**2,x,0),y,3)==0) else 'outro'",
+    "numeric": "'x2+y2<=9'"
+   },
+   "optionValues": {
+    "c": "'x2+y2<=9'",
+    "b": "'x2+y2>=9'",
+    "a": "'x2+y2<=3'",
+    "d": "'x+y<=9'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = x2+y2<=9; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-007",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Domínio com logaritmo",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o domínio de $f(x,y)=\\ln(x-y)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x\\ge y$"
+   },
+   {
+    "id": "b",
+    "text": "$x>y$"
+   },
+   {
+    "id": "c",
+    "text": "$x>0$ e $y>0$"
+   },
+   {
+    "id": "d",
+    "text": "$x\\neq y$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O logaritmo exige argumento positivo: $x-y>0\\iff x>y$. Portanto o domínio é o semiplano abaixo da reta $y=x$, sem a reta.",
+   "steps": [
+    "Condição: $x-y>0$.",
+    "$x>y$.",
+    "Semiplano aberto abaixo da reta $y=x$."
+   ],
+   "wrong": {
+    "a": "Em $x=y$ temos $\\ln0$, que não existe: a desigualdade deve ser estrita.",
+    "d": "Para $x<y$ o argumento é negativo e o logaritmo real não existe.",
+    "c": "A condição é sobre $x-y$; por exemplo $(1,-5)$ está no domínio e $(2,3)$ não está."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "conceito de função de duas variáveis (domínio)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'x>y' if (subs(subs(x-y,x,2),y,1)>0 and subs(subs(x-y,x,1),y,1)==0 and subs(subs(x-y,x,1),y,2)<0 and subs(subs(x-y,x,1),y,-5)>0 and subs(subs(x-y,x,2),y,3)<0) else 'outro'",
+    "numeric": "'x>y'"
+   },
+   "optionValues": {
+    "b": "'x>y'",
+    "a": "'x>=y'",
+    "d": "'x!=y'",
+    "c": "'x>0,y>0'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = x>y; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-008",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Variação da função em x",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x,y)=x^{2}y$. Simplifique $f(3+\\Delta x,\\,4)-f(3,4)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$24\\,\\Delta x$"
+   },
+   {
+    "id": "b",
+    "text": "$36+24\\,\\Delta x+4(\\Delta x)^{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$4(\\Delta x)^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$24\\,\\Delta x+4(\\Delta x)^{2}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f(3+\\Delta x,4)=4(3+\\Delta x)^2=4\\bigl(9+6\\Delta x+(\\Delta x)^2\\bigr)=36+24\\Delta x+4(\\Delta x)^2$ e $f(3,4)=9\\cdot4=36$. A diferença é $24\\,\\Delta x+4(\\Delta x)^2$.",
+   "steps": [
+    "$f(3+\\Delta x,4)=4(3+\\Delta x)^{2}$.",
+    "$=36+24\\Delta x+4(\\Delta x)^{2}$.",
+    "Subtraia $f(3,4)=36$."
+   ],
+   "wrong": {
+    "c": "Esqueceu o termo cruzado de $(3+\\Delta x)^2=9+6\\Delta x+(\\Delta x)^2$, que gera $24\\,\\Delta x$.",
+    "a": "Faltou o termo $4(\\Delta x)^2$ vindo do quadrado de $\\Delta x$.",
+    "b": "Esse é $f(3+\\Delta x,4)$; falta subtrair $f(3,4)=36$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 3c: f(3+Δx, 4) − f(3, 4)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "4*(3+h)**2-4*3**2",
+    "var": "h"
+   },
+   "optionValues": {
+    "d": "24*h+4*h**2",
+    "c": "4*h**2",
+    "a": "24*h",
+    "b": "36+24*h+4*h**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "função de referência = 4*(h + 3)**2 - 36"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-009",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Lucro com dois produtos",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Uma fábrica tem receita $R(x,y)=20x+30y$ e custo $C(x,y)=500+8x+12y$ (em reais), em que $x$ e $y$ são as quantidades produzidas e vendidas de dois produtos. Qual é o lucro $L=R-C$ para $x=40$ e $y=25$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$430$ reais"
+   },
+   {
+    "id": "b",
+    "text": "$2670$ reais"
+   },
+   {
+    "id": "c",
+    "text": "$1120$ reais"
+   },
+   {
+    "id": "d",
+    "text": "$1550$ reais"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$R(40,25)=20\\cdot40+30\\cdot25=800+750=1550$. $C(40,25)=500+8\\cdot40+12\\cdot25=500+320+300=1120$. Lucro: $L=1550-1120=430$ reais.",
+   "steps": [
+    "$R=800+750=1550$.",
+    "$C=500+320+300=1120$.",
+    "$L=1550-1120=430$."
+   ],
+   "wrong": {
+    "d": "$1550$ é só a receita; o lucro é receita *menos* custo.",
+    "c": "$1120$ é só o custo ($500+320+300$); falta calcular $R-C$.",
+    "b": "Somou receita e custo; lucro é a *diferença* $R-C$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 5: receita de dois produtos (estendido para custo e lucro)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(subs(20*x+30*y,x,40),y,25)-subs(subs(500+8*x+12*y,x,40),y,25)",
+    "numeric": "1550-1120"
+   },
+   "optionValues": {
+    "a": "430",
+    "d": "1550",
+    "c": "1120",
+    "b": "2670"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = 430; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-010",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Forma de uma curva de nível",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a curva de nível $f(x,y)=25$ da função $f(x,y)=x^{2}+y^{2}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "uma circunferência de centro na origem e raio $5$"
+   },
+   {
+    "id": "b",
+    "text": "uma circunferência de centro na origem e raio $25$"
+   },
+   {
+    "id": "c",
+    "text": "uma parábola"
+   },
+   {
+    "id": "d",
+    "text": "uma reta"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "A curva de nível $25$ é o conjunto dos pontos com $x^2+y^2=25$: circunferência de centro $(0,0)$ e raio $5$. Por exemplo, $(3,4)$, $(5,0)$ e $(0,5)$ pertencem a ela.",
+   "steps": [
+    "Igualar: $x^{2}+y^{2}=25$.",
+    "Reconhecer $r^{2}=25$.",
+    "Raio $5$ (ex.: $(3,4)$ pertence)."
+   ],
+   "wrong": {
+    "b": "$x^2+y^2=25$ é $r^2=25$; o raio é $\\sqrt{25}=5$.",
+    "d": "$x^2+y^2=25$ não é equação de reta: tem termos quadráticos em $x$ e em $y$.",
+    "c": "Parábola tem apenas uma variável ao quadrado; aqui há $x^2$ e $y^2$ somados."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 4: curvas de nível",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'circ5' if (subs(subs(x**2+y**2,x,3),y,4)==25 and subs(subs(x**2+y**2,x,5),y,0)==25 and subs(subs(x**2+y**2,x,0),y,5)==25 and subs(subs(x**2+y**2,x,0),y,0)!=25) else 'outro'",
+    "numeric": "'circ5'"
+   },
+   "optionValues": {
+    "a": "'circ5'",
+    "b": "'circ25'",
+    "d": "'reta'",
+    "c": "'parabola'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = circ5; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-011",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Domínio com produto sob a raiz",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o domínio de $f(x,y)=\\sqrt{xy}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "os pares com $x+y\\ge0$"
+   },
+   {
+    "id": "b",
+    "text": "os pares com $xy>0$"
+   },
+   {
+    "id": "c",
+    "text": "os pares com $x\\ge0$ e $y\\ge0$"
+   },
+   {
+    "id": "d",
+    "text": "os pares com $xy\\ge0$ (com os eixos)"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "A raiz exige $xy\\ge0$: $x$ e $y$ com o mesmo sinal ou algum deles nulo. É a união do 1º e do 3º quadrantes com os dois eixos coordenados.",
+   "steps": [
+    "Condição: $xy\\ge0$.",
+    "Sinais iguais ou fator nulo.",
+    "1º e 3º quadrantes + eixos."
+   ],
+   "wrong": {
+    "c": "Isso descarta o 3º quadrante, mas $(-2,-3)$ tem $xy=6\\ge0$ e pertence ao domínio.",
+    "b": "Os eixos têm $xy=0$ e $\\sqrt0=0$ existe; eles pertencem ao domínio.",
+    "a": "A condição é sobre o produto: $(5,-1)$ tem $x+y\\ge0$, mas $xy=-5<0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "conceito de função de duas variáveis (domínio)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'xy>=0' if (subs(subs(x*y,x,-2),y,-3)>=0 and subs(subs(x*y,x,0),y,5)==0 and subs(subs(x*y,x,5),y,-1)<0 and subs(subs(x*y,x,-1),y,2)<0 and subs(subs(x*y,x,2),y,3)>0) else 'outro'",
+    "numeric": "'xy>=0'"
+   },
+   "optionValues": {
+    "d": "'xy>=0'",
+    "c": "'x>=0,y>=0'",
+    "b": "'xy>0'",
+    "a": "'x+y>=0'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = xy>=0; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-012",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Domínio com raiz e logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o domínio de $f(x,y)=\\sqrt{y-x^{2}}+\\ln(4-y)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$y<4$ e $y\\le x^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$x^{2}\\le y\\le4$"
+   },
+   {
+    "id": "c",
+    "text": "$x^{2}\\le y<4$"
+   },
+   {
+    "id": "d",
+    "text": "$y\\ge x^{2}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Raiz: $y-x^2\\ge0\\iff y\\ge x^2$. Logaritmo: $4-y>0\\iff y<4$. Juntas: $x^2\\le y<4$, região dentro da parábola $y=x^2$ e abaixo da reta $y=4$ (com a parábola, sem a reta).",
+   "steps": [
+    "$y-x^{2}\\ge0\\iff y\\ge x^{2}$.",
+    "$4-y>0\\iff y<4$.",
+    "Interseção: $x^{2}\\le y<4$."
+   ],
+   "wrong": {
+    "b": "Em $y=4$ temos $\\ln0$, indefinido: o limite superior é estrito.",
+    "d": "Falta a condição do logaritmo, $4-y>0$.",
+    "a": "A raiz exige $y-x^2\\ge0$, isto é, $y\\ge x^2$ (o sentido está invertido)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "conceito de função de duas variáveis (domínio)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'x2<=y<4' if (subs(subs(y-x**2,x,0),y,0)>=0 and subs(subs(4-y,x,0),y,4)==0 and subs(subs(y-x**2,x,1),y,3)>=0 and subs(subs(4-y,x,1),y,3)>0 and subs(subs(y-x**2,x,0),y,-1)<0 and subs(subs(y-x**2,x,3),y,5)<0) else 'outro'",
+    "numeric": "'x2<=y<4'"
+   },
+   "optionValues": {
+    "c": "'x2<=y<4'",
+    "b": "'x2<=y<=4'",
+    "d": "'y>=x2'",
+    "a": "'y<4,y<=x2'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = x2<=y<4; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-013",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Composição com parâmetro",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x,y)=x^{2}+y$. Se $x=t+1$ e $y=t^{2}$, qual é a expressão de $F(t)=f(t+1,\\,t^{2})$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(t+1)^{2}\\,t^{2}$"
+   },
+   {
+    "id": "b",
+    "text": "$2t^{2}+2t+1$"
+   },
+   {
+    "id": "c",
+    "text": "$(t+1)^{2}+t$"
+   },
+   {
+    "id": "d",
+    "text": "$2t^{2}+1$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Substituindo na definição $f(x,y)=x^2+y$: $F(t)=(t+1)^2+t^2=t^2+2t+1+t^2=2t^2+2t+1$.",
+   "steps": [
+    "$x^{2}=(t+1)^{2}=t^{2}+2t+1$.",
+    "$y=t^{2}$.",
+    "$F(t)=2t^{2}+2t+1$."
+   ],
+   "wrong": {
+    "d": "Escreveu $(t+1)^2=t^2+1$, esquecendo o termo cruzado $2t$.",
+    "c": "Substituiu $y$ por $t$ em vez de $t^2$.",
+    "a": "Multiplicou os termos; $f$ soma $x^2$ e $y$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplos de avaliação de f(x,y) em expressões",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "(t+1)**2+t**2",
+    "var": "t"
+   },
+   "optionValues": {
+    "b": "2*t**2+2*t+1",
+    "d": "2*t**2+1",
+    "c": "(t+1)**2+t",
+    "a": "(t+1)**2*t**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "função de referência = t**2 + (t + 1)**2"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-014",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Retornos de escala",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Uma produção segue $Q(x,y)=10\\sqrt{xy}$, em que $x$ e $y$ são as quantidades de dois insumos. Se os dois insumos são dobrados simultaneamente, por quanto fica multiplicada a produção $Q$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "por $2$"
+   },
+   {
+    "id": "b",
+    "text": "por $4$"
+   },
+   {
+    "id": "c",
+    "text": "por $1$ (não muda)"
+   },
+   {
+    "id": "d",
+    "text": "por $\\sqrt2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$Q(2x,2y)=10\\sqrt{2x\\cdot2y}=10\\sqrt{4xy}=10\\cdot2\\sqrt{xy}=2\\,Q(x,y)$. A produção dobra (retornos constantes de escala). Exemplo: $Q(4,9)=60$ e $Q(8,18)=10\\sqrt{144}=120$.",
+   "steps": [
+    "$Q(2x,2y)=10\\sqrt{4xy}$.",
+    "$\\sqrt{4xy}=2\\sqrt{xy}$.",
+    "$Q(2x,2y)=2Q(x,y)$."
+   ],
+   "wrong": {
+    "b": "$\\sqrt{2x\\cdot2y}=\\sqrt{4xy}=2\\sqrt{xy}$: a raiz reduz o fator $4$ para $2$.",
+    "d": "O fator de $xy$ é $4$ e $\\sqrt4=2$, não $\\sqrt2$.",
+    "c": "Dobrar os insumos altera $Q$: $Q(2x,2y)=2\\,Q(x,y)$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "função de duas variáveis aplicada à produção (generalização do exemplo 2)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sqrt(2*4*2*9)/sqrt(4*9)",
+    "numeric": "12/6"
+   },
+   "optionValues": {
+    "a": "2",
+    "b": "4",
+    "d": "sqrt(2)",
+    "c": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = 2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-funcoes-2-var-015",
+  "disciplineId": "calculo2",
+  "topicId": "funcoes-2-var",
+  "subtopic": "Curva de nível por um ponto",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a equação da curva de nível de $f(x,y)=x^{2}-y$ que passa pelo ponto $(2,-1)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$y=x^{2}-3$"
+   },
+   {
+    "id": "b",
+    "text": "$y=x^{2}+5$"
+   },
+   {
+    "id": "c",
+    "text": "$y=5-x^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$y=x^{2}-5$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O nível é o valor da função no ponto: $f(2,-1)=2^2-(-1)=4+1=5$. A curva de nível é $x^2-y=5$, isto é, $y=x^2-5$ (uma parábola).",
+   "steps": [
+    "$c=f(2,-1)=4+1=5$.",
+    "$x^{2}-y=5$.",
+    "$y=x^{2}-5$."
+   ],
+   "wrong": {
+    "b": "Isolando $y$ em $x^2-y=5$ obtém-se $y=x^2-5$ (o sinal de $5$ foi trocado).",
+    "a": "Usou $f(2,1)=3$, trocando o sinal de $y$: $f(2,-1)=4+1=5$.",
+    "c": "Isolou errado: de $x^2-y=5$ sai $y=x^2-5$, e não $5-x^2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-f2v-intro",
+    "locator": "exemplo 4: curvas de nível",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:42:19.867Z",
+  "updatedAt": "2026-10-22T23:42:43.108Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "solve(x**2-y-subs(subs(x**2-y,x,2),y,-1),y)[0]",
+    "numeric": "x**2-5"
+   },
+   "optionValues": {
+    "d": "x**2-5",
+    "b": "x**2+5",
+    "a": "x**2-3",
+    "c": "5-x**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-22T23:42:36.766Z",
+    "details": "valor = x**2 - 5; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:42:43.108Z",
+   "notes": "Funções de 2 variáveis: ficha revisada; verificação SymPy + checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

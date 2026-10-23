@@ -1,0 +1,1586 @@
+[
+ {
+  "id": "c2-otimizacao-001",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Ponto crítico",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o ponto crítico de $f(x,y)=x^{2}+y^{2}-4x+6y$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(-2,3)$"
+   },
+   {
+    "id": "b",
+    "text": "$(2,-3)$"
+   },
+   {
+    "id": "c",
+    "text": "$(4,-6)$"
+   },
+   {
+    "id": "d",
+    "text": "$(2,3)$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Ponto crítico: $f_x=0$ e $f_y=0$. Aqui $f_x=2x-4$ e $f_y=2y+6$, logo $x=2$ e $y=-3$.",
+   "steps": [
+    "$f_x=2x-4=0\\Rightarrow x=2$.",
+    "$f_y=2y+6=0\\Rightarrow y=-3$.",
+    "Ponto: $(2,-3)$."
+   ],
+   "wrong": {
+    "a": "Trocou o sinal das duas coordenadas: $f_x=2x-4=0$ dá $x=+2$ e $f_y=2y+6=0$ dá $y=-3$.",
+    "c": "Esqueceu de dividir por $2$: $2x=4\\Rightarrow x=2$ e $2y=-6\\Rightarrow y=-3$.",
+    "d": "Errou o sinal de $y$: $2y+6=0$ dá $y=-3$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.843Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "[solve([diff(x**2+y**2-4*x+6*y,x),diff(x**2+y**2-4*x+6*y,y)],[x,y])[x],solve([diff(x**2+y**2-4*x+6*y,x),diff(x**2+y**2-4*x+6*y,y)],[x,y])[y]]",
+    "numeric": "[2, -3]"
+   },
+   "optionValues": {
+    "b": "[2,-3]",
+    "a": "[-2,3]",
+    "c": "[4,-6]",
+    "d": "[2,3]"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = [2, -3]; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-002",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Teste da Hessiana (mínimo)",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x,y)=x^{2}+y^{2}$, a origem é ponto crítico. Como ele se classifica?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de sela"
+   },
+   {
+    "id": "b",
+    "text": "o teste é inconclusivo"
+   },
+   {
+    "id": "c",
+    "text": "ponto de máximo local"
+   },
+   {
+    "id": "d",
+    "text": "mínimo local ($D=4>0$, $f_{xx}>0$)"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f_{xx}=2$, $f_{yy}=2$, $f_{xy}=0$. O discriminante é $D=f_{xx}f_{yy}-f_{xy}^2=4>0$ e $f_{xx}>0$, portanto a origem é mínimo local (de valor $0$).",
+   "steps": [
+    "$f_{xx}=2,\\ f_{yy}=2,\\ f_{xy}=0$.",
+    "$D=2\\cdot2-0=4>0$.",
+    "$D>0$ e $f_{xx}>0$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "c": "O máximo exigiria $f_{xx}<0$; aqui $f_{xx}=2>0$.",
+    "a": "A sela exigiria $D<0$; aqui $D=f_{xx}f_{yy}-f_{xy}^2=4>0$.",
+    "b": "Só seria inconclusivo se $D=0$; aqui $D=4\\neq0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.844Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "('naocritico' if (subs(diff(x**2+y**2,x),{x:0,y:0})!=0 or subs(diff(x**2+y**2,y),{x:0,y:0})!=0) else ('sela' if subs((diff(x**2+y**2,x,2)*diff(x**2+y**2,y,2)-diff(x**2+y**2,x,y)**2),{x:0,y:0})<0 else ('inconclusivo' if subs((diff(x**2+y**2,x,2)*diff(x**2+y**2,y,2)-diff(x**2+y**2,x,y)**2),{x:0,y:0})==0 else ('min' if subs(diff(x**2+y**2,x,2),{x:0,y:0})>0 else 'max'))))",
+    "numeric": "'min'"
+   },
+   "optionValues": {
+    "d": "'min'",
+    "c": "'max'",
+    "a": "'sela'",
+    "b": "'inconclusivo'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = min; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-003",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Valor máximo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A função $f(x,y)=-x^{2}-y^{2}+2x$ tem um máximo local. Qual é o valor máximo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$-1$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f_x=-2x+2=0\\Rightarrow x=1$ e $f_y=-2y=0\\Rightarrow y=0$. Como $f_{xx}=-2<0$ e $D=4>0$, é máximo. Valor: $f(1,0)=-1-0+2=1$.",
+   "steps": [
+    "$f_x=-2x+2=0\\Rightarrow x=1$; $f_y=-2y=0\\Rightarrow y=0$.",
+    "$f_{xx}=-2<0$ e $D=4>0$ ⇒ máximo.",
+    "$f(1,0)=1$."
+   ],
+   "wrong": {
+    "b": "$0$ é $f(0,0)$, mas o ponto crítico é $(1,0)$.",
+    "a": "$2$ é só o coeficiente do termo linear; o valor é $f(1,0)=-1-0+2=1$.",
+    "c": "$-1$ vem só de $-x^2$ em $x=1$; falta somar o termo $2x=2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.844Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(-x**2-y**2+2*x,solve([diff(-x**2-y**2+2*x,x),diff(-x**2-y**2+2*x,y)],[x,y]))",
+    "numeric": "1"
+   },
+   "optionValues": {
+    "d": "1",
+    "b": "0",
+    "a": "2",
+    "c": "-1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 1; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-004",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Ponto de sela",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x,y)=x^{2}-y^{2}$, como se classifica o ponto crítico $(0,0)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de sela, pois $D=-4<0$"
+   },
+   {
+    "id": "b",
+    "text": "não é ponto crítico"
+   },
+   {
+    "id": "c",
+    "text": "ponto de mínimo local"
+   },
+   {
+    "id": "d",
+    "text": "ponto de máximo local"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$, então $D=2\\cdot(-2)-0=-4<0$. Com $D<0$ o ponto é de sela: $f$ tem mínimo ao longo do eixo $x$ e máximo ao longo do eixo $y$.",
+   "steps": [
+    "$f_{xx}=2,\\ f_{yy}=-2,\\ f_{xy}=0$.",
+    "$D=-4<0$.",
+    "$D<0$ ⇒ sela."
+   ],
+   "wrong": {
+    "c": "Mínimo exigiria $D>0$; aqui $D=2\\cdot(-2)-0=-4$ e a função cresce em $x$ mas decresce em $y$.",
+    "d": "Máximo exigiria $D>0$ e $f_{xx}<0$; aqui $D<0$.",
+    "b": "$f_x=2x$ e $f_y=-2y$ se anulam em $(0,0)$: é crítico."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "('naocritico' if (subs(diff(x**2-y**2,x),{x:0,y:0})!=0 or subs(diff(x**2-y**2,y),{x:0,y:0})!=0) else ('sela' if subs((diff(x**2-y**2,x,2)*diff(x**2-y**2,y,2)-diff(x**2-y**2,x,y)**2),{x:0,y:0})<0 else ('inconclusivo' if subs((diff(x**2-y**2,x,2)*diff(x**2-y**2,y,2)-diff(x**2-y**2,x,y)**2),{x:0,y:0})==0 else ('min' if subs(diff(x**2-y**2,x,2),{x:0,y:0})>0 else 'max'))))",
+    "numeric": "'sela'"
+   },
+   "optionValues": {
+    "a": "'sela'",
+    "c": "'min'",
+    "d": "'max'",
+    "b": "'naocritico'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = sela; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-005",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Discriminante da Hessiana",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $f(x,y)=x^{2}+3y^{2}+xy$, calcule $D=f_{xx}\\,f_{yy}-(f_{xy})^{2}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$12$"
+   },
+   {
+    "id": "b",
+    "text": "$5$"
+   },
+   {
+    "id": "c",
+    "text": "$11$"
+   },
+   {
+    "id": "d",
+    "text": "$13$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f_{xx}=2$, $f_{yy}=6$ e $f_{xy}=1$. Logo $D=2\\cdot6-1^2=11$.",
+   "steps": [
+    "$f_{xx}=2,\\ f_{yy}=6$.",
+    "$f_{xy}=1$.",
+    "$D=12-1=11$."
+   ],
+   "wrong": {
+    "d": "Somou $f_{xy}^2$ em vez de subtrair: $12+1$.",
+    "a": "Esqueceu de subtrair $(f_{xy})^2=1$.",
+    "b": "Usou $f_{yy}-f_{xy}^2$; faltou multiplicar $f_{xx}\\cdot f_{yy}=2\\cdot6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "(diff(x**2+3*y**2+x*y,x,2)*diff(x**2+3*y**2+x*y,y,2)-diff(x**2+3*y**2+x*y,x,y)**2)",
+    "numeric": "2*6-1**2"
+   },
+   "optionValues": {
+    "c": "11",
+    "d": "13",
+    "a": "12",
+    "b": "5"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 11; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-006",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Lucro máximo de dois produtos",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O lucro (em milhares de reais) de uma empresa que produz $x$ e $y$ milhares de unidades de dois produtos é $L(x,y)=-x^{2}-y^{2}+8x+10y-20$. Qual é o lucro máximo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$9$"
+   },
+   {
+    "id": "b",
+    "text": "$41$"
+   },
+   {
+    "id": "c",
+    "text": "$21$"
+   },
+   {
+    "id": "d",
+    "text": "$-20$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$L_x=-2x+8=0\\Rightarrow x=4$ e $L_y=-2y+10=0\\Rightarrow y=5$. Como $L_{xx}=-2<0$ e $D=4>0$, é máximo. $L(4,5)=-16-25+32+50-20=21$.",
+   "steps": [
+    "$x=4$ e $y=5$.",
+    "$L_{xx}=-2<0$, $D=4>0$ ⇒ máximo.",
+    "$L(4,5)=21$."
+   ],
+   "wrong": {
+    "b": "Esqueceu o custo fixo: $16+25=41$ ignora o termo $-20$.",
+    "d": "É $L(0,0)$ (sem produção), não o máximo.",
+    "a": "$9=4+5$ é a soma das quantidades ótimas, não o lucro."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(-x**2-y**2+8*x+10*y-20,solve([diff(-x**2-y**2+8*x+10*y-20,x),diff(-x**2-y**2+8*x+10*y-20,y)],[x,y]))",
+    "numeric": "21"
+   },
+   "optionValues": {
+    "c": "21",
+    "b": "41",
+    "d": "-20",
+    "a": "9"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 21; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-007",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Classificação de ponto crítico",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "A função $f(x,y)=x^{3}-3x+y^{2}$ tem pontos críticos $(1,0)$ e $(-1,0)$. Como se classifica $(-1,0)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "ponto de mínimo local"
+   },
+   {
+    "id": "b",
+    "text": "ponto de máximo local"
+   },
+   {
+    "id": "c",
+    "text": "ponto de sela"
+   },
+   {
+    "id": "d",
+    "text": "o teste é inconclusivo"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, então $D=12x$. Em $(-1,0)$: $D=-12<0$, portanto sela. (Em $(1,0)$: $D=12>0$ e $f_{xx}=6>0$, mínimo local.)",
+   "steps": [
+    "$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$.",
+    "$D(-1,0)=6(-1)\\cdot2=-12$.",
+    "$D<0$ ⇒ sela."
+   ],
+   "wrong": {
+    "a": "Isso vale para $(1,0)$ ($D=12>0$, $f_{xx}=6>0$). Em $(-1,0)$, $D=-12<0$.",
+    "b": "Máximo exigiria $D>0$ e $f_{xx}<0$; em $(-1,0)$ o discriminante é negativo.",
+    "d": "$D=-12\\neq0$: o teste decide (sela)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "('naocritico' if (subs(diff(x**3-3*x+y**2,x),{x:-1,y:0})!=0 or subs(diff(x**3-3*x+y**2,y),{x:-1,y:0})!=0) else ('sela' if subs((diff(x**3-3*x+y**2,x,2)*diff(x**3-3*x+y**2,y,2)-diff(x**3-3*x+y**2,x,y)**2),{x:-1,y:0})<0 else ('inconclusivo' if subs((diff(x**3-3*x+y**2,x,2)*diff(x**3-3*x+y**2,y,2)-diff(x**3-3*x+y**2,x,y)**2),{x:-1,y:0})==0 else ('min' if subs(diff(x**3-3*x+y**2,x,2),{x:-1,y:0})>0 else 'max'))))",
+    "numeric": "'sela'"
+   },
+   "optionValues": {
+    "c": "'sela'",
+    "a": "'min'",
+    "b": "'max'",
+    "d": "'inconclusivo'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = sela; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-008",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Mínimo com termo cruzado",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor mínimo de $f(x,y)=x^{2}+xy+y^{2}-3x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2$"
+   },
+   {
+    "id": "b",
+    "text": "$-3$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$-1$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f_x=2x+y-3=0$ e $f_y=x+2y=0$. Da segunda, $x=-2y$; na primeira, $-4y+y=3\\Rightarrow y=-1$ e $x=2$. Como $f_{xx}=2>0$ e $D=2\\cdot2-1=3>0$, é mínimo: $f(2,-1)=4-2+1-6=-3$.",
+   "steps": [
+    "$2x+y=3$ e $x+2y=0$ ⇒ $(2,-1)$.",
+    "$D=3>0$, $f_{xx}=2>0$ ⇒ mínimo.",
+    "$f(2,-1)=-3$."
+   ],
+   "wrong": {
+    "c": "Sinal trocado: $f(2,-1)=4-2+1-6=-3$.",
+    "d": "$-1$ é a coordenada $y$ do ponto crítico, não o valor de $f$.",
+    "a": "$2$ é a coordenada $x$ do ponto crítico, não o valor de $f$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x**2+x*y+y**2-3*x,solve([diff(x**2+x*y+y**2-3*x,x),diff(x**2+x*y+y**2-3*x,y)],[x,y]))",
+    "numeric": "-3"
+   },
+   "optionValues": {
+    "b": "-3",
+    "c": "3",
+    "d": "-1",
+    "a": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = -3; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-009",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Custo mínimo",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O custo de produção de uma empresa é $C(x,y)=x^{2}+y^{2}-4x-6y+20$. Qual é o custo mínimo?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-7$"
+   },
+   {
+    "id": "b",
+    "text": "$13$"
+   },
+   {
+    "id": "c",
+    "text": "$7$"
+   },
+   {
+    "id": "d",
+    "text": "$20$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$C_x=2x-4=0\\Rightarrow x=2$ e $C_y=2y-6=0\\Rightarrow y=3$. Com $C_{xx}=2>0$ e $D=4>0$, é mínimo: $C(2,3)=4+9-8-18+20=7$.",
+   "steps": [
+    "$(x,y)=(2,3)$.",
+    "$C_{xx}=2>0$, $D=4>0$ ⇒ mínimo.",
+    "$C(2,3)=7$."
+   ],
+   "wrong": {
+    "d": "É $C(0,0)$, o custo sem produção — não é o mínimo.",
+    "b": "$13=2^2+3^2$ ignora os termos lineares e a constante: $C(2,3)=13-8-18+20=7$.",
+    "a": "Custo calculado com sinal trocado; $C(2,3)=4+9-8-18+20=+7$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x**2+y**2-4*x-6*y+20,solve([diff(x**2+y**2-4*x-6*y+20,x),diff(x**2+y**2-4*x-6*y+20,y)],[x,y]))",
+    "numeric": "7"
+   },
+   "optionValues": {
+    "c": "7",
+    "d": "20",
+    "b": "13",
+    "a": "-7"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 7; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-010",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Multiplicadores de Lagrange",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Pelo método dos multiplicadores de Lagrange, qual é o valor máximo de $f(x,y)=xy$ sujeito a $x+y=10$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$50$"
+   },
+   {
+    "id": "b",
+    "text": "$10$"
+   },
+   {
+    "id": "c",
+    "text": "$25$"
+   },
+   {
+    "id": "d",
+    "text": "$5$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$\\nabla f=\\lambda\\nabla g$ com $g=x+y$: $y=\\lambda$ e $x=\\lambda$, logo $x=y$. A restrição dá $2x=10\\Rightarrow x=y=5$. O valor máximo é $f(5,5)=25$.",
+   "steps": [
+    "$y=\\lambda$ e $x=\\lambda$ ⇒ $x=y$.",
+    "$x+y=10\\Rightarrow x=y=5$.",
+    "$f(5,5)=25$."
+   ],
+   "wrong": {
+    "b": "$10$ é o valor da restrição $x+y$, não o valor de $xy$.",
+    "d": "$5$ são as coordenadas $x=y=5$ (e o multiplicador $\\lambda$), não o valor de $xy$.",
+    "a": "Multiplicou por $2$ sem motivo: $f(5,5)=5\\cdot5=25$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x*y,solve([diff(x*y,x)-lam*diff(x+y,x),diff(x*y,y)-lam*diff(x+y,y),x+y-(10)],[x,y,lam]))",
+    "numeric": "25"
+   },
+   "optionValues": {
+    "c": "25",
+    "b": "10",
+    "d": "5",
+    "a": "50"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 25; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-011",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Mínimo com restrição linear",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor mínimo de $f(x,y)=x^{2}+y^{2}$ sujeito a $x+y=4$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$8$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$16$"
+   },
+   {
+    "id": "d",
+    "text": "$2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$\\nabla f=\\lambda\\nabla g$: $2x=\\lambda$ e $2y=\\lambda$, então $x=y$. Com $x+y=4$: $x=y=2$ e $f(2,2)=4+4=8$. (É o quadrado da distância da origem à reta $x+y=4$.)",
+   "steps": [
+    "$2x=\\lambda=2y\\Rightarrow x=y$.",
+    "$x+y=4\\Rightarrow x=y=2$.",
+    "$f(2,2)=8$."
+   ],
+   "wrong": {
+    "b": "$4$ é o valor da restrição; o mínimo de $x^2+y^2$ em $x=y=2$ é $4+4=8$.",
+    "c": "$16=4^2$ vem de $(x+y)^2$ e inclui o termo $2xy$; o valor correto é $x^2+y^2=8$.",
+    "d": "$2$ é a coordenada ($x=y=2$), não o valor de $f$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x**2+y**2,solve([diff(x**2+y**2,x)-lam*diff(x+y,x),diff(x**2+y**2,y)-lam*diff(x+y,y),x+y-(4)],[x,y,lam]))",
+    "numeric": "8"
+   },
+   "optionValues": {
+    "a": "8",
+    "b": "4",
+    "c": "16",
+    "d": "2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 8; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-012",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Valor do multiplicador",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Ao maximizar $f(x,y)=xy$ com a restrição $x+y=10$, as equações de Lagrange são $y=\\lambda$, $x=\\lambda$ e $x+y=10$. Qual é o valor de $\\lambda$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$10$"
+   },
+   {
+    "id": "b",
+    "text": "$1$"
+   },
+   {
+    "id": "c",
+    "text": "$5$"
+   },
+   {
+    "id": "d",
+    "text": "$25$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "De $y=\\lambda$ e $x=\\lambda$: $x=y=\\lambda$. Substituindo em $x+y=10$: $2\\lambda=10\\Rightarrow\\lambda=5$.",
+   "steps": [
+    "$x=y=\\lambda$.",
+    "$2\\lambda=10$.",
+    "$\\lambda=5$."
+   ],
+   "wrong": {
+    "d": "$25$ é o valor máximo de $f$, não o multiplicador.",
+    "a": "$10$ é o valor da restrição; como $x=y=\\lambda$ e $x+y=10$, tem-se $2\\lambda=10$.",
+    "b": "Não decorre das equações: $\\lambda=x=y=5$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "solve([diff(x*y,x)-lam*diff(x+y,x),diff(x*y,y)-lam*diff(x+y,y),x+y-(10)],[x,y,lam])[lam]",
+    "numeric": "5"
+   },
+   "optionValues": {
+    "c": "5",
+    "d": "25",
+    "a": "10",
+    "b": "1"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 5; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-013",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Dois pontos críticos",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "A função $f(x,y)=x^{3}+y^{3}-3xy$ tem pontos críticos $(0,0)$ e $(1,1)$. Como eles se classificam?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(0,0)$ é mínimo local e $(1,1)$ é ponto de sela"
+   },
+   {
+    "id": "b",
+    "text": "$(0,0)$ é ponto de sela e $(1,1)$ é mínimo local"
+   },
+   {
+    "id": "c",
+    "text": "ambos são mínimos locais"
+   },
+   {
+    "id": "d",
+    "text": "$(0,0)$ é ponto de sela e $(1,1)$ é máximo local"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f_x=3x^2-3y$ e $f_y=3y^2-3x$. Segundas derivadas: $f_{xx}=6x$, $f_{yy}=6y$, $f_{xy}=-3$, logo $D=36xy-9$. Em $(0,0)$: $D=-9<0$ ⇒ sela. Em $(1,1)$: $D=27>0$ e $f_{xx}=6>0$ ⇒ mínimo local, com $f(1,1)=-1$.",
+   "steps": [
+    "$D=36xy-9$.",
+    "$D(0,0)=-9<0$ ⇒ sela.",
+    "$D(1,1)=27>0$, $f_{xx}=6>0$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "a": "Trocou os pontos: em $(0,0)$, $D=0\\cdot0-9=-9<0$ (sela); em $(1,1)$, $D=36-9=27>0$.",
+    "d": "Em $(1,1)$, $f_{xx}=6>0$ com $D=27>0$: é mínimo, não máximo.",
+    "c": "Em $(0,0)$, $D=-9<0$: é sela."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "[('naocritico' if (subs(diff(x**3+y**3-3*x*y,x),{x:0,y:0})!=0 or subs(diff(x**3+y**3-3*x*y,y),{x:0,y:0})!=0) else ('sela' if subs((diff(x**3+y**3-3*x*y,x,2)*diff(x**3+y**3-3*x*y,y,2)-diff(x**3+y**3-3*x*y,x,y)**2),{x:0,y:0})<0 else ('inconclusivo' if subs((diff(x**3+y**3-3*x*y,x,2)*diff(x**3+y**3-3*x*y,y,2)-diff(x**3+y**3-3*x*y,x,y)**2),{x:0,y:0})==0 else ('min' if subs(diff(x**3+y**3-3*x*y,x,2),{x:0,y:0})>0 else 'max')))),('naocritico' if (subs(diff(x**3+y**3-3*x*y,x),{x:1,y:1})!=0 or subs(diff(x**3+y**3-3*x*y,y),{x:1,y:1})!=0) else ('sela' if subs((diff(x**3+y**3-3*x*y,x,2)*diff(x**3+y**3-3*x*y,y,2)-diff(x**3+y**3-3*x*y,x,y)**2),{x:1,y:1})<0 else ('inconclusivo' if subs((diff(x**3+y**3-3*x*y,x,2)*diff(x**3+y**3-3*x*y,y,2)-diff(x**3+y**3-3*x*y,x,y)**2),{x:1,y:1})==0 else ('min' if subs(diff(x**3+y**3-3*x*y,x,2),{x:1,y:1})>0 else 'max'))))]",
+    "numeric": "['sela','min']"
+   },
+   "optionValues": {
+    "b": "['sela','min']",
+    "a": "['min','sela']",
+    "d": "['sela','max']",
+    "c": "['min','min']"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = ['sela', 'min']; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-014",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Teste da Hessiana inconclusivo",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $f(x,y)=x^{4}+y^{4}$ o ponto crítico $(0,0)$ tem $D=0$. O que se pode concluir?",
+  "options": [
+   {
+    "id": "a",
+    "text": "mínimo local ($D=0$ não decide; $f\\ge0$)"
+   },
+   {
+    "id": "b",
+    "text": "é máximo local"
+   },
+   {
+    "id": "c",
+    "text": "não é ponto crítico"
+   },
+   {
+    "id": "d",
+    "text": "é ponto de sela, pois $D=0$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Aqui $f_{xx}=12x^2$, $f_{yy}=12y^2$ e $f_{xy}=0$, então $D(0,0)=0$ e o teste da Hessiana não decide. Analisando diretamente: $f(x,y)=x^4+y^4\\ge0$ e $f(0,0)=0$, portanto $(0,0)$ é mínimo local (e global).",
+   "steps": [
+    "$D(0,0)=0$: teste inconclusivo.",
+    "$x^{4}+y^{4}\\ge0$ para todo $(x,y)$.",
+    "$f\\ge f(0,0)$ ⇒ mínimo."
+   ],
+   "wrong": {
+    "d": "$D=0$ não indica sela (isso exige $D<0$); aqui $f\\ge0$ perto de $(0,0)$, então não há direção de decrescimento.",
+    "b": "Em qualquer vizinhança há pontos com $f>0=f(0,0)$, então não é máximo.",
+    "c": "$f_x=4x^3$ e $f_y=4y^3$ se anulam em $(0,0)$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'min' if (('naocritico' if (subs(diff(x**4+y**4,x),{x:0,y:0})!=0 or subs(diff(x**4+y**4,y),{x:0,y:0})!=0) else ('sela' if subs((diff(x**4+y**4,x,2)*diff(x**4+y**4,y,2)-diff(x**4+y**4,x,y)**2),{x:0,y:0})<0 else ('inconclusivo' if subs((diff(x**4+y**4,x,2)*diff(x**4+y**4,y,2)-diff(x**4+y**4,x,y)**2),{x:0,y:0})==0 else ('min' if subs(diff(x**4+y**4,x,2),{x:0,y:0})>0 else 'max'))))=='inconclusivo' and subs(x**4+y**4,{x:Rational(1,10),y:-Rational(1,10)})>0 and subs(x**4+y**4,{x:Rational(1,10),y:0})>0 and subs(x**4+y**4,{x:0,y:-Rational(1,5)})>0) else 'outro'",
+    "numeric": "'min'"
+   },
+   "optionValues": {
+    "a": "'min'",
+    "d": "'sela'",
+    "b": "'max'",
+    "c": "'naocritico'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = min; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-015",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Lagrange com circunferência",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é o valor máximo de $f(x,y)=x+y$ sobre a circunferência $x^{2}+y^{2}=2$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\sqrt2$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$2$"
+   },
+   {
+    "id": "d",
+    "text": "$1$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$\\nabla f=\\lambda\\nabla g$: $1=2\\lambda x$ e $1=2\\lambda y$, logo $x=y$. A restrição dá $2x^2=2\\Rightarrow x=\\pm1$. Os candidatos são $(1,1)$, com $f=2$, e $(-1,-1)$, com $f=-2$. O máximo é $2$.",
+   "steps": [
+    "$1=2\\lambda x=2\\lambda y\\Rightarrow x=y$.",
+    "$2x^{2}=2\\Rightarrow x=\\pm1$.",
+    "$f(1,1)=2$ (máximo) e $f(-1,-1)=-2$."
+   ],
+   "wrong": {
+    "d": "$1$ é a coordenada do ponto $(1,1)$, não o valor $x+y=2$.",
+    "a": "$\\sqrt2$ é o raio da circunferência; o máximo de $x+y$ é $1+1=2$.",
+    "b": "$4=2^2$ confunde $(x+y)^2$ com $x+y$; o máximo de $x+y$ é $2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "sorted([subs(x+y,{x:p[0],y:p[1]}) for p in solve([1-2*lam*x,1-2*lam*y,x**2+y**2-2],[x,y,lam])])[-1]",
+    "numeric": "2"
+   },
+   "optionValues": {
+    "c": "2",
+    "d": "1",
+    "a": "sqrt(2)",
+    "b": "4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-016",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Utilidade com restrição orçamentária",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um consumidor gasta exatamente $12$ reais em dois bens, com preços de $2$ reais ($x$) e $3$ reais ($y$) por unidade, e quer maximizar a utilidade $U(x,y)=xy$. Qual é a utilidade máxima?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6$"
+   },
+   {
+    "id": "b",
+    "text": "$4$"
+   },
+   {
+    "id": "c",
+    "text": "$3$"
+   },
+   {
+    "id": "d",
+    "text": "$12$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Restrição: $2x+3y=12$. Lagrange: $y=2\\lambda$ e $x=3\\lambda$, então $x=\\frac32y$. Substituindo: $3y+3y=12\\Rightarrow y=2$ e $x=3$. Utilidade máxima: $U(3,2)=6$.",
+   "steps": [
+    "$y=2\\lambda$, $x=3\\lambda$ ⇒ $x=\\frac32 y$.",
+    "$2x+3y=12\\Rightarrow y=2,\\ x=3$.",
+    "$U=3\\cdot2=6$."
+   ],
+   "wrong": {
+    "d": "$12$ é o orçamento, não a utilidade.",
+    "b": "Dividiu o orçamento pelo preço de $y$ ($12/3$) sem usar a condição de Lagrange; o ótimo é $x=3$, $y=2$.",
+    "c": "$3$ é a quantidade ótima de $x$ (com $y=2$); a utilidade é $xy=6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x*y,solve([diff(x*y,x)-lam*diff(2*x+3*y,x),diff(x*y,y)-lam*diff(2*x+3*y,y),2*x+3*y-(12)],[x,y,lam]))",
+    "numeric": "6"
+   },
+   "optionValues": {
+    "a": "6",
+    "d": "12",
+    "b": "4",
+    "c": "3"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 6; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-017",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Caixa de menor área",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Uma caixa retangular sem tampa, de base $x\\times y$ e altura $z$, deve ter volume $32$ m³. Qual é a menor área de material (base e quatro paredes) possível?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$64$ m²"
+   },
+   {
+    "id": "b",
+    "text": "$32$ m²"
+   },
+   {
+    "id": "c",
+    "text": "$48$ m²"
+   },
+   {
+    "id": "d",
+    "text": "$96$ m²"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Com $z=\\frac{32}{xy}$, a área é $S=xy+2z(x+y)=xy+\\frac{64}{y}+\\frac{64}{x}$. $S_x=y-\\frac{64}{x^2}=0$ e $S_y=x-\\frac{64}{y^2}=0$ levam a $x=y=4$ (e $z=2$). Como $S_{xx}=\\frac{128}{x^3}=2>0$ e $D=3>0$ em $(4,4)$, é mínimo: $S=16+16+16=48$.",
+   "steps": [
+    "$S=xy+\\dfrac{64}{y}+\\dfrac{64}{x}$.",
+    "$S_x=S_y=0\\Rightarrow x=y=4$, $z=2$.",
+    "$S(4,4)=48$ (mínimo, $D=3>0$)."
+   ],
+   "wrong": {
+    "a": "Incluiu a tampa: com tampa seria $16+16+32=64$; o enunciado diz *sem* tampa ($16+16+16=48$).",
+    "b": "$32$ é o volume, não a área.",
+    "d": "Dobrou a área: contou a base e as paredes duas vezes; no ótimo $S=16+16+16=48$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "subs(x*y+64/y+64/x,{x:4,y:4}) if (subs(diff(x*y+64/y+64/x,x),{x:4,y:4})==0 and subs(diff(x*y+64/y+64/x,y),{x:4,y:4})==0 and subs((diff(x*y+64/y+64/x,x,2)*diff(x*y+64/y+64/x,y,2)-diff(x*y+64/y+64/x,x,y)**2),{x:4,y:4})>0 and subs(diff(x*y+64/y+64/x,x,2),{x:4,y:4})>0) else 0",
+    "numeric": "16+16+16"
+   },
+   "optionValues": {
+    "c": "48",
+    "a": "64",
+    "b": "32",
+    "d": "96"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = 48; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-otimizacao-018",
+  "disciplineId": "calculo2",
+  "topicId": "otimizacao",
+  "subtopic": "Parâmetro e natureza do ponto crítico",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Para quais valores de $k$ o teste da Hessiana garante que a origem é ponto de mínimo local de $f(x,y)=x^{2}+kxy+y^{2}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-2<k<2$"
+   },
+   {
+    "id": "b",
+    "text": "apenas $k=0$"
+   },
+   {
+    "id": "c",
+    "text": "$k<2$"
+   },
+   {
+    "id": "d",
+    "text": "$k>2$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f_{xx}=2$, $f_{yy}=2$ e $f_{xy}=k$, então $D=4-k^2$. Há mínimo local quando $D>0$ e $f_{xx}>0$: $4-k^2>0\\iff-2<k<2$. Para $|k|>2$ é sela e, para $|k|=2$, o teste é inconclusivo ($D=0$).",
+   "steps": [
+    "$f_{xx}=2$, $f_{xy}=k$, $f_{yy}=2$.",
+    "$D=4-k^{2}>0$.",
+    "$-2<k<2$."
+   ],
+   "wrong": {
+    "c": "Para $k\\le-2$ ainda se tem $D=4-k^2\\le0$ (por exemplo $k=-3$ dá sela): falta o limite inferior.",
+    "d": "Para $k>2$ tem-se $D=4-k^2<0$: a origem é sela.",
+    "b": "$D=4-k^2>0$ vale para todo $k$ com $|k|<2$, e não só em $k=0$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-programa",
+    "locator": "conteúdo programático: otimização",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-23T00:53:24.845Z",
+  "updatedAt": "2026-10-23T00:53:47.424Z",
+  "verification": {
+   "kind": "expr",
+   "params": {
+    "expr": "'abs(k)<2' if [subs((diff(x**2+k*x*y+y**2,x,2)*diff(x**2+k*x*y+y**2,y,2)-diff(x**2+k*x*y+y**2,x,y)**2),k,k0)>0 for k0 in [-3,-2,-1,0,1,2,3]]==[False,False,True,True,True,False,False] else 'outro'",
+    "numeric": "'abs(k)<2'"
+   },
+   "optionValues": {
+    "a": "'abs(k)<2'",
+    "c": "'k<2'",
+    "d": "'k>2'",
+    "b": "'k=0'"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+independente",
+    "ranAt": "2026-10-23T00:53:45.791Z",
+    "details": "valor = abs(k)<2; checagem independente ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-23T00:53:47.424Z",
+   "notes": "Otimização: ficha revisada; SymPy (gradiente, Hessiana, Lagrange) com checagem independente",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]

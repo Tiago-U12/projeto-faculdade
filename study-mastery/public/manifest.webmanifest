@@ -1,0 +1,12 @@
+{
+  "name": "Study Mastery",
+  "short_name": "StudyMastery",
+  "description": "Estude com foco, aprenda com profundidade: questões, simulados e explicações para a faculdade.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090f1d",
+  "theme_color": "#090f1d",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

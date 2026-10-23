@@ -1,0 +1,1558 @@
+[
+ {
+  "id": "c2-derivadas-001",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra da potência",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=x^{13}$. Qual é $f'(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{x^{14}}{14}$"
+   },
+   {
+    "id": "b",
+    "text": "$13x^{13}$"
+   },
+   {
+    "id": "c",
+    "text": "$13x^{12}$"
+   },
+   {
+    "id": "d",
+    "text": "$12x^{13}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Regra da potência: $(x^{n})'=n\\,x^{n-1}$. Com $n=13$: $f'(x)=13x^{12}$.",
+   "steps": [
+    "Expoente vira coeficiente: $13$.",
+    "Expoente diminui uma unidade: $13-1=12$.",
+    "$f'(x)=13x^{12}$."
+   ],
+   "wrong": {
+    "a": "Essa é a *primitiva* (integral) de $x^{13}$, e não a derivada.",
+    "b": "O expoente deve diminuir uma unidade: $13-1=12$.",
+    "d": "O coeficiente é o expoente original ($13$) e o novo expoente é $12$; os dois estão trocados."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 1",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.343Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "x**13",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "13*x**12",
+    "a": "x**14/14",
+    "b": "13*x**13",
+    "d": "12*x**13"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 13*x**12; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-002",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Raiz e valor da derivada",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=\\sqrt{x}$. Calcule $f'(2)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac12$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{\\sqrt2}{2}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac14$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{\\sqrt2}{4}$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "$f(x)=x^{1/2}$, então $f'(x)=\\dfrac12x^{-1/2}=\\dfrac{1}{2\\sqrt x}$. Em $x=2$: $f'(2)=\\dfrac{1}{2\\sqrt2}=\\dfrac{\\sqrt2}{4}$.",
+   "steps": [
+    "$f(x)=x^{1/2}$.",
+    "$f'(x)=\\dfrac12x^{-1/2}=\\dfrac{1}{2\\sqrt{x}}$.",
+    "$f'(2)=\\dfrac{1}{2\\sqrt2}=\\dfrac{\\sqrt{2}}{4}$."
+   ],
+   "wrong": {
+    "c": "Usou $\\frac{1}{2x}$ no lugar de $\\frac{1}{2\\sqrt x}$: a raiz permanece no denominador.",
+    "b": "Esqueceu o fator $\\frac12$: $f'(x)=\\frac{1}{2\\sqrt x}$ e não $\\frac1{\\sqrt x}$.",
+    "a": "$\\frac12$ é o coeficiente da fórmula, mas ainda falta dividir por $\\sqrt x=\\sqrt2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 2",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "sqrt(x)",
+    "var": "x",
+    "at": "2"
+   },
+   "optionValues": {
+    "d": "sqrt(2)/4",
+    "c": "1/4",
+    "b": "sqrt(2)/2",
+    "a": "1/2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = sqrt(2)/4; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-003",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Constante multiplicativa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Encontre a derivada de $f(x)=\\pi x^{2}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x$"
+   },
+   {
+    "id": "b",
+    "text": "$2\\pi x$"
+   },
+   {
+    "id": "c",
+    "text": "$2\\pi x+x^{2}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\pi x$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$\\pi$ é um número, logo $(\\pi x^2)'=\\pi\\cdot(x^2)'=\\pi\\cdot2x=2\\pi x$. A derivada de uma constante vezes uma função é a constante vezes a derivada.",
+   "steps": [
+    "Constante sai: $\\pi\\,(x^{2})'$.",
+    "$(x^{2})'=2x$.",
+    "$f'(x)=2\\pi x$."
+   ],
+   "wrong": {
+    "a": "$\\pi$ é uma constante multiplicativa e permanece: $(c\\,g)'=c\\,g'$.",
+    "d": "Esqueceu o expoente: a derivada de $x^2$ é $2x$, e não $x$.",
+    "c": "$\\pi$ é constante (derivada $0$); não há termo extra pela “derivada de $\\pi$”."
+   },
+   "commonMistakes": [
+    "Tratar $\\pi$ como variável e aplicar a regra do produto."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 4",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do produto de uma constante por uma função",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "pi*x**2",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "2*pi*x",
+    "a": "2*x",
+    "d": "pi*x",
+    "c": "2*pi*x+x**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 2*pi*x; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-004",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Potência negativa",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $f'(x)$ sendo $f(x)=\\dfrac{1}{x^{5}}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac{5}{x^{6}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{5}{x^{6}}$"
+   },
+   {
+    "id": "c",
+    "text": "$-\\dfrac{5}{x^{4}}$"
+   },
+   {
+    "id": "d",
+    "text": "$-\\dfrac{1}{5x^{4}}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Escreva $f(x)=x^{-5}$. Então $f'(x)=-5x^{-6}=-\\dfrac{5}{x^{6}}$.",
+   "steps": [
+    "$f(x)=x^{-5}$.",
+    "$f'(x)=-5\\,x^{-5-1}$.",
+    "$=-\\dfrac{5}{x^{6}}$."
+   ],
+   "wrong": {
+    "d": "Fez “subir expoente e dividir” (integração); em derivação o expoente vira coeficiente.",
+    "b": "Faltou o sinal negativo: o expoente de $x^{-5}$ é $-5$, que passa a coeficiente.",
+    "c": "O novo expoente é $-5-1=-6$, e não $-4$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 5",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da potência",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "1/x**5",
+    "var": "x"
+   },
+   "optionValues": {
+    "a": "-5/x**6",
+    "d": "-1/(5*x**4)",
+    "b": "5/x**6",
+    "c": "-5/x**4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = -5/x**6; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-005",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Soma e constante",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine a derivada de $f(x)=3x^{2}+6x-10$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3x+6$"
+   },
+   {
+    "id": "b",
+    "text": "$6x+6$"
+   },
+   {
+    "id": "c",
+    "text": "$6x-10$"
+   },
+   {
+    "id": "d",
+    "text": "$6x+6-10$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Derive termo a termo: $(3x^2)'=6x$, $(6x)'=6$ e $(-10)'=0$. Logo $f'(x)=6x+6$.",
+   "steps": [
+    "$(3x^{2})'=6x$.",
+    "$(6x)'=6$.",
+    "$(-10)'=0$ ⇒ $f'(x)=6x+6$."
+   ],
+   "wrong": {
+    "c": "A derivada de $6x$ é $6$ e a de $-10$ (constante) é $0$; o $-10$ não permanece.",
+    "a": "A derivada de $3x^2$ é $6x$ (expoente × coeficiente), e não $3x$.",
+    "d": "A derivada de uma constante é $0$: o termo $-10$ desaparece."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 7a",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada da soma e da constante",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "3*x**2+6*x-10",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "6*x+6",
+    "c": "6*x-10",
+    "a": "3*x+6",
+    "d": "6*x-4"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 6*x + 6; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-006",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Exponencial e logaritmo",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, qual é a derivada de $f(x)=3e^{x}-2\\ln x$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$3e^{x}+\\dfrac{2}{x}$"
+   },
+   {
+    "id": "b",
+    "text": "$3e^{x}-\\dfrac{2}{x}$"
+   },
+   {
+    "id": "c",
+    "text": "$3e^{x}-2x$"
+   },
+   {
+    "id": "d",
+    "text": "$3xe^{x-1}-\\dfrac{2}{x}$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Da tabela: $(e^x)'=e^x$ e $(\\ln x)'=\\dfrac1x$ ($x>0$). Logo $f'(x)=3e^x-2\\cdot\\dfrac1x=3e^x-\\dfrac2x$.",
+   "steps": [
+    "$(3e^{x})'=3e^{x}$.",
+    "$(-2\\ln x)'=-\\dfrac{2}{x}$.",
+    "$f'(x)=3e^{x}-\\dfrac{2}{x}$."
+   ],
+   "wrong": {
+    "d": "$e^x$ não segue a regra da potência: $(e^x)'=e^x$.",
+    "c": "$(\\ln x)'=\\frac1x$, e não $x$.",
+    "a": "O sinal do segundo termo se mantém: $(-2\\ln x)'=-\\frac2x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivadas de eˣ e ln x",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "3*exp(x)-2*log(x)",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "3*exp(x)-2/x",
+    "d": "3*x*exp(x-1)-2/x",
+    "c": "3*exp(x)-2*x",
+    "a": "3*exp(x)+2/x"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 3*exp(x) - 2/x; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-007",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra do produto",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule $f'(x)$ para $f(x)=(2x+1)(3x^{2}+6)$ usando a regra do produto.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$(2)(6x)+(2x+1)(3x^{2}+6)$"
+   },
+   {
+    "id": "b",
+    "text": "$2\\,(3x^{2}+6)=6x^{2}+12$"
+   },
+   {
+    "id": "c",
+    "text": "$18x^{2}+6x+12$"
+   },
+   {
+    "id": "d",
+    "text": "$6x\\cdot2=12x$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$u=2x+1$, $v=3x^2+6$, $u'=2$, $v'=6x$. $f'=u'v+uv'=2(3x^2+6)+(2x+1)(6x)=6x^2+12+12x^2+6x=18x^2+6x+12$.",
+   "steps": [
+    "$u'v=2(3x^{2}+6)=6x^{2}+12$.",
+    "$uv'=(2x+1)\\cdot6x=12x^{2}+6x$.",
+    "Soma: $18x^{2}+6x+12$."
+   ],
+   "wrong": {
+    "d": "A derivada do produto não é o produto das derivadas: $(uv)'=u'v+uv'$.",
+    "b": "Faltou o segundo termo $u\\,v'=(2x+1)\\cdot6x$.",
+    "a": "Misturou: o segundo termo usa $v'=6x$, e não $v$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 9",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do produto",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "(2*x+1)*(3*x**2+6)",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "18*x**2+6*x+12",
+    "d": "12*x",
+    "b": "6*x**2+12",
+    "a": "2*(3*x**2+6)+(2*x+1)*(3*x**2+6)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 6*x**2 + 6*x*(2*x + 1) + 12; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-008",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra do quociente",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Seja $f(x)=\\dfrac{x^{2}}{x^{2}+5}$. Qual é $f'(x)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$\\dfrac{2x}{2x}=1$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{4x^{3}+10x}{(x^{2}+5)^{2}}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{10x}{(x^{2}+5)^{2}}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{10x}{x^{2}+5}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "$u=x^2$, $v=x^2+5$. $f'=\\dfrac{u'v-uv'}{v^2}=\\dfrac{2x(x^2+5)-x^2\\cdot2x}{(x^2+5)^2}=\\dfrac{10x}{(x^2+5)^2}$.",
+   "steps": [
+    "$u'v=2x(x^{2}+5)=2x^{3}+10x$.",
+    "$uv'=x^{2}\\cdot2x=2x^{3}$.",
+    "$\\dfrac{2x^{3}+10x-2x^{3}}{(x^{2}+5)^{2}}=\\dfrac{10x}{(x^{2}+5)^{2}}$."
+   ],
+   "wrong": {
+    "a": "Dividir as derivadas de numerador e denominador não é a regra do quociente.",
+    "b": "Somou em vez de subtrair os termos do numerador: $u'v-uv'$.",
+    "d": "O denominador da regra do quociente é elevado ao quadrado: $v^2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 13",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do quociente",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "x**2/(x**2+5)",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "10*x/(x**2+5)**2",
+    "a": "1",
+    "b": "(4*x**3+10*x)/(x**2+5)**2",
+    "d": "10*x/(x**2+5)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = -2*x**3/(x**2 + 5)**2 + 2*x/(x**2 + 5); checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-009",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Produto com potência negativa",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine a derivada de $f(x)=\\left(x^{3}-8\\right)\\left(\\dfrac{2}{x}-1\\right)$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$4x-3x^{2}-\\dfrac{16}{x^{2}}$"
+   },
+   {
+    "id": "b",
+    "text": "$3x^{2}\\cdot\\left(-\\dfrac{2}{x^{2}}\\right)=-6$"
+   },
+   {
+    "id": "c",
+    "text": "$4x-3x^{2}+\\dfrac{16}{x^{2}}$"
+   },
+   {
+    "id": "d",
+    "text": "$3x^{2}\\left(\\dfrac2x-1\\right)$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Expanda: $f(x)=2x^2-x^3-\\dfrac{16}{x}+8$. Derivando termo a termo: $4x-3x^2+\\dfrac{16}{x^2}$. (Pela regra do produto o resultado é o mesmo: $3x^2\\!\\left(\\frac2x-1\\right)+(x^3-8)\\!\\left(-\\frac2{x^2}\\right)$.)",
+   "steps": [
+    "$f(x)=2x^{2}-x^{3}-16x^{-1}+8$.",
+    "$(2x^{2})'=4x$, $(-x^{3})'=-3x^{2}$.",
+    "$(-16x^{-1})'=+16x^{-2}=\\dfrac{16}{x^{2}}$."
+   ],
+   "wrong": {
+    "b": "Multiplicou as derivadas dos fatores; a regra do produto soma $u'v+uv'$.",
+    "a": "O termo $-\\frac{16}{x}$ tem derivada $+\\frac{16}{x^2}$ (sinais: $-16\\cdot(-1)x^{-2}$).",
+    "d": "É só $u'v$; falta o termo $u\\,v'$ com $v'=-\\frac{2}{x^2}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 14",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do produto",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.344Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "(x**3-8)*(2/x-1)",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "4*x-3*x**2+16/x**2",
+    "b": "-6",
+    "a": "4*x-3*x**2-16/x**2",
+    "d": "3*x**2*(2/x-1)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 3*x**2*(-1 + 2/x) - 2*(x**3 - 8)/x**2; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-010",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra do quociente",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Determine a derivada de $f(x)=\\dfrac{2x+4}{3x-1}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$-\\dfrac{14}{(3x-1)^{2}}$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{12x+10}{(3x-1)^{2}}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{2}{3}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\dfrac{14}{(3x-1)^{2}}$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$u=2x+4$, $v=3x-1$: $f'=\\dfrac{u'v-uv'}{v^2}=\\dfrac{2(3x-1)-3(2x+4)}{(3x-1)^2}=\\dfrac{6x-2-6x-12}{(3x-1)^2}=-\\dfrac{14}{(3x-1)^2}$.",
+   "steps": [
+    "$u'v=2(3x-1)=6x-2$.",
+    "$uv'=3(2x+4)=6x+12$.",
+    "$\\dfrac{6x-2-6x-12}{(3x-1)^{2}}=-\\dfrac{14}{(3x-1)^{2}}$."
+   ],
+   "wrong": {
+    "d": "Erro de sinal: $u'v-uv'=2(3x-1)-3(2x+4)=-14$.",
+    "c": "Dividiu as derivadas ($\\frac{2}{3}$); a regra do quociente é mais elaborada.",
+    "b": "Somou os produtos em vez de subtrair: $2(3x-1)+3(2x+4)=12x+10$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-lista",
+    "locator": "item 15",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada do quociente",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "(2*x+4)/(3*x-1)",
+    "var": "x"
+   },
+   "optionValues": {
+    "a": "-14/(3*x-1)**2",
+    "d": "14/(3*x-1)**2",
+    "c": "2/3",
+    "b": "(12*x+10)/(3*x-1)**2"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = -3*(2*x + 4)/(3*x - 1)**2 + 2/(3*x - 1); checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-011",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Regra da cadeia",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Calcule a derivada de $f(x)=\\left(3x^{2}+1\\right)^{5}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$5\\left(6x\\right)^{4}$"
+   },
+   {
+    "id": "b",
+    "text": "$30x\\left(3x^{2}+1\\right)^{4}$"
+   },
+   {
+    "id": "c",
+    "text": "$5\\left(3x^{2}+1\\right)^{4}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\left(3x^{2}+1\\right)^{5}\\cdot6x$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Regra da cadeia (externo–interno): $\\dfrac{dy}{dx}=g'(u)\\cdot u'$ com $u=3x^2+1$ e $g(u)=u^5$. Então $f'(x)=5u^4\\cdot6x=30x(3x^2+1)^4$.",
+   "steps": [
+    "Externa: $u^{5}\\to5u^{4}$.",
+    "Interna: $u=3x^{2}+1\\to u'=6x$.",
+    "$f'(x)=5u^{4}\\cdot6x=30x(3x^{2}+1)^{4}$."
+   ],
+   "wrong": {
+    "c": "Esqueceu o fator da derivada interna: $\\left(3x^2+1\\right)'=6x$.",
+    "a": "A potência atua sobre a expressão inteira $3x^2+1$, e não sobre $6x$.",
+    "d": "O expoente deve diminuir ($5\\to4$) e o $5$ passar a coeficiente: $5\\cdot6x=30x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra da cadeia e regra do externo-interno",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "(3*x**2+1)**5",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "30*x*(3*x**2+1)**4",
+    "c": "5*(3*x**2+1)**4",
+    "a": "5*(6*x)**4",
+    "d": "6*x*(3*x**2+1)**5"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 30*x*(3*x**2 + 1)**4; checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-012",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Reta tangente",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a equação da reta tangente ao gráfico de $f(x)=x^{3}-3x$ no ponto de abscissa $x=2$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$y=9x+2$"
+   },
+   {
+    "id": "b",
+    "text": "$y=9x-16$"
+   },
+   {
+    "id": "c",
+    "text": "$y=9(x-2)$"
+   },
+   {
+    "id": "d",
+    "text": "$y=3x^{2}-3$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2-3$, logo o coeficiente angular é $f'(2)=9$. O ponto é $(2,f(2))=(2,2)$. Então $y-2=9(x-2)\\Rightarrow y=9x-16$.",
+   "steps": [
+    "$f(2)=8-6=2$.",
+    "$f'(2)=3\\cdot4-3=9$.",
+    "$y-2=9(x-2)\\Rightarrow y=9x-16$."
+   ],
+   "wrong": {
+    "a": "Usou $f(2)=2$ como coeficiente linear; a reta é $y-f(2)=f'(2)(x-2)$, que dá $9x-16$.",
+    "d": "Essa é a função derivada $f'(x)$, e não a equação da reta.",
+    "c": "Esqueceu o ponto: $y-f(2)=9(x-2)$, com $f(2)=2$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-slides",
+    "locator": "slides (derivada como coeficiente angular da tangente)",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "function",
+   "params": {
+    "expr": "subs(x**3-3*x,x,2) + subs(diff(x**3-3*x,x),x,2)*(x-2)",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "9*x-16",
+    "a": "9*x+2",
+    "d": "3*x**2-3",
+    "c": "9*(x-2)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+amostragem",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "função de referência = 9*x - 16"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-013",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Produto + cadeia",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Derive $f(x)=x^{2}e^{3x}$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x\\,e^{3x}$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{3x}\\left(x^{2}+2x\\right)$"
+   },
+   {
+    "id": "c",
+    "text": "$e^{3x}\\left(3x^{2}+2x\\right)$"
+   },
+   {
+    "id": "d",
+    "text": "$6x\\,e^{3x}$"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Regra do produto: $(uv)'=u'v+uv'$ com $u=x^2$ e $v=e^{3x}$, $v'=3e^{3x}$ (cadeia). Então $f'(x)=2xe^{3x}+x^2\\cdot3e^{3x}=e^{3x}(3x^2+2x)$.",
+   "steps": [
+    "$u'=2x$, $v=e^{3x}$, $v'=3e^{3x}$.",
+    "$f'=2xe^{3x}+3x^{2}e^{3x}$.",
+    "Fator comum: $e^{3x}(3x^{2}+2x)$."
+   ],
+   "wrong": {
+    "a": "Só derivou o fator $x^2$; falta o termo $x^2\\cdot(e^{3x})'$.",
+    "b": "A derivada de $e^{3x}$ é $3e^{3x}$ (regra da cadeia): faltou o $3$ no termo $3x^2$.",
+    "d": "Multiplicou as derivadas dos dois fatores; a regra do produto soma duas parcelas."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra do produto, regra da cadeia e derivada de eˣ",
+    "usage": "aula"
+   },
+   {
+    "sourceId": "c2-derivadas-slides",
+    "locator": "slides",
+    "usage": "aprofundamento"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "x**2*exp(3*x)",
+    "var": "x"
+   },
+   "optionValues": {
+    "c": "exp(3*x)*(3*x**2+2*x)",
+    "a": "2*x*exp(3*x)",
+    "b": "exp(3*x)*(x**2+2*x)",
+    "d": "6*x*exp(3*x)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 3*x**2*exp(3*x) + 2*x*exp(3*x); checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-014",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Cadeia com logaritmo",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual é a derivada de $f(x)=\\ln\\!\\left(x^{2}+1\\right)$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$2x\\ln\\!\\left(x^{2}+1\\right)$"
+   },
+   {
+    "id": "b",
+    "text": "$\\dfrac{2x}{x^{2}+1}$"
+   },
+   {
+    "id": "c",
+    "text": "$\\dfrac{1}{x^{2}+1}$"
+   },
+   {
+    "id": "d",
+    "text": "$\\ln(2x)$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$(\\ln u)'=\\dfrac{u'}{u}$. Com $u=x^2+1$ e $u'=2x$: $f'(x)=\\dfrac{2x}{x^2+1}$.",
+   "steps": [
+    "$u=x^{2}+1$, $u'=2x$.",
+    "$(\\ln u)'=\\dfrac{u'}{u}$.",
+    "$f'(x)=\\dfrac{2x}{x^{2}+1}$."
+   ],
+   "wrong": {
+    "c": "Esqueceu a derivada interna $\\left(x^2+1\\right)'=2x$ no numerador.",
+    "a": "A derivada do logaritmo é $\\frac{1}{(\\cdot)}$, e não um produto com o próprio $\\ln$.",
+    "d": "Derivar $\\ln$ não devolve outro logaritmo: $(\\ln u)'=\\frac{u'}{u}$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de ln x e regra da cadeia",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "log(x**2+1)",
+    "var": "x"
+   },
+   "optionValues": {
+    "b": "2*x/(x**2+1)",
+    "c": "1/(x**2+1)",
+    "a": "2*x*log(x**2+1)",
+    "d": "log(2*x)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = 2*x/(x**2 + 1); checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-015",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Função elevada a função",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, qual é a derivada de $f(x)=x^{x}$? (Dica: $x^{x}=e^{x\\ln x}$; a tabela traz a derivada de $f(x)^{g(x)}$.)",
+  "options": [
+   {
+    "id": "a",
+    "text": "$x^{x}\\left(\\ln x+1\\right)$"
+   },
+   {
+    "id": "b",
+    "text": "$e^{x}\\left(\\ln x+1\\right)$"
+   },
+   {
+    "id": "c",
+    "text": "$x\\cdot x^{x-1}=x^{x}$"
+   },
+   {
+    "id": "d",
+    "text": "$x^{x}\\ln x$"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "$f(x)=e^{x\\ln x}$. Pela cadeia: $f'(x)=e^{x\\ln x}\\cdot(x\\ln x)'$. E $(x\\ln x)'=\\ln x+x\\cdot\\dfrac1x=\\ln x+1$. Logo $f'(x)=x^x(\\ln x+1)$.",
+   "steps": [
+    "$x^{x}=e^{x\\ln x}$.",
+    "$(x\\ln x)'=\\ln x+1$ (regra do produto).",
+    "$f'(x)=x^{x}(\\ln x+1)$."
+   ],
+   "wrong": {
+    "c": "Aplicou a regra da potência como se o expoente fosse constante; aqui o expoente também varia.",
+    "d": "Esqueceu o termo $1$ que vem de $(x\\ln x)'=\\ln x+x\\cdot\\frac1x$.",
+    "b": "A base não vira $e$: o fator exponencial é $x^{x}=e^{x\\ln x}$."
+   },
+   "commonMistakes": [
+    "Usar $(x^{n})'=nx^{n-1}$ com $n=x$ (o expoente não é constante)."
+   ]
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "derivada de f(x)^g(x)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "x**x",
+    "var": "x"
+   },
+   "optionValues": {
+    "a": "x**x*(log(x)+1)",
+    "c": "x**x",
+    "d": "x**x*log(x)",
+    "b": "exp(x)*(log(x)+1)"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = x**x*(log(x) + 1); checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-016",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Segunda derivada",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Para $x>0$, calcule a segunda derivada $f''(x)$ de $f(x)=x^{3}\\ln x$.",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6x\\ln x+2x$"
+   },
+   {
+    "id": "b",
+    "text": "$6x\\ln x+5x$"
+   },
+   {
+    "id": "c",
+    "text": "$6x\\ln x+3x$"
+   },
+   {
+    "id": "d",
+    "text": "$6\\ln x+5$"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "$f'(x)=3x^2\\ln x+x^3\\cdot\\dfrac1x=3x^2\\ln x+x^2$. Derivando de novo: $f''(x)=6x\\ln x+3x^2\\cdot\\dfrac1x+2x=6x\\ln x+3x+2x=6x\\ln x+5x$.",
+   "steps": [
+    "$f'(x)=3x^{2}\\ln x+x^{2}$.",
+    "$(3x^{2}\\ln x)'=6x\\ln x+3x$.",
+    "$(x^{2})'=2x$ ⇒ $f''(x)=6x\\ln x+5x$."
+   ],
+   "wrong": {
+    "c": "Perdeu um termo: $f'=3x^2\\ln x+x^2$ e a derivada de $x^2$ é $2x$, somando $3x+2x=5x$.",
+    "a": "Só contou a derivada de $x^2$; falta o termo $3x$ vindo de $3x^2\\cdot\\frac1x$.",
+    "d": "Derivou $x^3$ como se fosse constante $6$; a regra do produto mantém potências de $x$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-tabela",
+    "locator": "regra do produto e derivada de ln x",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "derivative",
+   "params": {
+    "expr": "x**3*log(x)",
+    "var": "x",
+    "order": 2
+   },
+   "optionValues": {
+    "b": "6*x*log(x)+5*x",
+    "c": "6*x*log(x)+3*x",
+    "a": "6*x*log(x)+2*x",
+    "d": "6*log(x)+5"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath.diff",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "derivada = x*(6*log(x) + 5); checagem numérica ok"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ },
+ {
+  "id": "c2-derivadas-017",
+  "disciplineId": "calculo2",
+  "topicId": "derivadas",
+  "subtopic": "Definição de derivada",
+  "difficulty": "dificil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Pela definição, $f'(a)=\\displaystyle\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$. Para $f(x)=x^{3}$ e $a=2$, qual é o valor de $\\displaystyle\\lim_{h\\to0}\\frac{(2+h)^{3}-8}{h}$?",
+  "options": [
+   {
+    "id": "a",
+    "text": "$6$"
+   },
+   {
+    "id": "b",
+    "text": "$0$"
+   },
+   {
+    "id": "c",
+    "text": "$8$"
+   },
+   {
+    "id": "d",
+    "text": "$12$"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O limite é exatamente $f'(2)$ com $f(x)=x^3$. Como $f'(x)=3x^2$, $f'(2)=12$. Diretamente: $(2+h)^3-8=12h+6h^2+h^3$, e dividindo por $h$: $12+6h+h^2\\to12$.",
+   "steps": [
+    "$(2+h)^{3}=8+12h+6h^{2}+h^{3}$.",
+    "$\\dfrac{12h+6h^{2}+h^{3}}{h}=12+6h+h^{2}$.",
+    "$\\lim_{h\\to0}(12+6h+h^{2})=12$."
+   ],
+   "wrong": {
+    "c": "$8=f(2)$ é o valor da função, e não da derivada.",
+    "b": "O limite tem a forma $\\frac00$, que é indeterminada; expandindo $(2+h)^3$ o resultado é $12$.",
+    "a": "Usou $f'(x)=3x$ em vez de $3x^2$: $3\\cdot2=6$."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "c2-derivadas-slides",
+    "locator": "slides (a derivada como limite do quociente de Newton)",
+    "usage": "aula"
+   }
+  ],
+  "status": "approved",
+  "version": 1,
+  "createdAt": "2026-10-22T23:29:59.345Z",
+  "updatedAt": "2026-10-22T23:30:10.086Z",
+  "verification": {
+   "kind": "limit",
+   "params": {
+    "expr": "((2+h)**3-8)/h",
+    "var": "h",
+    "at": "0",
+    "dir": "+-"
+   },
+   "optionValues": {
+    "d": "12",
+    "c": "8",
+    "b": "0",
+    "a": "6"
+   },
+   "result": {
+    "ok": true,
+    "method": "sympy+mpmath",
+    "ranAt": "2026-10-22T23:29:59.743Z",
+    "details": "limite = 12; checagem numérica ok (+:finite;-:finite)"
+   }
+  },
+  "review": {
+   "decision": "approved",
+   "reviewer": "Claude (revisão assistida por IA)",
+   "reviewerType": "ai-assisted",
+   "at": "2026-10-22T23:30:10.086Z",
+   "notes": "Leitura crítica separada da autoria; SymPy+mpmath ok. Revisão humana pendente.",
+   "checklist": {
+    "gabarito-correto-e-unico": true,
+    "enunciado-claro-sem-ambiguidade": true,
+    "distratores-plausiveis-e-claramente-errados": true,
+    "explicacao-correta-e-didatica": true,
+    "dificuldade-compativel": true,
+    "dentro-do-assunto-selecionado": true,
+    "referencia-verificavel": true
+   }
+  }
+ }
+]
