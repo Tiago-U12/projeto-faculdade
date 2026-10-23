@@ -1,9 +1,9 @@
 {
  "schemaVersion": 1,
- "bankVersion": "2026.10.23-c090d6e8",
- "generatedAt": "2026-10-23T01:16:45.524Z",
+ "bankVersion": "2026.10.23-30dc0c7b",
+ "generatedAt": "2026-10-23T01:20:56.770Z",
  "totals": {
-  "approved": 419
+  "approved": 443
  },
  "byDiscipline": {
   "calculo2": {
@@ -12,9 +12,9 @@
    "dificil": 100
   },
   "fullstack": {
-   "facil": 41,
-   "medio": 39,
-   "dificil": 39
+   "facil": 49,
+   "medio": 47,
+   "dificil": 47
   }
  }
 }

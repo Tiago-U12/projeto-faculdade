@@ -6103,5 +6103,1205 @@
   "status": "approved",
   "verifiedBy": "js-exec (node --permission)",
   "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-001",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Componente com letra maiúscula",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Existe a função `Estrelas` (componente). O que é gerado quando o JSX usa a tag em **minúscula**?\n\n```jsx\nconst html = renderToStaticMarkup(<estrelas nota={4} />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<estrelas nota=\"4\"></estrelas>`"
+   },
+   {
+    "id": "b",
+    "text": "Um erro de sintaxe"
+   },
+   {
+    "id": "c",
+    "text": "Nada (string vazia)"
+   },
+   {
+    "id": "d",
+    "text": "As estrelas ★★★★☆ do componente"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "No JSX, nomes que começam com **maiúscula** (`<Estrelas />`) referem-se a componentes; com minúscula (`<estrelas />`) viram elementos HTML nativos — aqui um elemento desconhecido chamado “estrelas”. Por isso componentes React são nomeados em PascalCase (`Estrelas`, `LugarCard`, `ListaLugares`).",
+   "wrong": {
+    "d": "Tags em minúscula são elementos HTML nativos; só nomes com letra maiúscula são tratados como componentes.",
+    "b": "O JSX é válido; o React apenas cria um elemento chamado “estrelas”.",
+    "c": "O elemento desconhecido é renderizado normalmente, com seus atributos."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "três componentes: Estrelas, LugarCard e ListaLugares (árvore de componentes)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.599Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-002",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Props",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nfunction Saudacao({ nome }) {\n  return <p>Olá, {nome}!</p>;\n}\nconst html = renderToStaticMarkup(<Saudacao nome=\"Marina\" />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<Saudacao nome=\"Marina\"></Saudacao>`"
+   },
+   {
+    "id": "b",
+    "text": "`<p>Olá, Marina!</p>`"
+   },
+   {
+    "id": "c",
+    "text": "`<p>Olá, undefined!</p>`"
+   },
+   {
+    "id": "d",
+    "text": "`<p>Olá, {nome}!</p>`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "As props chegam ao componente como um objeto; a desestruturação `{ nome }` extrai `nome=\"Marina\"`, e a expressão `{nome}` no JSX é substituída pelo valor. Resultado: `<p>Olá, Marina!</p>`. É assim que `Estrelas` recebe `nota` e `max`.",
+   "wrong": {
+    "d": "As chaves `{}` em JSX avaliam uma expressão JavaScript; o valor da prop `nome` é inserido.",
+    "c": "A prop `nome=\"Marina\"` foi passada; ela chega ao componente via parâmetro desestruturado.",
+    "a": "O React executa o componente e renderiza o que ele retorna (um `<p>`)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "Estrelas: recebe nota (número) e max (padrão 5)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.600Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-003",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Componente Estrelas",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Com o componente `Estrelas` abaixo (como pede o TODO da aula), qual HTML é gerado?\n\n```jsx\nfunction Estrelas({ nota, max = 5 }) {\n  const cheias = Math.round(nota);\n  return (\n    <span className=\"estrelas\" aria-label={cheias + \" de \" + max + \" estrelas\"}>\n      {Array.from({ length: max }, (_, i) => (i < cheias ? \"★\" : \"☆\"))}\n    </span>\n  );\n}\nconst html = renderToStaticMarkup(<Estrelas nota={3.6} />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<span class=\"estrelas\" aria-label=\"3 de 5 estrelas\">★★★☆☆</span>`"
+   },
+   {
+    "id": "b",
+    "text": "`<span class=\"estrelas\" aria-label=\"3.6 de 5 estrelas\">★★★★☆</span>`"
+   },
+   {
+    "id": "c",
+    "text": "`<span class=\"estrelas\" aria-label=\"4 de 5 estrelas\">★★★★☆</span>`"
+   },
+   {
+    "id": "d",
+    "text": "`<span class=\"estrelas\" aria-label=\"4 de 5 estrelas\">★★★★★</span>`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`Math.round(3.6)` = 4, então as 4 primeiras posições são `★` e a quinta `☆` (o padrão `max = 5` é usado porque a prop não foi passada). O `className` vira o atributo `class` no HTML e o `aria-label` descreve a nota para leitores de tela.",
+   "wrong": {
+    "a": "A nota é arredondada com `Math.round`: 3,6 vira 4 (e não é truncada para 3).",
+    "d": "Só as primeiras 4 posições são cheias (`★`); a quinta é vazia (`☆`).",
+    "b": "O `aria-label` usa o valor arredondado (`cheias`), não a nota original."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "1. Estrelas: Math.round(nota) cheias (★), restante vazias (☆), com aria-label",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.600Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-004",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Expressões em JSX",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nconst html = renderToStaticMarkup(<p>{2 + 3} avaliações</p>);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<p>2 + 3 avaliações</p>`"
+   },
+   {
+    "id": "b",
+    "text": "`<p>23 avaliações</p>`"
+   },
+   {
+    "id": "c",
+    "text": "`<p>5 avaliações</p>`"
+   },
+   {
+    "id": "d",
+    "text": "`<p>{5} avaliações</p>`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Chaves `{}` em JSX permitem inserir qualquer *expressão* JavaScript: `{2 + 3}` é calculada (5) e inserida no texto. É o mesmo mecanismo que insere `{lugar.nome}` e `{lugar.cidade}` no `LugarCard`.",
+   "wrong": {
+    "a": "Dentro de chaves o JSX avalia uma expressão JavaScript; sem chaves seria texto literal.",
+    "b": "Os operandos são números; `+` soma (não concatena).",
+    "d": "As chaves não aparecem no HTML; só o valor calculado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "LugarCard: <h2 className=\"card-title\">{lugar.nome}</h2>",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.600Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-005",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Número versus string nas props",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Um componente imprime o tipo da prop `nota`. O que aparece para as duas formas de passar o valor?\n\n```jsx\nfunction Tipo({ nota }) {\n  return <i>{typeof nota}</i>;\n}\nconsole.log(renderToStaticMarkup(<Tipo nota={4} />));\nconsole.log(renderToStaticMarkup(<Tipo nota=\"4\" />));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<i>string</i>` nas duas"
+   },
+   {
+    "id": "b",
+    "text": "`<i>number</i>` e depois `<i>string</i>`"
+   },
+   {
+    "id": "c",
+    "text": "`<i>number</i>` nas duas"
+   },
+   {
+    "id": "d",
+    "text": "`<i>string</i>` e depois `<i>number</i>`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Em JSX, `prop={4}` passa o número 4 (expressão JavaScript) e `prop=\"4\"` passa a string `\"4\"`. Isso importa em `<Estrelas nota={lugar.notaMedia} />`: passar texto quebraria contas como `Math.round(nota)` em alguns casos.",
+   "wrong": {
+    "a": "Com chaves (`nota={4}`) o valor é uma expressão JavaScript: um número.",
+    "c": "Entre aspas (`nota=\"4\"`) o valor é sempre uma string.",
+    "d": "Está invertido: chaves → número; aspas → string."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "Estrelas recebe nota (número); LugarCard recebe um lugar inteiro via props",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.600Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-006",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "key em listas",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "O componente abaixo renderiza uma lista com `map` **sem** a prop `key`. O que o React faz?\n\n```jsx\nfunction Lista({ itens }) {\n  return (\n    <ul>\n      {itens.map((item) => (\n        <li>{item.nome}</li>\n      ))}\n    </ul>\n  );\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Renderiza a lista, mas avisa no console que cada filho precisa de uma `key` única"
+   },
+   {
+    "id": "b",
+    "text": "Adiciona keys automaticamente e não avisa"
+   },
+   {
+    "id": "c",
+    "text": "Ignora o `map` e mostra só o primeiro item"
+   },
+   {
+    "id": "d",
+    "text": "Lança um erro e não renderiza nada"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Em listas geradas com `map`, cada elemento precisa de uma `key` estável e única (como `key={lugar.id}`) para o React identificar quais itens mudaram. Sem ela, a lista funciona, mas o console mostra o aviso “Each child in a list should have a unique \"key\" prop” — exatamente o que a aula manda conferir no console.",
+   "wrong": {
+    "d": "O React renderiza a lista; o problema é só sinalizado como aviso.",
+    "b": "O React não inventa keys; ele avisa para você informá-las.",
+    "c": "Todos os itens são renderizados; a ausência de `key` só prejudica a identificação eficiente dos itens."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "ListaLugares usa .map() com key={lugar.id} (React avisa se faltar key)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.600Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-007",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Lista vazia",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Com o componente da aula, o que é gerado quando o array `lugares` está vazio?\n\n```jsx\nfunction ListaLugares({ lugares }) {\n  if (lugares.length === 0) return <p>Nenhum lugar encontrado.</p>;\n  return (\n    <div className=\"cards-grid\">\n      {lugares.map((l) => <p key={l.id}>{l.nome}</p>)}\n    </div>\n  );\n}\nconst html = renderToStaticMarkup(<ListaLugares lugares={[]} />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<div class=\"cards-grid\"></div>`"
+   },
+   {
+    "id": "b",
+    "text": "Um erro, porque o array está vazio"
+   },
+   {
+    "id": "c",
+    "text": "`<p>Nenhum lugar encontrado.</p>`"
+   },
+   {
+    "id": "d",
+    "text": "Uma string vazia"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Se `lugares.length === 0` o componente retorna cedo com a mensagem “Nenhum lugar encontrado.” — o comportamento pedido no TODO da `ListaLugares`: mostrar uma mensagem em vez de uma grade vazia.",
+   "wrong": {
+    "a": "O `if` com retorno antecipado devolve a mensagem em vez da grade vazia.",
+    "d": "O componente retorna o parágrafo com a mensagem; não retorna nada.",
+    "b": "Arrays vazios são válidos; `map` simplesmente não geraria itens (e aqui nem é chamado)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "3. ListaLugares: se o array estiver vazio, mostre uma mensagem em vez de uma grade vazia",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.600Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-008",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Componente que retorna null",
+  "difficulty": "facil",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "No starter da Aula 06, `Estrelas` ainda tem `return null;`. Que HTML ele gera?\n\n```jsx\nfunction Estrelas({ nota }) {\n  return null;\n}\nconst html = renderToStaticMarkup(<Estrelas nota={4} />);\nconsole.log(\"[\" + html + \"]\");\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`[<span class=\"estrelas\"></span>]`"
+   },
+   {
+    "id": "b",
+    "text": "`[]` — nada é renderizado"
+   },
+   {
+    "id": "c",
+    "text": "Um erro, pois componentes precisam retornar JSX"
+   },
+   {
+    "id": "d",
+    "text": "`[null]`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "Um componente pode retornar `null` (ou `false`) para não renderizar nada. É por isso que, antes de implementar os TODOs, a página do starter aparece sem os cards/estrelas — sem erro.",
+   "wrong": {
+    "a": "O componente não cria nenhum elemento; `null` significa “não renderize nada”.",
+    "d": "O React não escreve a palavra “null” no HTML.",
+    "c": "Retornar `null` é permitido e comum (por exemplo, para não exibir um componente)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "starter: cada componente tem TODO (Aula 06) e retorna null",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.601Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-009",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Props são somente leitura",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que acontece ao tentar alterar uma prop dentro do componente?\n\n```jsx\n\"use strict\";\nfunction Card(props) {\n  props.nota = 1;\n  return <p>{props.nota}</p>;\n}\ntry {\n  renderToStaticMarkup(<Card nota={5} />);\n} catch (e) {\n  console.log(e.name);\n}\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`TypeError` (props somente leitura)"
+   },
+   {
+    "id": "b",
+    "text": "Nada: a prop passa a valer 1"
+   },
+   {
+    "id": "c",
+    "text": "`SyntaxError`"
+   },
+   {
+    "id": "d",
+    "text": "`ReferenceError`"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Props fluem do pai para o filho e são imutáveis: o componente não pode reatribuí-las. Em modo estrito, o objeto congelado lança `TypeError` ao receber uma atribuição. Para valores que mudam, usa-se estado (`useState`, Aula 07).",
+   "wrong": {
+    "b": "As props não devem ser alteradas pelo componente; o React as congela (em desenvolvimento) e a escrita falha.",
+    "d": "Não se trata de variável inexistente; é uma escrita proibida em um objeto congelado (`TypeError`).",
+    "c": "O código é válido sintaticamente; o erro surge ao executar."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "“Componente burro”: só recebe dados via props e renderiza",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.601Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-010",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "children",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nfunction Moldura({ children }) {\n  return <section className=\"moldura\">{children}</section>;\n}\nconst html = renderToStaticMarkup(\n  <Moldura>\n    <h2>Café Aroma</h2>\n    <p>Cafeteria</p>\n  </Moldura>\n);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<section class=\"moldura\"></section>`"
+   },
+   {
+    "id": "b",
+    "text": "`<Moldura><h2>Café Aroma</h2><p>Cafeteria</p></Moldura>`"
+   },
+   {
+    "id": "c",
+    "text": "`<section class=\"moldura\">{children}</section>`"
+   },
+   {
+    "id": "d",
+    "text": "`<section class=\"moldura\"><h2>Café Aroma</h2><p>Cafeteria</p></section>`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "O que você escreve entre `<Moldura>` e `</Moldura>` chega ao componente como `children`. Ao usar `{children}`, o componente “embrulha” esse conteúdo — padrão útil para layouts (cabeçalho, rodapé, contêineres).",
+   "wrong": {
+    "a": "O conteúdo entre as tags do componente chega em `props.children` e é renderizado onde o componente usa `{children}`.",
+    "b": "O HTML contém o que o componente retorna (`<section>`), não a tag do componente.",
+    "c": "O React substitui `{children}` pelo conteúdo recebido."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "composição: App → ListaLugares → LugarCard → Estrelas",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.601Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-011",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Fragmentos",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nfunction Cabecalho() {\n  return (\n    <>\n      <h1>Lugares avaliados</h1>\n      <p>Descubra e avalie.</p>\n    </>\n  );\n}\nconst html = renderToStaticMarkup(<Cabecalho />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Um erro: um componente só pode retornar um elemento"
+   },
+   {
+    "id": "b",
+    "text": "`<div><h1>Lugares avaliados</h1><p>Descubra e avalie.</p></div>`"
+   },
+   {
+    "id": "c",
+    "text": "`<><h1>Lugares avaliados</h1><p>Descubra e avalie.</p></>`"
+   },
+   {
+    "id": "d",
+    "text": "`<h1>Lugares avaliados</h1><p>Descubra e avalie.</p>`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Um componente deve retornar um único “nó” raiz; o fragmento `<>...</>` permite devolver vários irmãos sem introduzir um `<div>` extra no DOM. É o que o `App` da aula faz ao retornar `<header>`, `<main>` e `<footer>` lado a lado.",
+   "wrong": {
+    "b": "O fragmento `<>...</>` agrupa elementos sem criar nenhum nó extra no HTML.",
+    "c": "O `<>` é sintaxe do JSX, não aparece no HTML gerado.",
+    "a": "Fragmentos existem justamente para retornar vários irmãos sem um contêiner extra."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "App.jsx: <> <header/> <main/> <footer/> </>",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.601Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-012",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Armadilha do 0 e &&",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Um card só deve mostrar as estrelas se houver nota. O que o código abaixo gera quando `nota` é `0`?\n\n```jsx\nfunction Nota({ nota }) {\n  return <p>{nota && <b>★</b>}</p>;\n}\nconst html = renderToStaticMarkup(<Nota nota={0} />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<p><b>★</b></p>`"
+   },
+   {
+    "id": "b",
+    "text": "`<p>false</p>`"
+   },
+   {
+    "id": "c",
+    "text": "`<p>0</p>`"
+   },
+   {
+    "id": "d",
+    "text": "`<p></p>`"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "`nota && <b>★</b>` devolve `0` quando `nota` é `0`, e o React *renderiza o número 0* (apenas `false`, `null`, `undefined` e `true` não geram saída). Corrija com uma condição booleana: `{nota > 0 && ...}` ou `{nota ? ... : null}`.",
+   "wrong": {
+    "d": "Com `&&` o resultado é o primeiro valor “falsy” (`0`), e o React renderiza o número 0 (diferente de `false`/`null`).",
+    "a": "`0` é falsy, então a parte direita do `&&` não é avaliada.",
+    "b": "O resultado de `0 && algo` é o próprio `0`, não `false`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "renderização condicional: lista vazia e notaMedia",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.601Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-013",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "map sem retorno",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nfunction Lista({ itens }) {\n  return (\n    <ul>\n      {itens.map((item) => {\n        <li key={item}>{item}</li>;\n      })}\n    </ul>\n  );\n}\nconst html = renderToStaticMarkup(<Lista itens={[\"A\", \"B\"]} />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<ul></ul>`"
+   },
+   {
+    "id": "b",
+    "text": "`<ul><li>A</li><li>B</li></ul>`"
+   },
+   {
+    "id": "c",
+    "text": "`<ul>undefinedundefined</ul>`"
+   },
+   {
+    "id": "d",
+    "text": "Um erro de sintaxe"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Uma arrow function com corpo entre chaves só devolve algo com `return`. Aqui o `map` gera `[undefined, undefined]`, que o React ignora, e a lista fica vazia (`<ul></ul>`). Use `(item) => <li>...</li>` (retorno implícito) ou `{ return <li>...</li>; }`.",
+   "wrong": {
+    "b": "Com chaves `{ }` no corpo da arrow function é preciso escrever `return`; sem ele o callback devolve `undefined`.",
+    "d": "O código é válido; apenas não retorna nada no callback.",
+    "c": "O React não renderiza `undefined`; os itens simplesmente não aparecem."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "ListaLugares: .map() com <LugarCard key={lugar.id} lugar={lugar} />",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-014",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "style como objeto",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nconst html = renderToStaticMarkup(\n  <div style={{ fontSize: 16, marginTop: \"4px\" }}>x</div>\n);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<div style=\"font-size:16px;margin-top:4px\">x</div>`"
+   },
+   {
+    "id": "b",
+    "text": "`<div style=\"{fontSize: 16, marginTop: &quot;4px&quot;}\">x</div>`"
+   },
+   {
+    "id": "c",
+    "text": "`<div style=\"fontSize:16;marginTop:4px\">x</div>`"
+   },
+   {
+    "id": "d",
+    "text": "Um erro: `style` exige string"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Em JSX, `style` recebe um objeto com chaves em camelCase (`fontSize`, `marginTop`); o React gera CSS válido (`font-size`, `margin-top`) e acrescenta `px` aos números. As chaves duplas são: uma para a expressão JSX e outra para o objeto literal.",
+   "wrong": {
+    "c": "O React converte as chaves camelCase para as propriedades CSS com hífen e acrescenta `px` a números.",
+    "b": "O primeiro par de chaves é a expressão JSX; o segundo é o objeto, que vira texto CSS.",
+    "d": "Em JSX, `style` recebe um *objeto*, não uma string."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "src/index.css já pronto: use as classes certas no JSX (className em vez de style inline)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-015",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Escape automático",
+  "difficulty": "medio",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nconst comentario = \"<b>Ótimo!</b>\";\nconst html = renderToStaticMarkup(<p>{comentario}</p>);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<p><b>Ótimo!</b></p>`"
+   },
+   {
+    "id": "b",
+    "text": "Um erro de segurança"
+   },
+   {
+    "id": "c",
+    "text": "`<p>\"<b>Ótimo!</b>\"</p>`"
+   },
+   {
+    "id": "d",
+    "text": "`<p>&lt;b&gt;Ótimo!&lt;/b&gt;</p>`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Valores inseridos com `{ }` são *escapados*: `<` vira `&lt;` e `>` vira `&gt;`. Isso protege contra XSS quando o texto vem do usuário (por exemplo, comentários de avaliações). Só com `dangerouslySetInnerHTML` o HTML seria interpretado.",
+   "wrong": {
+    "a": "O React escapa o texto: as tags aparecem como texto, não são interpretadas como HTML.",
+    "c": "O React não acrescenta aspas, e o conteúdo é escapado.",
+    "b": "Não há erro: o escape automático impede a injeção de HTML."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "avaliações: comentários enviados por usuários são exibidos nos cards",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-016",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Arredondamento da nota",
+  "difficulty": "medio",
+  "scope": "aula",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado?\n\n```jsx\nfunction Estrelas({ nota, max = 5 }) {\n  const cheias = Math.round(nota);\n  return <span>{\"★\".repeat(cheias) + \"☆\".repeat(max - cheias)}</span>;\n}\nconst html = renderToStaticMarkup(<Estrelas nota={2.5} />);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<span>★★☆☆☆</span>`"
+   },
+   {
+    "id": "b",
+    "text": "`<span>★★½☆☆</span>`"
+   },
+   {
+    "id": "c",
+    "text": "`<span>★★★★☆</span>`"
+   },
+   {
+    "id": "d",
+    "text": "`<span>★★★☆☆</span>`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`Math.round(2.5)` vale 3, então 3 estrelas cheias (`★`) e 2 vazias (`☆`). Notas médias como 4,5 também arredondam para cima (5 estrelas).",
+   "wrong": {
+    "a": "`Math.round(2.5)` é 3 (a metade arredonda para cima), não 2.",
+    "c": "Três posições cheias, não quatro.",
+    "b": "O componente não desenha meias estrelas; usa `Math.round`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "1. Estrelas: Math.round(nota) estrelas preenchidas, o restante vazias",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-017",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Keys duplicadas",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Dois itens da lista usam a mesma `key`:\n\n```jsx\nconst itens = [{ id: 1, nome: \"A\" }, { id: 1, nome: \"B\" }];\nconst html = renderToStaticMarkup(\n  <ul>\n    {itens.map((i) => <li key={i.id}>{i.nome}</li>)}\n  </ul>\n);\n```\nO que o React faz?",
+  "options": [
+   {
+    "id": "a",
+    "text": "Renderiza os dois e avisa no console sobre a key repetida"
+   },
+   {
+    "id": "b",
+    "text": "Troca as keys automaticamente por índices"
+   },
+   {
+    "id": "c",
+    "text": "Renderiza só o último item"
+   },
+   {
+    "id": "d",
+    "text": "Lança um erro e interrompe a renderização"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "As keys precisam ser únicas *entre irmãos*. Com duplicatas o React avisa (“Encountered two children with the same key”), pois em atualizações ele poderia confundir os itens (duplicar, omitir ou misturar estado). Por isso a aula usa `key={lugar.id}`, um identificador único do dado.",
+   "wrong": {
+    "c": "Os dois itens são renderizados; o aviso alerta que keys repetidas podem causar comportamentos incorretos em atualizações.",
+    "d": "Keys duplicadas geram aviso (não erro) e a renderização continua.",
+    "b": "O React não altera as keys; apenas avisa."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "ListaLugares usa .map() com key={lugar.id}",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-018",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Chamar a função em vez de passá-la",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Quantas vezes a função `contar` é executada durante a renderização?\n\n```jsx\nlet chamadas = 0;\nconst contar = () => { chamadas++; };\n\nrenderToStaticMarkup(<button onClick={contar()}>Clique</button>);\nconsole.log(chamadas);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`1` — foi chamada durante a renderização, antes de qualquer clique"
+   },
+   {
+    "id": "b",
+    "text": "`0` — só roda quando houver um clique"
+   },
+   {
+    "id": "c",
+    "text": "Um erro, pois `onClick` exige função"
+   },
+   {
+    "id": "d",
+    "text": "`2` — uma na renderização e outra no clique"
+   }
+  ],
+  "correctOptionId": "a",
+  "explanation": {
+   "correct": "Em `onClick={contar()}` a expressão é avaliada na hora de renderizar: a função roda imediatamente e o que vai para o `onClick` é o *retorno* (`undefined`). O correto é passar a referência (`onClick={contar}`) ou uma arrow function (`onClick={() => contar()}`).",
+   "wrong": {
+    "b": "`contar()` *executa* a função na hora de montar o JSX; quem passa a função para ser chamada depois é `onClick={contar}`.",
+    "d": "Aqui não há clique; e a chamada ocorreu uma única vez durante a renderização.",
+    "c": "Não há erro de renderização: o valor passado é `undefined` (retorno de `contar()`), que é aceito."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "Componente “burro”: só recebe dados via props e renderiza",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-019",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Children.count e fragmentos",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime?\n\n```jsx\nconst itens = [<i key=\"1\" />, <i key=\"2\" />];\nconsole.log(Children.count(itens), Children.count(<><i /><i /></>));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`2 2`"
+   },
+   {
+    "id": "b",
+    "text": "`1 1`"
+   },
+   {
+    "id": "c",
+    "text": "`1 2`"
+   },
+   {
+    "id": "d",
+    "text": "`2 1`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "`Children.count` percorre arrays (contando cada elemento), mas trata um fragmento como *um único* filho. Resultado: `2 1`. Detalhe útil ao manipular `children` de componentes de layout.",
+   "wrong": {
+    "a": "Um fragmento conta como um único filho (seus elementos internos não são “achatados”).",
+    "b": "Um array com dois elementos conta como dois filhos.",
+    "c": "Está invertido: o array tem dois filhos; o fragmento é um só."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "composição de componentes: children e fragmentos",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-020",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "O que o React renderiza",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nconst html = renderToStaticMarkup(\n  <p>[{true}{false}{null}{undefined}{0}{\"\"}{NaN}]</p>\n);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<p>[0]</p>`"
+   },
+   {
+    "id": "b",
+    "text": "`<p>[0NaN]</p>`"
+   },
+   {
+    "id": "c",
+    "text": "`<p>[]</p>`"
+   },
+   {
+    "id": "d",
+    "text": "`<p>[truefalsenullundefined0NaN]</p>`"
+   }
+  ],
+  "correctOptionId": "b",
+  "explanation": {
+   "correct": "O React ignora (não renderiza) `true`, `false`, `null` e `undefined` — por isso `cond && <X />` funciona. Já números (incluindo `0` e `NaN`) e strings são renderizados; a string vazia não produz texto. Saída: `[0NaN]`.",
+   "wrong": {
+    "d": "`true`, `false`, `null` e `undefined` não geram saída no React; só números e strings aparecem.",
+    "c": "O número `0` e o valor `NaN` são renderizados como texto.",
+    "a": "O `NaN` também é um número do ponto de vista do React e aparece como “NaN”."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "renderização condicional e listas",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-021",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Componente que esquece o return",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "No React 19, o que acontece com um componente cuja função esquece o `return`?\n\n```jsx\nfunction Titulo() {\n  <h1>Lugares avaliados</h1>;\n}\nconst html = renderToStaticMarkup(<Titulo />);\nconsole.log(\"[\" + html + \"]\");\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "Renderiza `<undefined></undefined>`"
+   },
+   {
+    "id": "b",
+    "text": "Lança “Nothing was returned from render”"
+   },
+   {
+    "id": "c",
+    "text": "Renderiza o `<h1>` normalmente"
+   },
+   {
+    "id": "d",
+    "text": "Nada é renderizado (`[]`), sem lançar erro"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Se a função não retorna nada, o resultado é `undefined`. Desde o React 18, um componente pode retornar `undefined` sem erro (não renderiza nada), o que torna o esquecimento de `return` um bug silencioso: a página fica sem o título. Uma boa pista é o componente “sumir” da tela.",
+   "wrong": {
+    "c": "Sem `return` a função devolve `undefined`; o JSX da linha é avaliado e descartado.",
+    "b": "Esse erro existia em versões antigas (React 17); no React 18+ retornar `undefined` é aceito.",
+    "a": "O React não cria elementos para `undefined`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "starter: componentes retornam null até implementar o TODO",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-022",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Valor padrão de props e null",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "O que o código imprime?\n\n```jsx\nfunction Estrelas({ nota, max = 5 }) {\n  return <span>{Array.from({ length: max }, () => \"★\")}</span>;\n}\nconsole.log(renderToStaticMarkup(<Estrelas nota={3} />));\nconsole.log(renderToStaticMarkup(<Estrelas nota={3} max={undefined} />));\nconsole.log(renderToStaticMarkup(<Estrelas nota={3} max={null} />));\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<span>★★★★★</span>` nas três linhas"
+   },
+   {
+    "id": "b",
+    "text": "`<span>★★★★★</span>`, `<span></span>` e `<span></span>`"
+   },
+   {
+    "id": "c",
+    "text": "`<span>★★★★★</span>`, `<span>★★★★★</span>` e `<span></span>`"
+   },
+   {
+    "id": "d",
+    "text": "`<span></span>` nas três linhas"
+   }
+  ],
+  "correctOptionId": "c",
+  "explanation": {
+   "correct": "Valores padrão de parâmetros (`max = 5`) são usados apenas quando o argumento é `undefined` (ausente ou explicitamente `undefined`). `null` é um valor “presente”: o padrão não se aplica, `length: null` vira 0 e nada é desenhado.",
+   "wrong": {
+    "a": "O valor padrão só vale para `undefined`; com `max={null}` o parâmetro recebe `null`, e `Array.from({ length: null })` cria um array vazio.",
+    "b": "Passar `max={undefined}` equivale a não passar: o padrão `5` é usado.",
+    "d": "Sem a prop (ou com `undefined`) vale o padrão `max = 5`."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "1. Estrelas: recebe nota (número) e max (padrão 5)",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-023",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "dangerouslySetInnerHTML",
+  "difficulty": "dificil",
+  "scope": "desafio",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nconst comentario = \"<b>Ótimo!</b>\";\nconst html = renderToStaticMarkup(\n  <p dangerouslySetInnerHTML={{ __html: comentario }} />\n);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<p>&lt;b&gt;Ótimo!&lt;/b&gt;</p>`"
+   },
+   {
+    "id": "b",
+    "text": "`<p dangerouslysetinnerhtml=\"[object Object]\"></p>`"
+   },
+   {
+    "id": "c",
+    "text": "Um erro: a prop não existe"
+   },
+   {
+    "id": "d",
+    "text": "`<p><b>Ótimo!</b></p>` — o HTML é inserido sem escape"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Com `dangerouslySetInnerHTML={{ __html: texto }}` o React insere o HTML cru, *sem escape*. Se o texto vier de usuários, abre brecha para XSS (injeção de scripts). Em apps de avaliações, comentários devem ser renderizados como texto comum (`{comentario}`).",
+   "wrong": {
+    "a": "Essa é a saída normal com `{comentario}`; `dangerouslySetInnerHTML` desliga o escape.",
+    "b": "O React reconhece essa prop especial e usa o `__html` como conteúdo.",
+    "c": "A prop existe (o nome “dangerously” é um aviso de risco)."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "avaliações de usuários exibidas nos cards",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
+ },
+ {
+  "id": "fs-react-componentes-024",
+  "disciplineId": "fullstack",
+  "topicId": "react-componentes",
+  "subtopic": "Nomes de atributos em JSX",
+  "difficulty": "dificil",
+  "scope": "aprofundamento",
+  "type": "multiple-choice",
+  "stem": "Qual HTML é gerado em `html`?\n\n```jsx\nconst html = renderToStaticMarkup(\n  <label htmlFor=\"nome\" className=\"campo\" tabIndex={0}>Nome</label>\n);\nconsole.log(html);\n```",
+  "options": [
+   {
+    "id": "a",
+    "text": "`<label for=\"nome\" class=\"campo\">Nome</label>`"
+   },
+   {
+    "id": "b",
+    "text": "`<label for=\"nome\" class=\"campo\" tabindex>Nome</label>`"
+   },
+   {
+    "id": "c",
+    "text": "`<label htmlFor=\"nome\" className=\"campo\" tabIndex=\"0\">Nome</label>`"
+   },
+   {
+    "id": "d",
+    "text": "`<label for=\"nome\" class=\"campo\" tabindex=\"0\">Nome</label>`"
+   }
+  ],
+  "correctOptionId": "d",
+  "explanation": {
+   "correct": "Alguns atributos têm nomes diferentes em JSX por conflitarem com palavras reservadas do JavaScript (`for` → `htmlFor`, `class` → `className`) e os demais usam camelCase (`tabIndex`). O React os converte para o HTML correspondente. Formulários da Aula 07 usam `htmlFor` para ligar o rótulo ao campo.",
+   "wrong": {
+    "c": "O React converte os nomes de JSX (`htmlFor`, `className`, `tabIndex`) nos atributos HTML (`for`, `class`, `tabindex`).",
+    "b": "`tabIndex={0}` gera `tabindex=\"0\"` com valor; o atributo não fica sem valor.",
+    "a": "`tabIndex={0}` é renderizado como `tabindex=\"0\"`; o 0 não é descartado."
+   }
+  },
+  "sourceRefs": [
+   {
+    "sourceId": "fs-aula-06",
+    "locator": "LugarCard: className e data-categoria no JSX",
+    "usage": "aula"
+   }
+  ],
+  "version": 1,
+  "createdAt": "2026-10-23T01:20:04.602Z",
+  "updatedAt": "2026-10-23T01:20:56.279Z",
+  "status": "approved",
+  "verifiedBy": "node-exec (--permission, sandbox)",
+  "reviewedBy": "ai-assisted"
  }
 ]

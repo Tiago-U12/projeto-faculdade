@@ -111,13 +111,19 @@ function compareOutput(q: Question, optionValues: Record<string, string>, outTex
  */
 export async function verifyNode(q: Question): Promise<VerifyOutcome> {
   const v = q.verification!;
-  const p = (v.params ?? {}) as { code?: string; format?: string };
+  const p = (v.params ?? {}) as { code?: string; format?: string; jsx?: boolean };
   if (!p.code) return { id: q.id, ok: false, method: 'node-exec', details: 'sem params.code', errors: ['params.code ausente'] };
   if (!fs.existsSync(path.join(SANDBOX_DIR, 'node_modules'))) return { id: q.id, ok: false, method: 'node-exec', details: 'sandbox não instalado', errors: ['execute: npm run sandbox:install'] };
   const casesDir = path.join(SANDBOX_DIR, '.cases');
   fs.mkdirSync(casesDir, { recursive: true });
   const file = path.join(casesDir, `${q.id}-${process.pid}.${p.format === 'cjs' ? 'cjs' : 'mjs'}`);
-  fs.writeFileSync(file, p.code);
+  let source = p.code;
+  if (p.jsx) {
+    // JSX é compilado pelo esbuild (já presente via Vite) antes de executar; o runtime automático importa react/jsx-runtime do sandbox
+    const { transform } = await import('esbuild');
+    source = (await transform(p.code, { loader: 'jsx', jsx: 'automatic', format: 'esm' })).code;
+  }
+  fs.writeFileSync(file, source);
   try {
     const r = await run(process.execPath, ['--permission', `--allow-fs-read=${SANDBOX_DIR}/*`, `--allow-fs-read=${JS_PRELOAD}`, '--max-old-space-size=256', '--no-warnings', '--require', JS_PRELOAD, file], null, 20000, SANDBOX_DIR);
     if (r.timedOut) return { id: q.id, ok: false, method: 'node-exec', details: 'tempo esgotado', errors: ['timeout na execução do código'] };
