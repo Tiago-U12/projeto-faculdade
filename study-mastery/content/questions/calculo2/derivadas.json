@@ -71,7 +71,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 13*x**12; checagem numérica ok"
    }
   },
@@ -165,7 +165,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = sqrt(2)/4; checagem numérica ok"
    }
   },
@@ -261,7 +261,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 2*pi*x; checagem numérica ok"
    }
   },
@@ -354,7 +354,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = -5/x**6; checagem numérica ok"
    }
   },
@@ -447,7 +447,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 6*x + 6; checagem numérica ok"
    }
   },
@@ -535,7 +535,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 3*exp(x) - 2/x; checagem numérica ok"
    }
   },
@@ -628,7 +628,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 6*x**2 + 6*x*(2*x + 1) + 12; checagem numérica ok"
    }
   },
@@ -721,7 +721,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = -2*x**3/(x**2 + 5)**2 + 2*x/(x**2 + 5); checagem numérica ok"
    }
   },
@@ -814,7 +814,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 3*x**2*(-1 + 2/x) - 2*(x**3 - 8)/x**2; checagem numérica ok"
    }
   },
@@ -907,7 +907,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = -3*(2*x + 4)/(3*x - 1)**2 + 2/(3*x - 1); checagem numérica ok"
    }
   },
@@ -995,7 +995,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 30*x*(3*x**2 + 1)**4; checagem numérica ok"
    }
   },
@@ -1083,7 +1083,7 @@
    "result": {
     "ok": true,
     "method": "sympy+amostragem",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "função de referência = 9*x - 16"
    }
   },
@@ -1176,7 +1176,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 3*x**2*exp(3*x) + 2*x*exp(3*x); checagem numérica ok"
    }
   },
@@ -1264,7 +1264,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 2*x/(x**2 + 1); checagem numérica ok"
    }
   },
@@ -1355,7 +1355,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = x**x*(log(x) + 1); checagem numérica ok"
    }
   },
@@ -1444,7 +1444,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = x*(6*log(x) + 5); checagem numérica ok"
    }
   },
@@ -1534,7 +1534,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "limite = 12; checagem numérica ok (+:finite;-:finite)"
    }
   },

@@ -40,9 +40,11 @@ Os itens a seguir continuam classificados como `dificil`. A observação é edit
 - SQL é executado em **MariaDB**, não em uma instância MySQL idêntica à aula. Compatibilidade não assegura igualdade de versões, modos SQL, mensagens e detalhes de comportamento. Conferência em MySQL continua recomendada antes de afirmar equivalência completa.
 - Revisão humana das 600 questões, fontes e calibração de dificuldade permanece pendente.
 - Cache offline depende de instalação inicial completa e espaço disponível. O navegador pode remover armazenamento. Música externa não acompanha o projeto.
-- Os ajustes de largura mínima dos blocos de explicação/resultados e o cabeçalho em 320px precisam de confirmação pelo `e2e:render`; o problema anterior de resultados Full Stack em 390px **não é declarado resolvido sem essa execução**.
+- Largura mínima: confirmada em 2026-10-23 pelo `e2e:render` (600 questões e tela de resultados em 390 e 320 px, sem rolagem horizontal). Larguras abaixo de 320 px não foram testadas.
 
-## Validação desta continuação
+## Validação anterior (bloqueada pelo ambiente — histórico)
+
+Esta seção registra a sessão que escreveu `99bda67`/`f6437cf`; ela **não** validou build, Vitest, E2E nem reexecução editorial. A validação completa está em [Validação completa](#validação-completa--2026-10-23-commit-final-do-branch).
 
 Ambiente: Node 24.19.0; sem checkout inicial, recuperado pelo conector GitHub; rede do shell negada (`connect EPERM` ao proxy). As solicitações de permissão de rede ficaram pendentes e foram interrompidas. Não houve execução de deploy nem merge.
 
@@ -81,4 +83,43 @@ npm run content:coverage
 npm run progress
 ```
 
-Defina `CHROMIUM_PATH` se o executável não estiver em `/usr/bin/chromium`. O PR deve permanecer em rascunho enquanto esses bloqueios de validação não forem resolvidos.
+Defina `CHROMIUM_PATH` se o executável não estiver em `/usr/bin/chromium`.
+
+## Validação completa — 2026-10-23 (commit final do branch)
+
+Executada de ponta a ponta, em ambiente com rede para o registro npm. Versões: Node 22.22.0, Chromium 141.0.7390.37 (`CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`), MariaDB 10.11.14, Python com SymPy 1.14.0 e mpmath 1.3.0. As versões do sandbox (`tools/sandbox/package-lock.json`) não foram alteradas.
+
+| Comando | Resultado real |
+|---|---|
+| `npm ci` / `npm run sandbox:install` | OK |
+| `npm run typecheck` | OK — depois de corrigir `Sessions.test.tsx` (`exact` não existe em `ByRoleOptions`; nome em string já é exato) |
+| `npm test` | **9 arquivos, 681 testes passaram** |
+| `npm run test:pwa` | **6/6** |
+| `npm run build` | OK |
+| `npm run e2e` | **E2E ok — 39 verificações, 0 falhas**, sem erros de console (390 px) |
+| `npm run e2e:render` | **600 questões × 390 e 320 px, 0 problemas**, incluindo a tela de resultados com todas as revisões abertas |
+| `npm run e2e:offline` | OK — build real em `/projeto-faculdade/study-mastery/`, todos os assets pré-cacheados, as duas disciplinas offline, Range 206, caches `trocaticket-`/`aysha-park-`/`dungeon-cooked-` preservados e `study-mastery-old` removido |
+| `npm run sm -- validate --recheck-approved` | **600 aprovadas reexecutadas sem regressão**, 0 erros, 0 avisos, 0 duplicatas. Só o campo `ranAt` mudou nos arquivos de questões |
+| `npm run content:coverage` / `npm run progress` | 600/600 (100/100/100 por disciplina), 600 `ai-assisted` |
+
+Falhas reais encontradas e corrigidas nesta execução (nenhum teste foi enfraquecido):
+
+1. **Rolagem horizontal em 320 px — resultados.** `.explain` é um grid cuja coluna implícita crescia até a fórmula mais larga, empurrando todos os blocos (281 px num espaço de 272). Correção: `grid-template-columns: minmax(0, 1fr)` e `min-width: 0` nos textos de `.why-right`/`.why-wrong`.
+2. **Rolagem horizontal em 320 px — última questão.** “Encerrar agora” + “Ver resultados” somavam cerca de 337 px. Correção: `.quizactions` quebra linha e o botão principal fica alinhado à direita.
+3. **Teste de filtros estritos estourava 5 s sob carga.** O teste recriava um `Map` de 600 questões por sessão e fazia ~280 mil `expect`. Agora acumula as violações e faz uma asserção final, com as mesmas checagens. Teste de mutação: removendo o filtro de assunto de `eligible`, os dois testes de filtro falham. O motor ganhou um `Map` no modo Revisão (antes, busca O(n²)).
+4. `render-all` passou a ignorar os SVGs de raízes do KaTeX recortados por `.hide-tail`: eles não geram rolagem e mascaravam o elemento culpado.
+
+Simulação do GitHub Pages com o **build real**, em diretório temporário:
+- passos existentes do workflow: TrocaTicket (`npm ci` + build), Aysha Park e Dungeon Cooked;
+- depois os três passos condicionados, como se `PUBLICAR_STUDY_MASTERY == 'true'`;
+- os 42 arquivos fora de `study-mastery/` ficaram idênticos com e sem a inclusão.
+
+Servido em `/projeto-faculdade/` no Chromium:
+- TrocaTicket, Dungeon Cooked e Study Mastery abrem sem erros;
+- service worker com escopo `/projeto-faculdade/study-mastery/`; a raiz do TrocaTicket não fica sob o controle dele;
+- o único 404 é a sondagem `HEAD` de `audio/study-radio.mp3`, esperada sem música.
+
+**Aysha Park** lança `TypeError: Cannot set properties of undefined (setting 'width')` no Chromium headless, também com WebGL por software. Nenhum arquivo de Aysha Park mudou neste branch e a regra é não alterá-lo: fica registrado como questão preexistente, fora do escopo.
+
+Continua dependendo de pessoas: revisão humana das 600 questões e da calibração de dificuldade (lista acima), conferência do SQL em MySQL, autorização para `PUBLICAR_STUDY_MASTERY` e um MP3 com direito de uso.
+

@@ -61,7 +61,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <estrelas nota=\"4\"></estrelas>"
    }
   },
@@ -144,7 +144,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>Olá, Marina!</p>"
    }
   },
@@ -227,7 +227,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <span class=\"estrelas\" aria-label=\"4 de 5 estrelas\">★★★★☆</span>"
    }
   },
@@ -310,7 +310,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>5 avaliações</p>"
    }
   },
@@ -393,7 +393,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <i>number</i> ⏎ <i>string</i>"
    }
   },
@@ -476,7 +476,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: renderiza e avisa"
    }
   },
@@ -566,7 +566,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>Nenhum lugar encontrado.</p>"
    }
   },
@@ -649,7 +649,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: []"
    }
   },
@@ -732,7 +732,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: TypeError"
    }
   },
@@ -815,7 +815,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <section class=\"moldura\"><h2>Café Aroma</h2><p>Cafeteria</p></section>"
    }
   },
@@ -898,7 +898,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>Lugares avaliados</h1><p>Descubra e avalie.</p>"
    }
   },
@@ -981,7 +981,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>0</p>"
    }
   },
@@ -1064,7 +1064,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <ul></ul>"
    }
   },
@@ -1147,7 +1147,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <div style=\"font-size:16px;margin-top:4px\">x</div>"
    }
   },
@@ -1230,7 +1230,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>&lt;b&gt;Ótimo!&lt;/b&gt;</p>"
    }
   },
@@ -1313,7 +1313,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <span>★★★☆☆</span>"
    }
   },
@@ -1396,7 +1396,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: renderiza e avisa"
    }
   },
@@ -1486,7 +1486,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 1"
    }
   },
@@ -1569,7 +1569,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 2 1"
    }
   },
@@ -1652,7 +1652,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>[0NaN]</p>"
    }
   },
@@ -1735,7 +1735,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: []"
    }
   },
@@ -1818,7 +1818,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <span>★★★★★</span> ⏎ <span>★★★★★</span> ⏎ <span></span>"
    }
   },
@@ -1901,7 +1901,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p><b>Ótimo!</b></p>"
    }
   },
@@ -1984,7 +1984,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <label for=\"nome\" class=\"campo\" tabindex=\"0\">Nome</label>"
    }
   },

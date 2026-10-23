@@ -60,7 +60,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 2 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -156,7 +156,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = u=x**2; checagem independente ok"
    }
   },
@@ -252,7 +252,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = sin(x**2) + C; checagem numérica ok"
    }
   },
@@ -340,7 +340,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = 81*x**5/5 + 27*x**4 + 18*x**3 + 6*x**2 + x + C; checagem numérica ok"
    }
   },
@@ -433,7 +433,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "derivada = 3; checagem numérica ok"
    }
   },
@@ -526,7 +526,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 341/5 ≈ 68.2000000000; quadratura ok"
    }
   },
@@ -616,7 +616,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -1/6 ≈ -0.166666666667; quadratura ok"
    }
   },
@@ -704,7 +704,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = exp(2*x)/2 + C; checagem numérica ok"
    }
   },
@@ -793,7 +793,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -1/2 + exp(4)/2 ≈ 26.7990750166; quadratura ok"
    }
   },
@@ -883,7 +883,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 222 ≈ 222.000000000; quadratura ok"
    }
   },
@@ -979,7 +979,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = (1, 2); checagem independente ok"
    }
   },
@@ -1072,7 +1072,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = sin(5*x)/5 + C; checagem numérica ok"
    }
   },
@@ -1161,7 +1161,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -1/2 + E/2 ≈ 0.859140914230; quadratura ok"
    }
   },
@@ -1251,7 +1251,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 14/9 ≈ 1.55555555556; quadratura ok"
    }
   },
@@ -1341,7 +1341,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 5/16 ≈ 0.312500000000; quadratura ok"
    }
   },
@@ -1431,7 +1431,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 15/64 ≈ 0.234375000000; quadratura ok"
    }
   },
@@ -1521,7 +1521,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -3*log(2) + 3*log(5) ≈ 2.74887219562; quadratura ok"
    }
   },
@@ -1611,7 +1611,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -4/15 ≈ -0.266666666667; quadratura ok"
    }
   },
@@ -1704,7 +1704,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = x**10/10 + 3*x**8/2 + 9*x**6 + 27*x**4 + 81*x**2/2 + C; checagem numérica ok"
    }
   },
@@ -1795,7 +1795,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = -cos(x)**3/3 + C; checagem numérica ok"
    }
   },
@@ -1883,7 +1883,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = log(x)**2/2 + C; checagem numérica ok"
    }
   },
@@ -1971,7 +1971,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = log(exp(x) + 1) + C; checagem numérica ok"
    }
   },
@@ -2064,7 +2064,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 45/4 ≈ 11.2500000000; quadratura ok"
    }
   },
@@ -2161,7 +2161,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -1/2 + exp(4)/2 ≈ 26.7990750166; quadratura ok"
    }
   },
@@ -2254,7 +2254,7 @@
    "result": {
     "ok": true,
     "method": "sympy+independente",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = u=x**3+1; checagem independente ok"
    }
   },
@@ -2342,7 +2342,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = log(x**2 + 1)/2 + C; checagem numérica ok"
    }
   },
@@ -2430,7 +2430,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = exp(sin(x)) + C; checagem numérica ok"
    }
   },
@@ -2520,7 +2520,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 1/4 ≈ 0.250000000000; quadratura ok"
    }
   },
@@ -2610,7 +2610,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 2/15 ≈ 0.133333333333; quadratura ok"
    }
   },
@@ -2704,7 +2704,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = 2*x**2*sqrt(2*x + 1)/5 + x*sqrt(2*x + 1)/15 - sqrt(2*x + 1)/15 + C; checagem numérica ok"
    }
   },
@@ -2794,7 +2794,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 1/3 ≈ 0.333333333333; quadratura ok"
    }
   },
@@ -2888,7 +2888,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = log(log(x)) + C; checagem numérica ok"
    }
   },
@@ -2982,7 +2982,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = -log(cos(x)) + C; checagem numérica ok"
    }
   },
@@ -3072,7 +3072,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 1/6 ≈ 0.166666666667; quadratura ok"
    }
   },
@@ -3160,7 +3160,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = exp(x**3)/3 + C; checagem numérica ok"
    }
   },
@@ -3253,7 +3253,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = -E/2 + exp(4)/2 ≈ 25.9399341023; quadratura ok"
    }
   },
@@ -3343,7 +3343,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 0 ≈ 0; quadratura ok"
    }
   },
@@ -3431,7 +3431,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.diff",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "∫ = 2*log(sqrt(x) + 1) + C; checagem numérica ok"
    }
   },
@@ -3521,7 +3521,7 @@
    "result": {
     "ok": true,
     "method": "sympy+mpmath.quad",
-    "ranAt": "2026-10-23T02:51:37.723Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "valor = 8/3 ≈ 2.66666666667; quadratura ok"
    }
   },

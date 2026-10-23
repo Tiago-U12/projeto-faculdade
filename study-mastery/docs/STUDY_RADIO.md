@@ -24,4 +24,4 @@ Se o MP3 estiver no build, ele integra a lista de assets do pré-cache; também 
 - `npm run test:pwa`: transporte Range/cache/HEAD e falha de quota, sem arquivo de música.
 - `npm run e2e:offline`: bytes sintéticos em memória para verificar transporte em Playwright. A fixture não é uma música nem comprova decodificação de um MP3 real.
 
-Os seis testes isolados do PWA passaram nesta continuação. Vitest e Playwright permanecem bloqueados pelo ambiente; veja [AUDITORIA_V05.md](AUDITORIA_V05.md). A experiência sonora exige um MP3 válido fornecido pelo usuário ou responsável.
+Validado em 2026-10-23: testes de `radio.ts` e do `RadioPlayer` (jsdom, inclusive música que continua ao fechar o painel e trocar de tela), PWA 6/6 e `e2e:offline` (Range 206 com bytes sintéticos, não música); veja [AUDITORIA_V05.md](AUDITORIA_V05.md). A experiência sonora exige um MP3 válido fornecido pelo usuário ou responsável.

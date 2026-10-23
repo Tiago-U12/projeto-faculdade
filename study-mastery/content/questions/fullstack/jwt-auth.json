@@ -60,7 +60,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: false true"
    }
   },
@@ -142,7 +142,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: false"
    }
   },
@@ -224,7 +224,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: $2b$10$"
    }
   },
@@ -306,7 +306,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 3"
    }
   },
@@ -388,7 +388,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: Marina"
    }
   },
@@ -470,7 +470,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: JsonWebTokenError"
    }
   },
@@ -552,7 +552,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 401"
    }
   },
@@ -634,7 +634,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: abc.def.ghi"
    }
   },
@@ -716,7 +716,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: TokenExpiredError"
    }
   },
@@ -798,7 +798,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: Marina ⏎ JsonWebTokenError"
    }
   },
@@ -880,7 +880,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: invalid signature"
    }
   },
@@ -962,7 +962,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: jwt signature is required"
    }
   },
@@ -1044,7 +1044,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 401 401 true"
    }
   },
@@ -1126,7 +1126,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 409"
    }
   },
@@ -1208,7 +1208,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 401 401 201"
    }
   },
@@ -1290,7 +1290,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: [\"id\",\"nome\",\"email\"]"
    }
   },
@@ -1372,7 +1372,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true"
    }
   },
@@ -1454,7 +1454,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: {\"alg\":\"HS256\",\"typ\":\"JWT\"}"
    }
   },
@@ -1536,7 +1536,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 120 0"
    }
   },
@@ -1618,7 +1618,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 7200"
    }
   },
@@ -1700,7 +1700,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: [\"id\",\"nome\",\"email\",\"iat\",\"exp\"]"
    }
   },
@@ -1782,7 +1782,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: secretOrPrivateKey must have a value"
    }
   },
@@ -1864,7 +1864,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: false"
    }
   },
@@ -1946,7 +1946,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: string undefined"
    }
   },
@@ -2028,7 +2028,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: 401"
    }
   },

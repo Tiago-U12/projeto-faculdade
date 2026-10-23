@@ -60,7 +60,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ErroValidacao nota true"
    }
   },
@@ -142,7 +142,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ReferenceError"
    }
   },
@@ -224,7 +224,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true true false"
    }
   },
@@ -306,7 +306,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: Error falhou"
    }
   },
@@ -388,7 +388,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true false false"
    }
   },
@@ -470,7 +470,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: [false,true,false,false]"
    }
   },
@@ -552,7 +552,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true false false"
    }
   },
@@ -634,7 +634,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ErroValidacao: falhou"
    }
   },
@@ -716,7 +716,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ok 5 ⏎ validação:nota"
    }
   },
@@ -798,7 +798,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: nome"
    }
   },
@@ -880,7 +880,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ErroValidacao lugar"
    }
   },
@@ -956,7 +956,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -1038,7 +1038,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: string false"
    }
   },
@@ -1120,7 +1120,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true false"
    }
   },
@@ -1202,7 +1202,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: [\"name\",\"campo\"] ⏎ true"
    }
   },
@@ -1284,7 +1284,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: {\"name\":\"ErroValidacao\",\"campo\":\"nota\"}"
    }
   },
@@ -1366,7 +1366,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: ErroValidacao nota true true"
    }
   },
@@ -1448,7 +1448,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: nome ⏎ undefined"
    }
   },
@@ -1530,7 +1530,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true false false true"
    }
   },
@@ -1612,7 +1612,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: TypeError ⏎ 5"
    }
   },
@@ -1694,7 +1694,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: TypeError ⏎ Café Aroma"
    }
   },
@@ -1776,7 +1776,7 @@
    "result": {
     "ok": true,
     "method": "js-exec (node --permission)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true false false"
    }
   },

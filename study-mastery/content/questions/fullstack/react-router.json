@@ -61,7 +61,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>Home</h1>"
    }
   },
@@ -144,7 +144,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>Detalhe 3</h1>"
    }
   },
@@ -227,7 +227,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>404</h1>"
    }
   },
@@ -310,7 +310,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: a href=/lugares/2"
    }
   },
@@ -393,7 +393,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>string NaN</p>"
    }
   },
@@ -469,7 +469,7 @@
    "result": {
     "ok": true,
     "method": "source-review",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "sem execução: 1 afirmação(ões) conferida(s) contra a fonte"
    }
   },
@@ -552,7 +552,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>Detalhe 3</h1>"
    }
   },
@@ -635,7 +635,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: true /lugares/2"
    }
   },
@@ -718,7 +718,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>3-7</p>"
    }
   },
@@ -801,7 +801,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <header>H</header><h1>404</h1><footer>F</footer>"
    }
   },
@@ -884,7 +884,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>parque</p>"
    }
   },
@@ -967,7 +967,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>Detalhe 3</h1>"
    }
   },
@@ -1050,7 +1050,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <h1>Novo</h1>"
    }
   },
@@ -1133,7 +1133,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: /"
    }
   },
@@ -1216,7 +1216,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: /lugares/3/avaliacoes"
    }
   },
@@ -1299,7 +1299,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: <p>fotos/2026/praia.png</p>"
    }
   },
@@ -1382,7 +1382,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: Home em /"
    }
   },
@@ -1465,7 +1465,7 @@
    "result": {
     "ok": true,
     "method": "node-exec (--permission, sandbox)",
-    "ranAt": "2026-10-23T03:00:06.881Z",
+    "ranAt": "2026-10-23T13:41:38.930Z",
     "details": "saída: Link: true e âncora: false"
    }
   },

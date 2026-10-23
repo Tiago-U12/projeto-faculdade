@@ -30,7 +30,7 @@ npm run e2e:offline
 
 O teste offline copia o build para uma pasta temporária com o layout `TrocaTicket/dist/study-mastery`, serve no subcaminho final e testa instalação, arquivos em cache, ambas as disciplinas, Range e caches vizinhos. Não publica nada. Use `CHROMIUM_PATH` para selecionar o Chromium instalado.
 
-Nesta sessão só a cópia de **fixtures** e os gates ausente/false/true foram simulados; build e navegador ficaram bloqueados. Os resultados completos estão em [AUDITORIA_V05.md](AUDITORIA_V05.md).
+Em 2026-10-23 o workflow foi simulado com o **build real**: passos existentes mais os condicionados, servido em `/projeto-faculdade/`. TrocaTicket, Dungeon Cooked e Study Mastery funcionaram; o service worker ficou restrito ao subcaminho; os arquivos dos outros projetos ficaram idênticos. Aysha Park tem um erro preexistente no Chromium headless, sem relação com este branch. Detalhes em [AUDITORIA_V05.md](AUDITORIA_V05.md).
 
 ## PWA e atualização
 
@@ -38,4 +38,4 @@ O plugin `tools/pwa.ts` enumera os arquivos finais do build, incluindo chunks e 
 
 O `activate` remove somente caches antigos cujo nome começa por `study-mastery-`. Requisições fora da pasta do app não são interceptadas. MP3 recebe tratamento separado de arquivo completo/Range; veja [STUDY_RADIO.md](STUDY_RADIO.md).
 
-Pendências externas: revisão humana do banco e das dificuldades, validações técnicas bloqueadas, autorização do Tiago para a variável e MP3 opcional fornecido por quem tem direito de usá-lo.
+Pendências externas: revisão humana do banco e das dificuldades, autorização do Tiago para a variável e MP3 opcional fornecido por quem tem direito de usá-lo.

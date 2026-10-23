@@ -1,6 +1,6 @@
 # Cobertura do banco de questões
 
-Gerado em 2026-10-23T12:26:19.315Z. **Somente questões `approved` são contadas** (rascunhos, verificadas-não-aprovadas e rejeitadas ficam de fora).
+Gerado em 2026-10-23T13:43:48.824Z. **Somente questões `approved` são contadas** (rascunhos, verificadas-não-aprovadas e rejeitadas ficam de fora).
 
 **Total aprovado: 600 / 600** — faltam 0.
 

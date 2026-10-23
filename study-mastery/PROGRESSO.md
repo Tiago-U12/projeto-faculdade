@@ -6,14 +6,14 @@ Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run
 
 Implementados: rádio opcional, sessão com confirmação de substituição, resultados por tentativa, revisão de erros, ajustes de acessibilidade/CSS, pré-cache/hash/Range, ícones PNG e workflow condicionado. Banco preservado em 600/600, revisão humana pendente.
 
-**Validação atual incompleta:** 6/6 testes PWA passaram; build/typecheck/Vitest/E2E/render-all/recheck-approved não iniciaram neste ambiente sem dependências, com rede negada; Chromium não iniciou por restrição de socket, MariaDB ausente. Cabeçalho 320px e resultados Full Stack 390px aguardam confirmação visual. Relatórios regenerados pelas funções do projeto via Node nativo. Veja [auditoria v0.5](docs/AUDITORIA_V05.md).
+**Validação completa em 2026-10-23:** typecheck; `npm test` 681/681; PWA 6/6; build; E2E (39 verificações); `e2e:render` (600 questões × 390/320 px, 0 problemas); `e2e:offline` no subcaminho do Pages; `validate --recheck-approved` com 600 reexecutadas sem regressão; workflow simulado com o build real. Revisão humana segue pendente. Veja a [auditoria v0.5](docs/AUDITORIA_V05.md).
 
 As evidências da tabela de etapas abaixo pertencem às execuções anteriores; não são resultados novos desta continuação. Publicação: somente após autorização do Tiago e variável `PUBLICAR_STUDY_MASTERY=true`; sem merge/deploy nesta tarefa.
 
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-23T12:26:19.423Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-23T13:43:49.406Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
 **Total aprovado: 600 de 600** (faltam 0).
 

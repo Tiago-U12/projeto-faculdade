@@ -21,7 +21,7 @@ npm run e2e        # E2E em Chromium (390 px); exige `npm run build` antes
 
 ## Estado da v0.5.0
 
-Implementação continuada no branch existente; validação completa **pendente por bloqueios do ambiente**. Os 6 testes isolados de PWA passaram; build, Vitest, E2E e reexecução editorial não iniciaram aqui. Evidências e comandos para retomar: [AUDITORIA_V05.md](docs/AUDITORIA_V05.md).
+Validação completa em 2026-10-23 (typecheck, 681 testes, PWA, build, E2E, as 600 questões renderizadas em 390/320 px, offline no subcaminho do Pages e reexecução editorial das 600). Detalhes: [AUDITORIA_V05.md](docs/AUDITORIA_V05.md).
 
 - Histórico abre cada tentativa por `#/results?id=...`; refazer erros usa as questões daquela tentativa.
 - Confirmação antes de substituir sessão em andamento e botão “Revisar meus erros” no Progresso.

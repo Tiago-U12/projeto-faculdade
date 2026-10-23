@@ -10,7 +10,8 @@
 - PWA com pré-cache dos assets e hash do build, limpeza somente de caches `study-mastery-`, MP3 completo/Range/HEAD e tolerância à quota; ícones PNG/Apple gerados do SVG.
 - Workflow Pages ganha apenas três passos condicionados a `PUBLICAR_STUDY_MASTERY == 'true'`; nenhum merge/deploy.
 - Cobertura regenerada para 600/600 e documentação de auditoria, publicação e rádio.
-- Validação real: 6/6 testes PWA passaram; checagens diretas de utilitários e simulação de cópia/gates passaram. **Build, Vitest, Playwright e revalidação editorial bloqueados pelo ambiente**, sem alegação de aprovação. Detalhes em `docs/AUDITORIA_V05.md`.
+- Validação completa (2026-10-23): typecheck, 681 testes, PWA 6/6, build, E2E, render das 600 questões em 390/320 px, offline no subcaminho do Pages, 600 reexecutadas sem regressão e workflow simulado com o build real. Detalhes em `docs/AUDITORIA_V05.md`.
+- Corrigido: rolagem horizontal em 320 px (grid das explicações e barra de ações da última questão), tipo inválido em `Sessions.test.tsx`, teste de filtros lento sob carga e busca O(n²) no modo Revisão.
 
 ## 0.4.0 — 2026-10-23
 - **600 questões aprovadas**: Cálculo II (300) e Desenvolvimento Web Full Stack (300), 100 por dificuldade em cada disciplina, distribuídas pelos assuntos conforme `content/taxonomy.json`.
