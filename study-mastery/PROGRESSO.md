@@ -5,14 +5,14 @@ Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run
 ## Contagens validadas
 
 <!-- CONTAGENS:INICIO -->
-_Gerado automaticamente em 2026-10-23T01:01:24.375Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
+_Gerado automaticamente em 2026-10-23T01:05:15.512Z por `npm run progress`. Só contam questões **aprovadas**; rascunhos, verificadas-não-aprovadas e rejeitadas ficam fora._
 
-**Total aprovado: 320 de 600** (faltam 280).
+**Total aprovado: 344 de 600** (faltam 256).
 
 | Disciplina | Fácil | Média | Difícil | Total |
 |---|---:|---:|---:|---:|
 | Cálculo II | 100/100 | 100/100 | 100/100 | 300/300 |
-| Desenvolvimento Web Full Stack | 7/100 | 7/100 | 6/100 | 20/300 |
+| Desenvolvimento Web Full Stack | 15/100 | 15/100 | 14/100 | 44/300 |
 
 #### Cálculo II — por assunto
 
@@ -37,7 +37,7 @@ Fluxo editorial (todas as questões da disciplina): aprovadas 300 · verificadas
 | Assunto | Fácil | Média | Difícil | Total | Sessão de 20? |
 |---|---:|---:|---:|---:|:--:|
 | HTML semântico e Emmet | 7/7 | 7/7 | 6/6 | 20/20 | sim |
-| CSS: Flexbox, Grid e mobile-first | 0/8 | 0/8 | 0/8 | 0/24 | não |
+| CSS: Flexbox, Grid e mobile-first | 8/8 | 8/8 | 8/8 | 24/24 | sim |
 | JavaScript: funções puras e arrays | 0/10 | 0/9 | 0/8 | 0/27 | não |
 | Fetch, Promises e CORS | 0/9 | 0/8 | 0/9 | 0/26 | não |
 | Classes, validação e erros customizados | 0/7 | 0/7 | 0/8 | 0/22 | não |
@@ -50,12 +50,12 @@ Fluxo editorial (todas as questões da disciplina): aprovadas 300 · verificadas
 | Validação e tratamento de erros na API | 0/6 | 0/6 | 0/6 | 0/18 | não |
 | Deploy: Render, MySQL gerenciado e Netlify | 0/5 | 0/6 | 0/5 | 0/16 | não |
 
-Fluxo editorial (todas as questões da disciplina): aprovadas 20 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
+Fluxo editorial (todas as questões da disciplina): aprovadas 44 · verificadas aguardando revisão 0 · rascunhos 0 · rejeitadas 0.
 
 ★ = assunto cobrado na prova de 26/10/2026.
 
-Verificação das aprovadas: 94 por `sympy+independente` · 68 por `sympy+mpmath.diff` · 11 por `sympy+amostragem` · 37 por `sympy+mpmath` · 7 por `sympy+mpmath (por alternativa)` · 18 por `sympy+mpmath.quad(aninhada)` · 37 por `sympy+mpmath.quad` · 14 por `source-review` · 2 por `sympy+mpmath (forma)` · 14 por `sympy+amostragem+mpmath.taylor` · 11 por `web-chromium (sem rede)` · 7 por `node-exec (--permission, sandbox)`.
-Revisão das aprovadas: 320 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
+Verificação das aprovadas: 94 por `sympy+independente` · 68 por `sympy+mpmath.diff` · 11 por `sympy+amostragem` · 37 por `sympy+mpmath` · 7 por `sympy+mpmath (por alternativa)` · 18 por `sympy+mpmath.quad(aninhada)` · 37 por `sympy+mpmath.quad` · 14 por `source-review` · 2 por `sympy+mpmath (forma)` · 14 por `sympy+amostragem+mpmath.taylor` · 35 por `web-chromium (sem rede)` · 7 por `node-exec (--permission, sandbox)`.
+Revisão das aprovadas: 344 `ai-assisted`. **Nenhuma questão passou por revisão humana ainda** quando `human` não aparece acima.
 <!-- CONTAGENS:FIM -->
 
 ## Estado por etapa (implementado × testado × planejado)

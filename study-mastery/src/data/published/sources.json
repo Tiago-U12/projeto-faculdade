@@ -100,6 +100,12 @@
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  },
  {
+  "id": "fs-aula-02",
+  "title": "Aula 02 — CSS: Flexbox, Grid e mobile-first (README + código starter)",
+  "kind": "aula-readme",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
   "id": "fs-apostila-01-02",
   "title": "Apostila Aulas 01–02: HTML, Emmet e CSS (15 pp.)",
   "kind": "aula-pdf",
@@ -108,6 +114,12 @@
  {
   "id": "fs-slides-aula01",
   "title": "Slides Aula 01: HTML Semântico e Emmet (31 pp.)",
+  "kind": "aula-pdf",
+  "institution": "FECAP / Centro Universitário Álvares Penteado"
+ },
+ {
+  "id": "fs-slides-aula02",
+  "title": "Slides Aula 02: CSS Flexbox e Grid (25 pp.)",
   "kind": "aula-pdf",
   "institution": "FECAP / Centro Universitário Álvares Penteado"
  }
