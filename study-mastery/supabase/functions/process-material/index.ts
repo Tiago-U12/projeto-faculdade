@@ -22,7 +22,7 @@ Deno.serve(async (req) => {
     const result = await processMaterial(
       {
         async getMaterial(id) {
-          const { data, error } = await asUser.from('materials').select('id, owner_id, kind, status, file_size, sha256, page_count, server_checked_at').eq('id', id).maybeSingle();
+          const { data, error } = await asUser.from('materials').select('id, owner_id, kind, status, file_size, sha256, page_count, server_checked_at, pages_rev').eq('id', id).maybeSingle();
           if (error) throw error;
           return (data as MaterialRow | null) ?? null;
         },
@@ -36,10 +36,13 @@ Deno.serve(async (req) => {
           if (error || !data) return null;
           return new Uint8Array(await data.arrayBuffer());
         },
-        async update(ownerId, id, patch) {
+        async update(ownerId, id, patch, ifPagesRev) {
           if (ownerId !== user.id) throw new Error('dono divergente');
-          const { error } = await admin.from('materials').update(patch).eq('owner_id', ownerId).eq('id', id);
+          let q = admin.from('materials').update(patch).eq('owner_id', ownerId).eq('id', id);
+          if (ifPagesRev !== undefined) q = q.eq('pages_rev', ifPagesRev);
+          const { data, error } = await q.select('id');
           if (error) throw error;
+          return (data ?? []).length > 0;
         },
         async removeFile(path) {
           if (!path.startsWith(user.id + '/')) throw new Error('caminho fora da pasta do usuário');

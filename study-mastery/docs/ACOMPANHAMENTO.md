@@ -27,6 +27,21 @@ Lista viva para retomar o trabalho sem repetir. Atualizada a cada checkpoint.
    e o app diz isso (guias com trechos do material e questões criadas pelo estudante continuam funcionando).
 5. Detalhes do problema no A52 (ver "O que pedir" em `DIAGNOSTICO_A52.md`).
 
+## Revisão final do diff (skill code-review, todo o branch contra a `main`)
+
+| Achado | Correção | Teste |
+|---|---|---|
+| Gatilho de material barrava o upsert de um PDF existente (envio do PDF na conta falharia) | regra do INSERT só para material novo; CHECK de "PDF pronto" virou regra no gatilho | `tests/db/materiais.test.ts` |
+| Limite por conta barrava editar registro existente via upsert | `limit_rows` ignora linha que já existe | `tests/db/contas.test.ts` |
+| Perfil nunca era criado (pedido do supabase-js sem `.then`) | pedido enviado; sincronização usa upsert do perfil | revisão de código |
+| Lote concluído com 0 questões prendia o pedido para sempre | conta como tentativa e permite repetir até o limite | `tests/functions/generateCore.test.ts` |
+| Falha ao regenerar seção marcava conteúdo antigo como atualizado | versões do material só entram com itens novos | idem |
+| Texto alterado durante a conferência no servidor | `pages_rev`: só conclui se o texto não mudou | `tests/functions/processMaterial.test.ts`, `tests/db/materiais.test.ts` |
+| Texto colado ficava "Pronto" na conta sem conferência e engolia a falha | só o servidor marca pronto; falha vira "Falhou" com “Tentar de novo” | `tests/db/materiais.test.ts` |
+| `quantidade` não numérica gastava um pedido | recusa com 400 | `generateCore.test.ts` |
+| Regravar menos páginas deixava páginas antigas na conta | apaga as que sobraram | `src/personal/__tests__/personal.test.ts` |
+| Histórico inteiro baixado a cada volta ao app | conta primeiro; baixa só se mudou | `src/lib/__tests__/sync.test.ts` |
+
 ## Simulado × real
 
 | Verificação | Como foi feita |

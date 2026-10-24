@@ -21,12 +21,15 @@ create table public.materials (
   version integer not null default 1 check (version >= 1),
   -- preenchido só pela função do servidor (papel service_role)
   server_checked_at timestamptz,
+  -- sobe a cada mudança no texto (material_pages): a conferência só conclui se ele não mudou durante ela
+  pages_rev integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   primary key (owner_id, id),
   foreign key (owner_id, discipline_id) references public.disciplines (owner_id, id) on delete cascade,
   -- PDF só fica pronto (ou "precisa de atenção") depois da conferência do arquivo no servidor
-  check (kind <> 'pdf' or status not in ('pronto', 'atencao') or server_checked_at is not null),
+  -- "PDF só fica pronto/atenção depois de conferido" está no gatilho materials_guard: um CHECK seria avaliado na linha
+  -- proposta de um upsert (sem os campos do servidor) e recusaria editar um PDF já conferido
   check ((kind = 'pdf') = (file_size is not null and sha256 is not null and file_name is not null))
 );
 create index materials_por_disciplina on public.materials (owner_id, discipline_id);
@@ -43,27 +46,34 @@ create table public.material_pages (
 create trigger materials_touch before update on public.materials for each row execute function private.touch_updated_at();
 create trigger materials_limite before insert on public.materials for each row execute function private.limit_rows('40');
 
--- Campos que só o servidor define: o navegador não marca "conferido", nem "pronto"/"precisa de atenção" de um PDF,
--- e não troca arquivo/hash depois do envio.
+-- Campos que só o servidor define: o navegador não marca "conferido", nem "pronto"/"precisa de atenção" (PDF ou
+-- texto colado), e não troca arquivo/hash depois do envio. Upsert de linha existente é validado como UPDATE.
 create or replace function private.materials_guard() returns trigger
 language plpgsql set search_path = '' as $$
 begin
-  -- vale só para requisições de usuários; funções internas (security definer) e o servidor passam
-  if current_user not in ('authenticated', 'anon') then
+  -- INSERT ... ON CONFLICT de um material que já existe: quem valida é o gatilho de UPDATE, com a linha final
+  if tg_op = 'INSERT' and exists (select 1 from public.materials m where m.owner_id = new.owner_id and m.id = new.id) then
     return new;
   end if;
-  if tg_op = 'INSERT' then
-    if new.server_checked_at is not null or (new.kind = 'pdf' and new.status <> 'recebido') then
-      raise exception 'estado inicial inválido para material' using errcode = 'check_violation';
+  -- requisições de usuários (funções internas security definer e o servidor não passam por estas regras)
+  if current_user in ('authenticated', 'anon') then
+    if tg_op = 'INSERT' then
+      if new.server_checked_at is not null or new.pages_rev <> 0 or new.status not in ('recebido', 'processando', 'falhou') then
+        raise exception 'estado inicial inválido para material' using errcode = 'check_violation';
+      end if;
+    else
+      if new.server_checked_at is distinct from old.server_checked_at or new.pages_rev is distinct from old.pages_rev
+         or new.sha256 is distinct from old.sha256 or new.file_size is distinct from old.file_size or new.kind is distinct from old.kind then
+        raise exception 'campo controlado pelo servidor' using errcode = 'insufficient_privilege';
+      end if;
+      if new.status is distinct from old.status and new.status not in ('recebido', 'processando', 'falhou') then
+        raise exception 'só o servidor conclui a conferência de um material' using errcode = 'insufficient_privilege';
+      end if;
     end if;
-    return new;
   end if;
-  if new.server_checked_at is distinct from old.server_checked_at
-     or new.sha256 is distinct from old.sha256 or new.file_size is distinct from old.file_size or new.kind is distinct from old.kind then
-    raise exception 'campo controlado pelo servidor' using errcode = 'insufficient_privilege';
-  end if;
-  if new.kind = 'pdf' and new.status is distinct from old.status and new.status not in ('recebido', 'processando', 'falhou') then
-    raise exception 'só o servidor conclui a conferência de um PDF' using errcode = 'insufficient_privilege';
+  -- para todos, inclusive o servidor: PDF só fica pronto/atenção depois de conferido
+  if new.kind = 'pdf' and new.status in ('pronto', 'atencao') and new.server_checked_at is null then
+    raise exception 'PDF sem conferência do servidor não pode ficar pronto' using errcode = 'check_violation';
   end if;
   return new;
 end $$;
@@ -86,7 +96,9 @@ begin
 end $$;
 create trigger materials_quota before insert or update of file_size on public.materials for each row execute function private.materials_quota();
 
--- Texto mudou depois da conferência: volta a "recebido" e sobe a versão (guias e questões guardam a versão usada)
+-- Toda mudança de texto feita pelo usuário sobe pages_rev (a conferência só conclui se o texto não mudou durante ela).
+-- Depois de conferido, a mudança também volta o material a "recebido" e sobe a versão (guias e questões guardam a
+-- versão usada).
 create or replace function private.material_pages_changed() returns trigger
 language plpgsql security definer set search_path = '' as $$
 declare
@@ -96,10 +108,11 @@ begin
   -- (security definer: current_user é o dono da função; quem chamou vem do JWT)
   if coalesce(auth.role(), '') <> 'service_role' then
     update public.materials
-       set version = version + 1,
-           status = case when status in ('pronto', 'atencao', 'falhou') then 'recebido' else status end,
+       set pages_rev = pages_rev + 1,
+           version = case when server_checked_at is not null then version + 1 else version end,
+           status = case when server_checked_at is not null and status in ('pronto', 'atencao', 'falhou') then 'recebido' else status end,
            server_checked_at = null
-     where owner_id = oid and id = mid and server_checked_at is not null;
+     where owner_id = oid and id = mid;
   end if;
   return null;
 end $$;

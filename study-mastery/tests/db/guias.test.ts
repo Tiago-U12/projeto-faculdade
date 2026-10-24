@@ -24,7 +24,9 @@ describe.skipIf(!enabled)('guias e questões: isolamento e exclusão', () => {
     const a = db.as(A);
     await a.q(`insert into disciplines (id, name, color) values ($1, 'Cálculo', 'menta')`, [DISC]);
     await a.q(`insert into topics (id, discipline_id, name) values ($1, $2, 'Integrais')`, [TOPIC, DISC]);
-    await a.q(`insert into materials (id, discipline_id, title, kind, status) values ($1, $3, 'Resumo', 'texto', 'pronto'), ($2, $3, 'Outro', 'texto', 'pronto')`, [MAT, MAT2, DISC]);
+    await a.q(`insert into materials (id, discipline_id, title, kind, status) values ($1, $3, 'Resumo', 'texto', 'recebido'), ($2, $3, 'Outro', 'texto', 'recebido')`, [MAT, MAT2, DISC]);
+    // "pronto" só pela conferência do servidor
+    await db.service().q(`update materials set status = 'pronto', server_checked_at = now() where owner_id = $1`, [A]);
     await a.q(`insert into material_pages (material_id, page, text) values ($1, 1, 'texto')`, [MAT]);
     await a.q(`insert into questions (id, discipline_id, topic_id, status, difficulty, material_ids, data) values ($1, $3, $4, 'gerada_ia', 'medio', $5, '{"stem":"Q1"}'), ($2, $3, $4, 'gerada_ia', 'medio', $6, '{"stem":"Q2"}')`, [Q1, Q2, DISC, TOPIC, [MAT], [MAT2]]);
     await a.q(`insert into guides (id, discipline_id, title, material_ids, data) values ($1, $2, 'Guia', $3, '{"topicIds":[],"allowComplement":false,"sections":{}}')`, [GUIDE, DISC, [MAT]]);

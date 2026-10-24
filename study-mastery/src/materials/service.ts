@@ -71,16 +71,24 @@ export async function addText(ctx: Ctx, input: { disciplineId: string; title: st
   if (!pages.length) throw new MaterialError('Cole algum texto antes de salvar.');
   const m = baseMaterial(input.disciplineId, input.title || 'Texto colado', 'texto', pages, input.topics);
   progress?.('salvando');
-  const final = { ...m, status: analyzeMaterial(pages, 'texto').status } as PMaterial;
-  await ctx.personal.save('materials', final);
-  await ctx.personal.repo.putPages(final.id, pages);
-  if (ctx.cloud) {
-    // a conferência do servidor registra a análise feita lá (mesmo módulo)
-    progress?.('conferindo');
-    await invokeProcess(ctx, final.id).catch(() => undefined);
-    return (await reload(ctx, final.id)) ?? final;
+  if (!ctx.cloud) {
+    // neste aparelho a análise é o resultado final
+    const final = { ...m, status: analyzeMaterial(pages, 'texto').status } as PMaterial;
+    await ctx.personal.save('materials', final);
+    await ctx.personal.repo.putPages(final.id, pages);
+    return final;
   }
-  return final;
+  // na conta, só a conferência do servidor marca "Pronto"/"Precisa de atenção" (o banco recusa o navegador)
+  await ctx.personal.save('materials', m);
+  await ctx.personal.repo.putPages(m.id, pages);
+  progress?.('conferindo');
+  try {
+    await invokeProcess(ctx, m.id);
+  } catch (e) {
+    // o texto já está salvo: fica "Falhou" com o motivo e a opção “Tentar de novo” na página do material
+    await ctx.personal.save('materials', { ...m, status: 'falhou', statusDetail: describeExtractError(e).slice(0, 500), updatedAt: nowIso() }).catch(() => undefined);
+  }
+  return (await reload(ctx, m.id)) ?? m;
 }
 
 /** Envia o que falta para o servidor e pede a conferência. Pode ser chamada de novo após qualquer falha. */

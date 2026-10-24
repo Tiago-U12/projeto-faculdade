@@ -171,13 +171,38 @@ describe('generate (IA e banco simulados)', () => {
     expect(s.version).toBe(2);
     expect(s.items[0].title).toBe('Fubini v2');
     expect(s.previous.items[0].title).toBe('Fubini v1');
-    // falha: o conteúdo continua o da versão 2
+    // falha depois de o material mudar (versão 3 → 4): o conteúdo continua o da versão 2 e continua dizendo que veio
+    // da versão 3 do material (assim o aviso de "material mudou" não some)
+    const orig = w.deps.getMaterials;
+    w.deps.getMaterials = async (ids) => (await orig(ids)).map((m) => ({ ...m, version: 4 }));
     w.deps.ai = { model: 'x', generate: async () => { throw new AiError('O provedor de IA recusou gerar este conteúdo.', 'recusa', false); } };
     w.guide()!.data.sections[key] = { ...w.guide()!.data.sections[key], version: 2 } as never;
     await handleGenerate(w.deps, { op: 'secao', guideId: G, topicId: T, kind: 'resumo', regenerar: true });
     await w.settle();
     const after = w.guide()!.data.sections[key] as unknown as { status: string; items: { title: string }[]; error: string };
-    expect(after).toMatchObject({ status: 'pronta', items: [{ title: 'Fubini v2' }], error: expect.stringMatching(/recusou/) });
+    expect(after).toMatchObject({ status: 'pronta', items: [{ title: 'Fubini v2' }], error: expect.stringMatching(/recusou/), materialVersions: { [M]: 3 } });
+  });
+
+  it('lote concluído sem nenhuma questão aceita não prende o pedido: dá para tentar de novo, até o limite de tentativas', async () => {
+    const ai = fakeAi({ questoes: [q('Questão com citação inventada sobre integrais duplas e regiões', 'Esta frase não existe no material do estudante')], observacao: '' });
+    const w = world({ ai });
+    await handleGenerate(w.deps, req);
+    await w.settle();
+    expect([...w.jobs.values()][0]).toMatchObject({ status: 'done', result: { criadas: 0 } });
+    expect((await handleGenerate(w.deps, req)).http).toBe(202);
+    await w.settle();
+    expect(ai.calls).toBe(2);
+    const third = await handleGenerate(w.deps, req);
+    expect(third.http).toBe(429);
+    expect(ai.calls).toBe(2);
+  });
+
+  it('quantidade inválida: recusa sem criar tarefa nem chamar a IA', async () => {
+    const ai = fakeAi({ questoes: [], observacao: '' });
+    const w = world({ ai });
+    const r = await handleGenerate(w.deps, { ...req, quantidade: 'abc' as unknown as number });
+    expect(r).toMatchObject({ http: 400 });
+    expect(w.jobs.size + ai.calls).toBe(0);
   });
 
   it('assunto que não foi confirmado no guia: recusado', async () => {

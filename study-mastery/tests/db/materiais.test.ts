@@ -42,9 +42,15 @@ describe.skipIf(!enabled)('materiais: isolamento, campos do servidor e Storage',
     expect(await rejects(a.q(`update materials set status = 'pronto' where id = $1`, [MAT]))).toBe('42501');
     expect(await rejects(a.q(`update materials set sha256 = $2 where id = $1`, [MAT, 'b'.repeat(64)]))).toBe('42501');
     expect(await rejects(a.q(`insert into materials (discipline_id, title, kind, file_name, file_size, sha256, status) values ($1, 'x', 'pdf', 'x.pdf', 10, $2, 'pronto')`, [DISC, SHA]))).toBe('23514');
-    await a.q(`update materials set status = 'processando', title = 'Aula 1 — integrais' where id = $1`, [MAT]);
+    expect(await rejects(a.q(`update materials set pages_rev = 99 where id = $1`, [MAT]))).toBe('42501');
+    // o app grava por upsert (INSERT ... ON CONFLICT): material existente é validado como alteração, não como novo
+    const upsert = (status: string, title: string) => a.q(`insert into materials (id, discipline_id, title, kind, file_name, file_size, sha256, status) values ($1, $2, $3, 'pdf', 'aula1.pdf', 1000, $4, $5) on conflict (owner_id, id) do update set title = excluded.title, status = excluded.status`, [MAT, DISC, title, SHA, status]);
+    await upsert('processando', 'Aula 1 — integrais');
+    expect(await rejects(upsert('pronto', 'x'))).toBe('42501');
     await db.service().q(`update materials set status = 'pronto', server_checked_at = now() where id = $1`, [MAT]);
     expect((await a.q<{ status: string }>('select status from materials where id = $1', [MAT])).rows[0].status).toBe('pronto');
+    await upsert('pronto', 'Aula 1 — renomeada'); // renomear um PDF já conferido
+    expect((await a.q<{ status: string; title: string }>('select status, title from materials where id = $1', [MAT])).rows[0]).toEqual({ status: 'pronto', title: 'Aula 1 — renomeada' });
   });
 
   it('mudar o texto depois da conferência volta a "recebido" e sobe a versão', async () => {
@@ -55,9 +61,14 @@ describe.skipIf(!enabled)('materiais: isolamento, campos do servidor e Storage',
     expect(r).toMatchObject({ status: 'recebido', version: before + 1, server_checked_at: null });
   });
 
-  it('texto colado pode ficar pronto sem arquivo; PDF exige nome, tamanho e hash', async () => {
+  it('texto colado também só fica pronto pela conferência do servidor; PDF exige nome, tamanho e hash', async () => {
     const a = db.as(A);
-    await a.q(`insert into materials (discipline_id, title, kind, status) values ($1, 'Resumo colado', 'texto', 'pronto')`, [DISC]);
+    expect(await rejects(a.q(`insert into materials (discipline_id, title, kind, status) values ($1, 'Resumo colado', 'texto', 'pronto')`, [DISC]))).toBe('23514');
+    const T = (await a.q<{ id: string }>(`insert into materials (discipline_id, title, kind, status) values ($1, 'Resumo colado', 'texto', 'recebido') returning id`, [DISC])).rows[0].id;
+    expect(await rejects(a.q(`update materials set status = 'pronto' where id = $1`, [T]))).toBe('42501');
+    // texto mudando antes da conferência: pages_rev sobe (a conferência em andamento não conclui), a versão não
+    await a.q(`insert into material_pages (material_id, page, text) values ($1, 1, 'parte 1'), ($1, 2, 'parte 2')`, [T]);
+    expect((await a.q<{ pages_rev: number; version: number }>('select pages_rev, version from materials where id = $1', [T])).rows[0]).toEqual({ pages_rev: 2, version: 1 });
     expect(await rejects(a.q(`insert into materials (discipline_id, title, kind) values ($1, 'PDF sem arquivo', 'pdf')`, [DISC]))).toBe('23514');
     expect(await rejects(a.q(`insert into materials (discipline_id, title, kind, file_name, file_size, sha256) values ($1, 'grande', 'pdf', 'g.pdf', 10485761, $2)`, [DISC, SHA]))).toBe('23514');
   });

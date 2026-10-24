@@ -104,7 +104,10 @@ async function claim(deps: GenDeps, key: string, kind: JobRow['kind'], input: Re
   const now = deps.now();
   const existing = await deps.findJob(key);
   if (existing) {
-    if (existing.status === 'done') return { http: 200, body: jobView(existing, { reused: true }) };
+    // concluída com resultado útil: reaproveita. Concluída sem nenhuma questão aceita conta como tentativa falha
+    // (senão o mesmo pedido ficaria preso para sempre no resultado vazio)
+    const empty = existing.status === 'done' && existing.kind === 'questoes' && !((existing.result as { criadas?: number } | null)?.criadas);
+    if (existing.status === 'done' && !empty) return { http: 200, body: jobView(existing, { reused: true }) };
     const fresh = now.getTime() - new Date(existing.started_at).getTime() < deps.limits.staleMs;
     if (existing.status === 'running' && fresh) return { http: 202, body: jobView(existing, { emAndamento: true }) };
     if (existing.attempts >= existing.max_attempts) return { http: 429, body: { ...jobView(existing), error: `Esta geração falhou ${existing.attempts} vezes. Tente mais tarde ou mude o pedido (outro material ou assunto).` } };
@@ -148,6 +151,7 @@ export async function handleGenerate(deps: GenDeps, req: GenRequest): Promise<Ge
 
   if (req.op === 'questoes') {
     if (!UUID.test(req.disciplineId) || !UUID.test(req.topicId) || !Array.isArray(req.materialIds) || !req.materialIds.length || req.materialIds.length > 10 || !req.materialIds.every((m) => UUID.test(m))) return bad('Pedido inválido.');
+    if (req.quantidade !== undefined && (typeof req.quantidade !== 'number' || !Number.isFinite(req.quantidade))) return bad('Quantidade inválida.');
     const quantidade = Math.max(1, Math.min(GEN_LIMITS.maxQuestionsPerBatch, Math.floor(req.quantidade ?? 5)));
     if (req.dificuldade && !['facil', 'medio', 'dificil'].includes(req.dificuldade)) return bad('Dificuldade inválida.');
     const topic = await deps.getTopic(req.topicId);
@@ -207,7 +211,9 @@ export async function handleGenerate(deps: GenDeps, req: GenRequest): Promise<Ge
     const job = c.job;
     deps.background(
       (async () => {
-        const base = { key: sectionKey, topicId: topic.id, kind: req.kind, jobId: job.id, materialVersions: src.versions };
+        // as versões dos materiais só entram junto com os itens novos: enquanto gera (ou se falhar), a seção continua
+        // dizendo de qual versão veio o conteúdo que ela mostra
+        const base = { key: sectionKey, topicId: topic.id, kind: req.kind, jobId: job.id };
         try {
           await deps.setGuideSection(guide.id, sectionKey, { ...base, status: 'gerando' });
           const keys = materialKeys(pages);
@@ -217,7 +223,7 @@ export async function handleGenerate(deps: GenDeps, req: GenRequest): Promise<Ge
           const items: GuideItem[] = v.items;
           if (!items.length) throw new AiError(`Nenhum item veio com trecho conferido no material (${v.dropped} descartado(s)). O conteúdo anterior da seção foi mantido.`, 'formato', true);
           // com itens novos, o banco guarda a versão anterior em "previous" (set_guide_section)
-          await deps.setGuideSection(guide.id, sectionKey, { ...base, status: 'pronta', error: null, generator: 'ia', model: r.model, items, dropped: v.dropped, notes: v.note ? [v.note] : [], version: (current?.version ?? 0) + 1, generatedAt: now });
+          await deps.setGuideSection(guide.id, sectionKey, { ...base, materialVersions: src.versions, status: 'pronta', error: null, generator: 'ia', model: r.model, items, dropped: v.dropped, notes: v.note ? [v.note] : [], version: (current?.version ?? 0) + 1, generatedAt: now });
           await deps.updateJob(job.id, { status: 'done', result: { itens: items.length, descartados: v.dropped }, finished_at: now });
         } catch (e) {
           // sem "items": o conteúdo anterior da seção continua lá

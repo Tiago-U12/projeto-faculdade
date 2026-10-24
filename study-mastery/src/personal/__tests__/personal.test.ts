@@ -107,7 +107,7 @@ describe('conta: mapeamento para o banco (cliente simulado — não substitui o 
       from: () => ({
         select: () => ({ order: async () => ({ data: null, error: { message: 'new row violates row-level security policy', code: '42501' } }), eq: () => ({ order: async () => ({ data: [], error: null }) }) }),
         upsert: async () => ({ error: { message: 'limite de 30 registros em disciplines atingido', code: '23514' } }),
-        delete: () => ({ in: async () => ({ error: { message: 'TypeError: Failed to fetch' } }), eq: async () => ({ error: null }) }),
+        delete: () => ({ in: async () => ({ error: { message: 'TypeError: Failed to fetch' } }), eq: () => Object.assign(Promise.resolve({ error: null }), { gt: async () => ({ error: null }) }) }),
       }),
       rpc: async () => ({ data: null, error: null }),
     };
@@ -115,6 +115,20 @@ describe('conta: mapeamento para o banco (cliente simulado — não substitui o 
     await expect(repo.list('disciplines')).rejects.toThrow(/Sem permissão/);
     await expect(repo.put('disciplines', disc('d', 'x'))).rejects.toThrow(/limite/);
     await expect(repo.remove('disciplines', ['d'])).rejects.toThrow(/Sem conexão/);
+  });
+
+  it('regravar o texto com menos páginas apaga as que sobraram (como no aparelho)', async () => {
+    const calls: string[] = [];
+    const fake: TableClient = {
+      from: (t) => ({
+        select: () => ({ order: async () => ({ data: [], error: null }), eq: () => ({ order: async () => ({ data: [], error: null }) }) }),
+        upsert: async (rows) => (calls.push(`upsert ${t} ${rows.length}`), { error: null }),
+        delete: () => ({ in: async () => ({ error: null }), eq: (c, v) => Object.assign(Promise.resolve({ error: null }), { gt: async (c2: string, n: number) => (calls.push(`delete ${t} ${c}=${v} ${c2}>${n}`), { error: null }) }) }),
+      }),
+      rpc: async () => ({ data: null, error: null }),
+    };
+    await new CloudRepo(fake, 'uid', 'a@b.c').putPages('m1', [{ page: 1, text: 'a' }, { page: 2, text: 'b' }]);
+    expect(calls).toEqual(['upsert material_pages 2', 'delete material_pages material_id=m1 page>2']);
   });
 });
 

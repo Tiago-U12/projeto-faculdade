@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useAccount } from '../account';
 import { friendlyDbError } from '../personal/repo';
-import { attemptFromRow, attemptToRow, localActiveStamp, pendingAttempts, pendingReports, reportFromRow, reportToRow } from '../lib/sync';
+import { attemptFromRow, attemptToRow, localActiveStamp, needsFullPull, pendingAttempts, pendingReports, reportFromRow, reportToRow } from '../lib/sync';
 import type { ActiveSession } from '../lib/storage';
 import { useStudy } from '../state';
 
@@ -47,7 +47,8 @@ export function ProgressSync({ uid, children }: { uid: string; children: ReactNo
     if (atts.length || reps.length) ref.current.markPushed(atts.map((a) => a.id), reps.map((r) => r.id));
     const stamp = localActiveStamp(st);
     if (stamp && stamp !== pushedActive.current) {
-      const { error: e } = await sb.from('profiles').update({ active_session: st.active ?? null, active_updated_at: stamp }).eq('id', uid);
+      // upsert: cria o perfil se ainda não existir (um update em 0 linhas não daria erro e a sessão nunca sincronizaria)
+      const { error: e } = await sb.from('profiles').upsert({ id: uid, active_session: st.active ?? null, active_updated_at: stamp }, { onConflict: 'id' });
       if (e) throw new Error(friendlyDbError(e));
       pushedActive.current = stamp;
     }
@@ -55,8 +56,10 @@ export function ProgressSync({ uid, children }: { uid: string; children: ReactNo
 
   const pull = useCallback(async () => {
     const sb = await account.client();
+    const [ca, cr] = await Promise.all([sb.from('attempts').select('id', { count: 'exact', head: true }), sb.from('question_reports').select('id', { count: 'exact', head: true })]);
+    const full = needsFullPull(ref.current.state, { attempts: ca.error ? null : ca.count, reports: cr.error ? null : cr.count });
     const attempts = [];
-    for (let from = 0; ; from += PAGE) {
+    for (let from = 0; full; from += PAGE) {
       const { data, error: e } = await sb.from('attempts').select('*').order('date', { ascending: false }).range(from, from + PAGE - 1);
       if (e) throw new Error(friendlyDbError(e));
       attempts.push(...(data ?? []).map(attemptFromRow));
@@ -64,7 +67,7 @@ export function ProgressSync({ uid, children }: { uid: string; children: ReactNo
     }
     const { data: prof, error: pe } = await sb.from('profiles').select('active_session, active_updated_at').eq('id', uid).maybeSingle();
     if (pe) throw new Error(friendlyDbError(pe));
-    const { data: reps, error: re } = await sb.from('question_reports').select('*');
+    const { data: reps, error: re } = full ? await sb.from('question_reports').select('*') : { data: [], error: null };
     if (re) throw new Error(friendlyDbError(re));
     const updatedAt = prof?.active_updated_at ? new Date(prof.active_updated_at as string).toISOString() : null;
     if (updatedAt) pushedActive.current = updatedAt;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { emptyState, recordAttempt, type ActiveSession, type AppState } from '../storage';
-import { localActiveStamp, markPushed, mergeRemote, pendingAttempts, replayStats } from '../sync';
+import { localActiveStamp, markPushed, mergeRemote, needsFullPull, pendingAttempts, replayStats } from '../sync';
 import type { Attempt } from '../../types';
 
 const att = (id: string, date: string, answers: [string, boolean][]): Attempt => ({
@@ -64,5 +64,18 @@ describe('progresso entre aparelhos', () => {
     const done = recordAttempt(s, { attemptId: 'x', disciplineId: 'calculo2', mode: 'aprender', bankVersion: 'v', answers: [], now: new Date('2026-10-05T11:00:00.000Z') });
     expect(done.active).toBeUndefined();
     expect(done.sync?.activeClearedAt).toBe('2026-10-05T11:00:00.000Z');
+  });
+});
+
+describe('quando baixar o histórico inteiro da conta', () => {
+  it('primeira vez, contagem indisponível ou contagem diferente do que o aparelho conhece: baixa tudo', () => {
+    const base = emptyState();
+    expect(needsFullPull(base, { attempts: 0, reports: 0 })).toBe(true);
+    const synced = { ...base, sync: { pulledAt: '2026-10-24T10:00:00.000Z', pushed: ['a1', 'a2'], pushedReports: ['r1'] } };
+    expect(needsFullPull(synced, { attempts: 2, reports: 1 })).toBe(false);
+    expect(needsFullPull(synced, { attempts: 3, reports: 1 })).toBe(true); // outro aparelho enviou uma sessão
+    expect(needsFullPull(synced, { attempts: 2, reports: 2 })).toBe(true);
+    expect(needsFullPull(synced, { attempts: 0, reports: 1 })).toBe(true); // histórico apagado em outro aparelho
+    expect(needsFullPull(synced, { attempts: null, reports: 1 })).toBe(true);
   });
 });

@@ -100,6 +100,12 @@ describe.skipIf(!enabled)('contas: duas contas tentando acessar os mesmos IDs', 
     const q = db.as(c);
     for (let i = 0; i < 30; i++) await q.q(`insert into disciplines (name, color) values ($1, 'menta')`, [`D${i}`]);
     expect(await rejects(q.q(`insert into disciplines (name, color) values ('D31', 'menta')`))).toBe('23514');
+    // no limite, editar (o app grava por upsert) e reenviar o que já existe continuam funcionando
+    const id = (await q.q<{ id: string }>(`select id from disciplines where name = 'D0'`)).rows[0].id;
+    await q.q(`insert into disciplines (id, name, color) values ($1, 'D0 renomeada', 'lilas') on conflict (owner_id, id) do update set name = excluded.name, color = excluded.color`, [id]);
+    await q.q(`insert into disciplines (id, name, color) values ($1, 'D0 renomeada', 'lilas') on conflict (owner_id, id) do nothing`, [id]);
+    expect((await q.q<{ name: string }>('select name from disciplines where id = $1', [id])).rows[0].name).toBe('D0 renomeada');
+    expect(await rejects(q.q(`insert into disciplines (id, name, color) values (gen_random_uuid(), 'D32', 'menta') on conflict (owner_id, id) do nothing`))).toBe('23514');
   });
 
   it('excluir a conta apaga todos os dados dela e nada da outra', async () => {

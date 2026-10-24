@@ -90,8 +90,9 @@ export function AccountProvider({ children }: { children: ReactNode }) {
         setStatus(u ? 'signedIn' : 'signedOut');
         if (event === 'PASSWORD_RECOVERY') setRecovery(true);
         if (u && event === 'SIGNED_IN') {
-          // cria o perfil na primeira entrada (o RLS só permite o próprio id)
-          void sb.from('profiles').upsert({ id: u.id }, { onConflict: 'id', ignoreDuplicates: true });
+          // cria o perfil na primeira entrada (o RLS só permite o próprio id). O pedido do supabase-js só sai com
+          // .then(): sem ele nada é enviado. Falha aqui não bloqueia nada (a sincronização também cria o perfil).
+          sb.from('profiles').upsert({ id: u.id }, { onConflict: 'id', ignoreDuplicates: true }).then(() => undefined, () => undefined);
         }
         // depois de processar um link de e-mail, sai do fragmento com tokens e mostra a conta
         if (fromLink && (event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY' || event === 'INITIAL_SESSION')) {

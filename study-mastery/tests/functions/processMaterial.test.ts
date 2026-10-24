@@ -11,18 +11,24 @@ const pdf = new Uint8Array(fs.readFileSync(path.join(FIX, 'aula-integrais.pdf'))
 const longText = Array.from({ length: 4 }, (_, i) => ({ page: i + 1, text: `${i + 1}. Assunto ${i}\n` + 'Texto de estudo com conteúdo suficiente para análise. '.repeat(12) }));
 
 function world(m: Partial<MaterialRow>, files: Record<string, Uint8Array>, pages: PageText[]) {
-  const row: MaterialRow = { id: 'm1', owner_id: 'u1', kind: 'pdf', status: 'processando', file_size: pdf.byteLength, sha256: '', page_count: pages.length, server_checked_at: null, ...m };
+  const row: MaterialRow = { id: 'm1', owner_id: 'u1', kind: 'pdf', status: 'processando', file_size: pdf.byteLength, sha256: '', page_count: pages.length, server_checked_at: null, pages_rev: 3, ...m };
+  /** pages_rev atual no "banco" (o teste pode mudar para simular outra aba reenviando o texto) */
+  const live = { pagesRev: row.pages_rev };
   const updates: Record<string, unknown>[] = [];
   const removed: string[] = [];
   const deps: ProcessDeps = {
     getMaterial: async (id) => (id === row.id ? row : null),
     getPages: async () => pages,
     download: async (p) => files[p] ?? null,
-    update: async (_o, _i, patch) => void updates.push(patch),
+    update: async (_o, _i, patch, ifPagesRev) => {
+      if (ifPagesRev !== undefined && ifPagesRev !== live.pagesRev) return false;
+      updates.push(patch);
+      return true;
+    },
     removeFile: async (p) => void removed.push(p),
     now: () => '2026-10-24T12:00:00.000Z',
   };
-  return { deps, updates, removed };
+  return { deps, updates, removed, live };
 }
 
 describe('process-material (simulado)', () => {
@@ -31,6 +37,19 @@ describe('process-material (simulado)', () => {
     const r = await processMaterial(w.deps, 'm1');
     expect(r).toMatchObject({ http: 200, status: 'pronto' });
     expect(w.updates[0]).toMatchObject({ status: 'pronto', server_checked_at: '2026-10-24T12:00:00.000Z' });
+  });
+
+  it('texto reenviado durante a conferência: não marca como conferido (pede para tentar de novo)', async () => {
+    const w = world({ sha256: await sha256Hex(pdf) }, { [storagePath('u1', 'm1')]: pdf }, longText);
+    const getPages = w.deps.getPages;
+    w.deps.getPages = async (id) => {
+      const p = await getPages(id);
+      w.live.pagesRev++; // outra aba regravou as páginas depois da leitura
+      return p;
+    };
+    const r = await processMaterial(w.deps, 'm1');
+    expect(r).toMatchObject({ http: 409 });
+    expect(w.updates.some((u) => 'server_checked_at' in u)).toBe(false);
   });
 
   it('pedido repetido depois de conferido não refaz nada', async () => {

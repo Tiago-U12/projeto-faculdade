@@ -11,6 +11,8 @@ export interface MaterialRow {
   sha256: string | null;
   page_count: number;
   server_checked_at: string | null;
+  /** sobe a cada mudança no texto: a conferência só conclui se ele não mudou desde a leitura */
+  pages_rev: number;
 }
 
 export interface ProcessDeps {
@@ -18,8 +20,9 @@ export interface ProcessDeps {
   getMaterial(id: string): Promise<MaterialRow | null>;
   getPages(id: string): Promise<PageText[]>;
   download(path: string): Promise<Uint8Array | null>;
-  /** gravado com a chave do servidor, sempre filtrando por owner_id e id */
-  update(ownerId: string, id: string, patch: Record<string, unknown>): Promise<void>;
+  /** gravado com a chave do servidor, sempre filtrando por owner_id e id (e por pages_rev, quando informado);
+   *  devolve se alguma linha foi alterada */
+  update(ownerId: string, id: string, patch: Record<string, unknown>, ifPagesRev?: number): Promise<boolean>;
   removeFile(path: string): Promise<void>;
   now(): string;
 }
@@ -61,6 +64,8 @@ export async function processMaterial(deps: ProcessDeps, materialId: string): Pr
   }
 
   const a = analyzeMaterial(pages, m.kind);
-  await deps.update(m.owner_id, m.id, { status: a.status, status_detail: null, issues: a.issues, char_count: a.charCount, server_checked_at: deps.now() });
+  // só conclui se o texto conferido ainda é o texto salvo (outra aba pode ter reenviado as páginas no meio)
+  const done = await deps.update(m.owner_id, m.id, { status: a.status, status_detail: null, issues: a.issues, char_count: a.charCount, server_checked_at: deps.now() }, m.pages_rev);
+  if (!done) return { http: 409, error: 'O texto do material mudou durante a conferência. Tente de novo.' };
   return { http: 200, status: a.status, issues: a.issues };
 }

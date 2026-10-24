@@ -27,6 +27,16 @@ export interface RemoteProgress {
 export const localActiveStamp = (s: AppState) => (s.active ? s.active.updatedAt ?? s.active.startedAt : s.sync?.activeClearedAt ?? '');
 
 /** Junta o que veio da conta ao estado local (do mesmo espaço de conta). Não perde nada de nenhum lado. */
+/**
+ * Precisa baixar o histórico inteiro? Só se o servidor tem um número de registros diferente do que este aparelho já
+ * sabe que está lá (enviados ou recebidos antes). As tentativas são imutáveis: mesma contagem = nada novo. Assim, voltar
+ * para o app custa uma contagem, não o histórico todo (e as estatísticas continuam recalculadas sobre tudo quando muda).
+ */
+export function needsFullPull(local: AppState, server: { attempts: number | null; reports: number | null }): boolean {
+  if (!local.sync?.pulledAt || server.attempts === null || server.reports === null) return true;
+  return server.attempts !== (local.sync.pushed?.length ?? 0) || server.reports !== (local.sync.pushedReports?.length ?? 0);
+}
+
 export function mergeRemote(local: AppState, remote: RemoteProgress): AppState {
   const byId = new Map(local.attempts.map((a) => [a.id, a]));
   let added = 0;

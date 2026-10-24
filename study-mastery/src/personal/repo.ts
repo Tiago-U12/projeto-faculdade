@@ -157,7 +157,7 @@ export interface TableClient {
       eq(col: string, v: string): { order(col: string, o: { ascending: boolean }): PromiseLike<{ data: Row[] | null; error: DbError }> };
     };
     upsert(rows: Row[], o: { onConflict: string; ignoreDuplicates?: boolean }): PromiseLike<{ error: DbError }>;
-    delete(): { in(col: string, vals: string[]): PromiseLike<{ error: DbError }>; eq(col: string, v: string): PromiseLike<{ error: DbError }> };
+    delete(): { in(col: string, vals: string[]): PromiseLike<{ error: DbError }>; eq(col: string, v: string): PromiseLike<{ error: DbError }> & { gt(col: string, v: number): PromiseLike<{ error: DbError }> } };
   };
   rpc(fn: string, args: Record<string, unknown>): PromiseLike<{ data: unknown; error: DbError }>;
 }
@@ -220,6 +220,9 @@ export class CloudRepo implements PersonalRepo {
       const { error } = await this.db.from('material_pages').upsert(rows, { onConflict: 'owner_id,material_id,page' });
       if (error) throw new CloudError(friendlyDbError(error), error.code);
     }
+    // texto regravado com menos páginas: tira as que sobraram da versão anterior (como no aparelho)
+    const { error } = await this.db.from('material_pages').delete().eq('material_id', materialId).gt('page', pages.length);
+    if (error) throw new CloudError(friendlyDbError(error), error.code);
   }
   async removePages(materialId: string) {
     const { error } = await this.db.from('material_pages').delete().eq('material_id', materialId);

@@ -90,8 +90,14 @@ create or replace function private.limit_rows() returns trigger
 language plpgsql security definer set search_path = '' as $$
 declare
   n integer;
+  existing boolean;
   max_rows integer := tg_argv[0]::integer;
 begin
+  -- upsert de uma linha que já existe (vira UPDATE no ON CONFLICT) não é registro novo: editar no limite continua possível
+  execute format('select exists (select 1 from %I.%I where owner_id = $1 and id = $2)', tg_table_schema, tg_table_name) into existing using new.owner_id, new.id;
+  if existing then
+    return new;
+  end if;
   execute format('select count(*) from %I.%I where owner_id = $1', tg_table_schema, tg_table_name) into n using new.owner_id;
   if n >= max_rows then
     raise exception 'limite de % registros em % atingido', max_rows, tg_table_name using errcode = 'check_violation';
