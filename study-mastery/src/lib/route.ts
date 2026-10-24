@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export type Route = { name: 'home' } | { name: 'setup'; disciplineId?: string; preset?: string } | { name: 'quiz' } | { name: 'results'; id?: string } | { name: 'progress' } | { name: 'library' } | { name: 'help' } | { name: 'account' } | { name: 'disciplines' } | { name: 'discipline'; id: string };
+export type Route = { name: 'home' } | { name: 'setup'; disciplineId?: string; preset?: string } | { name: 'quiz' } | { name: 'results'; id?: string } | { name: 'progress' } | { name: 'library' } | { name: 'help' } | { name: 'account' } | { name: 'disciplines' } | { name: 'discipline'; id: string } | { name: 'materialNew'; disciplineId: string } | { name: 'material'; id: string };
 
 export function parseHash(hash: string): Route {
   const [path, query] = hash.replace(/^#\/?/, '').split('?');
@@ -22,6 +22,10 @@ export function parseHash(hash: string): Route {
       return { name: 'account' };
     case 'disciplinas':
       return { name: 'disciplines' };
+    case 'material-novo':
+      return params.get('d') ? { name: 'materialNew', disciplineId: params.get('d')! } : { name: 'disciplines' };
+    case 'material':
+      return params.get('id') ? { name: 'material', id: params.get('id')! } : { name: 'disciplines' };
     case 'disciplina':
       return params.get('id') ? { name: 'discipline', id: params.get('id')! } : { name: 'disciplines' };
     default:

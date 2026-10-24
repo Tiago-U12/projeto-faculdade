@@ -32,7 +32,29 @@ Depois: painel → *Advisors → Security* deve ficar sem alertas de RLS desativ
   *Authentication → Emails → SMTP Settings* (ex.: Resend ou Brevo, que têm faixa gratuita). A senha do SMTP fica só
   no painel do Supabase.
 
-## 4. Publicar com contas
+## 4. Funções do servidor (Edge Functions)
+
+Pasta `study-mastery/supabase/functions/`:
+
+| Função | Para quê |
+|---|---|
+| `process-material` | confere no servidor o PDF enviado (tipo real, tamanho, hash) e o texto extraído; só ela marca o material como conferido |
+| `delete-account` | apaga os arquivos da conta no Storage e a conta (o banco apaga o resto em cascata) |
+
+Publicar (no seu computador, com a [CLI do Supabase](https://supabase.com/docs/guides/cli)):
+
+```bash
+npx supabase login
+npx supabase link --project-ref <ref-do-projeto>
+npx supabase functions deploy process-material
+npx supabase functions deploy delete-account
+```
+
+As funções usam as variáveis que o Supabase já injeta (`SUPABASE_URL` e as chaves). Opcional: `ALLOWED_ORIGINS`
+(origens do app, separadas por vírgula) em *Edge Functions → Secrets*; sem ela valem o Cloudflare, o GitHub Pages e
+`localhost:5173`.
+
+## 5. Publicar com contas
 
 Valores em *Project Settings → API*: a **URL do projeto** e a **chave publicável** (`sb_publishable_…`, ou a antiga
 `anon`). As duas são públicas por natureza — o que protege os dados é o RLS.
@@ -44,16 +66,21 @@ Valores em *Project Settings → API*: a **URL do projeto** e a **chave publicá
 
 O app recusa, por segurança, uma chave secreta colada por engano nessas variáveis (fica sem contas).
 
-## 5. Conferir
+## 6. Conferir
 
 1. Criar duas contas de teste (dois e-mails seus).
 2. Na conta A, criar uma disciplina; na conta B, conferir que ela não aparece.
-3. Rodar `tests/integration/supabase-real.ts` (quando existir a rede até `*.supabase.co`), que tenta, com a conta B,
-   ler/alterar/apagar dados da conta A pelos IDs e precisa ser recusado em todos os casos.
+3. Rodar `tests/integration/supabase-real.ts` com as variáveis descritas no topo do arquivo (duas contas de teste,
+   URL e chave publicável). Ele tenta, com a conta B, ler, alterar, apagar, baixar e enviar dados da conta A pelos IDs;
+   confere os limites de tipo/tamanho do bucket, a conferência do PDF no servidor, pedidos repetidos e a exclusão no
+   Storage. Precisa de rede até `*.supabase.co` (bloqueada no ambiente em que o código foi escrito).
 
 ## O que já foi testado sem o projeto
 
 - Migrações e RLS em Postgres 16 local com o mesmo `auth.uid()` do Supabase: `npx vitest run tests/db`
   (duas contas, mesmos IDs, troca de `owner_id`, FKs cruzadas, visitante sem login, limites, exclusão da conta).
+- Materiais: `tests/db/materiais.test.ts` (isolamento, campos que só o servidor define, cota de 50 MB, políticas do
+  Storage por pasta) e `tests/functions/processMaterial.test.ts` (regras da conferência, com banco e Storage simulados).
+- Funções conferidas com `deno check` (Deno 2.9.6).
 - Isso **não** testa a API real (PostgREST, Auth, Storage) nem os limites de tipo/tamanho do bucket: esses dependem
-  do projeto hospedado.
+  do projeto hospedado (script de integração acima).

@@ -8,6 +8,8 @@ export interface KvBackend {
   delete(store: string, keys: IDBValidKey[]): Promise<void>;
   /** remove do store todas as chaves que começam com o prefixo (chaves compostas [prefixo, …]) */
   deleteByPrefix(store: string, prefix: string): Promise<void>;
+  /** lê só as chaves compostas que começam com o prefixo */
+  getByPrefix<T>(store: string, prefix: string): Promise<T[]>;
 }
 
 /** Stores: uma por coleção (chave "id") + "pages" (chave [materialId, página]). */
@@ -70,6 +72,9 @@ export function idbBackend(name: string): KvBackend {
       tx.objectStore(store).delete(IDBKeyRange.bound([prefix], [prefix, []]));
       await done(tx);
     },
+    async getByPrefix<T>(store: string, prefix: string) {
+      return (await result((await db()).transaction(store).objectStore(store).getAll(IDBKeyRange.bound([prefix], [prefix, []])))) as T[];
+    },
   };
 }
 
@@ -98,6 +103,10 @@ export function memoryBackend(): KvBackend {
     },
     async deleteByPrefix(store, prefix) {
       for (const k of [...s(store).keys()]) if (k.startsWith(JSON.stringify([prefix]).slice(0, -1) + ',')) s(store).delete(k);
+    },
+    async getByPrefix<T>(store: string, prefix: string) {
+      const head = JSON.stringify([prefix]).slice(0, -1) + ',';
+      return [...s(store).entries()].filter(([k]) => k.startsWith(head)).sort(([, a], [, b]) => (a as { page: number }).page - (b as { page: number }).page).map(([, v]) => clone(v)) as T[];
     },
   };
 }

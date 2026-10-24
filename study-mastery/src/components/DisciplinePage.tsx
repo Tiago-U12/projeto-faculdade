@@ -1,15 +1,21 @@
-import { ArrowLeft, Pencil, Plus, Trash2, X } from 'lucide-react';
+import { ArrowLeft, ChevronRight, FileText, Pencil, Plus, Trash2, X } from 'lucide-react';
 import { useState } from 'react';
 import { useCollection, usePersonal } from '../personal/context';
 import { planDeletion } from '../personal/repo';
 import { LIMITS, newId, nowIso, topicKey, type PTopic } from '../personal/types';
 import { DisciplineForm, draftFrom, parseTopicLines } from './DisciplineForm';
 import { spaceLabel } from './Disciplines';
+import { isStuck, StatusBadge } from './MaterialPage';
+import { useMaterialCtx } from './MaterialNew';
+import { deleteMaterial } from '../materials/service';
 
 export function DisciplinePage({ id, go }: { id: string; go: (to: string) => void }) {
   const p = usePersonal();
+  const ctx = useMaterialCtx();
   const { items: disciplines, loading } = useCollection('disciplines');
   const { items: allTopics } = useCollection('topics');
+  const { items: allMaterials } = useCollection('materials');
+  const materials = allMaterials.filter((x) => x.disciplineId === id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const d = disciplines.find((x) => x.id === id);
   const topics = allTopics.filter((t) => t.disciplineId === id).sort((a, b) => a.position - b.position || a.name.localeCompare(b.name, 'pt-BR'));
   const [editing, setEditing] = useState(false);
@@ -97,7 +103,7 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
 
       {confirmDelete && (
         <div className="confirm" role="alertdialog" aria-label="Excluir disciplina">
-          <p>Excluir “{d.name}” e {topics.length === 1 ? 'o assunto dela' : `os ${topics.length} assuntos dela`} {p.space.kind === 'device' ? 'deste aparelho' : 'da sua conta'}? Não dá para desfazer.</p>
+          <p>Excluir “{d.name}”, {topics.length === 1 ? 'o assunto dela' : `os ${topics.length} assuntos dela`}{materials.length ? ` e ${materials.length === 1 ? 'o material' : `os ${materials.length} materiais`} (com arquivos e textos extraídos)` : ''} {p.space.kind === 'device' ? 'deste aparelho' : 'da sua conta'}? Não dá para desfazer.</p>
           <div className="row wrap">
             <button type="button" className="ghost" onClick={() => setConfirmDelete(false)}>Cancelar</button>
             <button
@@ -105,8 +111,9 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
               className="danger"
               disabled={busy}
               onClick={() => void run(async () => {
-                const plan = planDeletion({ kind: 'disciplines', id: d.id }, { topics: allTopics });
-                // filhos antes dos pais (no aparelho não há chave estrangeira; na conta as FKs fariam o mesmo)
+                const plan = planDeletion({ kind: 'disciplines', id: d.id }, { topics: allTopics, materials: allMaterials });
+                // filhos antes dos pais; materiais um a um para apagar também o arquivo na pasta privada da conta
+                for (const m of allMaterials.filter((x) => plan.materials.includes(x.id))) await deleteMaterial(ctx, m);
                 await p.removeIds('topics', plan.topics);
                 await p.removeIds('disciplines', plan.disciplines);
                 go('#/disciplinas');
@@ -117,6 +124,26 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
           </div>
         </div>
       )}
+
+      <section className="panel" aria-labelledby="h-mats">
+        <div className="panel-head"><h2 id="h-mats"><FileText size={18} aria-hidden="true" /> Materiais</h2><small className="muted">{materials.length}</small></div>
+        {materials.length === 0 ? (
+          <p className="muted">Nenhum material ainda. Adicione o PDF de uma aula, uma lista ou cole o conteúdo da prova.</p>
+        ) : (
+          <ul className="mat-list">
+            {materials.map((m) => (
+              <li key={m.id}>
+                <button type="button" className="mat-row" onClick={() => go(`#/material?id=${m.id}`)}>
+                  <span className="mat-body"><strong>{m.title}</strong><small>{m.kind === 'pdf' ? 'PDF' : 'Texto'} · {m.pageCount} {m.kind === 'pdf' ? 'pág.' : 'trecho(s)'}</small></span>
+                  <StatusBadge status={isStuck(m) ? 'falhou' : m.status} />
+                  <ChevronRight size={16} aria-hidden="true" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button type="button" className="ghost" onClick={() => go(`#/material-novo?d=${d.id}`)}><Plus size={16} aria-hidden="true" /> Adicionar material</button>
+      </section>
 
       <section className="panel" aria-labelledby="h-topics">
         <div className="panel-head"><h2 id="h-topics">Assuntos</h2><small className="muted">{topics.length}/{LIMITS.topicsPerDiscipline}</small></div>

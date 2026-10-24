@@ -13,8 +13,8 @@ Lista viva para retomar o trabalho sem repetir. Atualizada a cada checkpoint.
 |---|---|---|---|
 | A. Diagnóstico e melhorias existentes | concluída | commit "Etapa A" | `docs/DIAGNOSTICO_A52.md`; `tests/e2e/a52-diagnostico.ts` (4 cenários); vitest 682; e2e 39; homologação 138/138 (GitHub e Cloudflare); render 600×2; offline; redirects; test:pwa 7 |
 | B. Contas, autorização e disciplinas | concluída (sem projeto Supabase real) | commit "Etapa B" | `tests/db/contas.test.ts` 10 casos de duas contas em Postgres 16 local; vitest 712; `tests/e2e/v06.ts` 33 (390/320 px, axe); e2e 39; homologação 138/138. **Não testado**: Auth/PostgREST/Storage reais (sem projeto e sem rede até supabase.co) |
-| C. Materiais e processamento | em andamento | — | — |
-| D. Guias e questões | pendente | — | — |
+| C. Materiais e processamento | concluída (sem projeto Supabase real) | commit "Etapa C" | coleção `tests/fixtures/materiais` (9 casos, conteúdo próprio, gerador em `tools/fixtures`); `src/materials/__tests__/extract.test.ts` 10 (pdf.js real); `tests/db/materiais.test.ts` 7; `tests/functions/processMaterial.test.ts` 7 (simulado); `deno check` das funções; `tests/e2e/v06.ts` 65 (390/320 px, axe). **Não testado**: Storage/Edge Functions reais (`tests/integration/supabase-real.ts` pronto, não executado) |
+| D. Guias e questões | em andamento | — | — |
 | E. Calendário e planejamento | pendente | — | — |
 | F. Integração, revisão e documentação | pendente | — | — |
 

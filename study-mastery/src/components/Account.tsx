@@ -1,4 +1,4 @@
-import { CloudUpload, KeyRound, LogIn, LogOut, RefreshCw, Smartphone, UserPlus } from 'lucide-react';
+import { CloudUpload, KeyRound, LogIn, LogOut, RefreshCw, Smartphone, Trash2, UserPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { MIN_PASSWORD, useAccount } from '../account';
 import { useSync } from '../cloud/ProgressSync';
@@ -181,8 +181,58 @@ function SignedIn({ go }: { go: (to: string) => void }) {
           <button type="button" className="ghost" onClick={() => setLeaving(true)}><LogOut size={16} aria-hidden="true" /> Sair</button>
         )}
       </section>
+      <DeleteAccount go={go} />
       {msg && <p className={msg.ok ? 'form-ok' : 'form-error'} role={msg.ok ? 'status' : 'alert'}>{msg.text}</p>}
     </>
+  );
+}
+
+/** Exclusão da conta: arquivos no Storage e todos os dados no banco (em cascata), pela função do servidor. */
+function DeleteAccount({ go }: { go: (to: string) => void }) {
+  const a = useAccount();
+  const [open, setOpen] = useState(false);
+  const [typed, setTyped] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const run = async () => {
+    setBusy(true);
+    setErr(null);
+    try {
+      const sb = await a.client();
+      const uid = a.user!.id;
+      const { error } = await sb.functions.invoke('delete-account', { body: { confirmar: 'EXCLUIR' } });
+      if (error) {
+        const body = await (error as { context?: Response }).context?.json().catch(() => null);
+        throw new Error(body?.error ?? 'O servidor não concluiu a exclusão. Tente de novo.');
+      }
+      browserStore()?.removeItem(accountStateKey(uid));
+      await a.signOut().catch(() => undefined);
+      go('#/');
+    } catch (e) {
+      setErr((e as Error).message);
+      setBusy(false);
+    }
+  };
+  return (
+    <section className="panel" aria-labelledby="h-del-acc">
+      <div className="panel-head"><h2 id="h-del-acc"><Trash2 size={18} aria-hidden="true" /> Excluir conta</h2></div>
+      {!open ? (
+        <button type="button" className="text-btn danger-text" onClick={() => setOpen(true)}>Excluir conta e todos os dados</button>
+      ) : (
+        <div className="confirm" role="alertdialog" aria-label="Excluir conta">
+          <p>Serão apagados da conta: disciplinas, assuntos, materiais (arquivos PDF e textos extraídos), progresso, sessões e relatos de erro. Os dados guardados neste aparelho sem conta não são afetados. Não dá para desfazer.</p>
+          <label className="field">
+            <span>Para confirmar, digite EXCLUIR</span>
+            <input value={typed} onChange={(e) => setTyped(e.target.value)} autoComplete="off" />
+          </label>
+          <div className="row wrap">
+            <button type="button" className="ghost" onClick={() => { setOpen(false); setTyped(''); }}>Cancelar</button>
+            <button type="button" className="danger" disabled={busy || typed.trim().toUpperCase() !== 'EXCLUIR'} onClick={() => void run()}>{busy ? 'Excluindo…' : 'Excluir conta'}</button>
+          </div>
+          {err && <p className="form-error" role="alert">{err}</p>}
+        </div>
+      )}
+    </section>
   );
 }
 

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Plugin } from 'vite';
 
-export const OPTIONAL_ASSET = /\.(ttf|woff)$|pdf\.worker/;
+export const OPTIONAL_ASSET = /\.(ttf|woff)$|pdf\.worker|(^|\/)pdf(\.min)?-[\w-]+\.m?js$/;
 
 export function injectPrecache(outDir: string, template: string, version: string): string[] {
   const walk = (dir: string): string[] => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {

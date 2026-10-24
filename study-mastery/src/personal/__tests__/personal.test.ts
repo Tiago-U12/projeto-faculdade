@@ -56,10 +56,35 @@ describe('repositório neste aparelho e exclusão em cascata', () => {
     await repo.putMany('disciplines', [disc('d1', 'A'), disc('d2', 'B')]);
     await repo.putMany('topics', [topic('t1', 'd1', 'x'), topic('t2', 'd1', 'y'), topic('t3', 'd2', 'z')]);
     const plan = planDeletion({ kind: 'disciplines', id: 'd1' }, { topics: await repo.list('topics') });
-    expect(plan).toEqual({ disciplines: ['d1'], topics: ['t1', 't2'] });
+    expect(plan).toEqual({ disciplines: ['d1'], topics: ['t1', 't2'], materials: [] });
     await executeDeletion(repo, plan);
     expect((await repo.list('disciplines')).map((d) => d.id)).toEqual(['d2']);
     expect((await repo.list('topics')).map((t) => t.id)).toEqual(['t3']);
+  });
+});
+
+describe('materiais neste aparelho', () => {
+  it('excluir a disciplina leva materiais e o texto extraído deles; páginas de outro material ficam', async () => {
+    const repo = new LocalRepo(memoryBackend());
+    await repo.putMany('disciplines', [disc('d1', 'A'), disc('d2', 'B')]);
+    const mat = (id: string, disciplineId: string) => ({ id, disciplineId, title: id, kind: 'texto' as const, status: 'pronto' as const, pageCount: 2, charCount: 10, issues: [], suggestedTopics: [], topicIds: [], version: 1, createdAt: T, updatedAt: T });
+    await repo.putMany('materials', [mat('m1', 'd1'), mat('m2', 'd2')]);
+    await repo.putPages('m1', [{ page: 1, text: 'a' }, { page: 2, text: 'b' }]);
+    await repo.putPages('m2', [{ page: 1, text: 'c' }]);
+    expect(await repo.getPages('m1')).toEqual([{ page: 1, text: 'a' }, { page: 2, text: 'b' }]);
+    const plan = planDeletion({ kind: 'disciplines', id: 'd1' }, { topics: [], materials: await repo.list('materials') });
+    expect(plan.materials).toEqual(['m1']);
+    await executeDeletion(repo, plan);
+    expect(await repo.getPages('m1')).toEqual([]);
+    expect(await repo.getPages('m2')).toEqual([{ page: 1, text: 'c' }]);
+    expect((await repo.list('materials')).map((m) => m.id)).toEqual(['m2']);
+  });
+
+  it('reenviar as páginas substitui as antigas (sem sobras de uma versão maior)', async () => {
+    const repo = new LocalRepo(memoryBackend());
+    await repo.putPages('m', [{ page: 1, text: 'a' }, { page: 2, text: 'b' }, { page: 3, text: 'c' }]);
+    await repo.putPages('m', [{ page: 1, text: 'novo' }]);
+    expect(await repo.getPages('m')).toEqual([{ page: 1, text: 'novo' }]);
   });
 });
 
@@ -76,9 +101,9 @@ describe('conta: mapeamento para o banco (cliente simulado — não substitui o 
   it('erros do servidor viram mensagens em português', async () => {
     const fake: TableClient = {
       from: () => ({
-        select: () => ({ order: async () => ({ data: null, error: { message: 'new row violates row-level security policy', code: '42501' } }) }),
+        select: () => ({ order: async () => ({ data: null, error: { message: 'new row violates row-level security policy', code: '42501' } }), eq: () => ({ order: async () => ({ data: [], error: null }) }) }),
         upsert: async () => ({ error: { message: 'limite de 30 registros em disciplines atingido', code: '23514' } }),
-        delete: () => ({ in: async () => ({ error: { message: 'TypeError: Failed to fetch' } }) }),
+        delete: () => ({ in: async () => ({ error: { message: 'TypeError: Failed to fetch' } }), eq: async () => ({ error: null }) }),
       }),
     };
     const repo = new CloudRepo(fake, 'uid', 'a@b.c');

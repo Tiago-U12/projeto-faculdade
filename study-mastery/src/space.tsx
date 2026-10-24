@@ -61,5 +61,8 @@ function lazyCloudRepo(client: () => Promise<unknown>, uid: string, email: strin
     put: async (kind, e) => (await get()).put(kind, e),
     putMany: async (kind, es, opts) => (await get()).putMany(kind, es, opts),
     remove: async (kind, ids) => (await get()).remove(kind, ids),
+    getPages: async (id) => (await get()).getPages(id),
+    putPages: async (id, pages) => (await get()).putPages(id, pages),
+    removePages: async (id) => (await get()).removePages(id),
   };
 }

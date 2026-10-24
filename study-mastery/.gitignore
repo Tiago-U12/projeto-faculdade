@@ -8,3 +8,4 @@ content/.cache/
 .env.*
 __pycache__/
 tools/sandbox/casos/
+docs/screenshots/v06/falha-*.png

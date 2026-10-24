@@ -100,6 +100,85 @@ section('Disciplinas neste aparelho', async (page) => {
   ok('axe-core: Disciplinas sem violações', (await axe(page)).length === 0, await axe(page));
 });
 
+// ---------------------------------------------------------------- Etapa C: materiais no aparelho
+const FIX = path.join(ROOT, 'tests/fixtures/materiais');
+async function openDiscipline(page: Page, name: string) {
+  await page.goto(BASE + '#/disciplinas');
+  await page.getByRole('heading', { name: /Suas disciplinas/ }).waitFor();
+  const card = page.locator('.disc-card', { hasText: name });
+  if (!(await card.count())) {
+    await page.getByRole('button', { name: 'Nova disciplina' }).click();
+    await page.getByLabel('Nome', { exact: true }).fill(name);
+    await page.getByRole('button', { name: 'Criar disciplina' }).click();
+  } else await card.click();
+  await page.getByRole('heading', { name }).waitFor();
+}
+async function addPdf(page: Page, file: string) {
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+  await page.getByRole('heading', { name: /Novo material/ }).waitFor();
+  await page.locator('input[type=file]').setInputFiles(path.join(FIX, file));
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+}
+
+section('Materiais neste aparelho', async (page) => {
+  await openDiscipline(page, 'Cálculo II (minha)');
+  await addPdf(page, 'aula-integrais.pdf');
+  await page.getByRole('heading', { name: 'aula-integrais' }).waitFor({ timeout: 30000 });
+  const status = await page.locator('.panel', { hasText: 'Processamento' }).innerText();
+  ok('PDF válido: Pronto, com aviso de fórmulas', /Pronto/.test(status) && /fórmulas/.test(status), status.slice(0, 200));
+  await page.locator('.page-preview details').first().locator('summary').click();
+  ok('prévia mostra o texto por página', /Página 1/.test(await page.locator('.page-preview').innerText()) && /∫ u dv = u·v − ∫ v du/.test(await page.locator('.page-text').first().innerText()));
+  const sugg = await page.locator('.pick-list li').allInnerTexts();
+  ok('assuntos sugeridos com a página de origem', sugg.some((x) => /Integração por partes.*página 1/.test(x)) && sugg.some((x) => /Frações parciais.*página 3/.test(x)), sugg);
+  ok('sem rolagem horizontal na página do material (prévia aberta)', await noHScroll(page));
+  await page.screenshot({ path: path.join(SHOTS, 'c-material-pronto.png'), fullPage: true });
+  await page.getByLabel(/Integração por partes/).check();
+  await page.getByLabel(/Frações parciais/).check();
+  await page.getByRole('button', { name: /Adicionar 2 assuntos/ }).click();
+  await page.locator('.form-ok').waitFor();
+  ok('assuntos confirmados entram na disciplina e ficam associados ao material', (await page.locator('ul.chips .chip.on').count()) === 2);
+  // duplicado
+  await page.getByRole('button', { name: /Cálculo II \(minha\)/ }).click();
+  await addPdf(page, 'aula-integrais.pdf');
+  ok('o mesmo arquivo de novo não duplica', /já foi adicionado nesta disciplina/.test(await page.getByRole('alert').innerText()));
+  // inválidos: nada é criado
+  await page.locator('input[type=file]').setInputFiles(path.join(FIX, 'nao-e-pdf.pdf'));
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+  ok('arquivo que não é PDF (só a extensão) é recusado', /não é um PDF/.test(await page.getByRole('alert').innerText()));
+  await page.locator('input[type=file]').setInputFiles(path.join(FIX, 'protegido.pdf'));
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+  ok('PDF protegido por senha é recusado com orientação', /protegido/.test(await page.getByRole('alert').innerText()));
+  await page.locator('input[type=file]').setInputFiles(path.join(FIX, 'digitalizado.pdf'));
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+  await page.getByRole('heading', { name: 'digitalizado' }).waitFor({ timeout: 30000 });
+  ok('PDF digitalizado: Precisa de atenção, explica que não há OCR', /Precisa de atenção/.test(await page.locator('main').innerText()) && /não faz OCR/.test(await page.locator('main').innerText()));
+  await page.screenshot({ path: path.join(SHOTS, 'c-material-atencao.png'), fullPage: true });
+  // texto colado
+  await page.getByRole('button', { name: /Cálculo II \(minha\)/ }).click();
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+  await page.getByRole('button', { name: 'Colar texto' }).click();
+  await page.getByLabel('Nome do material').fill('Revisão de integrais duplas');
+  await page.getByRole('textbox', { name: /^Texto/ }).fill(fs.readFileSync(path.join(FIX, 'texto-colado.txt'), 'utf8'));
+  await page.getByRole('button', { name: 'Adicionar material' }).click();
+  await page.getByRole('heading', { name: 'Revisão de integrais duplas' }).waitFor();
+  ok('texto colado: Pronto, citado por trechos', /Pronto/.test(await page.locator('main').innerText()) && /Trecho 1/.test(await page.locator('.page-preview').innerText()));
+  await page.getByRole('button', { name: /Cálculo II \(minha\)/ }).click();
+  await page.locator('.mat-row').nth(2).waitFor();
+  const rows = await page.locator('.mat-row').allInnerTexts();
+  ok('a disciplina lista os 3 materiais com o estado de cada um', rows.length === 3 && rows.some((r) => /Precisa de atenção/.test(r)), rows);
+  ok('sem rolagem horizontal (materiais)', await noHScroll(page));
+  // excluir
+  await page.locator('.mat-row', { hasText: 'digitalizado' }).click();
+  await page.getByRole('button', { name: 'Excluir material' }).click();
+  ok('confirmação diz o que será excluído', /texto extraído/.test(await page.getByRole('alertdialog').innerText()));
+  await page.getByRole('alertdialog').getByRole('button', { name: 'Excluir' }).click();
+  await page.getByRole('heading', { name: 'Cálculo II (minha)' }).waitFor();
+  ok('material excluído some da lista', (await page.locator('.mat-row').count()) === 2);
+  const pagesLeft = await page.evaluate(() => new Promise<number>((resolve) => { const r = indexedDB.open('study-mastery-personal'); r.onsuccess = () => { const g = r.result.transaction('pages').objectStore('pages').getAll(); g.onsuccess = () => resolve(g.result.length); }; }));
+  ok('o texto extraído do material excluído sai do aparelho (sobram 4 págs. + trechos)', pagesLeft > 4 && pagesLeft < 10, pagesLeft);
+  ok('axe-core: Materiais sem violações', (await axe(page)).length === 0, await axe(page));
+});
+
 section('Conta sem configuração e navegação', async (page) => {
   await page.goto(BASE + '#/conta');
   await page.getByRole('heading', { name: /Sua conta/ }).waitFor();

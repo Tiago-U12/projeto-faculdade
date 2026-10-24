@@ -4,7 +4,7 @@ import { useAccount } from '../account';
 
 const TABS: { to: string; names: Route['name'][]; label: string; icon: React.ReactNode }[] = [
   { to: '#/', names: ['home', 'results', 'library', 'help'], label: 'Início', icon: <Home size={20} aria-hidden="true" /> },
-  { to: '#/disciplinas', names: ['disciplines', 'discipline'], label: 'Disciplinas', icon: <NotebookTabs size={20} aria-hidden="true" /> },
+  { to: '#/disciplinas', names: ['disciplines', 'discipline', 'materialNew', 'material'], label: 'Disciplinas', icon: <NotebookTabs size={20} aria-hidden="true" /> },
   { to: '#/progress', names: ['progress'], label: 'Progresso', icon: <BarChart3 size={20} aria-hidden="true" /> },
   { to: '#/conta', names: ['account'], label: 'Conta', icon: <UserRound size={20} aria-hidden="true" /> },
 ];
