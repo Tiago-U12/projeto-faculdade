@@ -19,7 +19,7 @@ export function Library({ go }: { go: (to: string) => void }) {
       <button type="button" className="back" onClick={() => go('#/')}><ArrowLeft size={18} aria-hidden="true" /> Início</button>
       <div className="eyebrow"><BookOpen size={16} aria-hidden="true" /> ACERVO E CONFIABILIDADE</div>
       <h1 className="screen-title">Fontes que <em>ensinam.</em></h1>
-      <p className="sub">Só entram aqui questões <b>aprovadas</b>: verificadas (matemática por SymPy e conferência numérica; código executado de verdade), com explicação e referência, e revisadas. Rascunhos nunca aparecem. Nenhuma IA é chamada durante suas sessões.</p>
+      <p className="sub">As questões disponíveis têm explicação e referência aos materiais usados. Confira abaixo como as respostas são verificadas e o status da revisão. Nenhuma IA é chamada durante suas sessões.</p>
 
       <section className="panel" aria-labelledby="h-count">
         <div className="panel-head"><h2 id="h-count">Banco completo · revisão humana pendente</h2><small className="muted">v{bank.manifest.bankVersion}</small></div>
@@ -57,13 +57,34 @@ export function Library({ go }: { go: (to: string) => void }) {
       </section>
 
       <section className="panel" aria-labelledby="h-qa">
-        <div className="panel-head"><h2 id="h-qa"><ShieldCheck size={18} aria-hidden="true" /> Como garantimos a qualidade</h2></div>
+        <div className="panel-head"><h2 id="h-qa"><ShieldCheck size={18} aria-hidden="true" /> Como verificamos as questões</h2></div>
         <ul className="plain">
-          <li><b>Verificação:</b> {Object.entries(method).map(([k, v]) => `${v} por ${k}`).join(' · ') || '—'}.</li>
-          <li><b>Revisão:</b> {bank.questions.length - human} com revisão assistida por IA (revisão humana ainda pendente) · {human} com revisão humana.</li>
+          <li><b>Conferência das respostas:</b> usamos ferramentas de cálculo, testes de código e consulta às fontes, conforme o tipo de questão.</li>
+          <li><b>Revisão:</b> {bank.questions.length - human} questões com revisão assistida por IA e {human} com revisão humana.{human < bank.questions.length && <> A revisão humana {human === 0 ? 'ainda está pendente' : 'ainda não foi concluída para todo o banco'}.</>}</li>
           <li><b>Duplicatas e ambiguidades:</b> detecção automática; nada de “todas as anteriores”.</li>
           <li><b>Rastreabilidade:</b> cada questão cita a fonte e o ponto exato (slide, página, exercício).</li>
         </ul>
+        <p className="quality-note">Essas verificações ajudam a identificar problemas, mas não eliminam todos os erros.</p>
+        <details className="src-details quality-details">
+          <summary>Ver detalhes técnicos</summary>
+          {[
+            { title: 'Matemática', description: 'SymPy e mpmath são ferramentas usadas para conferir expressões e resultados numéricos.', matches: (name: string) => name.startsWith('sympy') },
+            { title: 'Programação', description: 'Os testes executam exemplos de código, páginas no navegador ou consultas ao banco de dados.', matches: (name: string) => /^(js-exec|node-exec|web-chromium|sql)/.test(name) },
+            { title: 'Consulta às fontes', description: 'As afirmações são conferidas nos materiais de referência.', matches: (name: string) => name.startsWith('source') },
+            { title: 'Outros métodos', description: 'Outros métodos registrados nas questões publicadas.', matches: (name: string) => !/^(sympy|js-exec|node-exec|web-chromium|sql|source)/.test(name) },
+          ].map((group) => {
+            const entries = Object.entries(method).filter(([name]) => group.matches(name));
+            if (!entries.length) return null;
+            return <div className="quality-group" key={group.title}>
+              <h3>{group.title}</h3>
+              <p>{group.description}</p>
+              <ul className="plain">
+                {entries.map(([name, count]) => <li key={name}><code>{name}</code>: {count} {count === 1 ? 'questão' : 'questões'}</li>)}
+              </ul>
+            </div>;
+          })}
+          {!Object.keys(method).length && <p>Nenhum método registrado.</p>}
+        </details>
       </section>
 
       <section className="panel" aria-labelledby="h-src">
