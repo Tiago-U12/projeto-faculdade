@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Header } from './components/Header';
+import { Help } from './components/Help';
 import { Home } from './components/Home';
 import { Library } from './components/Library';
 import { Progress } from './components/Progress';
@@ -13,6 +15,11 @@ export function App() {
   const [route, go] = useHashRoute();
   const { state } = useStudy();
   const theme = state.settings.theme;
+  useEffect(() => {
+    // o app abriu: a ajuda de inicialização do index.html não deve mais aparecer
+    window.__smBooted = true;
+    document.getElementById('boot-help')?.setAttribute('hidden', '');
+  }, []);
   useEffect(() => {
     if (theme === 'auto') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', theme);
@@ -33,14 +40,17 @@ export function App() {
       </a>
       <Header route={route} go={go} />
       <main id="main" className="container" tabIndex={-1}>
+        <ErrorBoundary key={route.name}>
         {route.name === 'home' && <Home go={go} />}
         {route.name === 'setup' && <Setup key={`${route.disciplineId}-${route.preset}`} route={route} go={go} />}
         {route.name === 'quiz' && <Quiz go={go} />}
         {route.name === 'results' && <Results attemptId={route.id} go={go} />}
         {route.name === 'progress' && <Progress go={go} />}
         {route.name === 'library' && <Library go={go} />}
+        {route.name === 'help' && <Help go={go} />}
+        </ErrorBoundary>
       </main>
-      <footer><span>✳ Study Mastery · v{__APP_VERSION__}</span><span>Aprender é construir.</span></footer>
+      <footer><span>✳ Study Mastery · v{__APP_VERSION__}</span><a href="#/ajuda" className="foot-link">Ajuda e diagnóstico</a></footer>
     </div>
   );
 }

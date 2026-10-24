@@ -1,10 +1,12 @@
-import { AlertTriangle, ArrowLeft, Download, Trash2, Upload } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, ClipboardCopy, Download, Trash2, Upload } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
 import { reviewConfig } from '../lib/review';
 import { reviewCounts } from '../lib/engine';
 import type { DisciplineId } from '../types';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
+import { copyText } from './Help';
+import { formatReport } from './ReportError';
 
 export function Progress({ go }: { go: (to: string) => void }) {
   const { bank, state, start, persisted, exportJson, importJson, clearAll } = useStudy();
@@ -83,7 +85,7 @@ export function Progress({ go }: { go: (to: string) => void }) {
           const rate = c.seen ? Math.round((100 * c.ok) / c.seen) : null;
           return (
             <div className="bar-row" key={t.id}>
-              <span className="bar-label">{t.name}<small>{c.total ? `${c.distinct}/${c.total} questões praticadas` : 'sem questões aprovadas'}</small></span>
+              <span className="bar-label">{t.name}<small>{c.total ? `${c.distinct}/${c.total} questões praticadas` : 'sem questões disponíveis'}</small></span>
               <span className="meter" aria-hidden="true"><i style={{ width: `${rate ?? 0}%` }} /></span>
               <span className="bar-val">{rate === null ? '—' : rate + '%'}</span>
             </div>
@@ -118,6 +120,12 @@ export function Progress({ go }: { go: (to: string) => void }) {
             <div className="row"><button type="button" className="ghost" onClick={() => setConfirmClear(false)}>Cancelar</button><button type="button" className="danger" onClick={() => { clearAll(); setConfirmClear(false); setMsg('Dados apagados.'); }}>Apagar tudo</button></div>
           </div>
         ) : <button type="button" className="text-btn danger-text" onClick={() => setConfirmClear(true)}><Trash2 size={14} aria-hidden="true" /> Apagar meus dados</button>}
+        {(state.reports?.length ?? 0) > 0 && (
+          <p className="hint">
+            {state.reports!.length} relato(s) de erro salvos.{' '}
+            <button type="button" className="text-btn" onClick={async () => setMsg((await copyText(state.reports!.map(formatReport).join('\n\n'))) ? 'Relatos copiados.' : 'Não foi possível copiar automaticamente.')}><ClipboardCopy size={14} aria-hidden="true" /> Copiar relatos</button>
+          </p>
+        )}
         <p role="status" className="hint">{msg}</p>
       </section>
     </>

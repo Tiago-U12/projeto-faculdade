@@ -1,0 +1,63 @@
+import { ClipboardCopy, Flag } from 'lucide-react';
+import { useId, useState } from 'react';
+import { REPORT_REASON_LABEL, type QuestionReport, type ReportReason } from '../types';
+import { useStudy } from '../state';
+import { copyText } from './Help';
+
+export function formatReport(r: QuestionReport): string {
+  return [
+    'Study Mastery — relato de erro',
+    `Questão: ${r.questionId} (versão ${r.questionVersion}, ${r.source === 'banco' ? 'banco existente' : 'questão pessoal'})`,
+    `Motivo: ${REPORT_REASON_LABEL[r.reason]}`,
+    `Comentário: ${r.comment || '—'}`,
+    `Data: ${r.createdAt}`,
+    `App: v${__APP_VERSION__}`,
+  ].join('\n');
+}
+
+/** "Relatar erro" em uma questão: formulário curto; o relato fica no espaço do estudante e pode ser copiado para envio. */
+export function ReportError({ questionId, version, source }: { questionId: string; version: number; source: QuestionReport['source'] }) {
+  const { report } = useStudy();
+  const [open, setOpen] = useState(false);
+  const [reason, setReason] = useState<ReportReason>('gabarito');
+  const [comment, setComment] = useState('');
+  const [saved, setSaved] = useState<QuestionReport | null>(null);
+  const [msg, setMsg] = useState('');
+  const id = useId();
+
+  if (saved) {
+    return (
+      <div className="report done" role="status">
+        <p>Relato salvo. Para que a questão seja corrigida, envie o texto ao responsável pelo Study Mastery.</p>
+        <button type="button" className="text-btn" onClick={async () => setMsg((await copyText(formatReport(saved))) ? 'Texto copiado.' : 'Copie o texto abaixo manualmente.')}><ClipboardCopy size={14} aria-hidden="true" /> Copiar relato</button>
+        {msg && <pre className="diag">{msg === 'Texto copiado.' ? msg : formatReport(saved)}</pre>}
+      </div>
+    );
+  }
+  if (!open) return <button type="button" className="text-btn report-btn" onClick={() => setOpen(true)}><Flag size={14} aria-hidden="true" /> Relatar erro</button>;
+  return (
+    <form
+      className="report"
+      aria-label="Relatar erro nesta questão"
+      onSubmit={(e) => {
+        e.preventDefault();
+        setSaved(report({ questionId, questionVersion: version, source, reason, comment: comment.trim() }));
+      }}
+    >
+      <fieldset>
+        <legend>O que está errado?</legend>
+        {(Object.keys(REPORT_REASON_LABEL) as ReportReason[]).map((k) => (
+          <label key={k} className="report-opt"><input type="radio" name={id + '-reason'} checked={reason === k} onChange={() => setReason(k)} /> {REPORT_REASON_LABEL[k]}</label>
+        ))}
+      </fieldset>
+      <label className="field">
+        <span>Detalhes (opcional)</span>
+        <textarea value={comment} maxLength={1000} rows={3} onChange={(e) => setComment(e.target.value)} placeholder="Ex.: a alternativa C também está correta porque…" />
+      </label>
+      <div className="row wrap">
+        <button type="button" className="ghost" onClick={() => setOpen(false)}>Cancelar</button>
+        <button type="submit" className="primary">Salvar relato</button>
+      </div>
+    </form>
+  );
+}

@@ -1,4 +1,4 @@
-import type { AnswerRecord, Attempt, DisciplineId, Mode, QuestionStat, SessionConfig } from '../types';
+import type { AnswerRecord, Attempt, DisciplineId, Mode, QuestionReport, QuestionStat, SessionConfig } from '../types';
 import type { Session } from './engine';
 import { nextStat } from './srs';
 
@@ -25,6 +25,8 @@ export interface AppState {
   stats: Record<string, QuestionStat>;
   settings: Settings;
   active?: ActiveSession;
+  /** relatos de erro (opcional: estados antigos não têm) */
+  reports?: QuestionReport[];
 }
 
 export interface KeyValueStore {
@@ -185,5 +187,7 @@ export function importState(current: AppState, text: string, mode: 'merge' | 're
     const cur = stats[id];
     if (!cur || s.lastSeen > cur.lastSeen) stats[id] = s;
   }
-  return { ok: true, state: { ...current, attempts, stats }, attemptsAdded: added.length };
+  const knownReports = new Set((current.reports ?? []).map((r) => r.id));
+  const reports = [...(current.reports ?? []), ...(incoming.reports ?? []).filter((r) => !knownReports.has(r.id))];
+  return { ok: true, state: { ...current, attempts, stats, ...(reports.length ? { reports } : {}) }, attemptsAdded: added.length };
 }

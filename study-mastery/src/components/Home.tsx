@@ -1,6 +1,7 @@
 import { ArrowRight, ChevronRight, Flame, History, Sparkles, Target } from 'lucide-react';
 import { useMemo } from 'react';
 import { reviewCounts } from '../lib/engine';
+import { qualitySummary } from '../lib/quality';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
 
@@ -10,6 +11,7 @@ export function Home({ go }: { go: (to: string) => void }) {
   const answers = useMemo(() => state.attempts.flatMap((a) => a.answers), [state.attempts]);
   const acc = answers.length ? Math.round((100 * answers.filter((a) => a.correct).length) / answers.length) : null;
   const due = useMemo(() => reviewCounts(bank.questions, state.stats), [bank.questions, state.stats]);
+  const qa = useMemo(() => qualitySummary(bank.questions), [bank.questions]);
   const active = state.active;
   const activeDone = active ? Object.keys(active.answers).length : 0;
   const hasExam = bank.taxonomy.disciplines.some((d) => d.topics.some((t) => t.examFocus && bank.questions.some((q) => q.topicId === t.id)));
@@ -53,7 +55,7 @@ export function Home({ go }: { go: (to: string) => void }) {
                 <strong>{d.name}</strong>
                 <small>{d.subtitle}</small>
                 <span className="meter" aria-hidden="true"><i style={{ width: `${total ? Math.round((100 * seen) / total) : 0}%` }} /></span>
-                <small className="muted">{total} questões aprovadas · {seen} já praticadas · meta {meta}</small>
+                <small className="muted">{total} questões disponíveis · {seen} já praticadas{total < meta ? ` · meta ${meta}` : ''}</small>
                 <b>Explorar disciplina <ChevronRight size={14} aria-hidden="true" /></b>
               </span>
             </button>
@@ -67,7 +69,7 @@ export function Home({ go }: { go: (to: string) => void }) {
         <div><span>ACERTOS</span><strong>{acc === null ? '—' : acc + '%'}</strong><small>média geral</small></div>
         <div><span>PARA REVISAR</span><strong>{due.errors + due.due}</strong><small>{due.errors} erros · {due.due} vencidas</small></div>
       </div>
-      <p className="bank-note"><Flame size={14} aria-hidden="true" /><span>Banco completo: <b>{bank.questions.length}</b> de {goal} questões aprovadas. Verificação automática e aprovação assistida por IA; revisão humana pendente.</span></p>
+      <p className="bank-note"><Flame size={14} aria-hidden="true" /><span>Banco existente: <b>{bank.questions.length}</b> questões disponíveis{bank.questions.length < goal ? ` de ${goal} planejadas` : ''}, com gabarito conferido e revisão assistida por IA. {qa.humanReviewed === 0 ? 'Revisão humana pendente.' : `${qa.humanReviewed} com revisão humana.`} <a href="#/library">Como verificamos as questões</a></span></p>
     </>
   );
 }

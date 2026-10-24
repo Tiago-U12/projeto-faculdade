@@ -184,6 +184,26 @@ export interface Attempt {
   answers: AnswerRecord[];
 }
 
+export type ReportReason = 'gabarito' | 'enunciado' | 'explicacao' | 'digitacao' | 'outro';
+export const REPORT_REASON_LABEL: Record<ReportReason, string> = {
+  gabarito: 'O gabarito parece errado',
+  enunciado: 'Enunciado ambíguo ou confuso',
+  explicacao: 'Explicação com erro',
+  digitacao: 'Erro de digitação ou de fórmula',
+  outro: 'Outro problema',
+};
+
+/** Relato de erro feito pelo estudante (fica no espaço dele: aparelho ou conta). */
+export interface QuestionReport {
+  id: string;
+  questionId: string;
+  questionVersion: number;
+  source: 'banco' | 'pessoal';
+  reason: ReportReason;
+  comment: string;
+  createdAt: string;
+}
+
 export interface QuestionStat {
   seen: number;
   correct: number;

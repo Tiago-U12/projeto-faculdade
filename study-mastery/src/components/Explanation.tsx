@@ -2,6 +2,7 @@ import { Lightbulb, TriangleAlert } from 'lucide-react';
 import type { PublishedQuestion } from '../types';
 import { DIFFICULTY_LABEL, SCOPE_LABEL } from '../types';
 import type { Bank } from '../lib/bank';
+import { ReportError } from './ReportError';
 import { RichText } from './RichText';
 
 export function Sources({ q, bank }: { q: PublishedQuestion; bank: Bank }) {
@@ -55,6 +56,7 @@ export function ExplanationBlock({ q, chosenId, bank }: { q: PublishedQuestion; 
         <Sources q={q} bank={bank} />
         <p className="src-meta">Camada: {SCOPE_LABEL[q.scope]} · Nível: {DIFFICULTY_LABEL[q.difficulty]} · Verificação: {q.verifiedBy} · Revisão: {q.reviewedBy === 'human' ? 'humana' : 'assistida por IA (revisão humana pendente)'}</p>
       </details>
+      <ReportError questionId={q.id} version={q.version} source="banco" />
     </div>
   );
 }

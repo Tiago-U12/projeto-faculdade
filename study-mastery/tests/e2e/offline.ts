@@ -5,6 +5,7 @@ import http from 'node:http';
 import path from 'node:path';
 import os from 'node:os';
 import { chromium } from 'playwright-core';
+import { OPTIONAL_ASSET } from '../../tools/pwa';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const prefix = '/projeto-faculdade/study-mastery/';
@@ -57,7 +58,8 @@ async function main() {
       const key = (await caches.keys()).find((name) => name.startsWith('study-mastery-'))!;
       return (await (await caches.open(key)).keys()).map((req) => new URL(req.url).pathname);
     });
-    for (const file of fs.readdirSync(path.join(dist, 'assets'))) assert.ok(cachedAssets.includes(prefix + 'assets/' + file), `asset pré-cacheado: ${file}`);
+    // .ttf/.woff alternativos e o leitor de PDF ficam fora do pré-cache de propósito (guardados no primeiro uso)
+    for (const file of fs.readdirSync(path.join(dist, 'assets'))) assert.equal(cachedAssets.includes(prefix + 'assets/' + file), !OPTIONAL_ASSET.test(file), `pré-cache de ${file}`);
     const firstRange = await page.evaluate(async () => {
       const r = await fetch('./audio/study-radio.mp3', { headers: { Range: 'bytes=2-5' } });
       return { status: r.status, body: await r.text() };
@@ -66,7 +68,7 @@ async function main() {
     await context.setOffline(true);
     await page.reload();
     await page.getByRole('heading', { name: /Aprenda mais/ }).waitFor();
-    await page.getByText(/Banco completo/).waitFor();
+    await page.getByText(/Banco existente:/).waitFor();
     page.on('dialog', (dialog) => dialog.accept());
     for (const discipline of ['calculo2', 'fullstack']) {
       await page.evaluate((id) => { location.hash = `#/setup?d=${id}`; }, discipline);

@@ -14,7 +14,7 @@ function worker({ failPut = false } = {}) {
   const listeners = {};
   const entries = new Map();
   const removed = [];
-  const cache = { match: async (req) => entries.get(typeof req === 'string' ? req : req.url)?.clone(), put: async (url, response) => { if (failPut) throw Error('QuotaExceededError'); entries.set(url, response.clone()); } };
+  const cache = { match: async (req) => entries.get(typeof req === 'string' ? req : req.url)?.clone(), put: async (req, response) => { if (failPut) throw Error('QuotaExceededError'); entries.set(typeof req === 'string' ? req : req.url, response.clone()); } };
   let fetches = 0;
   const context = vm.createContext({
     URL, Request, Response, Headers, Number,
@@ -35,8 +35,9 @@ test('pré-cache inclui chunks, fontes e ícones; hash muda com qualquer conteú
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'sm-precache-'));
   try {
     fs.mkdirSync(path.join(dir, 'assets'));
-    for (const name of ['index.html', 'assets/lazy.js', 'assets/font.woff2', 'icon.png']) fs.writeFileSync(path.join(dir, name), name);
+    for (const name of ['index.html', 'assets/lazy.js', 'assets/font.woff2', 'assets/font.woff', 'assets/font.ttf', 'assets/pdf.worker.min-x1.mjs', 'icon.png']) fs.writeFileSync(path.join(dir, name), name);
     const assets = injectPrecache(dir, template, '0.5.0');
+    // .woff/.ttf e o leitor de PDF ficam fora do pré-cache (guardados no primeiro uso)
     assert.deepEqual(assets, ['./', './assets/font.woff2', './assets/lazy.js', './icon.png', './index.html']);
     const first = fs.readFileSync(path.join(dir, 'sw.js'), 'utf8');
     assert.ok(!first.includes('__SM_'));
@@ -100,4 +101,17 @@ test('quota esgotada não impede reprodução online nem Range', async () => {
   const response = await w.request('bytes=1-3');
   assert.equal(response.status, 206);
   assert.equal(await response.text(), '123');
+});
+
+test('arquivo de assets fora do pré-cache é guardado no primeiro uso e serve offline', async () => {
+  const w = worker();
+  const url = base + 'assets/KaTeX_Main-Regular-x.ttf';
+  w.context.fetch = async () => new Response('fonte', { status: 200, headers: { 'Content-Type': 'font/ttf' } });
+  let r;
+  w.listeners.fetch({ request: new Request(url), respondWith: (p) => { r = p; } });
+  assert.equal(await (await r).text(), 'fonte');
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  w.context.fetch = () => { throw Error('offline'); };
+  w.listeners.fetch({ request: new Request(url), respondWith: (p) => { r = p; } });
+  assert.equal(await (await r).text(), 'fonte');
 });

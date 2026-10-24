@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { AnswerRecord, Attempt, DisciplineId, SessionConfig } from './types';
+import type { AnswerRecord, Attempt, DisciplineId, QuestionReport, SessionConfig } from './types';
 import type { Bank } from './lib/bank';
 import { buildSession, eligible, type Session } from './lib/engine';
 import { randomSeed } from './lib/rng';
@@ -17,6 +17,8 @@ export interface Study {
   goTo(index: number): void;
   finish(opts?: { onlyAnswered?: boolean }): Attempt | null;
   abandon(): void;
+  /** guarda um relato de erro no espaço atual (aparelho ou conta) */
+  report(r: Omit<QuestionReport, 'id' | 'createdAt'>): QuestionReport;
   exportJson(): string;
   importJson(text: string, mode: 'merge' | 'replace'): ImportResult;
   clearAll(): void;
@@ -87,6 +89,11 @@ export function StudyProvider({ bank, store, children }: { bank: Bank; store?: K
         return next.attempts[0];
       },
       abandon: () => update((s) => ({ ...s, active: undefined })),
+      report(r) {
+        const rec: QuestionReport = { ...r, comment: r.comment.slice(0, 1000), id: crypto.randomUUID(), createdAt: new Date().toISOString() };
+        update((s) => ({ ...s, reports: [rec, ...(s.reports ?? [])].slice(0, 200) }));
+        return rec;
+      },
       exportJson: () => exportState(stateRef.current),
       importJson(text, mode) {
         const r = importState(stateRef.current, text, mode);

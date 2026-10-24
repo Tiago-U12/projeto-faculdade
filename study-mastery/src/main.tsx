@@ -25,7 +25,9 @@ loadBank()
     );
   })
   .catch((e) => {
+    (window.__smErrors ??= []).push('banco de questões: ' + String(e));
     root.render(<p className="boot" role="alert">Não foi possível carregar o banco de questões: {String(e)}</p>);
+    window.__smBootHelp?.();
   });
 
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {

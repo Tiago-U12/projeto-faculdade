@@ -64,6 +64,10 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(caches.open(CACHE).then(async (cache) => {
     // Shell e chunks pertencem à mesma versão instalada, também durante atualizações.
     const hit = await cache.match(req.mode === 'navigate' ? shellUrl : req);
-    return hit || fetch(req);
+    if (hit) return hit;
+    const response = await fetch(req);
+    // Arquivos com hash fora do pré-cache (fontes alternativas, leitor de PDF): guardados no primeiro uso.
+    if (response.ok && url.pathname.startsWith(scope.pathname + 'assets/')) cache.put(req, response.clone()).catch(() => undefined);
+    return response;
   }).catch(() => new Response('Indisponível offline. Abra o app com internet para completar a instalação.', { status: 503 })));
 });

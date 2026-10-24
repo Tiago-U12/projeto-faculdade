@@ -225,7 +225,7 @@ async function main() {
     for (const d of tax.disciplines) {
       const card = cards.find((c) => c.includes(d.name)) ?? '';
       ok(`“${d.name}” aparece com o nome correto`, !!card);
-      ok(`“${d.name}” mostra 300 questões aprovadas`, /300 questões aprovadas/.test(card), card.split('\n').find((l) => /aprovadas/.test(l)));
+      ok(`“${d.name}” mostra 300 questões disponíveis`, /300 questões disponíveis/.test(card), card.split('\n').find((l) => /disponíveis/.test(l)));
     }
     await page.getByRole('button', { name: /Começar a estudar/ }).click();
     await page.getByRole('heading', { name: /Configure seu/ }).waitFor();
@@ -804,14 +804,15 @@ async function main() {
     await page.goto(BASE + '#/library');
     await page.getByRole('heading', { name: /Fontes que/ }).waitFor();
     const txt = await page.locator('main').innerText();
-    ok('acervo mostra 600 de 600 aprovadas', /600 de 600 questões aprovadas/.test(txt));
+    ok('acervo mostra 600 questões disponíveis', /600 questões disponíveis/.test(txt));
+    ok('“Como verificamos as questões” com contagens do banco e revisão humana pendente', /Como verificamos as questões/.test(txt) && new RegExp(`${bank.filter((q) => !/^source-review/.test(q.verifiedBy)).length} de 600`).test(txt) && /Revisão humana\s*Pendente/.test(txt));
     const rows = await page.locator('.lib-disc').evaluateAll((ds) => ds.map((d) => [...d.querySelectorAll(':scope > .bar-row .bar-val')].map((b) => b.textContent)));
     ok('100/100 por dificuldade em cada disciplina', rows.length === 2 && rows.every((r) => r.join() === '100/100,100/100,100/100'), JSON.stringify(rows));
     await page.locator('.lib-disc details').evaluateAll((ds) => ds.forEach((d) => ((d as HTMLDetailsElement).open = true)));
     const cov = await page.locator('.cov li').evaluateAll((ls) => ls.map((l) => [l.querySelector('span')!.textContent, l.querySelector('b')!.textContent]));
     const expected = tax.disciplines.flatMap((d) => d.topics.map((t) => [t.name, `${bank.filter((q) => q.topicId === t.id).length}/${t.quota.facil + t.quota.medio + t.quota.dificil}`]));
     ok('cobertura por assunto bate com o banco e com as cotas', JSON.stringify(cov) === JSON.stringify(expected), `${cov.length} assuntos`);
-    ok('acervo declara revisão humana pendente', /revisão humana ainda pendente|revisão humana pendente/.test(txt));
+    ok('acervo declara revisão humana pendente', /Revisão humana\s*Pendente\./.test(txt));
   });
 
   // ================= 11. Segurança e privacidade =================

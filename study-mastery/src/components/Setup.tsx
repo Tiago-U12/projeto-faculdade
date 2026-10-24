@@ -101,7 +101,7 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
                   <span className="checkmark" aria-hidden="true"><Check size={13} /></span>
                   <span className="topic-body">
                     <span className="topic-name">{t.name}{t.examFocus && <em className="badge-exam">prova 26/10</em>}</span>
-                    <small>{total === 0 ? 'ainda sem questões aprovadas' : `${total} questões · fácil ${c.facil} · média ${c.medio} · difícil ${c.dificil}`}</small>
+                    <small>{total === 0 ? 'ainda sem questões disponíveis' : `${total} questões · fácil ${c.facil} · média ${c.medio} · difícil ${c.dificil}`}</small>
                   </span>
                 </label>
               </li>
@@ -163,9 +163,9 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
         <div>
           <strong>{pool.length} questões elegíveis</strong>
           {pool.length === 0 ? (
-            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Selecione ao menos um assunto, uma dificuldade e uma profundidade com questões aprovadas.</small>
+            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Selecione ao menos um assunto, uma dificuldade e uma profundidade com questões disponíveis.</small>
           ) : missing > 0 ? (
-            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Só há {pool.length} questões aprovadas nesta seleção — a sessão terá {pool.length}, sem repetir e sem incluir outros assuntos.</small>
+            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Só há {pool.length} questões disponíveis nesta seleção — a sessão terá {pool.length}, sem repetir e sem incluir outros assuntos.</small>
           ) : (
             <small>Sessão de {size} questões, sem repetição.</small>
           )}

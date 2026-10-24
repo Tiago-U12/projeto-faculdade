@@ -68,7 +68,7 @@ export function Quiz({ go }: { go: (to: string) => void }) {
     {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const t = e.target as HTMLElement;
-      if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest('.radio-panel, .confirm'))) return;
+      if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest('.radio-panel, .confirm, .report'))) return;
       const k = e.key.toLowerCase();
       const pos = '1234'.includes(k) && k ? Number(k) - 1 : 'abcd'.indexOf(k);
       if (k.length === 1 && pos >= 0 && pos < item.order.length) {
