@@ -45,7 +45,7 @@ export function DisciplineForm({ initial, creating, busy, onSubmit, onCancel }: 
         <textarea value={d.description} maxLength={LIMITS.description} rows={2} onChange={(e) => set('description', e.target.value)} placeholder="Professor, horário, observações…" />
       </label>
       <fieldset className="swatches">
-        <legend>Cor no calendário</legend>
+        <legend>Cor</legend>
         {COLORS.map((c) => (
           <label key={c} className={'swatch' + (d.color === c ? ' on' : '')} data-c={c}>
             <input type="radio" name={id + '-cor'} checked={d.color === c} onChange={() => set('color', c)} />

@@ -44,7 +44,7 @@ export function Account({ go }: { go: (to: string) => void }) {
 function NotConfigured() {
   return (
     <>
-      <p className="sub">As contas ainda não estão ativadas neste site. Você pode usar tudo sem conta: progresso, disciplinas e calendário ficam salvos neste aparelho.</p>
+      <p className="sub">As contas ainda não estão ativadas neste site. Você pode usar tudo sem conta: progresso, disciplinas, materiais, guias e questões ficam salvos neste aparelho. A geração por IA precisa de conta.</p>
       <section className="panel">
         <div className="panel-head"><h2><Smartphone size={18} aria-hidden="true" /> Levar para outro aparelho</h2></div>
         <p>Por enquanto, use <b>Exportar histórico</b> em Progresso e importe o arquivo no outro aparelho. Quando as contas forem ativadas, você poderá entrar e escolher importar o que está aqui.</p>
@@ -220,7 +220,7 @@ function DeleteAccount({ go }: { go: (to: string) => void }) {
         <button type="button" className="text-btn danger-text" onClick={() => setOpen(true)}>Excluir conta e todos os dados</button>
       ) : (
         <div className="confirm" role="alertdialog" aria-label="Excluir conta">
-          <p>Serão apagados da conta: disciplinas, assuntos, materiais (arquivos PDF e textos extraídos), progresso, sessões e relatos de erro. Os dados guardados neste aparelho sem conta não são afetados. Não dá para desfazer.</p>
+          <p>Serão apagados da conta: disciplinas, assuntos, materiais (arquivos PDF e textos extraídos), guias, questões pessoais, progresso, sessões, relatos de erro e o registro de gerações por IA e do consumo. Os dados guardados neste aparelho sem conta não são afetados. Não dá para desfazer.</p>
           <label className="field">
             <span>Para confirmar, digite EXCLUIR</span>
             <input value={typed} onChange={(e) => setTyped(e.target.value)} autoComplete="off" />
@@ -330,6 +330,7 @@ function ImportFromDevice() {
         {log && ` Você importou para esta conta em ${new Date(log).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}.`}
       </p>
       <p className="hint">Se o aparelho é compartilhado, confira se esses dados são seus antes de importar.</p>
+      <p className="hint">Materiais, guias e questões pessoais criados neste aparelho não são importados nesta versão (o PDF não fica guardado aqui para ser conferido no servidor): eles continuam neste aparelho. Na conta, adicione o material de novo.</p>
       {!plan ? (
         <div className="row wrap">
           <button type="button" className="ghost" disabled={busy || l1 || l2} onClick={() => void prepare()}>Ver o que seria importado</button>

@@ -5,7 +5,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { analyzeMaterial, LIMITS, segmentText, sha256Hex, suggestTopics, type PageText } from '../../supabase/functions/_shared/materialQuality';
 import type { Personal } from '../personal/context';
-import { newId, nowIso, type PMaterial, type PTopic } from '../personal/types';
+import { planDeletion } from '../personal/repo';
+import { newId, nowIso, type PGuide, type PMaterial, type PQuestion, type PTopic } from '../personal/types';
 import { checkPdfFile, extractPdf, ExtractError, loadPdfJs } from './extract';
 
 export type Step = 'lendo' | 'extraindo' | 'salvando' | 'enviando' | 'conferindo';
@@ -15,6 +16,8 @@ export interface Ctx {
   personal: Personal;
   /** presente só no espaço da conta */
   cloud?: { client: () => Promise<SupabaseClient>; uid: string };
+  /** tira do histórico deste aparelho o texto das questões excluídas (o acerto/erro continua) */
+  scrub?: (questionIds: string[]) => void;
 }
 
 export class MaterialError extends Error {}
@@ -123,19 +126,38 @@ async function reload(ctx: Ctx, id: string): Promise<PMaterial | undefined> {
   return (await ctx.personal.repo.list('materials')).find((x) => x.id === id);
 }
 
-/** O que sai junto com o material (para avisar antes de excluir). Guias e questões entram na etapa seguinte. */
-export function materialDeletion(m: PMaterial): { file: boolean; pages: number } {
-  return { file: m.kind === 'pdf' && !!m.sha256, pages: m.pageCount };
+/** O que sai junto com o material (para avisar antes de excluir). */
+export function materialDeletion(m: PMaterial, all: { questions: PQuestion[]; guides: PGuide[] }): { file: boolean; pages: number; questions: string[]; guides: string[] } {
+  const plan = planDeletion({ kind: 'materials', id: m.id }, { topics: [], questions: all.questions, guides: all.guides });
+  return { file: m.kind === 'pdf' && !!m.sha256, pages: m.pageCount, questions: plan.questions, guides: plan.guides };
 }
 
-export async function deleteMaterial(ctx: Ctx, m: PMaterial): Promise<void> {
-  if (ctx.cloud && m.kind === 'pdf') {
-    const sb = await ctx.cloud.client();
-    const { error } = await sb.storage.from('materiais').remove([`${ctx.cloud.uid}/${m.id}.pdf`]);
-    if (error) throw new MaterialError('Não foi possível apagar o arquivo no servidor; nada foi excluído. Tente de novo.');
+/**
+ * Exclui o material com o arquivo, o texto extraído, as questões e os guias gerados dele e o texto dessas questões no
+ * histórico (fica só o acerto/erro). Na conta, o banco faz tudo numa operação (delete_material_cascade).
+ */
+export async function deleteMaterial(ctx: Ctx, m: PMaterial): Promise<{ questoes: number; guias: number }> {
+  const repo = ctx.personal.repo;
+  const plan = planDeletion({ kind: 'materials', id: m.id }, { topics: [], questions: await repo.list('questions'), guides: await repo.list('guides') });
+  if (ctx.cloud) {
+    if (m.kind === 'pdf') {
+      const sb = await ctx.cloud.client();
+      const { error } = await sb.storage.from('materiais').remove([`${ctx.cloud.uid}/${m.id}.pdf`]);
+      if (error) throw new MaterialError('Não foi possível apagar o arquivo no servidor; nada foi excluído. Tente de novo.');
+    }
+    if (!repo.deleteMaterialCascade) throw new MaterialError('Exclusão indisponível neste espaço.');
+    const r = await repo.deleteMaterialCascade(m.id);
+    // logo depois do banco: uma tentativa ainda não enviada não leva de volta o texto excluído
+    ctx.scrub?.(plan.questions);
+    await Promise.all([ctx.personal.load('materials'), ctx.personal.load('questions'), ctx.personal.load('guides')]);
+    return r;
   }
-  await ctx.personal.repo.removePages(m.id);
+  await ctx.personal.removeIds('questions', plan.questions);
+  await ctx.personal.removeIds('guides', plan.guides);
+  ctx.scrub?.(plan.questions);
+  await repo.removePages(m.id);
   await ctx.personal.removeIds('materials', [m.id]);
+  return { questoes: plan.questions.length, guias: plan.guides.length };
 }
 
 export function describeExtractError(e: unknown): string {

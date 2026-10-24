@@ -85,7 +85,7 @@ export function markPushed(state: AppState, attemptIds: string[], reportIds: str
 // ---------- linhas do Postgres ----------
 
 export function attemptToRow(a: Attempt, uid: string) {
-  return { owner_id: uid, id: a.id, date: a.date, discipline_id: a.disciplineId, source: a.source ?? 'banco', mode: a.mode, bank_version: a.bankVersion, answers: a.answers };
+  return { owner_id: uid, id: a.id, date: a.date, discipline_id: a.disciplineId, source: a.source ?? 'banco', mode: a.mode, bank_version: a.bankVersion, answers: a.answers, snapshots: a.snapshots ?? null };
 }
 
 export function attemptFromRow(r: Record<string, unknown>): Attempt {
@@ -96,7 +96,7 @@ export function attemptFromRow(r: Record<string, unknown>): Attempt {
     mode: r.mode as Attempt['mode'],
     bankVersion: r.bank_version as string,
     answers: r.answers as Attempt['answers'],
-    ...(r.source === 'pessoal' ? { source: 'pessoal' as const } : {}),
+    ...(r.source === 'pessoal' ? { source: 'pessoal' as const, ...(r.snapshots ? { snapshots: r.snapshots as Attempt['snapshots'] } : {}) } : {}),
   };
 }
 

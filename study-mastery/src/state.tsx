@@ -1,8 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { AnswerRecord, Attempt, DisciplineId, QuestionReport, SessionConfig } from './types';
+import type { AnswerRecord, Attempt, DisciplineId, PersonalQuizQuestion, QuestionReport, SessionConfig } from './types';
 import type { Bank } from './lib/bank';
-import { buildSession, eligible, type Session } from './lib/engine';
+import { buildSession, eligible, personalPool, type Session } from './lib/engine';
 import { randomSeed } from './lib/rng';
 import { browserStore, emptyState, exportState, importState, loadState, recordAttempt, saveState, STATE_KEY, type ActiveSession, type AppState, type ImportResult, type KeyValueStore, type Settings } from './lib/storage';
 import { markPushed, mergeRemote, type RemoteProgress } from './lib/sync';
@@ -14,6 +14,13 @@ export interface Study {
   updateSettings(patch: Partial<Settings>): void;
   /** monta uma sessão a partir da configuração; devolve null se não houver questões elegíveis */
   start(config: SessionConfig, onlyIds?: string[]): Session | null;
+  /**
+   * Sessão com questões pessoais: o filtro é estrito (só os assuntos e dificuldades escolhidos) e, se faltarem
+   * questões, a sessão fica menor — nunca completa com outros assuntos nem repete.
+   */
+  startPersonal(config: SessionConfig, questions: PersonalQuizQuestion[]): Session | null;
+  /** tira do histórico o texto de questões excluídas (o acerto/erro continua) */
+  scrubSnapshots(questionIds: string[]): void;
   answer(questionId: string, optionId: string): void;
   goTo(index: number): void;
   finish(opts?: { onlyAnswered?: boolean }): Attempt | null;
@@ -74,6 +81,28 @@ export function StudyProvider({ bank, store, stateKey = STATE_KEY, initialSettin
         update((s) => ({ ...s, active, settings: { ...s.settings, lastConfig: config } }));
         return session;
       },
+      startPersonal(config, questions) {
+        const pool = personalPool(questions, config);
+        if (!pool.length) return null;
+        if (stateRef.current.active && !window.confirm('Substituir a sessão em andamento? As respostas não concluídas serão descartadas.')) return null;
+        const session = buildSession(pool, config, { stats: stateRef.current.stats }, randomSeed());
+        const chosen = new Set(session.items.map((i) => i.questionId));
+        const now = new Date().toISOString();
+        const active: ActiveSession = { session, personal: Object.fromEntries(pool.filter((q) => chosen.has(q.id)).map((q) => [q.id, q])), answers: {}, index: 0, startedAt: now, updatedAt: now };
+        update((s) => ({ ...s, active }));
+        return session;
+      },
+      scrubSnapshots: (ids) =>
+        update((s) => {
+          const gone = new Set(ids);
+          let changed = false;
+          const attempts = s.attempts.map((a) => {
+            if (!a.snapshots || !Object.keys(a.snapshots).some((k) => gone.has(k))) return a;
+            changed = true;
+            return { ...a, snapshots: Object.fromEntries(Object.entries(a.snapshots).filter(([k]) => !gone.has(k))) };
+          });
+          return changed ? { ...s, attempts } : s;
+        }),
       answer: (questionId, optionId) =>
         update((s) => {
           if (!s.active) return s;
@@ -85,16 +114,21 @@ export function StudyProvider({ bank, store, stateKey = STATE_KEY, initialSettin
       finish(opts) {
         const s = stateRef.current;
         if (!s.active) return null;
-        const { session, answers } = s.active;
+        const { session, answers, personal } = s.active;
         const records: AnswerRecord[] = [];
+        const snapshots: Record<string, PersonalQuizQuestion> = {};
         for (const item of session.items) {
-          const q = bank.byId.get(item.questionId);
+          const q = personal ? personal[item.questionId] : bank.byId.get(item.questionId);
           if (!q) continue;
           const chosen = answers[q.id] ?? null;
           if (opts?.onlyAnswered && chosen === null) continue;
-          records.push({ questionId: q.id, topicId: q.topicId, difficulty: q.difficulty, chosenOptionId: chosen, correct: chosen === q.correctOptionId });
+          records.push({ questionId: q.id, topicId: q.topicId, difficulty: q.difficulty, chosenOptionId: chosen, correct: chosen === q.correctOptionId, ...(personal ? { questionVersion: q.version } : {}) });
+          if (personal) snapshots[q.id] = personal[q.id];
         }
-        const next = recordAttempt(s, { attemptId: crypto.randomUUID(), disciplineId: session.config.disciplineId, mode: session.config.mode, bankVersion: bank.manifest.bankVersion, answers: records, now: new Date() });
+        const next = recordAttempt(s, {
+          attemptId: crypto.randomUUID(), disciplineId: session.config.disciplineId, mode: session.config.mode, bankVersion: personal ? 'pessoal' : bank.manifest.bankVersion, answers: records, now: new Date(),
+          ...(personal ? { source: 'pessoal' as const, snapshots } : {}),
+        });
         stateRef.current = next;
         setState(next);
         return next.attempts[0];

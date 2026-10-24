@@ -4,6 +4,7 @@ import { useAccount } from '../account';
 import { LIMITS } from '../../supabase/functions/_shared/materialQuality';
 import { addPdf, addText, describeExtractError, duplicateOf, readPdf, type Ctx, type Step } from '../materials/service';
 import { useCollection, usePersonal } from '../personal/context';
+import { useStudy } from '../state';
 
 const STEP_TEXT: Record<Step, string> = {
   lendo: 'Recebido: conferindo o arquivo…',
@@ -16,7 +17,8 @@ const STEP_TEXT: Record<Step, string> = {
 export function useMaterialCtx(): Ctx {
   const personal = usePersonal();
   const account = useAccount();
-  return { personal, cloud: personal.space.kind === 'account' && account.user ? { client: account.client, uid: account.user.id } : undefined };
+  const { scrubSnapshots } = useStudy();
+  return { personal, scrub: scrubSnapshots, cloud: personal.space.kind === 'account' && account.user ? { client: account.client, uid: account.user.id } : undefined };
 }
 
 /** Adicionar material: PDF com texto selecionável ou texto colado. Nada é enviado a IA nesta etapa. */

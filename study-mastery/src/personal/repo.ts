@@ -2,7 +2,8 @@
 //  - LocalRepo: "neste aparelho" (IndexedDB), sem conta;
 //  - CloudRepo: "conta" (Supabase). Toda autorização é do banco (RLS por owner_id); o cliente só envia o JWT.
 import type { KvBackend } from './backend';
-import type { EntityMap, Kind, PageText, PDiscipline, PMaterial, PTopic } from './types';
+import { mergeSection } from '../../supabase/functions/_shared/generateCore';
+import type { EntityMap, GuideSection, Kind, PageText, PDiscipline, PGuide, PMaterial, PQuestion, PTopic } from './types';
 
 export type Space = { kind: 'device' } | { kind: 'account'; uid: string; email: string };
 
@@ -17,6 +18,10 @@ export interface PersonalRepo {
   getPages(materialId: string): Promise<PageText[]>;
   putPages(materialId: string, pages: PageText[]): Promise<void>;
   removePages(materialId: string): Promise<void>;
+  /** mescla uma seção do guia sem tocar nas outras (na conta: uma instrução no banco) */
+  setGuideSection(guideId: string, key: string, patch: Partial<GuideSection>): Promise<void>;
+  /** só na conta: exclui o material com questões e guias derivados numa única operação do banco */
+  deleteMaterialCascade?(materialId: string): Promise<{ questoes: number; guias: number }>;
 }
 
 export class LocalRepo implements PersonalRepo {
@@ -45,6 +50,11 @@ export class LocalRepo implements PersonalRepo {
   }
   removePages(materialId: string) {
     return this.kv.deleteByPrefix('pages', materialId);
+  }
+  async setGuideSection(guideId: string, key: string, patch: Partial<GuideSection>) {
+    const g = await this.kv.get<PGuide>('guides', guideId);
+    if (!g) throw new Error('Guia não encontrado.');
+    await this.kv.put('guides', { ...g, sections: { ...g.sections, [key]: mergeSection(g.sections[key] as unknown as Record<string, unknown>, patch as Record<string, unknown>) }, updatedAt: new Date().toISOString() });
   }
 }
 
@@ -81,6 +91,37 @@ export const MAPPERS: { [K in Kind]: Mapper<EntityMap[K]> } = {
       serverCheckedAt: (r.server_checked_at as string | null) ?? undefined,
     }),
   },
+  questions: {
+    table: 'questions',
+    toRow: (e: PQuestion, uid) => ({
+      owner_id: uid, id: e.id, discipline_id: e.disciplineId, topic_id: e.topicId, status: e.status, difficulty: e.difficulty, version: e.version, material_ids: e.materialIds,
+      data: { stem: e.stem, options: e.options, correctOptionId: e.correctOptionId, explanation: e.explanation, refs: e.refs, checks: e.checks, origin: e.origin, reportNote: e.reportNote },
+      created_at: e.createdAt, updated_at: e.updatedAt,
+    }),
+    fromRow: (r) => {
+      const d = (r.data ?? {}) as Partial<PQuestion>;
+      return {
+        ...common(r), disciplineId: r.discipline_id as string, topicId: r.topic_id as string, status: r.status as PQuestion['status'], difficulty: r.difficulty as PQuestion['difficulty'],
+        version: r.version as number, materialIds: (r.material_ids as string[]) ?? [], stem: d.stem ?? '', options: d.options ?? [], correctOptionId: d.correctOptionId ?? '',
+        explanation: d.explanation ?? { correct: '', wrong: {}, steps: [] }, refs: d.refs ?? [], checks: d.checks, origin: d.origin ?? { kind: 'aluno' }, reportNote: d.reportNote,
+      };
+    },
+  },
+  guides: {
+    table: 'guides',
+    toRow: (e: PGuide, uid) => ({
+      owner_id: uid, id: e.id, discipline_id: e.disciplineId, title: e.title, material_ids: e.materialIds, version: e.version,
+      data: { topicIds: e.topicIds, allowComplement: e.allowComplement, exam: e.exam ?? null, sectionKinds: e.sectionKinds, sections: e.sections },
+      created_at: e.createdAt, updated_at: e.updatedAt,
+    }),
+    fromRow: (r) => {
+      const d = (r.data ?? {}) as Partial<PGuide>;
+      return {
+        ...common(r), disciplineId: r.discipline_id as string, title: r.title as string, materialIds: (r.material_ids as string[]) ?? [], version: r.version as number,
+        topicIds: d.topicIds ?? [], allowComplement: !!d.allowComplement, exam: d.exam ?? null, sectionKinds: d.sectionKinds ?? [], sections: d.sections ?? {},
+      };
+    },
+  },
   topics: {
     table: 'topics',
     toRow: (e: PTopic, uid) => ({ owner_id: uid, id: e.id, discipline_id: e.disciplineId, name: e.name, position: e.position, origin: e.origin, created_at: e.createdAt, updated_at: e.updatedAt }),
@@ -99,6 +140,7 @@ export interface TableClient {
     upsert(rows: Row[], o: { onConflict: string; ignoreDuplicates?: boolean }): PromiseLike<{ error: DbError }>;
     delete(): { in(col: string, vals: string[]): PromiseLike<{ error: DbError }>; eq(col: string, v: string): PromiseLike<{ error: DbError }> };
   };
+  rpc(fn: string, args: Record<string, unknown>): PromiseLike<{ data: unknown; error: DbError }>;
 }
 
 export class CloudError extends Error {
@@ -164,6 +206,16 @@ export class CloudRepo implements PersonalRepo {
     const { error } = await this.db.from('material_pages').delete().eq('material_id', materialId);
     if (error) throw new CloudError(friendlyDbError(error), error.code);
   }
+  async setGuideSection(guideId: string, key: string, patch: Partial<GuideSection>) {
+    const { error } = await this.db.rpc('set_guide_section', { p_guide: guideId, p_key: key, p_patch: patch });
+    if (error) throw new CloudError(friendlyDbError(error), error.code);
+  }
+  /** exclusão no banco da conta: questões e guias derivados e texto no histórico (função delete_material_cascade) */
+  async deleteMaterialCascade(materialId: string): Promise<{ questoes: number; guias: number }> {
+    const { data, error } = await this.db.rpc('delete_material_cascade', { p_material: materialId });
+    if (error) throw new CloudError(friendlyDbError(error), error.code);
+    return data as { questoes: number; guias: number };
+  }
 }
 
 // ---------- exclusão em cascata (mesma regra nos dois espaços) ----------
@@ -173,20 +225,39 @@ export interface DeletionPlan {
   topics: string[];
   /** materiais saem com páginas e arquivo (ver materials/service.deleteMaterial) */
   materials: string[];
+  questions: string[];
+  guides: string[];
 }
 
-/** O que sai junto ao excluir uma disciplina ou um assunto. No banco da conta as FKs fazem o mesmo; arquivos do Storage não. */
-export function planDeletion(target: { kind: 'disciplines' | 'topics'; id: string }, all: { topics: PTopic[]; materials?: PMaterial[] }): DeletionPlan {
-  if (target.kind === 'topics') return { disciplines: [], topics: [target.id], materials: [] };
+/**
+ * O que sai junto ao excluir uma disciplina, um assunto ou um material. Mesma regra nos dois espaços:
+ *  - disciplina → assuntos, materiais, questões e guias dela;
+ *  - assunto → questões dele;
+ *  - material → questões e guias gerados a partir dele (na conta: delete_material_cascade).
+ */
+export function planDeletion(
+  target: { kind: 'disciplines' | 'topics' | 'materials'; id: string },
+  all: { topics: PTopic[]; materials?: PMaterial[]; questions?: PQuestion[]; guides?: PGuide[] },
+): DeletionPlan {
+  const qs = all.questions ?? [];
+  const gs = all.guides ?? [];
+  if (target.kind === 'topics') return { disciplines: [], topics: [target.id], materials: [], questions: qs.filter((q) => q.topicId === target.id).map((q) => q.id), guides: [] };
+  if (target.kind === 'materials') {
+    return { disciplines: [], topics: [], materials: [target.id], questions: qs.filter((q) => q.materialIds.includes(target.id)).map((q) => q.id), guides: gs.filter((g) => g.materialIds.includes(target.id)).map((g) => g.id) };
+  }
   return {
     disciplines: [target.id],
     topics: all.topics.filter((t) => t.disciplineId === target.id).map((t) => t.id),
     materials: (all.materials ?? []).filter((m) => m.disciplineId === target.id).map((m) => m.id),
+    questions: qs.filter((q) => q.disciplineId === target.id).map((q) => q.id),
+    guides: gs.filter((g) => g.disciplineId === target.id).map((g) => g.id),
   };
 }
 
 export async function executeDeletion(repo: PersonalRepo, plan: DeletionPlan) {
   // filhos antes dos pais (no banco local não há FK)
+  await repo.remove('questions', plan.questions);
+  await repo.remove('guides', plan.guides);
   for (const id of plan.materials) await repo.removePages(id);
   await repo.remove('materials', plan.materials);
   await repo.remove('topics', plan.topics);

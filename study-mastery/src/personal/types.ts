@@ -2,7 +2,10 @@
 // Ficam no espaço atual: "neste aparelho" (IndexedDB) ou "conta" (Supabase, isolado por RLS). Separados do banco existente.
 
 import type { MaterialIssue, TopicSuggestion } from '../../supabase/functions/_shared/materialQuality';
+import type { GuideItem, QuestionChecks, Ref, SectionKind } from '../../supabase/functions/_shared/generation';
+import type { Difficulty } from '../types';
 export type { MaterialIssue, PageText, TopicSuggestion } from '../../supabase/functions/_shared/materialQuality';
+export type { GuideItem, QuestionChecks, Ref, SectionKind } from '../../supabase/functions/_shared/generation';
 
 export const COLORS = ['menta', 'lilas', 'ambar', 'coral', 'ceu', 'rosa', 'lima', 'ardosia'] as const;
 export type Color = (typeof COLORS)[number];
@@ -52,6 +55,67 @@ export interface PMaterial extends Base {
   serverCheckedAt?: string;
 }
 
+export type QuestionStatus = 'gerada_ia' | 'criada_aluno' | 'reportada' | 'arquivada';
+export const QUESTION_STATUS_LABEL: Record<QuestionStatus, string> = {
+  gerada_ia: 'Gerada por IA',
+  criada_aluno: 'Criada por você',
+  reportada: 'Com erro relatado',
+  arquivada: 'Arquivada',
+};
+
+/** Questão pessoal: separada do banco existente e SEM as verificações dele (ver "checks"). */
+export interface PQuestion extends Base {
+  disciplineId: string;
+  topicId: string;
+  status: QuestionStatus;
+  difficulty: Difficulty;
+  version: number;
+  materialIds: string[];
+  stem: string;
+  options: { id: string; text: string }[];
+  correctOptionId: string;
+  explanation: { correct: string; wrong: Record<string, string>; steps: string[] };
+  refs: Ref[];
+  /** checagens automáticas feitas na geração (estrutura, alternativas, trecho conferido, duplicata) */
+  checks?: QuestionChecks;
+  origin: { kind: 'ia' | 'aluno'; model?: string; jobId?: string; materialVersions?: Record<string, number>; generatedAt?: string; editedAt?: string };
+  /** motivo do relato, quando reportada */
+  reportNote?: string;
+}
+
+export type SectionStatus = 'pendente' | 'gerando' | 'pronta' | 'falhou';
+export interface GuideSection {
+  key: string;
+  topicId: string;
+  kind: SectionKind | 'trechos';
+  status: SectionStatus;
+  generator?: 'trechos' | 'ia';
+  model?: string;
+  items?: GuideItem[];
+  dropped?: number;
+  notes?: string[];
+  materialVersions?: Record<string, number>;
+  version?: number;
+  generatedAt?: string;
+  error?: string | null;
+  jobId?: string;
+  previous?: Omit<GuideSection, 'previous'>;
+}
+
+export interface PGuide extends Base {
+  disciplineId: string;
+  title: string;
+  materialIds: string[];
+  /** assuntos confirmados pelo estudante antes de gerar */
+  topicIds: string[];
+  allowComplement: boolean;
+  /** preparação para avaliação: data e escopo confirmado (nunca "o que vai cair") */
+  exam?: { date: string; scopeMaterialId?: string; confirmedAt: string } | null;
+  sectionKinds: SectionKind[];
+  sections: Record<string, GuideSection>;
+  version: number;
+}
+
 export const LIMITS = {
   disciplineName: 80,
   description: 500,
@@ -61,15 +125,19 @@ export const LIMITS = {
   topicsPerDiscipline: 60,
   materials: 40,
   materialTitle: 120,
+  questionsPerBatch: 10,
+  guides: 60,
 } as const;
 
 export interface EntityMap {
   disciplines: PDiscipline;
   topics: PTopic;
   materials: PMaterial;
+  questions: PQuestion;
+  guides: PGuide;
 }
 export type Kind = keyof EntityMap;
-export const KINDS: Kind[] = ['disciplines', 'topics', 'materials'];
+export const KINDS: Kind[] = ['disciplines', 'topics', 'materials', 'questions', 'guides'];
 
 export function nowIso(): string {
   return new Date().toISOString();

@@ -2,6 +2,7 @@ import { ClipboardCopy, Flag } from 'lucide-react';
 import { useId, useState } from 'react';
 import { REPORT_REASON_LABEL, type QuestionReport, type ReportReason } from '../types';
 import { useStudy } from '../state';
+import { usePersonalOptional } from '../personal/context';
 import { copyText } from './Help';
 
 export function formatReport(r: QuestionReport): string {
@@ -18,6 +19,7 @@ export function formatReport(r: QuestionReport): string {
 /** "Relatar erro" em uma questão: formulário curto; o relato fica no espaço do estudante e pode ser copiado para envio. */
 export function ReportError({ questionId, version, source }: { questionId: string; version: number; source: QuestionReport['source'] }) {
   const { report } = useStudy();
+  const personal = usePersonalOptional();
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState<ReportReason>('gabarito');
   const [comment, setComment] = useState('');
@@ -28,7 +30,7 @@ export function ReportError({ questionId, version, source }: { questionId: strin
   if (saved) {
     return (
       <div className="report done" role="status">
-        <p>Relato salvo. Para que a questão seja corrigida, envie o texto ao responsável pelo Study Mastery.</p>
+        <p>{source === 'pessoal' ? 'Relato salvo. A questão fica fora das sessões até você corrigi-la ou arquivá-la (em Questões da disciplina).' : 'Relato salvo. Para que a questão seja corrigida, envie o texto ao responsável pelo Study Mastery.'}</p>
         <button type="button" className="text-btn" onClick={async () => setMsg((await copyText(formatReport(saved))) ? 'Texto copiado.' : 'Copie o texto abaixo manualmente.')}><ClipboardCopy size={14} aria-hidden="true" /> Copiar relato</button>
         {msg && <pre className="diag">{msg === 'Texto copiado.' ? msg : formatReport(saved)}</pre>}
       </div>
@@ -41,7 +43,19 @@ export function ReportError({ questionId, version, source }: { questionId: strin
       aria-label="Relatar erro nesta questão"
       onSubmit={(e) => {
         e.preventDefault();
-        setSaved(report({ questionId, questionVersion: version, source, reason, comment: comment.trim() }));
+        const rec = report({ questionId, questionVersion: version, source, reason, comment: comment.trim() });
+        setSaved(rec);
+        // questão pessoal com erro relatado sai das sessões até você revisá-la (editar ou arquivar)
+        if (source === 'pessoal' && personal) {
+          const note = `${REPORT_REASON_LABEL[reason]}${comment.trim() ? ': ' + comment.trim().slice(0, 300) : ''}`;
+          // a lista pode não estar carregada (sessão retomada direto no quiz): busca no espaço atual
+          void Promise.resolve(personal.items('questions') ?? personal.repo.list('questions'))
+            .then((list) => {
+              const pq = list.find((x) => x.id === questionId);
+              return pq && personal.save('questions', { ...pq, status: 'reportada', reportNote: note, updatedAt: new Date().toISOString() });
+            })
+            .catch(() => undefined);
+        }
       }}
     >
       <fieldset>

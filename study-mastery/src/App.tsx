@@ -7,6 +7,8 @@ import { Disciplines } from './components/Disciplines';
 import { DisciplinePage } from './components/DisciplinePage';
 import { MaterialNew } from './components/MaterialNew';
 import { MaterialPage } from './components/MaterialPage';
+import { QuestionsPage } from './components/Questions';
+import { GuideNew, GuidePage } from './components/Guides';
 import { TabBar } from './components/TabBar';
 import { Home } from './components/Home';
 import { Library } from './components/Library';
@@ -59,6 +61,9 @@ export function App() {
         {route.name === 'discipline' && <DisciplinePage key={route.id} id={route.id} go={go} />}
         {route.name === 'materialNew' && <MaterialNew key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
         {route.name === 'material' && <MaterialPage key={route.id} id={route.id} go={go} />}
+        {route.name === 'questions' && <QuestionsPage key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
+        {route.name === 'guideNew' && <GuideNew key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
+        {route.name === 'guide' && <GuidePage key={route.id} id={route.id} go={go} />}
         </ErrorBoundary>
       </main>
       <TabBar route={route} go={go} />

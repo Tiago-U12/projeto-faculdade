@@ -21,6 +21,9 @@ export interface Personal {
 }
 
 const Ctx = createContext<Personal | null>(null);
+/** Para telas que também aparecem fora do espaço pessoal (ex.: resultados do banco existente em testes isolados). */
+export const usePersonalOptional = (): Personal | null => useContext(Ctx);
+
 export const usePersonal = (): Personal => {
   const p = useContext(Ctx);
   if (!p) throw new Error('usePersonal fora do PersonalProvider');

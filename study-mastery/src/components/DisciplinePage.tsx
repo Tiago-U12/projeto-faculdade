@@ -1,11 +1,11 @@
-import { ArrowLeft, ChevronRight, FileText, Pencil, Plus, Trash2, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronRight, FileText, ListChecks, Pencil, Plus, Trash2, X } from 'lucide-react';
 import { useState } from 'react';
 import { useCollection, usePersonal } from '../personal/context';
 import { planDeletion } from '../personal/repo';
 import { LIMITS, newId, nowIso, topicKey, type PTopic } from '../personal/types';
 import { DisciplineForm, draftFrom, parseTopicLines } from './DisciplineForm';
 import { spaceLabel } from './Disciplines';
-import { isStuck, StatusBadge } from './MaterialPage';
+import { isStuck, plural, StatusBadge } from './MaterialPage';
 import { useMaterialCtx } from './MaterialNew';
 import { deleteMaterial } from '../materials/service';
 
@@ -15,6 +15,10 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
   const { items: disciplines, loading } = useCollection('disciplines');
   const { items: allTopics } = useCollection('topics');
   const { items: allMaterials } = useCollection('materials');
+  const { items: allQuestions } = useCollection('questions');
+  const { items: allGuides } = useCollection('guides');
+  const questions = allQuestions.filter((q) => q.disciplineId === id);
+  const guides = allGuides.filter((g) => g.disciplineId === id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const materials = allMaterials.filter((x) => x.disciplineId === id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const d = disciplines.find((x) => x.id === id);
   const topics = allTopics.filter((t) => t.disciplineId === id).sort((a, b) => a.position - b.position || a.name.localeCompare(b.name, 'pt-BR'));
@@ -103,7 +107,7 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
 
       {confirmDelete && (
         <div className="confirm" role="alertdialog" aria-label="Excluir disciplina">
-          <p>Excluir “{d.name}”, {topics.length === 1 ? 'o assunto dela' : `os ${topics.length} assuntos dela`}{materials.length ? ` e ${materials.length === 1 ? 'o material' : `os ${materials.length} materiais`} (com arquivos e textos extraídos)` : ''} {p.space.kind === 'device' ? 'deste aparelho' : 'da sua conta'}? Não dá para desfazer.</p>
+          <p>Excluir “{d.name}”, {topics.length === 1 ? 'o assunto dela' : `os ${topics.length} assuntos dela`}{materials.length ? `, ${materials.length === 1 ? 'o material' : `os ${materials.length} materiais`} (com arquivos e textos extraídos)` : ''}{questions.length ? `, ${plural(questions.length, 'questão pessoal', 'questões pessoais')}` : ''}{guides.length ? `, ${plural(guides.length, 'guia', 'guias')}` : ''} {p.space.kind === 'device' ? 'deste aparelho' : 'da sua conta'}? O acerto/erro das sessões continua no Progresso; o texto das questões sai do histórico. Não dá para desfazer.</p>
           <div className="row wrap">
             <button type="button" className="ghost" onClick={() => setConfirmDelete(false)}>Cancelar</button>
             <button
@@ -111,9 +115,12 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
               className="danger"
               disabled={busy}
               onClick={() => void run(async () => {
-                const plan = planDeletion({ kind: 'disciplines', id: d.id }, { topics: allTopics, materials: allMaterials });
+                const plan = planDeletion({ kind: 'disciplines', id: d.id }, { topics: allTopics, materials: allMaterials, questions: await p.repo.list('questions'), guides: await p.repo.list('guides') });
                 // filhos antes dos pais; materiais um a um para apagar também o arquivo na pasta privada da conta
                 for (const m of allMaterials.filter((x) => plan.materials.includes(x.id))) await deleteMaterial(ctx, m);
+                await p.removeIds('questions', plan.questions);
+                await p.removeIds('guides', plan.guides);
+                ctx.scrub?.(plan.questions);
                 await p.removeIds('topics', plan.topics);
                 await p.removeIds('disciplines', plan.disciplines);
                 go('#/disciplinas');
@@ -143,6 +150,32 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
           </ul>
         )}
         <button type="button" className="ghost" onClick={() => go(`#/material-novo?d=${d.id}`)}><Plus size={16} aria-hidden="true" /> Adicionar material</button>
+      </section>
+
+      <section className="panel" aria-labelledby="h-guides">
+        <div className="panel-head"><h2 id="h-guides"><BookOpen size={18} aria-hidden="true" /> Guias de estudo</h2><small className="muted">{guides.length}</small></div>
+        {guides.length === 0 ? (
+          <p className="muted">Nenhum guia ainda. Um guia reúne, por assunto, os trechos do seu material e (com conta) resumo, conceitos e exemplos gerados a partir dele.</p>
+        ) : (
+          <ul className="mat-list">
+            {guides.map((g) => (
+              <li key={g.id}>
+                <button type="button" className="mat-row" onClick={() => go(`#/guia?id=${g.id}`)}>
+                  <span className="mat-body"><strong>{g.title}</strong><small>{plural(g.topicIds.length, 'assunto', 'assuntos')}{g.exam ? ` · avaliação em ${new Date(g.exam.date + 'T00:00:00').toLocaleDateString('pt-BR')}` : ''}</small></span>
+                  <ChevronRight size={16} aria-hidden="true" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button type="button" className="ghost" disabled={!materials.some((m) => m.status === 'pronto')} onClick={() => go(`#/guia-novo?d=${d.id}`)}><Plus size={16} aria-hidden="true" /> Novo guia</button>
+        {!materials.some((m) => m.status === 'pronto') && <p className="hint">Para montar um guia, adicione um material com estado “Pronto”.</p>}
+      </section>
+
+      <section className="panel" aria-labelledby="h-qs">
+        <div className="panel-head"><h2 id="h-qs"><ListChecks size={18} aria-hidden="true" /> Questões pessoais</h2><small className="muted">{questions.length}</small></div>
+        <p className="muted">{questions.length ? `${plural(questions.filter((q) => q.status !== 'reportada' && q.status !== 'arquivada').length, 'disponível para praticar', 'disponíveis para praticar')}${questions.some((q) => q.status === 'reportada') ? ` · ${plural(questions.filter((q) => q.status === 'reportada').length, 'com erro relatado', 'com erro relatado')}` : ''}.` : 'Crie questões suas ou, com conta, gere a partir de um material pronto.'}</p>
+        <button type="button" className="ghost" onClick={() => go(`#/questoes?d=${d.id}`)}><ListChecks size={16} aria-hidden="true" /> Abrir questões e praticar</button>
       </section>
 
       <section className="panel" aria-labelledby="h-topics">
@@ -175,10 +208,10 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
         )}
         {removing && (
           <div className="confirm" role="alertdialog" aria-label="Remover assunto">
-            <p>Remover o assunto “{removing.name}”?</p>
+            <p>Remover o assunto “{removing.name}”?{(() => { const n = questions.filter((q) => q.topicId === removing.id).length; return n ? ` ${plural(n, 'questão pessoal dele também será excluída', 'questões pessoais dele também serão excluídas')} (as tentativas antigas mantêm a cópia respondida).` : ''; })()}</p>
             <div className="row wrap">
               <button type="button" className="ghost" onClick={() => setRemoving(null)}>Cancelar</button>
-              <button type="button" className="danger" disabled={busy} onClick={() => void run(async () => { await p.removeIds('topics', [removing.id]); setRemoving(null); }, 'Assunto removido.')}>Remover</button>
+              <button type="button" className="danger" disabled={busy} onClick={() => void run(async () => { const plan = planDeletion({ kind: 'topics', id: removing.id }, { topics: allTopics, questions: allQuestions }); await p.removeIds('questions', plan.questions); await p.removeIds('topics', [removing.id]); setRemoving(null); }, 'Assunto removido.')}>Remover</button>
             </div>
           </div>
         )}

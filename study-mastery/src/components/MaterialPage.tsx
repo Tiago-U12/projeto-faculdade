@@ -13,6 +13,8 @@ const STATUS_HELP: Record<MaterialStatus, string> = {
   falhou: 'O processamento não terminou. Veja o motivo e tente de novo.',
 };
 
+export const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+
 export function StatusBadge({ status }: { status: MaterialStatus }) {
   const icon = status === 'pronto' ? <CheckCircle2 size={14} aria-hidden="true" /> : status === 'atencao' ? <AlertTriangle size={14} aria-hidden="true" /> : status === 'falhou' ? <XCircle size={14} aria-hidden="true" /> : <CircleDashed size={14} aria-hidden="true" />;
   return <span className={'status-badge s-' + status}>{icon} {MATERIAL_STATUS_LABEL[status]}</span>;
@@ -27,6 +29,8 @@ export function MaterialPage({ id, go }: { id: string; go: (to: string) => void 
   const { items: materials, loading } = useCollection('materials');
   const { items: topics } = useCollection('topics');
   const { items: disciplines } = useCollection('disciplines');
+  const { items: questions } = useCollection('questions');
+  const { items: guides } = useCollection('guides');
   const m = materials.find((x) => x.id === id);
   const d = disciplines.find((x) => x.id === m?.disciplineId);
   const [pages, setPages] = useState<PageText[] | null>(null);
@@ -101,7 +105,7 @@ export function MaterialPage({ id, go }: { id: string; go: (to: string) => void 
     }, 'Assuntos adicionados à disciplina e associados a este material.');
 
   const toggleAssoc = (t: PTopic) => run(() => p.save('materials', { ...m, topicIds: m.topicIds.includes(t.id) ? m.topicIds.filter((x) => x !== t.id) : [...m.topicIds, t.id], updatedAt: nowIso() }));
-  const del = materialDeletion(m);
+  const del = materialDeletion(m, { questions, guides });
   const unit = m.kind === 'pdf' ? 'página' : 'trecho';
 
   return (
@@ -199,7 +203,7 @@ export function MaterialPage({ id, go }: { id: string; go: (to: string) => void 
         <div className="panel-head"><h2 id="h-del">Excluir material</h2></div>
         {confirmDelete ? (
           <div className="confirm" role="alertdialog" aria-label="Excluir material">
-            <p>Serão excluídos {del.file ? (ctx.cloud ? 'o arquivo PDF da sua pasta privada, ' : '') : ''}o texto extraído ({m.pageCount} {unit}{m.pageCount === 1 ? '' : 's'}) e este registro{ctx.cloud ? ', na sua conta' : ', neste aparelho'}. Os assuntos da disciplina continuam. Não dá para desfazer.</p>
+            <p>Serão excluídos {del.file ? (ctx.cloud ? 'o arquivo PDF da sua pasta privada, ' : '') : ''}o texto extraído ({m.pageCount} {unit}{m.pageCount === 1 ? '' : 's'}){del.questions.length ? `, ${plural(del.questions.length, 'questão gerada', 'questões geradas')} dele (e o texto delas no histórico; o acerto/erro continua)` : ''}{del.guides.length ? `, ${plural(del.guides.length, 'guia que o usa', 'guias que o usam')}` : ''} e este registro{ctx.cloud ? ', na sua conta' : ', neste aparelho'}. Os assuntos da disciplina continuam. Não dá para desfazer.</p>
             <div className="row wrap">
               <button type="button" className="ghost" onClick={() => setConfirmDelete(false)}>Cancelar</button>
               <button type="button" className="danger" disabled={busy} onClick={() => void run(async () => { await deleteMaterial(ctx, m); go(`#/disciplina?id=${m.disciplineId}`); })}>Excluir</button>

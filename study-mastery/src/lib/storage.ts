@@ -1,13 +1,17 @@
-import type { AnswerRecord, Attempt, DisciplineId, Mode, QuestionReport, QuestionStat, SessionConfig } from '../types';
+import type { AnswerRecord, AnyDisciplineId, Attempt, DisciplineId, Mode, PersonalQuizQuestion, QuestionReport, QuestionStat, SessionConfig } from '../types';
 import type { Session } from './engine';
 import { nextStat } from './srs';
 
 export const STATE_KEY = 'study-mastery:state:v1';
 const LEGACY_KEY = 'study-mastery-attempts-v02';
 export const MAX_ATTEMPTS = 200;
+/** texto das questões pessoais guardado no aparelho só nas tentativas mais recentes (cabe no localStorage) */
+export const MAX_LOCAL_SNAPSHOTS = 30;
 
 export interface ActiveSession {
   session: Session;
+  /** sessão com questões pessoais: cópia de cada questão sorteada (a sessão funciona offline e não muda se forem editadas) */
+  personal?: Record<string, PersonalQuizQuestion>;
   /** respostas por questionId (id da alternativa escolhida) */
   answers: Record<string, string>;
   index: number;
@@ -143,25 +147,41 @@ export function loadState(store: KeyValueStore | null, key = STATE_KEY): AppStat
 export function saveState(store: KeyValueStore | null, state: AppState, key = STATE_KEY): boolean {
   if (!store) return false;
   try {
-    store.setItem(key, JSON.stringify({ ...state, attempts: state.attempts.slice(0, MAX_ATTEMPTS) }));
+    store.setItem(key, JSON.stringify({ ...state, attempts: trimSnapshots(state.attempts.slice(0, MAX_ATTEMPTS)) }));
     return true;
   } catch {
     return false;
   }
 }
 
+/** Mantém o texto das questões pessoais só nas tentativas recentes; as antigas guardam acerto/erro (na conta, tudo). */
+export function trimSnapshots(attempts: Attempt[]): Attempt[] {
+  let kept = 0;
+  return attempts.map((a) => {
+    if (!a.snapshots) return a;
+    if (kept++ < MAX_LOCAL_SNAPSHOTS) return a;
+    const { snapshots: _s, ...rest } = a;
+    return rest;
+  });
+}
+
 export interface FinishInput {
   attemptId: string;
-  disciplineId: DisciplineId;
+  disciplineId: AnyDisciplineId;
   mode: Mode;
   bankVersion: string;
   answers: AnswerRecord[];
   now: Date;
+  source?: 'banco' | 'pessoal';
+  snapshots?: Record<string, PersonalQuizQuestion>;
 }
 
 /** Registra a tentativa e atualiza as estatísticas por questão (repetição espaçada). Imutável. */
 export function recordAttempt(state: AppState, input: FinishInput): AppState {
-  const attempt: Attempt = { id: input.attemptId, date: input.now.toISOString(), disciplineId: input.disciplineId, mode: input.mode, bankVersion: input.bankVersion, answers: input.answers };
+  const attempt: Attempt = {
+    id: input.attemptId, date: input.now.toISOString(), disciplineId: input.disciplineId, mode: input.mode, bankVersion: input.bankVersion, answers: input.answers,
+    ...(input.source === 'pessoal' ? { source: 'pessoal' as const, snapshots: input.snapshots } : {}),
+  };
   const stats = { ...state.stats };
   for (const a of input.answers) stats[a.questionId] = nextStat(stats[a.questionId], a.correct, input.now);
   return { ...state, attempts: [attempt, ...state.attempts.filter((x) => x.id !== attempt.id)].slice(0, MAX_ATTEMPTS), stats, active: undefined, ...(state.sync ? { sync: { ...state.sync, activeClearedAt: input.now.toISOString() } } : {}) };
