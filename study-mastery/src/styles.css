@@ -289,6 +289,12 @@ h1, h2, h3 { font-family: 'Space Grotesk Variable', 'Space Grotesk', 'DM Sans Va
 .cov li { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; }
 .cov small { flex-basis: 100%; color: var(--warn); }
 .plain { margin: 0; padding-left: 18px; display: grid; gap: 8px; overflow-wrap: anywhere; }
+.quality-note { margin: 12px 0; }
+.quality-details summary { display: list-item; min-height: 44px; align-content: center; color: var(--text); }
+.quality-group { margin-top: 16px; min-width: 0; }
+.quality-group h3 { margin: 0 0 4px; font-size: 16px; }
+.quality-group p { margin: 0 0 8px; color: var(--muted); }
+.quality-group code { font-size: 0.85em; overflow-wrap: anywhere; }
 .empty { text-align: center; padding: 40px 0; }
 
 /* Conteúdo rico */
