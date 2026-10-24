@@ -1,16 +1,22 @@
-import { AlertTriangle, ArrowLeft, ClipboardCopy, Download, Trash2, Upload } from 'lucide-react';
-import { useMemo, useRef, useState } from 'react';
+import { AlertTriangle, ArrowLeft, CalendarDays, ClipboardCopy, Download, Trash2, Upload } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { reviewConfig } from '../lib/review';
 import { reviewCounts } from '../lib/engine';
-import type { DisciplineId } from '../types';
-import { MODE_LABEL } from '../types';
+import { evidenceText, MIN_ANSWERS, pendingActivities, topicProgress, upcomingExams, weekly } from '../lib/progress';
+import type { DisciplineId, SessionConfig } from '../types';
+import { DIFFICULTIES, MODE_LABEL } from '../types';
 import { useStudy } from '../state';
 import { useAccount } from '../account';
+import { useCatalog, useTimeZone } from '../calendar/hooks';
+import { brDate, shortDate } from '../calendar/time';
+import { usePersonalOptional } from '../personal/context';
+import { usePersonalQuiz } from '../personal/quiz';
 import { copyText } from './Help';
 import { formatReport } from './ReportError';
+import { plural } from './MaterialPage';
 
 export function Progress({ go }: { go: (to: string) => void }) {
-  const { bank, state, start, persisted, exportJson, importJson, clearAll } = useStudy();
+  const { bank, state, start, startPersonal, persisted, exportJson, importJson, clearAll } = useStudy();
   const account = useAccount();
   const inAccount = account.status === 'signedIn';
   const [clearing, setClearing] = useState(false);
@@ -36,34 +42,56 @@ export function Progress({ go }: { go: (to: string) => void }) {
       setClearing(false);
     }
   };
-  const [disciplineId, setDisciplineId] = useState<DisciplineId>('calculo2');
+  const catalog = useCatalog();
+  const [tz] = useTimeZone();
+  const p = usePersonalOptional();
+  const events = p?.items('events');
+  useEffect(() => {
+    if (p && !events) void p.load('events');
+  }, [p, events]);
+  const now = Date.now();
+  const exams = upcomingExams(events ?? [], now, tz);
+  const pending = pendingActivities(events ?? [], now, tz);
+
+  const [disciplineId, setDisciplineId] = useState<string>('calculo2');
   const [msg, setMsg] = useState<string>('');
   const [confirmClear, setConfirmClear] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const modeRef = useRef<'merge' | 'replace'>('merge');
-  const discipline = bank.taxonomy.disciplines.find((d) => d.id === disciplineId)!;
+  const d = catalog.get(disciplineId) ?? catalog.get('calculo2')!;
+  const isBank = d.kind === 'banco';
+  const { questions: personalQs } = usePersonalQuiz(isBank ? '' : d.id);
 
-  const attempts = state.attempts.filter((a) => a.disciplineId === disciplineId);
-  const answers = attempts.flatMap((a) => a.answers);
+  const attempts = state.attempts.filter((a) => a.disciplineId === d.id);
+  const answers = attempts.flatMap((a) => a.answers).filter((a) => a.chosenOptionId !== null);
   const pct = answers.length ? Math.round((100 * answers.filter((a) => a.correct).length) / answers.length) : null;
-  const perTopic = useMemo(() => {
-    const m = new Map<string, { seen: number; ok: number; distinct: number; total: number }>();
-    for (const t of discipline.topics) m.set(t.id, { seen: 0, ok: 0, distinct: 0, total: bank.questions.filter((q) => q.topicId === t.id).length });
-    for (const [id, s] of Object.entries(state.stats)) {
-      const q = bank.byId.get(id);
-      if (!q || q.disciplineId !== disciplineId) continue;
-      const c = m.get(q.topicId)!;
-      c.seen += s.seen;
-      c.ok += s.correct;
-      c.distinct++;
-    }
+  const perTopic = useMemo(() => topicProgress(state.attempts, d.id, d.topics.map((t) => t.id)), [state.attempts, d]);
+  const bankTotals = useMemo(() => {
+    const m = new Map<string, number>();
+    if (isBank) for (const q of bank.questions) if (q.disciplineId === d.id) m.set(q.topicId, (m.get(q.topicId) ?? 0) + 1);
     return m;
-  }, [bank, discipline, disciplineId, state.stats]);
-  const rev = useMemo(() => reviewCounts(bank.questions.filter((q) => q.disciplineId === disciplineId), state.stats), [bank, disciplineId, state.stats]);
+  }, [bank, d, isBank]);
+  /** questões do banco já vistas por assunto (pelas estatísticas, como antes da 0.6) */
+  const bankPracticed = useMemo(() => {
+    const m = new Map<string, number>();
+    if (isBank) for (const id of Object.keys(state.stats)) { const q = bank.byId.get(id); if (q && q.disciplineId === d.id) m.set(q.topicId, (m.get(q.topicId) ?? 0) + 1); }
+    return m;
+  }, [bank, d, isBank, state.stats]);
+  const usableMine = personalQs.filter((q) => q.status !== 'reportada' && q.status !== 'arquivada');
+  const rev = useMemo(() => reviewCounts(isBank ? bank.questions.filter((q) => q.disciplineId === d.id) : usableMine, state.stats), [bank, d, isBank, usableMine, state.stats]);
+  const weeks = useMemo(() => weekly(state.attempts, d.id, tz), [state.attempts, d, tz]);
+  const studyDone = (events ?? []).filter((e) => e.disciplineId === d.id && e.status === 'concluido' && e.type !== 'prova' && e.type !== 'entrega').length;
+  const listed = catalog.list.filter((c) => c.kind === 'banco' || state.attempts.some((a) => a.disciplineId === c.id) || (p?.items('questions') ?? []).some((q) => q.disciplineId === c.id));
 
   const reviewErrors = () => {
-    const questions = bank.questions.filter((q) => q.disciplineId === disciplineId && state.stats[q.id]?.lastCorrect === false);
-    if (start(reviewConfig(disciplineId, questions), questions.map((q) => q.id))) go('#/quiz');
+    if (isBank) {
+      const questions = bank.questions.filter((q) => q.disciplineId === d.id && state.stats[q.id]?.lastCorrect === false);
+      if (start(reviewConfig(d.id as DisciplineId, questions), questions.map((q) => q.id))) go('#/quiz');
+      return;
+    }
+    const wrong = usableMine.filter((q) => state.stats[q.id]?.lastCorrect === false);
+    const cfg: SessionConfig = { disciplineId: d.id, topicIds: [...new Set(wrong.map((q) => q.topicId))], difficulties: [...DIFFICULTIES], scope: 'aula', mode: 'revisao', size: Math.min(20, wrong.length) };
+    if (startPersonal(cfg, wrong)) go('#/quiz');
   };
 
   const download = () => {
@@ -90,33 +118,70 @@ export function Progress({ go }: { go: (to: string) => void }) {
       <p className="sub">{inAccount ? 'Salvo na sua conta e sincronizado entre os aparelhos em que você entrar.' : 'Tudo fica salvo neste aparelho. Exporte o histórico para levar para outro dispositivo.'}</p>
       {!persisted && <p className="notice"><AlertTriangle size={15} aria-hidden="true" /> Seu navegador bloqueou o armazenamento local: o progresso só dura enquanto esta aba estiver aberta. Use “Exportar” para guardar.</p>}
 
-      <div className="seg" role="group" aria-label="Disciplina">
-        {bank.taxonomy.disciplines.map((d) => (
-          <button key={d.id} type="button" aria-pressed={d.id === disciplineId} className={d.id === disciplineId ? 'seg-btn active' : 'seg-btn'} onClick={() => setDisciplineId(d.id)}>{d.short}</button>
+      {(exams.length > 0 || pending.overdue.length > 0 || pending.today.length > 0) && (
+        <section className="panel" aria-labelledby="h-next">
+          <div className="panel-head"><h2 id="h-next"><CalendarDays size={18} aria-hidden="true" /> Agenda</h2></div>
+          {exams.length > 0 && (
+            <ul className="plain">
+              {exams.slice(0, 4).map((x) => <li key={x.event.id}><b>{x.event.title}</b> · {brDate(x.date)} · {x.daysLeft === 0 ? 'é hoje' : `faltam ${plural(x.daysLeft, 'dia', 'dias')}`}</li>)}
+            </ul>
+          )}
+          <p className="hint">
+            {pending.overdue.length ? `${plural(pending.overdue.length, 'atividade atrasada', 'atividades atrasadas')} (não concluída${pending.overdue.length === 1 ? '' : 's'}). ` : ''}
+            {pending.today.length ? `${plural(pending.today.length, 'atividade', 'atividades')} para hoje.` : ''}
+          </p>
+          <button type="button" className="ghost" onClick={() => go('#/agenda')}>Abrir agenda</button>
+        </section>
+      )}
+
+      <ul className="chips disc-chips" aria-label="Disciplina">
+        {listed.map((c) => (
+          <li key={c.id}><button type="button" aria-pressed={c.id === d.id} className={'chip' + (c.id === d.id ? ' on' : '')} onClick={() => setDisciplineId(c.id)}>{c.kind === 'banco' ? (bank.taxonomy.disciplines.find((x) => x.id === c.id)?.short ?? c.name) : `${c.name} · sua`}</button></li>
         ))}
-      </div>
+      </ul>
+      <p className="hint">{isBank ? 'Questões do banco existente.' : 'Suas questões pessoais (separadas do banco existente).'} <b>Atividade</b> é o que você fez; <b>desempenho</b> são os acertos no questionário; <b>evidência</b> diz se já há respostas suficientes para alguma conclusão. Nenhum número aqui indica que você domina um assunto.</p>
 
       <div className="metrics">
-        <div><span>SESSÕES</span><strong>{attempts.length}</strong><small>nesta disciplina</small></div>
-        <div><span>ACERTOS</span><strong>{pct === null ? '—' : pct + '%'}</strong><small>{answers.length} respostas</small></div>
+        <div><span>ATIVIDADE</span><strong>{attempts.length}</strong><small>{plural(attempts.length, 'sessão concluída', 'sessões concluídas')}{studyDone ? ` · ${studyDone} na agenda` : ''}</small></div>
+        <div><span>DESEMPENHO</span><strong>{pct === null ? '—' : pct + '%'}</strong><small>acertos em {plural(answers.length, 'resposta', 'respostas')}</small></div>
         <div><span>PARA REVISAR</span><strong>{rev.errors + rev.due}</strong><small>{rev.errors} erros · {rev.due} vencidas</small></div>
       </div>
 
       <button type="button" className="primary" disabled={rev.errors === 0} onClick={reviewErrors}>Revisar meus erros</button>
 
       <section className="panel" aria-labelledby="h-topic-acc">
-        <div className="panel-head"><h2 id="h-topic-acc">Evolução por assunto</h2></div>
-        {discipline.topics.map((t) => {
+        <div className="panel-head"><h2 id="h-topic-acc">Por assunto</h2></div>
+        {d.topics.length === 0 && <p className="muted">Esta disciplina não tem assuntos cadastrados.</p>}
+        {d.topics.map((t) => {
           const c = perTopic.get(t.id)!;
-          const rate = c.seen ? Math.round((100 * c.ok) / c.seen) : null;
+          const total = bankTotals.get(t.id);
           return (
-            <div className="bar-row" key={t.id}>
-              <span className="bar-label">{t.name}<small>{c.total ? `${c.distinct}/${c.total} questões praticadas` : 'sem questões disponíveis'}</small></span>
-              <span className="meter" aria-hidden="true"><i style={{ width: `${rate ?? 0}%` }} /></span>
-              <span className="bar-val">{rate === null ? '—' : rate + '%'}</span>
+            <div className={'bar-row' + (c.evidence === 'insuficiente' ? ' weak-evidence' : '')} key={t.id}>
+              <span className="bar-label">{t.name}<small>{evidenceText(c)}{isBank ? ` · ${total ? `${bankPracticed.get(t.id) ?? 0}/${total} questões praticadas` : 'sem questões disponíveis'}` : ''}</small></span>
+              <span className="meter" aria-hidden="true"><i style={{ width: `${c.rate ?? 0}%` }} /></span>
+              <span className="bar-val">{c.rate === null ? '—' : c.rate + '%'}</span>
             </div>
           );
         })}
+        <p className="src-meta">Percentual = acertos ÷ respostas no assunto. Com menos de {MIN_ANSWERS} respostas, o número aparece, mas não sustenta conclusão.</p>
+      </section>
+
+      <section className="panel" aria-labelledby="h-weeks">
+        <div className="panel-head"><h2 id="h-weeks">Evolução por semana</h2></div>
+        {weeks.length < 2 ? (
+          <p className="muted">{weeks.length ? 'Só há respostas em uma semana: ainda não dá para comparar.' : 'Nenhuma resposta ainda nesta disciplina.'}</p>
+        ) : (
+          weeks.map((w) => {
+            const rate = Math.round((100 * w.correct) / w.answered);
+            return (
+              <div className={'bar-row' + (w.answered < MIN_ANSWERS ? ' weak-evidence' : '')} key={w.weekStart}>
+                <span className="bar-label">Semana de {shortDate(w.weekStart)}<small>{plural(w.sessions, 'sessão', 'sessões')} · {plural(w.answered, 'resposta', 'respostas')}</small></span>
+                <span className="meter" aria-hidden="true"><i style={{ width: `${rate}%` }} /></span>
+                <span className="bar-val">{rate}%</span>
+              </div>
+            );
+          })
+        )}
       </section>
 
       <section className="panel" aria-labelledby="h-hist">

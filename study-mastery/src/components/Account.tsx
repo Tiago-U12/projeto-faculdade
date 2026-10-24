@@ -37,6 +37,7 @@ export function Account({ go }: { go: (to: string) => void }) {
       <h1 className="screen-title">Sua <em>conta.</em></h1>
       {a.notice && <p className="notice" role="alert">{a.notice} <button type="button" className="text-btn" onClick={a.clearNotice}>Ok</button></p>}
       {!a.configured ? <NotConfigured /> : a.status === 'signedIn' ? <SignedIn go={go} /> : <SignedOut />}
+      <p className="hint"><button type="button" className="text-btn" onClick={() => go('#/dados')}>Seus dados e privacidade</button> — onde ficam, o que vai para serviços externos e o que cada exclusão leva.</p>
     </>
   );
 }

@@ -526,3 +526,11 @@ code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-si
 .resched { margin-top: 12px; }
 .plan-preview .notice { margin: 8px 0; }
 .plan-preview ul.plain { padding-left: 18px; }
+.disc-chips { margin: 4px 0 8px; }
+.bar-row.weak-evidence .meter i { opacity: 0.45; }
+@media (max-width: 380px) {
+  /* rótulos das métricas inteiros em telas estreitas (sem quebrar no meio da palavra) */
+  .metrics { gap: 6px; }
+  .metrics > div { padding: 12px 8px; }
+  .metrics span { overflow-wrap: normal; letter-spacing: 0.04em; font-size: 9.5px; }
+}

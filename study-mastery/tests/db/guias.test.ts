@@ -29,7 +29,8 @@ describe.skipIf(!enabled)('guias e questões: isolamento e exclusão', () => {
     await a.q(`insert into questions (id, discipline_id, topic_id, status, difficulty, material_ids, data) values ($1, $3, $4, 'gerada_ia', 'medio', $5, '{"stem":"Q1"}'), ($2, $3, $4, 'gerada_ia', 'medio', $6, '{"stem":"Q2"}')`, [Q1, Q2, DISC, TOPIC, [MAT], [MAT2]]);
     await a.q(`insert into guides (id, discipline_id, title, material_ids, data) values ($1, $2, 'Guia', $3, '{"topicIds":[],"allowComplement":false,"sections":{}}')`, [GUIDE, DISC, [MAT]]);
     await a.q(`insert into attempts (id, date, discipline_id, source, mode, bank_version, answers, snapshots) values ('att-p', now(), $1, 'pessoal', 'aprender', 'pessoal', '[]', $2)`, [DISC, JSON.stringify({ [Q1]: { stem: 'Q1' }, [Q2]: { stem: 'Q2' } })]);
-    await db.service().q(`insert into jobs (owner_id, id, kind, idem_key, status) values ($1, $2, 'questoes', $3, 'done')`, [A, JOB, 'a'.repeat(64)]);
+    await db.service().q(`insert into jobs (owner_id, id, kind, idem_key, status, input, result) values ($1, $2, 'questoes', $3, 'done', $4, $5)`, [A, JOB, 'a'.repeat(64), JSON.stringify({ materials: [[MAT, 1]] }), JSON.stringify({ rejeitadas: [{ stem: 'trecho derivado do material' }] })]);
+    await db.service().q(`insert into jobs (owner_id, id, kind, idem_key, status, input) values ($1, gen_random_uuid(), 'questoes', $2, 'done', $3)`, [A, 'c'.repeat(64), JSON.stringify({ materials: [[MAT2, 1]] })]);
     await db.service().q(`insert into usage_events (owner_id, job_id, kind, provider, model, input_tokens, output_tokens, cost_usd) values ($1, $2, 'questoes', 'anthropic', 'claude-opus-5-5', 1000, 200, 0.008)`, [A, JOB]);
   }, 60000);
   afterAll(async () => db?.stop());
@@ -44,7 +45,7 @@ describe.skipIf(!enabled)('guias e questões: isolamento e exclusão', () => {
 
   it('o estudante não grava tarefas nem consumo (só o servidor)', async () => {
     const a = db.as(A);
-    expect((await a.q('select * from jobs')).rowCount).toBe(1);
+    expect((await a.q('select * from jobs')).rowCount).toBe(2);
     expect(await rejects(a.q(`insert into jobs (owner_id, id, kind, idem_key, status) values ($1, gen_random_uuid(), 'questoes', $2, 'running')`, [A, 'b'.repeat(64)]))).toBe('42501');
     expect(await rejects(a.q(`update jobs set status = 'done' where id = $1`, [JOB]))).toBe('42501');
     expect(await rejects(a.q(`delete from usage_events`))).toBe('42501');
@@ -88,5 +89,8 @@ describe.skipIf(!enabled)('guias e questões: isolamento e exclusão', () => {
     const snap = (await a.q<{ snapshots: Record<string, unknown> }>(`select snapshots from attempts where id = 'att-p'`)).rows[0].snapshots;
     expect(Object.keys(snap)).toEqual([Q2]);
     expect((await a.q(`select * from attempts where id = 'att-p'`)).rowCount).toBe(1); // o acerto/erro continua
+    // a tarefa que usou o material sai (o resultado citava trechos); a de outro material e o consumo ficam
+    expect((await a.q<{ idem_key: string }>('select idem_key from jobs')).rows.map((r) => r.idem_key)).toEqual(['c'.repeat(64)]);
+    expect((await a.q('select * from usage_events')).rowCount).toBe(1);
   });
 });

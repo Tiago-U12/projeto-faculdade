@@ -4,7 +4,8 @@
  * confirmadas. Tudo por variáveis de ambiente — nunca grave senhas ou chaves em arquivo:
  *   SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, TEST_A_EMAIL, TEST_A_PASSWORD, TEST_B_EMAIL, TEST_B_PASSWORD
  *   npx tsx tests/integration/supabase-real.ts
- * O que comprova (e os testes locais não): API real (PostgREST), Auth, Storage com limites do bucket e as funções.
+ * O que comprova (e os testes locais não): API real (PostgREST), Auth, Storage com limites do bucket e as funções
+ * (process-material, generate — só o status e as recusas; a geração com IA depende da chave e tem custo).
  * Limpa o que criou no fim (inclusive arquivos do Storage).
  */
 import fs from 'node:fs';
@@ -74,6 +75,37 @@ async function main() {
     ok('pedido repetido não refaz o trabalho', (again.data as { reused?: boolean })?.reused === true);
     const forged = await A.sb.from('materials').update({ server_checked_at: new Date().toISOString() }).eq('id', mat2);
     ok('o navegador não consegue marcar "conferido"', !!forged.error);
+
+    console.log('## Guias, questões e agenda: isolamento');
+    const topic = crypto.randomUUID();
+    const q = crypto.randomUUID();
+    const guide = crypto.randomUUID();
+    const ev = crypto.randomUUID();
+    await A.sb.from('topics').insert({ id: topic, discipline_id: disc, name: 'Integração por partes', position: 0, origin: 'manual' });
+    ok('A cria questão pessoal ligada ao material', !(await A.sb.from('questions').insert({ id: q, discipline_id: disc, topic_id: topic, status: 'criada_aluno', difficulty: 'medio', material_ids: [mat], data: { stem: 'Questão de teste' } })).error);
+    ok('A cria guia', !(await A.sb.from('guides').insert({ id: guide, discipline_id: disc, title: 'Guia', material_ids: [mat], data: { topicIds: [topic], allowComplement: false, sectionKinds: [], sections: {} } })).error);
+    ok('A cria evento', !(await A.sb.from('events').insert({ id: ev, discipline_id: disc, type: 'prova', title: 'P1', status: 'agendado', all_day: true, date: '2026-11-20', time_zone: 'America/Sao_Paulo' })).error);
+    for (const [t, id] of [['questions', q], ['guides', guide], ['events', ev]] as const) {
+      ok(`B não lê ${t} de A`, ((await B.sb.from(t).select('*').eq('id', id)).data ?? []).length === 0);
+      ok(`B não altera nem apaga ${t} de A`, ((await B.sb.from(t).update({ updated_at: new Date().toISOString() }).eq('id', id).select()).data ?? []).length === 0 && ((await B.sb.from(t).delete().eq('id', id).select()).data ?? []).length === 0);
+    }
+    await B.sb.rpc('set_guide_section', { p_guide: guide, p_key: 'x:resumo', p_patch: { items: [{ title: 'invadido' }] } });
+    ok('B não escreve seção no guia de A', !JSON.stringify((await A.sb.from('guides').select('data').eq('id', guide)).data).includes('invadido'));
+    const bc = await B.sb.rpc('delete_material_cascade', { p_material: mat });
+    ok('B chamando a exclusão em cascata com o material de A não apaga nada', JSON.stringify(bc.data) === JSON.stringify({ questoes: 0, guias: 0 }) && ((await A.sb.from('questions').select('id').eq('id', q)).data ?? []).length === 1);
+    ok('A não grava tarefas de geração (só o servidor)', !!(await A.sb.from('jobs').insert({ owner_id: A.uid, id: crypto.randomUUID(), kind: 'questoes', idem_key: 'a'.repeat(64), status: 'done' })).error);
+    const st = await A.sb.functions.invoke('generate', { body: { op: 'status' } });
+    ok('generate responde o status (IA configurada ou não, sem simular)', !st.error && typeof (st.data as { ia?: boolean })?.ia === 'boolean', st.error?.message ?? st.data);
+    const anon = createClient(URL, KEY, { auth: { persistSession: false } });
+    ok('generate recusa quem não entrou na conta', !!(await anon.functions.invoke('generate', { body: { op: 'status' } })).error);
+    const foreign = await B.sb.functions.invoke('generate', { body: { op: 'secao', guideId: guide, topicId: topic, kind: 'resumo' } });
+    const fs404 = (foreign.error as { context?: Response } | null)?.context?.status;
+    ok('B pedindo geração no guia de A: não encontrado (ou IA não configurada)', fs404 === 404 || fs404 === 503, fs404);
+
+    console.log('## Exclusão do material leva questões e guias derivados');
+    const cas = await A.sb.rpc('delete_material_cascade', { p_material: mat });
+    ok('delete_material_cascade remove 1 questão e 1 guia', JSON.stringify(cas.data) === JSON.stringify({ questoes: 1, guias: 1 }), cas.data ?? cas.error);
+    ok('evento continua (é a agenda do estudante)', ((await A.sb.from('events').select('id').eq('id', ev)).data ?? []).length === 1);
 
     console.log('## Exclusão também no Storage');
     await A.sb.storage.from('materiais').remove([`${A.uid}/${mat}.pdf`]);

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 type Focus = { topics?: string[]; mode?: 'aprender' | 'simulado' | 'revisao' | 'misto' };
 export type Route = { name: 'home' } | ({ name: 'setup'; disciplineId?: string; preset?: string } & Focus) | { name: 'quiz' } | { name: 'results'; id?: string } | { name: 'progress' } | { name: 'library' } | { name: 'help' } | { name: 'account' } | { name: 'disciplines' } | { name: 'discipline'; id: string } | { name: 'materialNew'; disciplineId: string } | { name: 'material'; id: string } | ({ name: 'questions'; disciplineId: string } & Focus) | { name: 'guideNew'; disciplineId: string } | { name: 'guide'; id: string }
-  | { name: 'calendar'; view: 'lista' | 'semana' | 'mes'; date?: string } | { name: 'event'; id: string } | { name: 'eventNew'; date?: string; disciplineId?: string; type?: string } | { name: 'eventEdit'; id: string } | { name: 'planner'; disciplineId?: string; guideId?: string };
+  | { name: 'calendar'; view: 'lista' | 'semana' | 'mes'; date?: string } | { name: 'event'; id: string } | { name: 'eventNew'; date?: string; disciplineId?: string; type?: string } | { name: 'eventEdit'; id: string } | { name: 'planner'; disciplineId?: string; guideId?: string } | { name: 'privacy' };
 
 const MODES = ['aprender', 'simulado', 'revisao', 'misto'] as const;
 /** assuntos (t=a,b) e modo (m=revisao) vindos de um evento da agenda */
@@ -30,6 +30,8 @@ export function parseHash(hash: string): Route {
       return { name: 'help' };
     case 'conta':
       return { name: 'account' };
+    case 'dados':
+      return { name: 'privacy' };
     case 'disciplinas':
       return { name: 'disciplines' };
     case 'material-novo':

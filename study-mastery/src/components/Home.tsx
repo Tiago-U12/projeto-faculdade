@@ -1,10 +1,13 @@
-import { ArrowRight, ChevronRight, Flame, History, Sparkles, Target } from 'lucide-react';
-import { useMemo } from 'react';
+import { ArrowRight, CalendarDays, ChevronRight, Flame, History, Sparkles, Target } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
 import { reviewCounts } from '../lib/engine';
 import { qualitySummary } from '../lib/quality';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
 import { useAccount } from '../account';
+import { useTimeZone } from '../calendar/hooks';
+import { pendingActivities, upcomingExams } from '../lib/progress';
+import { usePersonalOptional } from '../personal/context';
 
 export function Home({ go }: { go: (to: string) => void }) {
   const { bank, state } = useStudy();
@@ -17,6 +20,16 @@ export function Home({ go }: { go: (to: string) => void }) {
   const qa = useMemo(() => qualitySummary(bank.questions), [bank.questions]);
   const active = state.active;
   const activeDone = active ? Object.keys(active.answers).length : 0;
+  const [tz] = useTimeZone();
+  const personal = usePersonalOptional();
+  const events = personal?.items('events');
+  useEffect(() => {
+    if (personal && !events) void personal.load('events');
+  }, [personal, events]);
+  const now = Date.now();
+  const nextExam = upcomingExams(events ?? [], now, tz, 21)[0];
+  const pending = pendingActivities(events ?? [], now, tz);
+  const agendaNote = [pending.overdue.length ? `${pending.overdue.length} atrasada${pending.overdue.length === 1 ? '' : 's'}` : '', pending.today.length ? `${pending.today.length} para hoje` : ''].filter(Boolean).join(' · ');
   const hasExam = bank.taxonomy.disciplines.some((d) => d.topics.some((t) => t.examFocus && bank.questions.some((q) => q.topicId === t.id)));
 
   return (
@@ -40,6 +53,17 @@ export function Home({ go }: { go: (to: string) => void }) {
           <span>
             <strong>Continuar sessão em andamento</strong>
             <small>{MODE_LABEL[active.session.config.mode]} · {activeDone} de {active.session.items.length} respondidas</small>
+          </span>
+          <ChevronRight size={18} aria-hidden="true" />
+        </button>
+      )}
+
+      {(nextExam || agendaNote) && (
+        <button type="button" className="resume" onClick={() => go('#/agenda')}>
+          <CalendarDays size={20} aria-hidden="true" />
+          <span>
+            <strong>{nextExam ? `${nextExam.event.title}: ${nextExam.daysLeft === 0 ? 'é hoje' : nextExam.daysLeft === 1 ? 'amanhã' : `em ${nextExam.daysLeft} dias`}` : 'Agenda'}</strong>
+            <small>{agendaNote || 'Abrir a agenda'}</small>
           </span>
           <ChevronRight size={18} aria-hidden="true" />
         </button>

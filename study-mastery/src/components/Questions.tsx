@@ -11,6 +11,7 @@ import { DIFFICULTIES, DIFFICULTY_LABEL, MODE_LABEL, type Difficulty, type Mode,
 import { personalProvenance, PersonalSources } from './Explanation';
 import { plural } from './MaterialPage';
 import { RichText } from './RichText';
+import { AI_SENDS } from './Privacy';
 
 type Filter = 'todas' | 'ativas' | 'reportada' | 'arquivada';
 const FILTER_LABEL: Record<Filter, string> = { todas: 'Todas', ativas: 'Disponíveis', reportada: 'Com erro relatado', arquivada: 'Arquivadas' };
@@ -282,6 +283,7 @@ function GeneratePanel({ d, topics, materials, existing, onDone }: { d: PDiscipl
                 ))}
               </ul>
             </fieldset>
+            <p className="hint">{AI_SENDS} <a href="#/dados">Seus dados</a></p>
             <p className="hint">Até {LIMITS.questionsPerBatch} por pedido. Só ficam as questões que citam um trecho existente na página indicada; as outras são descartadas e listadas aqui. Pedido igual com o mesmo material não gera de novo. Você tem {existing} questões nesta disciplina.</p>
             <button type="button" className="primary" disabled={!!busy || !picked.length || !topicId} onClick={() => void run()}><Sparkles size={16} aria-hidden="true" /> Gerar {qty} questões</button>
           </>

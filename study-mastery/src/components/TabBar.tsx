@@ -7,7 +7,7 @@ const TABS: { to: string; names: Route['name'][]; label: string; icon: React.Rea
   { to: '#/disciplinas', names: ['disciplines', 'discipline', 'materialNew', 'material', 'questions', 'guideNew', 'guide'], label: 'Disciplinas', icon: <NotebookTabs size={20} aria-hidden="true" /> },
   { to: '#/agenda', names: ['calendar', 'event', 'eventNew', 'eventEdit', 'planner'], label: 'Agenda', icon: <CalendarDays size={20} aria-hidden="true" /> },
   { to: '#/progress', names: ['progress'], label: 'Progresso', icon: <BarChart3 size={20} aria-hidden="true" /> },
-  { to: '#/conta', names: ['account'], label: 'Conta', icon: <UserRound size={20} aria-hidden="true" /> },
+  { to: '#/conta', names: ['account', 'privacy'], label: 'Conta', icon: <UserRound size={20} aria-hidden="true" /> },
 ];
 
 /** Navegação principal fixa embaixo (ícone + nome). Some durante o quiz. */

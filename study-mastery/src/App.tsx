@@ -12,6 +12,7 @@ import { GuideNew, GuidePage } from './components/Guides';
 import { Calendar } from './components/Calendar';
 import { EventForm, EventPage } from './components/EventPage';
 import { Planner } from './components/Planner';
+import { Privacy } from './components/Privacy';
 import { EVENT_TYPES, type EventType } from './personal/types';
 import { TabBar } from './components/TabBar';
 import { Home } from './components/Home';
@@ -61,6 +62,7 @@ export function App() {
         {route.name === 'library' && <Library go={go} />}
         {route.name === 'help' && <Help go={go} />}
         {route.name === 'account' && <Account go={go} />}
+        {route.name === 'privacy' && <Privacy go={go} />}
         {route.name === 'disciplines' && <Disciplines go={go} />}
         {route.name === 'discipline' && <DisciplinePage key={route.id} id={route.id} go={go} />}
         {route.name === 'materialNew' && <MaterialNew key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}

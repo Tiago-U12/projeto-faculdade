@@ -7,6 +7,7 @@ import type { PersonalRepo } from '../personal/repo';
 import { LIMITS, newId, nowIso, type GuideItem, type GuideSection, type PGuide, type PMaterial, type PTopic, type SectionKind } from '../personal/types';
 import { plural, StatusBadge } from './MaterialPage';
 import { RichText } from './RichText';
+import { AI_SENDS } from './Privacy';
 
 export const NOT_A_PREDICTION = 'O Study Mastery não sabe o que vai cair na avaliação: o guia cobre só os assuntos que você confirmou, a partir dos seus materiais.';
 
@@ -272,7 +273,7 @@ export function GuidePage({ id, go }: { id: string; go: (to: string) => void }) 
           <button type="button" className="ghost" onClick={() => go(`#/planejar?g=${g.id}`)}>Planejar sessões até a prova</button>
         </section>
       )}
-      <p className={ai.status.kind === 'on' ? 'hint' : 'muted'} role="status">{aiStatusText(ai.status)}</p>
+      <p className={ai.status.kind === 'on' ? 'hint' : 'muted'} role="status">{aiStatusText(ai.status)}{ai.status.kind === 'on' && <> {AI_SENDS} <a href="#/dados">Seus dados</a></>}</p>
 
       {topics.map((t, i) => (
         <section key={t.id} className="panel guide-topic" aria-labelledby={'h-gt-' + t.id}>

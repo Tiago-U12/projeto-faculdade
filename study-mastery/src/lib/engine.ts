@@ -201,7 +201,7 @@ export function shortfall(poolSize: number, requested: number): number {
   return Math.max(0, requested - poolSize);
 }
 
-export function reviewCounts(pool: readonly PublishedQuestion[], stats: Record<string, QuestionStat>, now = new Date()) {
+export function reviewCounts(pool: readonly { id: string }[], stats: Record<string, QuestionStat>, now = new Date()) {
   let errors = 0;
   let due = 0;
   for (const q of pool) {

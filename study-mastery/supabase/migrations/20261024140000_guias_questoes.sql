@@ -111,8 +111,10 @@ language sql security invoker set search_path = '' as $$
    where g.owner_id = (select auth.uid()) and g.id = p_guide;
 $$;
 
--- Excluir um material leva junto: texto extraído (FK), questões e guias gerados a partir dele e o texto dessas
--- questões guardado no histórico de tentativas (fica só o acerto/erro). O arquivo no Storage é apagado pelo app antes.
+-- Excluir um material leva junto: texto extraído (FK), questões e guias gerados a partir dele, o texto dessas
+-- questões guardado no histórico de tentativas (fica só o acerto/erro) e as tarefas de geração que o usaram (o
+-- resultado delas cita trechos de questões descartadas). O registro de consumo fica (sem conteúdo). O arquivo no
+-- Storage é apagado pelo app antes.
 create or replace function public.delete_material_cascade(p_material uuid) returns jsonb
 language plpgsql security definer set search_path = '' as $$
 declare
@@ -130,6 +132,9 @@ begin
   get diagnostics nq = row_count;
   delete from public.guides where owner_id = uid and p_material = any (material_ids);
   get diagnostics ng = row_count;
+  delete from public.jobs j where j.owner_id = uid and exists (
+    select 1 from jsonb_array_elements(case when jsonb_typeof(j.input -> 'materials') = 'array' then j.input -> 'materials' else '[]'::jsonb end) m
+     where m ->> 0 = p_material::text);
   delete from public.materials where owner_id = uid and id = p_material;
   return jsonb_build_object('questoes', nq, 'guias', ng);
 end $$;

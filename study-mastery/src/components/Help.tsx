@@ -47,7 +47,7 @@ export function Help({ go }: { go: (to: string) => void }) {
     <>
       <button type="button" className="back" onClick={() => go('#/')}><ArrowLeft size={18} aria-hidden="true" /> Início</button>
       <h1 className="screen-title">Ajuda e <em>diagnóstico.</em></h1>
-      <p className="sub">Se o app não abre, fica em branco ou mostra algo estranho, comece por aqui. Nada nesta tela apaga seu progresso.</p>
+      <p className="sub">Se o app não abre, fica em branco ou mostra algo estranho, comece por aqui. Nada nesta tela apaga seu progresso. Sobre armazenamento e envio de dados, veja <a href="#/dados">Seus dados e privacidade</a>.</p>
 
       <section className="panel" aria-labelledby="h-steps">
         <div className="panel-head"><h2 id="h-steps"><LifeBuoy size={18} aria-hidden="true" /> O que tentar</h2></div>

@@ -829,7 +829,7 @@ async function main() {
     ok('nenhuma requisição para fora do próprio site (Moodle, Google Drive ou outros)', ext.length === 0, ext.join(', ') || `${requests.length} requisições, todas do próprio site`);
     ok('nenhum envio de dados (só GET/HEAD durante toda a homologação)', requests.every((r) => r.method === 'GET' || r.method === 'HEAD'));
     const storage = await page.evaluate(async () => ({ ls: Object.keys(localStorage), caches: await caches.keys(), idb: (await indexedDB.databases()).map((d) => d.name) }));
-    ok('dados locais só sob o nome do Study Mastery', storage.ls.every((k) => k.startsWith('study-mastery:')) && storage.caches.every((k) => k.startsWith('study-mastery-')) && storage.idb.every((n) => n === 'study-mastery-radio'), JSON.stringify(storage));
+    ok('dados locais só sob o nome do Study Mastery', storage.ls.every((k) => k.startsWith('study-mastery:')) && storage.caches.every((k) => k.startsWith('study-mastery-')) && storage.idb.every((n) => !!n?.startsWith('study-mastery-')), JSON.stringify(storage)); // 0.6: study-mastery-personal (disciplinas, materiais, agenda)
     const files = fs.readdirSync(DIST, { recursive: true }).map(String);
     const blobs = files.filter((f) => fs.statSync(path.join(DIST, f)).isFile()).map((f) => fs.readFileSync(path.join(DIST, f), 'latin1')).join('\n');
     const secrets = [/sk-ant-[A-Za-z0-9-]{10,}/, /AIza[0-9A-Za-z_-]{30,}/, /gh[pousr]_[A-Za-z0-9]{30,}/, /ANTHROPIC_API_KEY\s*[=:]\s*["'][^"']+/, /GOOGLE_DRIVE_TOKEN\s*[=:]\s*["'][^"']+/, /-----BEGIN [A-Z ]*PRIVATE KEY-----/].filter((r) => r.test(blobs));

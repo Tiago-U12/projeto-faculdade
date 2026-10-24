@@ -13,6 +13,9 @@ const ROOT = path.resolve(import.meta.dirname, '../..');
 const PORT = 4193;
 const BASE = `http://127.0.0.1:${PORT}/`;
 const SHOTS = path.join(ROOT, 'docs/screenshots/v06');
+let curWidth = 390;
+/** capturas do celular com o nome base; no computador, com sufixo -desktop */
+const shot = (name: string) => path.join(SHOTS, curWidth >= 1000 ? name.replace(/\.png$/, '-desktop.png') : name);
 fs.mkdirSync(SHOTS, { recursive: true });
 const axeSrc = fs.readFileSync(path.join(ROOT, 'node_modules/axe-core/axe.min.js'), 'utf8');
 
@@ -46,7 +49,7 @@ section('Disciplinas neste aparelho', async (page) => {
   await page.getByLabel(/Período/).fill('2026.2');
   await page.locator('.swatch', { hasText: 'Coral' }).click();
   await page.getByLabel(/Assuntos/).fill('Cinemática\nLeis de Newton\n  cinemática \nTrabalho e energia');
-  await page.screenshot({ path: path.join(SHOTS, 'b-disciplina-nova.png'), fullPage: true });
+  await page.screenshot({ path: shot('b-disciplina-nova.png'), fullPage: true });
   await page.getByRole('button', { name: 'Criar disciplina' }).click();
   await page.getByRole('heading', { name: 'Física I' }).waitFor();
   const topics = await page.locator('.topic-rows li').allInnerTexts();
@@ -65,7 +68,7 @@ section('Disciplinas neste aparelho', async (page) => {
   await page.getByRole('heading', { name: 'Física I' }).waitFor();
   ok('assuntos e renomeação continuam após recarregar', (await page.locator('.topic-rows li').count()) === 4);
   ok('sem rolagem horizontal (detalhe)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'b-disciplina-detalhe.png'), fullPage: true });
+  await page.screenshot({ path: shot('b-disciplina-detalhe.png'), fullPage: true });
   await page.getByRole('button', { name: 'Editar' }).click();
   await page.getByLabel('Nome', { exact: true }).fill('Física I — turma B');
   await page.getByRole('button', { name: 'Salvar alterações' }).click();
@@ -131,7 +134,7 @@ section('Materiais neste aparelho', async (page) => {
   const sugg = await page.locator('.pick-list li').allInnerTexts();
   ok('assuntos sugeridos com a página de origem', sugg.some((x) => /Integração por partes.*página 1/.test(x)) && sugg.some((x) => /Frações parciais.*página 3/.test(x)), sugg);
   ok('sem rolagem horizontal na página do material (prévia aberta)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'c-material-pronto.png'), fullPage: true });
+  await page.screenshot({ path: shot('c-material-pronto.png'), fullPage: true });
   await page.getByLabel(/Integração por partes/).check();
   await page.getByLabel(/Frações parciais/).check();
   await page.getByRole('button', { name: /Adicionar 2 assuntos/ }).click();
@@ -152,7 +155,7 @@ section('Materiais neste aparelho', async (page) => {
   await page.getByRole('button', { name: 'Adicionar material' }).click();
   await page.getByRole('heading', { name: 'digitalizado' }).waitFor({ timeout: 30000 });
   ok('PDF digitalizado: Precisa de atenção, explica que não há OCR', /Precisa de atenção/.test(await page.locator('main').innerText()) && /não faz OCR/.test(await page.locator('main').innerText()));
-  await page.screenshot({ path: path.join(SHOTS, 'c-material-atencao.png'), fullPage: true });
+  await page.screenshot({ path: shot('c-material-atencao.png'), fullPage: true });
   // texto colado
   await page.getByRole('button', { name: /Cálculo II \(minha\)/ }).click();
   await page.getByRole('button', { name: 'Adicionar material' }).click();
@@ -196,7 +199,7 @@ section('Guias e questões neste aparelho', async (page) => {
   await page.getByRole('button', { name: 'Criar guia' }).click();
   ok('avaliação exige confirmar o escopo', /Confirme o escopo/.test(await page.getByRole('alert').innerText()));
   await page.getByLabel(/Confirmo que o escopo da avaliação é/).check();
-  await page.screenshot({ path: path.join(SHOTS, 'd-guia-novo.png'), fullPage: true });
+  await page.screenshot({ path: shot('d-guia-novo.png'), fullPage: true });
   await page.getByRole('button', { name: 'Criar guia' }).click();
   await page.getByRole('heading', { name: 'Guia — Cálculo II (minha)' }).waitFor();
   const guide = await page.locator('main').innerText();
@@ -204,7 +207,7 @@ section('Guias e questões neste aparelho', async (page) => {
   ok('“Trechos do seu material” vem do texto, com material e página', /Trechos do seu material/.test(guide) && /aula-integrais — página \d/.test(guide), guide.slice(0, 400));
   ok('sem botão de gerar por IA no aparelho', (await page.getByRole('button', { name: /^Gerar/ }).count()) === 0);
   ok('sem rolagem horizontal (guia)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'd-guia.png'), fullPage: true });
+  await page.screenshot({ path: shot('d-guia.png'), fullPage: true });
   ok('axe-core: Guia sem violações', (await axe(page)).length === 0, await axe(page));
   await page.getByRole('button', { name: 'Atualizar trechos' }).first().click();
   await page.locator('.form-ok').waitFor();
@@ -247,7 +250,7 @@ section('Guias e questões neste aparelho', async (page) => {
   await page.getByRole('button', { name: 'Relatar erro' }).click();
   await page.getByRole('button', { name: 'Salvar relato' }).click();
   ok('relato de questão pessoal explica que ela sai das sessões', /fica fora das sessões/.test(await page.locator('main').innerText()));
-  await page.screenshot({ path: path.join(SHOTS, 'd-quiz-pessoal.png'), fullPage: true });
+  await page.screenshot({ path: shot('d-quiz-pessoal.png'), fullPage: true });
   await page.locator('.quizactions button.primary').click();
   await page.locator('.choices button').first().click();
   await page.locator('.quizactions button.primary').click();
@@ -265,7 +268,7 @@ section('Guias e questões neste aparelho', async (page) => {
   await page.getByRole('button', { name: 'Salvar' }).click();
   ok('editar cria a versão 2 e devolve a questão às sessões', /versão 2/.test(await page.locator('.form-ok').innerText()) && (await page.locator('.q-badge.st-reportada').count()) === 0);
   ok('sem rolagem horizontal (questões)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'd-questoes.png'), fullPage: true });
+  await page.screenshot({ path: shot('d-questoes.png'), fullPage: true });
   ok('axe-core: Questões sem violações', (await axe(page)).length === 0, await axe(page));
 
   // excluir o material leva o guia gerado dele
@@ -312,7 +315,7 @@ section('Agenda e planejamento neste aparelho', async (page) => {
   await page.getByRole('button', { name: 'Salvar' }).click();
   await page.getByRole('heading', { name: 'Estudo de estequiometria' }).waitFor();
   ok('evento vencido aparece como atrasado (status continua agendado)', /Atrasado \(não foi marcado como concluído\)/.test(await page.locator('.ev-detail').innerText()));
-  await page.screenshot({ path: path.join(SHOTS, 'e-evento-atrasado.png'), fullPage: true });
+  await page.screenshot({ path: shot('e-evento-atrasado.png'), fullPage: true });
   ok('axe-core: Evento sem violações', (await axe(page)).length === 0, await axe(page));
   await page.getByRole('button', { name: 'Reagendar' }).click();
   const sugg = await page.getByRole('group', { name: 'Sugestão de novo horário' }).innerText();
@@ -352,7 +355,7 @@ section('Agenda e planejamento neste aparelho', async (page) => {
   ok('mês: grade de 6 semanas', (await page.locator('.mday').count()) === 42);
   ok('mês: dia escolhido lista os eventos', /Prova: Química/.test(await page.locator('.day-block').last().innerText()));
   ok('sem rolagem horizontal (mês)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'e-agenda-mes.png'), fullPage: true });
+  await page.screenshot({ path: shot('e-agenda-mes.png'), fullPage: true });
   await page.getByRole('button', { name: 'Semana', exact: true }).click();
   await page.locator('.week .day-block').nth(6).waitFor();
   ok('semana: 7 dias', (await page.locator('.week .day-block').count()) === 7);
@@ -398,7 +401,7 @@ section('Agenda e planejamento neste aparelho', async (page) => {
   ok('prévia com estudo, exercícios, revisão e simulado; sem aviso de falta de tempo', /Estudo: /.test(prev) && /Exercícios: /.test(prev) && /Revisão: /.test(prev) && /Simulado: /.test(prev) && !/Tempo insuficiente/.test(prev), prev.slice(0, 400));
   ok('nada é criado antes de confirmar', !(await idbAll(page, 'events')).some((e) => (e as { plan?: unknown }).plan));
   ok('sem rolagem horizontal (planejamento)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'e-planejar.png'), fullPage: true });
+  await page.screenshot({ path: shot('e-planejar.png'), fullPage: true });
   ok('axe-core: Planejamento sem violações', (await axe(page)).length === 0, await axe(page));
   await page.getByRole('button', { name: /Criar \d+ evento/ }).click();
   await page.getByRole('heading', { name: 'Agenda', exact: true }).waitFor();
@@ -408,7 +411,7 @@ section('Agenda e planejamento neste aparelho', async (page) => {
   ok('eventos criados só depois de confirmar, todos antes do dia da prova', planned.length >= 7 && planned.every((e) => Date.parse(e.start!) < examLocal), planned.map((e) => e.start));
   ok('evento da prova criado (dia inteiro)', all.some((e) => e.type === 'prova' && e.date === exam && /Cálculo II/.test(e.title)));
   ok('sem rolagem horizontal (lista)', await noHScroll(page));
-  await page.screenshot({ path: path.join(SHOTS, 'e-agenda-lista.png'), fullPage: true });
+  await page.screenshot({ path: shot('e-agenda-lista.png'), fullPage: true });
   ok('axe-core: Agenda sem violações', (await axe(page)).length === 0, await axe(page));
   await page.locator('.ev-row', { hasText: 'Revisão: ' }).first().click();
   await page.getByRole('button', { name: 'Abrir questões' }).click();
@@ -422,6 +425,35 @@ section('Agenda e planejamento neste aparelho', async (page) => {
   await page.getByRole('alertdialog').getByRole('button', { name: 'Excluir' }).click();
   await page.getByRole('heading', { name: /Suas disciplinas/ }).waitFor();
   ok('eventos da disciplina excluída saem da agenda', !(await idbAll(page, 'events')).some((e) => /Química|estequiometria|Revisão rápida/.test(String(e.title))));
+});
+
+// ---------------------------------------------------------------- Etapa F: progresso, dados e início
+section('Progresso, dados e início', async (page) => {
+  await page.goto(BASE + '#/progress');
+  await page.getByRole('heading', { name: 'Seu progresso.' }).waitFor();
+  const agenda = await page.locator('section', { has: page.locator('#h-next') }).innerText();
+  ok('progresso mostra a próxima prova com os dias que faltam', /Prova: Cálculo II \(minha\).*faltam 9 dias/.test(agenda), agenda.slice(0, 200));
+  await page.getByRole('button', { name: 'Cálculo II (minha) · sua' }).click();
+  const main = await page.locator('main').innerText();
+  ok('disciplina pessoal separada do banco existente', /Suas questões pessoais \(separadas do banco existente\)/.test(main));
+  ok('separa atividade, desempenho e evidência, sem declarar domínio', /ATIVIDADE/.test(main) && /DESEMPENHO/.test(main) && /Nenhum número aqui indica que você domina/.test(main));
+  ok('poucas respostas aparecem como “sem conclusão”', /Poucas respostas \(\d\): ainda sem conclusão/.test(main), main.slice(0, 600));
+  ok('sem rolagem horizontal (progresso)', await noHScroll(page));
+  await page.screenshot({ path: shot('f-progresso.png'), fullPage: true });
+  ok('axe-core: Progresso sem violações', (await axe(page)).length === 0, await axe(page));
+  await page.getByRole('button', { name: 'Cálculo II', exact: true }).click();
+  ok('banco existente continua com as próprias métricas', /Questões do banco existente/.test(await page.locator('main').innerText()));
+
+  await page.goto(BASE + '#/conta');
+  await page.getByRole('button', { name: 'Seus dados e privacidade' }).click();
+  await page.getByRole('heading', { name: 'Seus dados e privacidade' }).waitFor();
+  const priv = await page.locator('main').innerText();
+  ok('privacidade: diz o que vai para o provedor de IA e o que cada exclusão leva', /Anthropic/.test(priv) && /até 60 mil caracteres/.test(priv) && /O que cada exclusão leva/.test(priv));
+  ok('axe-core: Privacidade sem violações', (await axe(page)).length === 0, await axe(page));
+
+  await page.goto(BASE + '#/');
+  await page.getByRole('heading', { name: /Aprenda mais/ }).waitFor();
+  ok('início mostra a próxima prova da agenda', /Prova: Cálculo II \(minha\): em 9 dias/.test(await page.locator('main').innerText()));
 });
 
 section('Conta sem configuração e navegação', async (page) => {
@@ -460,9 +492,10 @@ async function main() {
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox'] });
   const errors: string[] = [];
   try {
-    for (const width of [390, 320]) {
+    for (const width of [390, 320, 1280]) {
+      curWidth = width;
       console.log(`\n=== ${width}px ===`);
-      const ctx = await browser.newContext({ viewport: { width, height: 844 }, deviceScaleFactor: 2, locale: 'pt-BR', timezoneId: 'America/Sao_Paulo', colorScheme: width === 390 ? 'dark' : 'light', serviceWorkers: 'block' });
+      const ctx = await browser.newContext({ viewport: { width, height: width >= 1000 ? 800 : 844 }, deviceScaleFactor: width >= 1000 ? 1 : 2, locale: 'pt-BR', timezoneId: 'America/Sao_Paulo', colorScheme: width === 390 ? 'dark' : 'light', serviceWorkers: 'block' });
       const page = await ctx.newPage();
       page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
       page.on('pageerror', (e) => errors.push(String(e)));
@@ -482,6 +515,15 @@ async function main() {
     server.kill();
   }
   ok('sem erros de console', errors.length === 0, errors.slice(0, 5));
+  // nenhum segredo no que vai para o navegador (chave de IA, chave secreta/service_role do Supabase)
+  const files = (fs.readdirSync(path.join(ROOT, 'dist'), { recursive: true }) as string[]).filter((f) => /\.(js|html|json|webmanifest|css)$/.test(f));
+  // (o código que RECUSA chaves secretas contém o texto "service_role" numa regex: por isso o JWT é decodificado)
+  const jwtRole = (t: string) => { try { return JSON.parse(Buffer.from(t.split('.')[1], 'base64url').toString()).role; } catch { return null; } };
+  const leaks = files.filter((f) => {
+    const txt = fs.readFileSync(path.join(ROOT, 'dist', f), 'utf8');
+    return /sk-ant-[A-Za-z0-9_-]{8}|sb_secret_[A-Za-z0-9]{8}|ANTHROPIC_API_KEY/.test(txt) || (txt.match(/eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]+/g) ?? []).some((t) => jwtRole(t) === 'service_role');
+  });
+  ok(`build sem segredos (${files.length} arquivos verificados)`, leaks.length === 0, leaks);
   console.log(`\n${passes} ok · ${failures} falha(s)`);
   process.exit(failures ? 1 : 0);
 }
