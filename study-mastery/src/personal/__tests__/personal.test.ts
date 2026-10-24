@@ -51,15 +51,18 @@ describe('importação do aparelho para a conta', () => {
 });
 
 describe('repositório neste aparelho e exclusão em cascata', () => {
-  it('excluir uma disciplina leva os assuntos dela e nada de outras', async () => {
+  it('excluir uma disciplina leva os assuntos e os eventos dela e nada de outras', async () => {
     const repo = new LocalRepo(memoryBackend());
     await repo.putMany('disciplines', [disc('d1', 'A'), disc('d2', 'B')]);
     await repo.putMany('topics', [topic('t1', 'd1', 'x'), topic('t2', 'd1', 'y'), topic('t3', 'd2', 'z')]);
-    const plan = planDeletion({ kind: 'disciplines', id: 'd1' }, { topics: await repo.list('topics') });
-    expect(plan).toEqual({ disciplines: ['d1'], topics: ['t1', 't2'], materials: [], questions: [], guides: [] });
+    const ev = (id: string, disciplineId: string) => ({ id, disciplineId, type: 'prova' as const, title: id, status: 'agendado' as const, allDay: true, date: '2026-11-20', timeZone: 'UTC', topicIds: [], notes: '', createdAt: T, updatedAt: T });
+    await repo.putMany('events', [ev('e1', 'd1'), ev('e2', 'd2'), ev('e3', 'calculo2')]);
+    const plan = planDeletion({ kind: 'disciplines', id: 'd1' }, { topics: await repo.list('topics'), events: await repo.list('events') });
+    expect(plan).toEqual({ disciplines: ['d1'], topics: ['t1', 't2'], materials: [], questions: [], guides: [], events: ['e1'] });
     await executeDeletion(repo, plan);
     expect((await repo.list('disciplines')).map((d) => d.id)).toEqual(['d2']);
     expect((await repo.list('topics')).map((t) => t.id)).toEqual(['t3']);
+    expect((await repo.list('events')).map((e) => e.id).sort()).toEqual(['e2', 'e3']);
   });
 });
 
@@ -130,5 +133,20 @@ describe('configuração da conta no navegador', () => {
   });
   it('recusa URL que não é de projeto Supabase', () => {
     expect(cloudConfig({ VITE_SUPABASE_URL: 'https://evil.example.com', VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_x' })).toBeNull();
+  });
+});
+
+describe('agenda: mapeamento evento ↔ linha do banco', () => {
+  const base = { createdAt: T, updatedAt: T, disciplineId: 'calculo2', type: 'estudo' as const, title: 'Estudo', status: 'agendado' as const, timeZone: 'America/Sao_Paulo', topicIds: ['c2-integrais'], notes: 'x' };
+  it('dia inteiro guarda só a data; com horário, só o instante', () => {
+    const allDay = { ...base, id: 'e1', allDay: true, date: '2026-11-20', link: { kind: 'nenhum' as const } };
+    const r1 = MAPPERS.events.toRow(allDay, 'u');
+    expect(r1).toMatchObject({ all_day: true, date: '2026-11-20', start_at: null, duration_min: null });
+    expect(MAPPERS.events.fromRow({ ...r1, date: '2026-11-20' })).toEqual(allDay);
+    const timed = { ...base, id: 'e2', allDay: false, start: '2026-11-10T22:00:00.000Z', durationMin: 50, plan: { id: 'p', examDate: '2026-11-20', weekdays: [1], windowStart: '19:00', windowEnd: '22:00', minutesPerDay: 90 }, history: [{ at: T, from: 'a', to: 'b' }] };
+    const r2 = MAPPERS.events.toRow(timed, 'u');
+    expect(r2).toMatchObject({ all_day: false, date: null, start_at: '2026-11-10T22:00:00.000Z', duration_min: 50 });
+    // o PostgREST devolve timestamptz com outro formato: o instante continua o mesmo
+    expect(MAPPERS.events.fromRow({ ...r2, start_at: '2026-11-10T22:00:00+00:00' })).toEqual(timed);
   });
 });

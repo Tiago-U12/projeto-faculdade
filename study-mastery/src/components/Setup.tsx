@@ -35,11 +35,13 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
     if (preset === 'exam') return discipline.topics.filter((t) => t.examFocus && withQuestions(t.id)).map((t) => t.id);
     return discipline.topics.filter((t) => withQuestions(t.id)).map((t) => t.id);
   };
-  const reuse = last && last.disciplineId === disciplineId && !route.preset;
-  const [topicIds, setTopicIds] = useState<string[]>(() => (reuse ? last.topicIds.filter(withQuestions) : defaultTopics(route.preset)));
+  const reuse = last && last.disciplineId === disciplineId && !route.preset && !route.topics;
+  // vindo da agenda: assuntos do evento (só os que têm questões)
+  const fromEvent = route.topics?.filter((t) => discipline.topics.some((x) => x.id === t) && withQuestions(t));
+  const [topicIds, setTopicIds] = useState<string[]>(() => (fromEvent?.length ? fromEvent : reuse ? last.topicIds.filter(withQuestions) : defaultTopics(route.preset)));
   const [scope, setScope] = useState<Scope>(reuse ? last.scope : 'aprofundamento');
   const [difficulties, setDifficulties] = useState<Difficulty[]>(reuse ? last.difficulties : [...DIFFICULTIES]);
-  const [mode, setMode] = useState<Mode>(reuse ? last.mode : 'aprender');
+  const [mode, setMode] = useState<Mode>(route.mode ?? (reuse ? last.mode : 'aprender'));
   const [size, setSize] = useState<number>(reuse ? last.size : 20);
 
   const cfg: SessionConfig = { disciplineId, topicIds, scope, difficulties, mode, size };

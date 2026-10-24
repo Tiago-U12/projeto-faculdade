@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpen, ChevronRight, FileText, ListChecks, Pencil, Plus, Trash2, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, CalendarDays, ChevronRight, FileText, ListChecks, Pencil, Plus, Route as RouteIcon, Trash2, X } from 'lucide-react';
 import { useState } from 'react';
 import { useCollection, usePersonal } from '../personal/context';
 import { planDeletion } from '../personal/repo';
@@ -8,6 +8,10 @@ import { spaceLabel } from './Disciplines';
 import { isStuck, plural, StatusBadge } from './MaterialPage';
 import { useMaterialCtx } from './MaterialNew';
 import { deleteMaterial } from '../materials/service';
+import { useCatalog, useTimeZone } from '../calendar/hooks';
+import { eventDay, isOverdue } from '../calendar/plan';
+import { todayIn } from '../calendar/time';
+import { EventRow, sortDay } from './Calendar';
 
 export function DisciplinePage({ id, go }: { id: string; go: (to: string) => void }) {
   const p = usePersonal();
@@ -17,6 +21,14 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
   const { items: allMaterials } = useCollection('materials');
   const { items: allQuestions } = useCollection('questions');
   const { items: allGuides } = useCollection('guides');
+  const { items: allEvents } = useCollection('events');
+  const [tz] = useTimeZone();
+  const catalog = useCatalog();
+  const now = Date.now();
+  const upcoming = sortDay(allEvents.filter((e) => e.disciplineId === id && e.status === 'agendado' && (eventDay(e, tz) >= todayIn(tz) || isOverdue(e, now, tz))))
+    .sort((a, b) => eventDay(a, tz).localeCompare(eventDay(b, tz)))
+    .slice(0, 4);
+  const eventCount = allEvents.filter((e) => e.disciplineId === id).length;
   const questions = allQuestions.filter((q) => q.disciplineId === id);
   const guides = allGuides.filter((g) => g.disciplineId === id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const materials = allMaterials.filter((x) => x.disciplineId === id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -107,7 +119,7 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
 
       {confirmDelete && (
         <div className="confirm" role="alertdialog" aria-label="Excluir disciplina">
-          <p>Excluir “{d.name}”, {topics.length === 1 ? 'o assunto dela' : `os ${topics.length} assuntos dela`}{materials.length ? `, ${materials.length === 1 ? 'o material' : `os ${materials.length} materiais`} (com arquivos e textos extraídos)` : ''}{questions.length ? `, ${plural(questions.length, 'questão pessoal', 'questões pessoais')}` : ''}{guides.length ? `, ${plural(guides.length, 'guia', 'guias')}` : ''} {p.space.kind === 'device' ? 'deste aparelho' : 'da sua conta'}? O acerto/erro das sessões continua no Progresso; o texto das questões sai do histórico. Não dá para desfazer.</p>
+          <p>Excluir “{d.name}”, {topics.length === 1 ? 'o assunto dela' : `os ${topics.length} assuntos dela`}{materials.length ? `, ${materials.length === 1 ? 'o material' : `os ${materials.length} materiais`} (com arquivos e textos extraídos)` : ''}{questions.length ? `, ${plural(questions.length, 'questão pessoal', 'questões pessoais')}` : ''}{guides.length ? `, ${plural(guides.length, 'guia', 'guias')}` : ''}{eventCount ? `, ${plural(eventCount, 'evento da agenda', 'eventos da agenda')}` : ''} {p.space.kind === 'device' ? 'deste aparelho' : 'da sua conta'}? O acerto/erro das sessões continua no Progresso; o texto das questões sai do histórico. Não dá para desfazer.</p>
           <div className="row wrap">
             <button type="button" className="ghost" onClick={() => setConfirmDelete(false)}>Cancelar</button>
             <button
@@ -115,9 +127,10 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
               className="danger"
               disabled={busy}
               onClick={() => void run(async () => {
-                const plan = planDeletion({ kind: 'disciplines', id: d.id }, { topics: allTopics, materials: allMaterials, questions: await p.repo.list('questions'), guides: await p.repo.list('guides') });
+                const plan = planDeletion({ kind: 'disciplines', id: d.id }, { topics: allTopics, materials: allMaterials, questions: await p.repo.list('questions'), guides: await p.repo.list('guides'), events: await p.repo.list('events') });
                 // filhos antes dos pais; materiais um a um para apagar também o arquivo na pasta privada da conta
                 for (const m of allMaterials.filter((x) => plan.materials.includes(x.id))) await deleteMaterial(ctx, m);
+                await p.removeIds('events', plan.events);
                 await p.removeIds('questions', plan.questions);
                 await p.removeIds('guides', plan.guides);
                 ctx.scrub?.(plan.questions);
@@ -150,6 +163,15 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
           </ul>
         )}
         <button type="button" className="ghost" onClick={() => go(`#/material-novo?d=${d.id}`)}><Plus size={16} aria-hidden="true" /> Adicionar material</button>
+      </section>
+
+      <section className="panel" aria-labelledby="h-agenda">
+        <div className="panel-head"><h2 id="h-agenda"><CalendarDays size={18} aria-hidden="true" /> Agenda</h2></div>
+        {upcoming.length ? <ul className="ev-list">{upcoming.map((e) => <EventRow key={e.id} e={e} d={catalog.get(e.disciplineId)} tz={tz} now={now} go={go} />)}</ul> : <p className="muted">Nada marcado para esta disciplina.</p>}
+        <div className="row wrap">
+          <button type="button" className="ghost" onClick={() => go(`#/evento-novo?d=${d.id}&type=prova`)}><Plus size={16} aria-hidden="true" /> Marcar prova ou entrega</button>
+          <button type="button" className="ghost" onClick={() => go(`#/planejar?d=${d.id}`)}><RouteIcon size={16} aria-hidden="true" /> Planejar até a prova</button>
+        </div>
       </section>
 
       <section className="panel" aria-labelledby="h-guides">

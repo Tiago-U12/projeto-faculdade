@@ -441,7 +441,9 @@ code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-si
 /* questões pessoais e guias */
 .fs { border: 0; margin: 0 0 10px; padding: 0; display: grid; gap: 6px; min-width: 0; }
 .fs > legend { font-weight: 800; font-size: 15px; padding: 0; margin-bottom: 4px; }
-.field.compact { flex: 1 1 140px; min-width: 0; }
+.field.compact { flex: 1 1 150px; min-width: 0; }
+.field { grid-template-columns: minmax(0, 1fr); }
+.field input, .field select { min-width: 0; }
 .practice-opts { align-items: flex-end; margin: 8px 0; }
 .filter-chips { margin: 12px 0 4px; }
 .q-group h3 { font-size: 15px; margin: 16px 0 6px; }
@@ -481,3 +483,46 @@ code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-si
 .exam-box p { margin: 0 0 4px; }
 .exam-box svg { vertical-align: -3px; }
 .q-item details[open] .q-stem { display: none; }
+
+/* agenda */
+.cal-actions { margin: 4px 0 14px; }
+.cal-bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; margin: 6px 0 4px; }
+.cal-bar .seg { margin: 0; flex: 1 1 220px; }
+.cal-bar .seg-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.cal-nav { display: flex; align-items: center; gap: 4px; }
+.ghost.small { min-height: 44px; padding: 8px 14px; }
+.cal-range { font-size: 17px; margin: 8px 0 10px; }
+.muted.small, p.small { font-size: 13.5px; margin: 4px 0 0; }
+.ev-list { list-style: none; margin: 4px 0 10px; padding: 0; display: grid; gap: 6px; }
+.ev-row { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; min-height: 56px; padding: 8px 10px 8px 12px; border-radius: 12px; border: 1px solid var(--border); border-left: 5px solid var(--c, var(--lav)); background: var(--panel-2); color: var(--text); }
+.ev-row:hover { border-color: var(--lav); border-left-color: var(--c, var(--lav)); }
+.ev-time { flex: none; width: 52px; display: grid; font-weight: 800; font-size: 14px; font-variant-numeric: tabular-nums; }
+.ev-time small { font-weight: 600; color: var(--faint); font-size: 12px; }
+.ev-body { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.ev-body strong { overflow-wrap: anywhere; }
+.ev-body small { color: var(--muted); font-size: 12.5px; }
+.ev-row.st-cancelado .ev-body strong { text-decoration: line-through; color: var(--muted); }
+.q-badge.ev-st-concluido { color: var(--ok); border-color: var(--ok); }
+.late-box { border-color: var(--warn); }
+.day-block { margin: 0 0 10px; }
+.day-block h3 { font-size: 14px; margin: 10px 0 4px; display: flex; gap: 8px; align-items: center; color: var(--muted); }
+.day-block.today h3 { color: var(--text); }
+.today-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; background: var(--lav-strong); color: #fff; padding: 2px 8px; border-radius: 99px; }
+.empty-cal { margin: 10px 0 18px; }
+.month { display: grid; gap: 4px; margin-bottom: 8px; }
+.month-head, .month-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.month-head span { text-align: center; font-size: 12px; font-weight: 800; color: var(--faint); text-transform: uppercase; }
+.mday { min-height: 48px; min-width: 0; padding: 4px 2px; border-radius: 10px; border: 1px solid var(--border); background: var(--panel-2); color: var(--text); display: grid; align-content: start; justify-items: center; gap: 3px; }
+.mday.other { opacity: 0.45; }
+.mday.today .mnum { background: var(--lav-strong); color: #fff; border-radius: 99px; padding: 0 6px; }
+.mday.sel { border-color: var(--lav); box-shadow: inset 0 0 0 1px var(--lav); }
+.mnum { font-weight: 800; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.mdots { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; align-items: center; }
+.mdots i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); display: block; }
+.mdots i.prova { border-radius: 2px; width: 9px; }
+.mdots b { font-size: 10px; color: var(--faint); }
+.ev-detail p { margin: 0 0 6px; }
+.ev-notes { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--panel-2); border-radius: 10px; padding: 8px 10px; }
+.resched { margin-top: 12px; }
+.plan-preview .notice { margin: 8px 0; }
+.plan-preview ul.plain { padding-left: 18px; }

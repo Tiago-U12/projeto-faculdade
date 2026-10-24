@@ -18,7 +18,7 @@ const usable = (q: { status: string }) => q.status !== 'reportada' && q.status !
 const originStatus = (q: PQuestion): PQuestion['status'] => (q.origin.kind === 'ia' ? 'gerada_ia' : 'criada_aluno');
 
 /** Questões pessoais de uma disciplina: praticar, gerar a partir do material (com conta), criar, editar e arquivar. */
-export function QuestionsPage({ disciplineId, go }: { disciplineId: string; go: (to: string) => void }) {
+export function QuestionsPage({ disciplineId, focus, go }: { disciplineId: string; focus?: { topics?: string[]; mode?: Mode }; go: (to: string) => void }) {
   const p = usePersonal();
   const { items: disciplines, loading } = useCollection('disciplines');
   const { items: allTopics } = useCollection('topics');
@@ -63,7 +63,7 @@ export function QuestionsPage({ disciplineId, go }: { disciplineId: string; go: 
       <h1 className="screen-title">Questões pessoais</h1>
       <p className="sub">{d.name} · separadas do banco existente. Questões geradas por IA passam só por checagens automáticas (formato, alternativas, trecho conferido no seu material, duplicatas): cálculos e código não são conferidos por ferramenta e não há revisão humana.</p>
 
-      <PracticePanel d={d} topics={topics} quiz={quiz} go={go} />
+      <PracticePanel d={d} topics={topics} quiz={quiz} focus={focus} go={go} />
       <GeneratePanel d={d} topics={topics} materials={materials} existing={questions.length} onDone={(text, ok) => setMsg({ ok, text })} />
 
       <section className="panel" aria-labelledby="h-qlist">
@@ -132,16 +132,17 @@ export function QuestionsPage({ disciplineId, go }: { disciplineId: string; go: 
   );
 }
 
-function PracticePanel({ d, topics, quiz, go }: { d: PDiscipline; topics: PTopic[]; quiz: PersonalQuizQuestion[]; go: (to: string) => void }) {
+function PracticePanel({ d, topics, quiz, focus, go }: { d: PDiscipline; topics: PTopic[]; quiz: PersonalQuizQuestion[]; focus?: { topics?: string[]; mode?: Mode }; go: (to: string) => void }) {
   const { startPersonal } = useStudy();
   const available = useMemo(() => quiz.filter(usable), [quiz]);
   const count = (topicId: string) => available.filter((q) => q.topicId === topicId).length;
   const withQ = topics.filter((t) => count(t.id) > 0);
-  const [topicIds, setTopicIds] = useState<string[] | null>(null);
+  // vindo da agenda: só os assuntos do evento (mesmo os sem questões, para o aviso ficar claro)
+  const [topicIds, setTopicIds] = useState<string[] | null>(focus?.topics?.length ? focus.topics.filter((t) => topics.some((x) => x.id === t)) : null);
   const chosen = topicIds ?? withQ.map((t) => t.id);
   const [difficulties, setDifficulties] = useState<Difficulty[]>([...DIFFICULTIES]);
-  const [mode, setMode] = useState<Mode>('aprender');
-  const [size, setSize] = useState(10);
+  const [mode, setMode] = useState<Mode>(focus?.mode ?? 'aprender');
+  const [size, setSize] = useState(20);
   const cfg: SessionConfig = { disciplineId: d.id, topicIds: chosen, difficulties, scope: 'aula', mode, size };
   const pool = personalPool(quiz, cfg);
   const toggle = <T,>(list: T[], x: T) => (list.includes(x) ? list.filter((y) => y !== x) : [...list, x]);
@@ -156,7 +157,7 @@ function PracticePanel({ d, topics, quiz, go }: { d: PDiscipline; topics: PTopic
           <fieldset className="fs">
             <legend>Assuntos</legend>
             <ul className="chips">
-              {withQ.map((t) => (
+              {topics.filter((t) => count(t.id) > 0 || chosen.includes(t.id)).map((t) => (
                 <li key={t.id}><button type="button" className={'chip' + (chosen.includes(t.id) ? ' on' : '')} aria-pressed={chosen.includes(t.id)} onClick={() => setTopicIds(toggle(chosen, t.id))}>{t.name} · {count(t.id)}</button></li>
               ))}
             </ul>

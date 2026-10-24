@@ -23,6 +23,8 @@ export interface ActiveSession {
 export interface Settings {
   theme: 'auto' | 'light' | 'dark';
   lastConfig?: SessionConfig;
+  /** fuso da agenda (IANA); sem valor, usa o do aparelho */
+  timeZone?: string;
 }
 
 export interface AppState {

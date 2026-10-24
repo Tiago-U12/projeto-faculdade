@@ -9,6 +9,10 @@ import { MaterialNew } from './components/MaterialNew';
 import { MaterialPage } from './components/MaterialPage';
 import { QuestionsPage } from './components/Questions';
 import { GuideNew, GuidePage } from './components/Guides';
+import { Calendar } from './components/Calendar';
+import { EventForm, EventPage } from './components/EventPage';
+import { Planner } from './components/Planner';
+import { EVENT_TYPES, type EventType } from './personal/types';
 import { TabBar } from './components/TabBar';
 import { Home } from './components/Home';
 import { Library } from './components/Library';
@@ -50,7 +54,7 @@ export function App() {
       <main id="main" className="container" tabIndex={-1}>
         <ErrorBoundary key={route.name}>
         {route.name === 'home' && <Home go={go} />}
-        {route.name === 'setup' && <Setup key={`${route.disciplineId}-${route.preset}`} route={route} go={go} />}
+        {route.name === 'setup' && <Setup key={`${route.disciplineId}-${route.preset}-${route.topics?.join()}-${route.mode}`} route={route} go={go} />}
         {route.name === 'quiz' && <Quiz go={go} />}
         {route.name === 'results' && <Results attemptId={route.id} go={go} />}
         {route.name === 'progress' && <Progress go={go} />}
@@ -61,7 +65,12 @@ export function App() {
         {route.name === 'discipline' && <DisciplinePage key={route.id} id={route.id} go={go} />}
         {route.name === 'materialNew' && <MaterialNew key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
         {route.name === 'material' && <MaterialPage key={route.id} id={route.id} go={go} />}
-        {route.name === 'questions' && <QuestionsPage key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
+        {route.name === 'questions' && <QuestionsPage key={route.disciplineId + (route.topics?.join() ?? '') + (route.mode ?? '')} disciplineId={route.disciplineId} focus={route} go={go} />}
+        {route.name === 'calendar' && <Calendar view={route.view} date={route.date} go={go} />}
+        {route.name === 'event' && <EventPage key={route.id} id={route.id} go={go} />}
+        {route.name === 'eventNew' && <EventForm key={`${route.date}-${route.disciplineId}-${route.type}`} date={route.date} disciplineId={route.disciplineId} type={EVENT_TYPES.includes(route.type as EventType) ? (route.type as EventType) : undefined} go={go} />}
+        {route.name === 'eventEdit' && <EventForm key={route.id} id={route.id} go={go} />}
+        {route.name === 'planner' && <Planner key={`${route.disciplineId}-${route.guideId}`} disciplineId={route.disciplineId} guideId={route.guideId} go={go} />}
         {route.name === 'guideNew' && <GuideNew key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
         {route.name === 'guide' && <GuidePage key={route.id} id={route.id} go={go} />}
         </ErrorBoundary>

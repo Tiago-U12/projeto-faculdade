@@ -3,7 +3,7 @@
 //  - CloudRepo: "conta" (Supabase). Toda autorização é do banco (RLS por owner_id); o cliente só envia o JWT.
 import type { KvBackend } from './backend';
 import { mergeSection } from '../../supabase/functions/_shared/generateCore';
-import type { EntityMap, GuideSection, Kind, PageText, PDiscipline, PGuide, PMaterial, PQuestion, PTopic } from './types';
+import type { EntityMap, GuideSection, Kind, PageText, PDiscipline, PEvent, PGuide, PMaterial, PQuestion, PTopic } from './types';
 
 export type Space = { kind: 'device' } | { kind: 'account'; uid: string; email: string };
 
@@ -122,6 +122,25 @@ export const MAPPERS: { [K in Kind]: Mapper<EntityMap[K]> } = {
       };
     },
   },
+  events: {
+    table: 'events',
+    toRow: (e: PEvent, uid) => ({
+      owner_id: uid, id: e.id, discipline_id: e.disciplineId, type: e.type, title: e.title, status: e.status, all_day: e.allDay,
+      date: e.allDay ? e.date : null, start_at: e.allDay ? null : e.start, duration_min: e.durationMin ?? null, time_zone: e.timeZone,
+      completed_at: e.completedAt ?? null, data: { topicIds: e.topicIds, notes: e.notes, link: e.link ?? null, history: e.history ?? [], plan: e.plan ?? null },
+      created_at: e.createdAt, updated_at: e.updatedAt,
+    }),
+    fromRow: (r) => {
+      const d = (r.data ?? {}) as Partial<PEvent> & { link?: PEvent['link'] | null; plan?: PEvent['plan'] | null };
+      return {
+        ...common(r), disciplineId: r.discipline_id as string, type: r.type as PEvent['type'], title: r.title as string, status: r.status as PEvent['status'], allDay: !!r.all_day,
+        ...(r.all_day ? { date: String(r.date).slice(0, 10) } : { start: new Date(r.start_at as string).toISOString() }),
+        ...(r.duration_min != null ? { durationMin: r.duration_min as number } : {}), timeZone: r.time_zone as string,
+        topicIds: d.topicIds ?? [], notes: d.notes ?? '', ...(d.link ? { link: d.link } : {}), ...(d.history?.length ? { history: d.history } : {}), ...(d.plan ? { plan: d.plan } : {}),
+        ...(r.completed_at ? { completedAt: r.completed_at as string } : {}),
+      };
+    },
+  },
   topics: {
     table: 'topics',
     toRow: (e: PTopic, uid) => ({ owner_id: uid, id: e.id, discipline_id: e.disciplineId, name: e.name, position: e.position, origin: e.origin, created_at: e.createdAt, updated_at: e.updatedAt }),
@@ -227,23 +246,25 @@ export interface DeletionPlan {
   materials: string[];
   questions: string[];
   guides: string[];
+  events: string[];
 }
 
 /**
  * O que sai junto ao excluir uma disciplina, um assunto ou um material. Mesma regra nos dois espaços:
- *  - disciplina → assuntos, materiais, questões e guias dela;
+ *  - disciplina → assuntos, materiais, questões, guias e eventos da agenda dela;
  *  - assunto → questões dele;
  *  - material → questões e guias gerados a partir dele (na conta: delete_material_cascade).
  */
 export function planDeletion(
   target: { kind: 'disciplines' | 'topics' | 'materials'; id: string },
-  all: { topics: PTopic[]; materials?: PMaterial[]; questions?: PQuestion[]; guides?: PGuide[] },
+  all: { topics: PTopic[]; materials?: PMaterial[]; questions?: PQuestion[]; guides?: PGuide[]; events?: PEvent[] },
 ): DeletionPlan {
   const qs = all.questions ?? [];
   const gs = all.guides ?? [];
-  if (target.kind === 'topics') return { disciplines: [], topics: [target.id], materials: [], questions: qs.filter((q) => q.topicId === target.id).map((q) => q.id), guides: [] };
+  if (target.kind === 'topics') return { disciplines: [], topics: [target.id], materials: [], questions: qs.filter((q) => q.topicId === target.id).map((q) => q.id), guides: [], events: [] };
   if (target.kind === 'materials') {
-    return { disciplines: [], topics: [], materials: [target.id], questions: qs.filter((q) => q.materialIds.includes(target.id)).map((q) => q.id), guides: gs.filter((g) => g.materialIds.includes(target.id)).map((g) => g.id) };
+    // eventos ficam (são a agenda do estudante); o vínculo com um guia excluído aparece como "conteúdo excluído"
+    return { disciplines: [], topics: [], materials: [target.id], questions: qs.filter((q) => q.materialIds.includes(target.id)).map((q) => q.id), guides: gs.filter((g) => g.materialIds.includes(target.id)).map((g) => g.id), events: [] };
   }
   return {
     disciplines: [target.id],
@@ -251,11 +272,13 @@ export function planDeletion(
     materials: (all.materials ?? []).filter((m) => m.disciplineId === target.id).map((m) => m.id),
     questions: qs.filter((q) => q.disciplineId === target.id).map((q) => q.id),
     guides: gs.filter((g) => g.disciplineId === target.id).map((g) => g.id),
+    events: (all.events ?? []).filter((e) => e.disciplineId === target.id).map((e) => e.id),
   };
 }
 
 export async function executeDeletion(repo: PersonalRepo, plan: DeletionPlan) {
   // filhos antes dos pais (no banco local não há FK)
+  await repo.remove('events', plan.events);
   await repo.remove('questions', plan.questions);
   await repo.remove('guides', plan.guides);
   for (const id of plan.materials) await repo.removePages(id);

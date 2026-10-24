@@ -269,6 +269,7 @@ export function GuidePage({ id, go }: { id: string; go: (to: string) => void }) 
         <section className="panel exam-box" aria-label="Avaliação">
           <p><CalendarDays size={16} aria-hidden="true" /> <b>Avaliação em {new Date(g.exam.date + 'T00:00:00').toLocaleDateString('pt-BR')}</b>{(() => { const n = daysUntil(g.exam.date); return n > 0 ? ` · faltam ${plural(n, 'dia', 'dias')}` : n === 0 ? ' · é hoje' : ' · já passou'; })()}</p>
           <p className="hint">Escopo confirmado por você: {topics.map((t) => t.name).join(', ')}. {NOT_A_PREDICTION}</p>
+          <button type="button" className="ghost" onClick={() => go(`#/planejar?g=${g.id}`)}>Planejar sessões até a prova</button>
         </section>
       )}
       <p className={ai.status.kind === 'on' ? 'hint' : 'muted'} role="status">{aiStatusText(ai.status)}</p>

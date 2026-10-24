@@ -278,6 +278,152 @@ section('Guias e questões neste aparelho', async (page) => {
   ok('guia derivado sai junto; questões criadas por você ficam', /Nenhum guia ainda/.test(await page.locator('main').innerText()) && /2 disponíveis para praticar/.test(await page.locator('main').innerText()));
 });
 
+// ---------------------------------------------------------------- Etapa E: agenda e planejamento no aparelho
+const plusDays = (d: string, n: number) => new Date(Date.parse(d + 'T00:00:00Z') + n * 864e5).toISOString().slice(0, 10);
+const idbAll = (page: Page, store: string) =>
+  page.evaluate((st) => new Promise<Record<string, unknown>[]>((resolve) => { const r = indexedDB.open('study-mastery-personal'); r.onsuccess = () => { const g = r.result.transaction(st).objectStore(st).getAll(); g.onsuccess = () => resolve(g.result); }; }), store);
+
+section('Agenda e planejamento neste aparelho', async (page) => {
+  const today = await page.evaluate(() => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date()));
+  await page.goto(BASE + '#/agenda');
+  await page.getByRole('heading', { name: 'Agenda', exact: true }).waitFor();
+  ok('agenda vazia orienta o que fazer', /Nenhum evento ainda/.test(await page.locator('main').innerText()));
+  ok('aba “Agenda” marcada na barra inferior', (await page.getByRole('button', { name: 'Agenda', exact: true }).getAttribute('aria-current')) === 'page');
+
+  // prova de dia inteiro
+  await page.getByRole('button', { name: 'Novo evento' }).click();
+  await page.getByRole('heading', { name: 'Novo evento' }).waitFor();
+  await page.getByRole('combobox', { name: /^Disciplina/ }).selectOption({ label: 'Química' });
+  await page.getByLabel('Data', { exact: true }).fill(plusDays(today, 10));
+  await page.getByRole('button', { name: 'Salvar' }).click();
+  await page.getByRole('heading', { name: 'Prova: Química' }).waitFor();
+  ok('prova de dia inteiro com título padrão', /Dia inteiro/.test(await page.locator('.ev-detail').innerText()));
+
+  // sessão de estudo que já passou: fica "Atrasado", nunca concluída sozinha
+  await page.goto(BASE + '#/evento-novo');
+  await page.getByRole('heading', { name: 'Novo evento' }).waitFor();
+  await page.getByLabel('Tipo').selectOption('estudo');
+  await page.getByRole('combobox', { name: /^Disciplina/ }).selectOption({ label: 'Química' });
+  await page.getByLabel('Título').fill('Estudo de estequiometria');
+  await page.getByLabel(/^Dia inteiro/).uncheck();
+  await page.getByLabel('Data', { exact: true }).fill(plusDays(today, -1));
+  await page.getByLabel('Horário').fill('19:00');
+  await page.getByLabel('Duração').selectOption('50');
+  await page.getByRole('button', { name: 'Salvar' }).click();
+  await page.getByRole('heading', { name: 'Estudo de estequiometria' }).waitFor();
+  ok('evento vencido aparece como atrasado (status continua agendado)', /Atrasado \(não foi marcado como concluído\)/.test(await page.locator('.ev-detail').innerText()));
+  await page.screenshot({ path: path.join(SHOTS, 'e-evento-atrasado.png'), fullPage: true });
+  ok('axe-core: Evento sem violações', (await axe(page)).length === 0, await axe(page));
+  await page.getByRole('button', { name: 'Reagendar' }).click();
+  const sugg = await page.getByRole('group', { name: 'Sugestão de novo horário' }).innerText();
+  ok('sessão perdida: sugere novo horário e explica o impacto', /passa para .* às \d\d:\d\d \(50 min\)/.test(sugg) && /não mudam/.test(sugg), sugg);
+  await page.getByRole('button', { name: 'Aplicar sugestão' }).click();
+  await page.locator('.form-ok').waitFor();
+  ok('só muda depois de confirmar; histórico guarda o reagendamento', /Agendado/.test(await page.locator('.ev-detail').innerText()) && /Reagendamentos \(1\)/.test(await page.locator('main').innerText()));
+  const moved = (await idbAll(page, 'events')).find((e) => e.title === 'Estudo de estequiometria') as { start: string; durationMin: number };
+
+  // conflito com outro evento no mesmo horário
+  const movedParts = await page.evaluate((iso) => Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map((x) => [x.type, x.value])), moved.start);
+  const movedLocal = { date: `${movedParts.year}-${movedParts.month}-${movedParts.day}`, time: `${movedParts.hour}:${movedParts.minute}` };
+  await page.goto(BASE + '#/evento-novo?type=revisao');
+  await page.getByRole('heading', { name: 'Novo evento' }).waitFor();
+  await page.getByRole('combobox', { name: /^Disciplina/ }).selectOption({ label: 'Química' });
+  await page.getByLabel('Título').fill('Revisão rápida');
+  await page.getByLabel('Data', { exact: true }).fill(movedLocal.date);
+  await page.getByLabel('Horário').fill(movedLocal.time);
+  await page.getByRole('button', { name: 'Salvar' }).click();
+  ok('avisa conflito de horário antes de salvar', /coincide com: Estudo de estequiometria/.test(await page.getByRole('alertdialog').innerText()));
+  await page.getByRole('button', { name: 'Salvar mesmo assim' }).click();
+  await page.getByRole('heading', { name: 'Revisão rápida' }).waitFor();
+  await page.getByRole('button', { name: 'Concluir' }).click();
+  await page.locator('.form-ok').waitFor();
+  ok('concluir marca o evento (e dá para desfazer)', /Concluído/.test(await page.locator('.ev-detail').innerText()) && (await page.getByRole('button', { name: 'Desfazer conclusão' }).count()) === 1);
+  await page.goto(BASE + '#/agenda');
+  await page.locator('.ev-row', { hasText: 'Estudo de estequiometria' }).first().click();
+  await page.getByRole('button', { name: 'Cancelar evento' }).click();
+  await page.locator('.form-ok').waitFor();
+  ok('cancelar mantém o registro e permite reativar', /Cancelado/.test(await page.locator('.ev-detail').innerText()) && (await page.getByRole('button', { name: 'Reativar' }).count()) === 1);
+  await page.getByRole('button', { name: 'Reativar' }).click();
+  await page.locator('.form-ok').waitFor();
+
+  // visualizações
+  await page.goto(BASE + `#/agenda?v=mes&d=${plusDays(today, 10)}`);
+  await page.locator('.mday').first().waitFor();
+  ok('mês: grade de 6 semanas', (await page.locator('.mday').count()) === 42);
+  ok('mês: dia escolhido lista os eventos', /Prova: Química/.test(await page.locator('.day-block').last().innerText()));
+  ok('sem rolagem horizontal (mês)', await noHScroll(page));
+  await page.screenshot({ path: path.join(SHOTS, 'e-agenda-mes.png'), fullPage: true });
+  await page.getByRole('button', { name: 'Semana', exact: true }).click();
+  await page.locator('.week .day-block').nth(6).waitFor();
+  ok('semana: 7 dias', (await page.locator('.week .day-block').count()) === 7);
+  const r1 = await page.locator('.cal-range').innerText();
+  await page.getByRole('button', { name: 'Próximo' }).click();
+  ok('navegação entre datas', await page.waitForFunction((r) => document.querySelector('.cal-range')?.textContent !== r, r1, { timeout: 5000 }).then(() => true, () => false));
+  await page.getByRole('button', { name: 'Hoje', exact: true }).click();
+  await page.getByRole('button', { name: 'Lista', exact: true }).click();
+  await page.locator('.today-tag').first().waitFor();
+  ok('“Hoje” volta para hoje', page.url().includes(`d=${today}`));
+
+  // fuso: horário muda de exibição, data de dia inteiro não
+  const timeSP = await page.locator('.ev-row', { hasText: 'Estudo de estequiometria' }).locator('.ev-time').innerText();
+  await page.getByRole('button', { name: 'Alterar fuso' }).click();
+  await page.getByLabel('Fuso da agenda').selectOption('America/Manaus');
+  const timeMAO = await page.locator('.ev-row', { hasText: 'Estudo de estequiometria' }).locator('.ev-time').innerText();
+  ok('trocar o fuso mostra o horário no novo fuso (−1 h em Manaus)', parseInt(timeSP) - parseInt(timeMAO) === 1, [timeSP, timeMAO]);
+  await page.goto(BASE + `#/agenda?v=mes&d=${plusDays(today, 10)}`);
+  ok('prova de dia inteiro continua na mesma data em outro fuso', /Prova: Química/.test(await page.locator('.day-block').last().innerText()));
+  await page.getByRole('button', { name: 'Alterar fuso' }).click();
+  await page.getByLabel('Fuso da agenda').selectOption('America/Sao_Paulo');
+
+  // planejamento até a prova
+  await openDiscipline(page, 'Cálculo II (minha)');
+  await page.getByRole('button', { name: 'Planejar até a prova' }).click();
+  await page.getByRole('heading', { name: 'Planejar até a prova' }).waitFor();
+  const exam = plusDays(today, 9);
+  await page.getByLabel('Data da prova').fill(exam);
+  await page.getByRole('button', { name: 'Ver prévia' }).click();
+  ok('exige confirmar os assuntos', /Confirme os assuntos/.test(await page.getByRole('alert').innerText()));
+  await page.getByLabel(/Confirmo: o plano cobre só/).check();
+  for (const w of ['seg', 'ter', 'qua', 'qui', 'sex']) await page.getByRole('button', { name: w, exact: true }).click();
+  await page.getByRole('button', { name: 'dom', exact: true }).click();
+  await page.getByLabel('Tempo por dia').selectOption('30');
+  await page.getByLabel('Duração da sessão').selectOption('25');
+  await page.getByRole('button', { name: 'Ver prévia' }).click();
+  ok('pouco tempo: avisa que é insuficiente e lista o que ficou de fora', /Tempo insuficiente.*Ficaram de fora/.test(await page.locator('.plan-preview').innerText()));
+  for (const w of ['seg', 'ter', 'qua', 'qui', 'sex']) await page.getByRole('button', { name: w, exact: true }).click();
+  await page.getByLabel('Tempo por dia').selectOption('90');
+  await page.getByLabel('Duração da sessão').selectOption('45');
+  await page.getByRole('button', { name: 'Ver prévia' }).click();
+  const prev = await page.locator('.plan-preview').innerText();
+  ok('prévia com estudo, exercícios, revisão e simulado; sem aviso de falta de tempo', /Estudo: /.test(prev) && /Exercícios: /.test(prev) && /Revisão: /.test(prev) && /Simulado: /.test(prev) && !/Tempo insuficiente/.test(prev), prev.slice(0, 400));
+  ok('nada é criado antes de confirmar', !(await idbAll(page, 'events')).some((e) => (e as { plan?: unknown }).plan));
+  ok('sem rolagem horizontal (planejamento)', await noHScroll(page));
+  await page.screenshot({ path: path.join(SHOTS, 'e-planejar.png'), fullPage: true });
+  ok('axe-core: Planejamento sem violações', (await axe(page)).length === 0, await axe(page));
+  await page.getByRole('button', { name: /Criar \d+ evento/ }).click();
+  await page.getByRole('heading', { name: 'Agenda', exact: true }).waitFor();
+  const all = (await idbAll(page, 'events')) as { title: string; start?: string; date?: string; plan?: { examDate: string }; type: string }[];
+  const planned = all.filter((e) => e.plan);
+  const examLocal = Date.parse(exam + 'T03:00:00Z'); // meia-noite em São Paulo
+  ok('eventos criados só depois de confirmar, todos antes do dia da prova', planned.length >= 7 && planned.every((e) => Date.parse(e.start!) < examLocal), planned.map((e) => e.start));
+  ok('evento da prova criado (dia inteiro)', all.some((e) => e.type === 'prova' && e.date === exam && /Cálculo II/.test(e.title)));
+  ok('sem rolagem horizontal (lista)', await noHScroll(page));
+  await page.screenshot({ path: path.join(SHOTS, 'e-agenda-lista.png'), fullPage: true });
+  ok('axe-core: Agenda sem violações', (await axe(page)).length === 0, await axe(page));
+  await page.locator('.ev-row', { hasText: 'Revisão: ' }).first().click();
+  await page.getByRole('button', { name: 'Abrir questões' }).click();
+  await page.getByRole('heading', { name: 'Questões pessoais' }).waitFor();
+  ok('sessão de revisão abre as questões no modo revisão, com o assunto do evento', /m=revisao/.test(page.url()) && /t=/.test(page.url()) && (await page.getByLabel('Modo').inputValue()) === 'revisao');
+
+  // excluir a disciplina leva os eventos dela
+  await openDiscipline(page, 'Química');
+  await page.getByRole('button', { name: 'Excluir disciplina' }).click();
+  ok('confirmação conta os eventos da agenda', /eventos da agenda/.test(await page.getByRole('alertdialog').innerText()));
+  await page.getByRole('alertdialog').getByRole('button', { name: 'Excluir' }).click();
+  await page.getByRole('heading', { name: /Suas disciplinas/ }).waitFor();
+  ok('eventos da disciplina excluída saem da agenda', !(await idbAll(page, 'events')).some((e) => /Química|estequiometria|Revisão rápida/.test(String(e.title))));
+});
+
 section('Conta sem configuração e navegação', async (page) => {
   await page.goto(BASE + '#/conta');
   await page.getByRole('heading', { name: /Sua conta/ }).waitFor();

@@ -116,6 +116,49 @@ export interface PGuide extends Base {
   version: number;
 }
 
+export type EventType = 'prova' | 'entrega' | 'estudo' | 'revisao' | 'simulado';
+export const EVENT_TYPES: EventType[] = ['prova', 'entrega', 'estudo', 'revisao', 'simulado'];
+export const EVENT_TYPE_LABEL: Record<EventType, string> = { prova: 'Prova', entrega: 'Entrega', estudo: 'Estudo', revisao: 'Revisão', simulado: 'Simulado' };
+/** "Atrasado" não é guardado: é um evento agendado cujo horário já passou (nunca concluído sozinho). */
+export type EventStatus = 'agendado' | 'concluido' | 'cancelado';
+export const EVENT_STATUS_LABEL: Record<EventStatus, string> = { agendado: 'Agendado', concluido: 'Concluído', cancelado: 'Cancelado' };
+
+/** Conteúdo aberto pelo evento: o guia, as questões pessoais (com assuntos e modo) ou o banco existente. */
+export type EventLink = { kind: 'nenhum' } | { kind: 'guia'; guideId: string } | { kind: 'questoes'; mode?: 'aprender' | 'simulado' | 'revisao' | 'misto' } | { kind: 'banco'; mode?: 'aprender' | 'simulado' | 'revisao' | 'misto' };
+
+/** Dados do planejamento que criou o evento (para sugerir novo horário respeitando a mesma disponibilidade). */
+export interface EventPlan {
+  id: string;
+  examDate: string;
+  weekdays: number[];
+  windowStart: string;
+  windowEnd: string;
+  minutesPerDay: number;
+}
+
+export interface PEvent extends Base {
+  /** disciplina pessoal (uuid) ou do banco existente ("calculo2", "fullstack") */
+  disciplineId: string;
+  type: EventType;
+  title: string;
+  status: EventStatus;
+  allDay: boolean;
+  /** dia inteiro: a data, igual em qualquer fuso */
+  date?: string;
+  /** com horário: instante em UTC (ISO) */
+  start?: string;
+  durationMin?: number;
+  /** fuso em que o horário foi informado (referência) */
+  timeZone: string;
+  topicIds: string[];
+  notes: string;
+  link?: EventLink;
+  completedAt?: string;
+  /** reagendamentos (de → para), para explicar o histórico */
+  history?: { at: string; from: string; to: string }[];
+  plan?: EventPlan;
+}
+
 export const LIMITS = {
   disciplineName: 80,
   description: 500,
@@ -127,6 +170,9 @@ export const LIMITS = {
   materialTitle: 120,
   questionsPerBatch: 10,
   guides: 60,
+  events: 2000,
+  eventTitle: 120,
+  eventNotes: 2000,
 } as const;
 
 export interface EntityMap {
@@ -135,9 +181,10 @@ export interface EntityMap {
   materials: PMaterial;
   questions: PQuestion;
   guides: PGuide;
+  events: PEvent;
 }
 export type Kind = keyof EntityMap;
-export const KINDS: Kind[] = ['disciplines', 'topics', 'materials', 'questions', 'guides'];
+export const KINDS: Kind[] = ['disciplines', 'topics', 'materials', 'questions', 'guides', 'events'];
 
 export function nowIso(): string {
   return new Date().toISOString();
