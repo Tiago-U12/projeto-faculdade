@@ -5,11 +5,37 @@ import { reviewCounts } from '../lib/engine';
 import type { DisciplineId } from '../types';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
+import { useAccount } from '../account';
 import { copyText } from './Help';
 import { formatReport } from './ReportError';
 
 export function Progress({ go }: { go: (to: string) => void }) {
   const { bank, state, start, persisted, exportJson, importJson, clearAll } = useStudy();
+  const account = useAccount();
+  const inAccount = account.status === 'signedIn';
+  const [clearing, setClearing] = useState(false);
+  /** na conta, apagar também no servidor; senão o progresso voltaria na próxima sincronização */
+  const clearEverywhere = async () => {
+    setClearing(true);
+    try {
+      if (inAccount) {
+        const sb = await account.client();
+        for (const t of ['attempts', 'question_reports']) {
+          const { error } = await sb.from(t).delete().eq('owner_id', account.user!.id);
+          if (error) throw new Error(error.message);
+        }
+        const { error } = await sb.from('profiles').update({ active_session: null, active_updated_at: new Date().toISOString() }).eq('id', account.user!.id);
+        if (error) throw new Error(error.message);
+      }
+      clearAll();
+      setConfirmClear(false);
+      setMsg(inAccount ? 'Histórico apagado da conta e deste aparelho.' : 'Dados apagados.');
+    } catch (e) {
+      setMsg('Nada foi apagado: ' + (e as Error).message);
+    } finally {
+      setClearing(false);
+    }
+  };
   const [disciplineId, setDisciplineId] = useState<DisciplineId>('calculo2');
   const [msg, setMsg] = useState<string>('');
   const [confirmClear, setConfirmClear] = useState(false);
@@ -61,7 +87,7 @@ export function Progress({ go }: { go: (to: string) => void }) {
     <>
       <button type="button" className="back" onClick={() => go('#/')}><ArrowLeft size={18} aria-hidden="true" /> Início</button>
       <h1 className="screen-title">Seu <em>progresso.</em></h1>
-      <p className="sub">Tudo fica salvo neste aparelho. Exporte o histórico para levar para outro dispositivo.</p>
+      <p className="sub">{inAccount ? 'Salvo na sua conta e sincronizado entre os aparelhos em que você entrar.' : 'Tudo fica salvo neste aparelho. Exporte o histórico para levar para outro dispositivo.'}</p>
       {!persisted && <p className="notice"><AlertTriangle size={15} aria-hidden="true" /> Seu navegador bloqueou o armazenamento local: o progresso só dura enquanto esta aba estiver aberta. Use “Exportar” para guardar.</p>}
 
       <div className="seg" role="group" aria-label="Disciplina">
@@ -116,8 +142,8 @@ export function Progress({ go }: { go: (to: string) => void }) {
         </div>
         {confirmClear ? (
           <div className="confirm" role="alertdialog" aria-label="Apagar dados">
-            <p>Apagar todo o histórico e as estatísticas deste aparelho? Isso não pode ser desfeito (exporte antes, se quiser guardar).</p>
-            <div className="row"><button type="button" className="ghost" onClick={() => setConfirmClear(false)}>Cancelar</button><button type="button" className="danger" onClick={() => { clearAll(); setConfirmClear(false); setMsg('Dados apagados.'); }}>Apagar tudo</button></div>
+            <p>{inAccount ? 'Apagar todo o histórico, as estatísticas e os relatos desta conta, em todos os aparelhos?' : 'Apagar todo o histórico e as estatísticas deste aparelho?'} Isso não pode ser desfeito (exporte antes, se quiser guardar).</p>
+            <div className="row"><button type="button" className="ghost" onClick={() => setConfirmClear(false)}>Cancelar</button><button type="button" className="danger" disabled={clearing} onClick={() => void clearEverywhere()}>Apagar tudo</button></div>
           </div>
         ) : <button type="button" className="text-btn danger-text" onClick={() => setConfirmClear(true)}><Trash2 size={14} aria-hidden="true" /> Apagar meus dados</button>}
         {(state.reports?.length ?? 0) > 0 && (

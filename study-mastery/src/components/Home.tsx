@@ -4,9 +4,12 @@ import { reviewCounts } from '../lib/engine';
 import { qualitySummary } from '../lib/quality';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
+import { useAccount } from '../account';
 
 export function Home({ go }: { go: (to: string) => void }) {
   const { bank, state } = useStudy();
+  const account = useAccount();
+  const where = account.status === 'signedIn' ? 'Seu progresso fica na sua conta, em qualquer aparelho.' : account.configured ? 'Sem custo. Use sem cadastro ou entre na sua conta para levar o progresso a outros aparelhos.' : 'Sem cadastro, sem custo — seu progresso fica neste aparelho.';
   const goal = bank.taxonomy.disciplines.reduce((s, d) => s + d.topics.reduce((a, t) => a + t.quota.facil + t.quota.medio + t.quota.dificil, 0), 0);
   const answers = useMemo(() => state.attempts.flatMap((a) => a.answers), [state.attempts]);
   const acc = answers.length ? Math.round((100 * answers.filter((a) => a.correct).length) / answers.length) : null;
@@ -21,7 +24,7 @@ export function Home({ go }: { go: (to: string) => void }) {
       <section className="hero">
         <div className="eyebrow"><Sparkles size={14} aria-hidden="true" /> SEU ESPAÇO DE EVOLUÇÃO</div>
         <h1>Aprenda mais.<br /><em>Vá além da prova.</em></h1>
-        <p>Escolha exatamente o que estudar, pratique no seu ritmo e entenda cada resposta. Sem cadastro, sem custo — seu progresso fica neste aparelho.</p>
+        <p>Escolha exatamente o que estudar, pratique no seu ritmo e entenda cada resposta. {where}</p>
         <div className="hero-actions">
           <button type="button" className="primary" onClick={() => go('#/setup')}>Começar a estudar <ArrowRight size={18} aria-hidden="true" /></button>
           {hasExam && (
@@ -63,7 +66,7 @@ export function Home({ go }: { go: (to: string) => void }) {
         })}
       </div>
 
-      <div className="section-heading"><h2>Sua jornada</h2><span>Salvo no dispositivo</span></div>
+      <div className="section-heading"><h2>Sua jornada</h2><span>{account.status === 'signedIn' ? 'Salvo na conta' : 'Salvo no dispositivo'}</span></div>
       <div className="metrics">
         <div><span>SESSÕES</span><strong>{state.attempts.length}</strong><small>concluídas</small></div>
         <div><span>ACERTOS</span><strong>{acc === null ? '—' : acc + '%'}</strong><small>média geral</small></div>

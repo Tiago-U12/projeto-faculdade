@@ -6,8 +6,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { loadBank } from './lib/bank';
+import { AccountProvider } from './account';
 import { RadioProvider } from './radio';
-import { StudyProvider } from './state';
+import { SpaceRoot } from './space';
 
 const root = createRoot(document.getElementById('root')!);
 root.render(<p className="boot" role="status">Carregando banco de questões…</p>);
@@ -16,11 +17,13 @@ loadBank()
   .then((bank) => {
     root.render(
       <StrictMode>
-        <StudyProvider bank={bank}>
+        <AccountProvider>
           <RadioProvider>
-            <App />
+            <SpaceRoot bank={bank}>
+              <App />
+            </SpaceRoot>
           </RadioProvider>
-        </StudyProvider>
+        </AccountProvider>
       </StrictMode>,
     );
   })

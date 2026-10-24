@@ -151,7 +151,7 @@ async function run(page: Page) {
   await page.screenshot({ path: shot('07-home-after.png'), fullPage: true });
 
   console.log('Progresso, exportar e importar');
-  await page.getByRole('button', { name: 'Meu progresso' }).click();
+  await page.getByRole('button', { name: 'Progresso', exact: true }).click();
   await page.getByRole('heading', { name: 'Seu progresso.' }).waitFor();
   await page.getByRole('button', { name: 'Cálculo II', exact: true }).click();
   check(/2/.test(await page.locator('.metrics').first().innerText()), 'histórico registra as sessões concluídas');

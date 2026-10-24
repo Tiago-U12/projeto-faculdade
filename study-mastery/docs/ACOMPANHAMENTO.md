@@ -12,8 +12,8 @@ Lista viva para retomar o trabalho sem repetir. Atualizada a cada checkpoint.
 | Etapa | Estado | Checkpoint | Evidência |
 |---|---|---|---|
 | A. Diagnóstico e melhorias existentes | concluída | commit "Etapa A" | `docs/DIAGNOSTICO_A52.md`; `tests/e2e/a52-diagnostico.ts` (4 cenários); vitest 682; e2e 39; homologação 138/138 (GitHub e Cloudflare); render 600×2; offline; redirects; test:pwa 7 |
-| B. Contas, autorização e disciplinas | em andamento | — | migração `supabase/migrations/20261024120000_*` |
-| C. Materiais e processamento | pendente | — | — |
+| B. Contas, autorização e disciplinas | concluída (sem projeto Supabase real) | commit "Etapa B" | `tests/db/contas.test.ts` 10 casos de duas contas em Postgres 16 local; vitest 712; `tests/e2e/v06.ts` 33 (390/320 px, axe); e2e 39; homologação 138/138. **Não testado**: Auth/PostgREST/Storage reais (sem projeto e sem rede até supabase.co) |
+| C. Materiais e processamento | em andamento | — | — |
 | D. Guias e questões | pendente | — | — |
 | E. Calendário e planejamento | pendente | — | — |
 | F. Integração, revisão e documentação | pendente | — | — |

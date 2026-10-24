@@ -182,6 +182,8 @@ export interface Attempt {
   mode: Mode;
   bankVersion: string;
   answers: AnswerRecord[];
+  /** ausente = banco existente */
+  source?: 'banco' | 'pessoal';
 }
 
 export type ReportReason = 'gabarito' | 'enunciado' | 'explicacao' | 'digitacao' | 'outro';

@@ -12,6 +12,8 @@ export interface ActiveSession {
   answers: Record<string, string>;
   index: number;
   startedAt: string;
+  /** última alteração (resposta, navegação): decide qual aparelho tem a versão mais nova */
+  updatedAt?: string;
 }
 
 export interface Settings {
@@ -27,6 +29,16 @@ export interface AppState {
   active?: ActiveSession;
   /** relatos de erro (opcional: estados antigos não têm) */
   reports?: QuestionReport[];
+  /** só no espaço da conta: o que já foi enviado ao servidor */
+  sync?: SyncInfo;
+}
+
+export interface SyncInfo {
+  pushed?: string[];
+  pushedReports?: string[];
+  pulledAt?: string;
+  /** quando a sessão em andamento foi encerrada ou descartada neste aparelho */
+  activeClearedAt?: string;
 }
 
 export interface KeyValueStore {
@@ -104,14 +116,17 @@ export function isAppState(x: unknown): x is AppState {
   return s.version === 1 && Array.isArray(s.attempts) && !!s.stats && typeof s.stats === 'object' && !!s.settings && typeof s.settings === 'object';
 }
 
-export function loadState(store: KeyValueStore | null): AppState {
+/** Chave do estado de cada espaço: o aparelho (sem conta) usa a chave original; cada conta tem a sua. */
+export const accountStateKey = (uid: string) => `study-mastery:acct:${uid}:state:v1`;
+
+export function loadState(store: KeyValueStore | null, key = STATE_KEY): AppState {
   if (!store) return emptyState();
   try {
-    const raw = store.getItem(STATE_KEY);
+    const raw = store.getItem(key);
     if (raw) {
       const parsed = JSON.parse(raw);
       if (isAppState(parsed)) return parsed;
-    } else {
+    } else if (key === STATE_KEY) {
       const legacy = store.getItem(LEGACY_KEY);
       if (legacy) {
         const st = emptyState();
@@ -125,10 +140,10 @@ export function loadState(store: KeyValueStore | null): AppState {
   return emptyState();
 }
 
-export function saveState(store: KeyValueStore | null, state: AppState): boolean {
+export function saveState(store: KeyValueStore | null, state: AppState, key = STATE_KEY): boolean {
   if (!store) return false;
   try {
-    store.setItem(STATE_KEY, JSON.stringify({ ...state, attempts: state.attempts.slice(0, MAX_ATTEMPTS) }));
+    store.setItem(key, JSON.stringify({ ...state, attempts: state.attempts.slice(0, MAX_ATTEMPTS) }));
     return true;
   } catch {
     return false;
@@ -149,7 +164,7 @@ export function recordAttempt(state: AppState, input: FinishInput): AppState {
   const attempt: Attempt = { id: input.attemptId, date: input.now.toISOString(), disciplineId: input.disciplineId, mode: input.mode, bankVersion: input.bankVersion, answers: input.answers };
   const stats = { ...state.stats };
   for (const a of input.answers) stats[a.questionId] = nextStat(stats[a.questionId], a.correct, input.now);
-  return { ...state, attempts: [attempt, ...state.attempts.filter((x) => x.id !== attempt.id)].slice(0, MAX_ATTEMPTS), stats, active: undefined };
+  return { ...state, attempts: [attempt, ...state.attempts.filter((x) => x.id !== attempt.id)].slice(0, MAX_ATTEMPTS), stats, active: undefined, ...(state.sync ? { sync: { ...state.sync, activeClearedAt: input.now.toISOString() } } : {}) };
 }
 
 // ---------- exportar / importar ----------
@@ -162,7 +177,9 @@ export interface ExportFile {
 }
 
 export function exportState(state: AppState, now = new Date()): string {
-  const file: ExportFile = { app: 'study-mastery', schema: 1, exportedAt: now.toISOString(), state: { ...state, active: undefined } };
+  // o arquivo leva só o progresso: nada de controle de sincronização da conta
+  const { sync: _sync, ...rest } = state;
+  const file: ExportFile = { app: 'study-mastery', schema: 1, exportedAt: now.toISOString(), state: { ...rest, active: undefined } };
   return JSON.stringify(file, null, 2);
 }
 

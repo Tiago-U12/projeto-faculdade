@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Header } from './components/Header';
 import { Help } from './components/Help';
+import { Account } from './components/Account';
+import { Disciplines } from './components/Disciplines';
+import { DisciplinePage } from './components/DisciplinePage';
+import { TabBar } from './components/TabBar';
 import { Home } from './components/Home';
 import { Library } from './components/Library';
 import { Progress } from './components/Progress';
@@ -48,8 +52,12 @@ export function App() {
         {route.name === 'progress' && <Progress go={go} />}
         {route.name === 'library' && <Library go={go} />}
         {route.name === 'help' && <Help go={go} />}
+        {route.name === 'account' && <Account go={go} />}
+        {route.name === 'disciplines' && <Disciplines go={go} />}
+        {route.name === 'discipline' && <DisciplinePage key={route.id} id={route.id} go={go} />}
         </ErrorBoundary>
       </main>
+      <TabBar route={route} go={go} />
       <footer><span>✳ Study Mastery · v{__APP_VERSION__}</span><a href="#/ajuda" className="foot-link">Ajuda e diagnóstico</a></footer>
     </div>
   );

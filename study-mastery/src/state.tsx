@@ -4,7 +4,8 @@ import type { AnswerRecord, Attempt, DisciplineId, QuestionReport, SessionConfig
 import type { Bank } from './lib/bank';
 import { buildSession, eligible, type Session } from './lib/engine';
 import { randomSeed } from './lib/rng';
-import { browserStore, emptyState, exportState, importState, loadState, recordAttempt, saveState, type ActiveSession, type AppState, type ImportResult, type KeyValueStore, type Settings } from './lib/storage';
+import { browserStore, emptyState, exportState, importState, loadState, recordAttempt, saveState, STATE_KEY, type ActiveSession, type AppState, type ImportResult, type KeyValueStore, type Settings } from './lib/storage';
+import { markPushed, mergeRemote, type RemoteProgress } from './lib/sync';
 
 export interface Study {
   bank: Bank;
@@ -22,6 +23,10 @@ export interface Study {
   exportJson(): string;
   importJson(text: string, mode: 'merge' | 'replace'): ImportResult;
   clearAll(): void;
+  /** conta: junta o progresso vindo do servidor (sem duplicar) */
+  applyRemote(remote: RemoteProgress): void;
+  /** conta: registra o que o servidor já recebeu */
+  markPushed(attemptIds: string[], reportIds?: string[]): void;
 }
 
 const Ctx = createContext<Study | null>(null);
@@ -31,16 +36,21 @@ export const useStudy = (): Study => {
   return s;
 };
 
-export function StudyProvider({ bank, store, children }: { bank: Bank; store?: KeyValueStore | null; children: ReactNode }) {
+export function StudyProvider({ bank, store, stateKey = STATE_KEY, initialSettings, account = false, children }: { bank: Bank; store?: KeyValueStore | null; stateKey?: string; initialSettings?: Settings; account?: boolean; children: ReactNode }) {
   const storeRef = useRef<KeyValueStore | null>(store === undefined ? browserStore() : store);
-  const [state, setState] = useState<AppState>(() => loadState(storeRef.current));
+  const [state, setState] = useState<AppState>(() => {
+    const loaded = loadState(storeRef.current, stateKey);
+    // primeira vez desta conta neste aparelho: herda tema e última configuração, nada de progresso
+    if (account && !loaded.sync) return { ...loaded, settings: loaded.attempts.length ? loaded.settings : { ...loaded.settings, ...initialSettings }, sync: {} };
+    return loaded;
+  });
   const [persisted, setPersisted] = useState(!!storeRef.current);
   const stateRef = useRef(state);
   stateRef.current = state;
 
   useEffect(() => {
-    setPersisted(storeRef.current ? saveState(storeRef.current, state) : false);
-  }, [state]);
+    setPersisted(storeRef.current ? saveState(storeRef.current, state, stateKey) : false);
+  }, [state, stateKey]);
 
   const update = useCallback((fn: (s: AppState) => AppState) => setState((s) => fn(s)), []);
 
@@ -59,7 +69,8 @@ export function StudyProvider({ bank, store, children }: { bank: Bank; store?: K
         if (!pool.length) return null;
         if (stateRef.current.active && !window.confirm('Substituir a sessão em andamento? As respostas não concluídas serão descartadas.')) return null;
         const session = buildSession(pool, config, { stats: stateRef.current.stats }, randomSeed());
-        const active: ActiveSession = { session, answers: {}, index: 0, startedAt: new Date().toISOString() };
+        const now = new Date().toISOString();
+        const active: ActiveSession = { session, answers: {}, index: 0, startedAt: now, updatedAt: now };
         update((s) => ({ ...s, active, settings: { ...s.settings, lastConfig: config } }));
         return session;
       },
@@ -68,9 +79,9 @@ export function StudyProvider({ bank, store, children }: { bank: Bank; store?: K
           if (!s.active) return s;
           const locked = s.active.session.config.mode !== 'simulado' && s.active.answers[questionId] !== undefined;
           if (locked) return s;
-          return { ...s, active: { ...s.active, answers: { ...s.active.answers, [questionId]: optionId } } };
+          return { ...s, active: { ...s.active, answers: { ...s.active.answers, [questionId]: optionId }, updatedAt: new Date().toISOString() } };
         }),
-      goTo: (index) => update((s) => (s.active ? { ...s, active: { ...s.active, index: Math.max(0, Math.min(index, s.active.session.items.length - 1)) } } : s)),
+      goTo: (index) => update((s) => (s.active ? { ...s, active: { ...s.active, index: Math.max(0, Math.min(index, s.active.session.items.length - 1)), updatedAt: new Date().toISOString() } } : s)),
       finish(opts) {
         const s = stateRef.current;
         if (!s.active) return null;
@@ -88,7 +99,9 @@ export function StudyProvider({ bank, store, children }: { bank: Bank; store?: K
         setState(next);
         return next.attempts[0];
       },
-      abandon: () => update((s) => ({ ...s, active: undefined })),
+      abandon: () => update((s) => ({ ...s, active: undefined, ...(s.sync ? { sync: { ...s.sync, activeClearedAt: new Date().toISOString() } } : {}) })),
+      applyRemote: (remote) => update((s) => mergeRemote(s, remote)),
+      markPushed: (ids, reportIds) => update((s) => markPushed(s, ids, reportIds)),
       report(r) {
         const rec: QuestionReport = { ...r, comment: r.comment.slice(0, 1000), id: crypto.randomUUID(), createdAt: new Date().toISOString() };
         update((s) => ({ ...s, reports: [rec, ...(s.reports ?? [])].slice(0, 200) }));
@@ -100,9 +113,9 @@ export function StudyProvider({ bank, store, children }: { bank: Bank; store?: K
         if (r.ok) setState(r.state);
         return r;
       },
-      clearAll: () => setState(emptyState()),
+      clearAll: () => setState(account ? { ...emptyState(), sync: {} } : emptyState()),
     }),
-    [bank, state, persisted, update],
+    [bank, state, persisted, update, account],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
