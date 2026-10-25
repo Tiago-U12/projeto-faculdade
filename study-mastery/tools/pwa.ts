@@ -12,7 +12,9 @@ export function injectPrecache(outDir: string, template: string, version: string
   });
   // Fontes .ttf/.woff do KaTeX são alternativas que o Chrome/Safari atuais não usam (pegam a .woff2): ficam fora do
   // pré-cache para não baixar ~700 KB à toa no celular; se algum navegador pedir, o worker guarda na primeira vez.
-  const files = walk(outDir).filter((f) => path.relative(outDir, f) !== 'sw.js' && !OPTIONAL_ASSET.test(f)).sort();
+  // Cloudflare consome estes arquivos de configuração; eles não são recursos servidos ao navegador.
+  const platformFiles = new Set(['sw.js', '_routes.json', '_headers', '_redirects']);
+  const files = walk(outDir).filter((f) => !platformFiles.has(path.relative(outDir, f)) && !OPTIONAL_ASSET.test(f)).sort();
   const hash = createHash('sha256').update(version).update(template);
   for (const file of files) hash.update(path.relative(outDir, file)).update(fs.readFileSync(file));
   const assets = ['./', ...files.map((file) => './' + path.relative(outDir, file).split(path.sep).join('/'))];

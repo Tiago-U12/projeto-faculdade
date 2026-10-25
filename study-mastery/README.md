@@ -1,4 +1,6 @@
-# Study Mastery v0.6.0
+# Study Mastery v0.6.1
+
+**Novo, aguardando ativação do recebimento:** feedback de questão, problema ou sugestão com prints, rascunho offline e caixa administrativa privada. Código em `functions/api/feedback.ts` + D1; não depende de conta de estudante ou IA. O recebimento só funciona após configurar o banco e as chaves no Cloudflare. [Ativação, privacidade e análise dos relatos](docs/FEEDBACKS.md).
 
 Plataforma universitária de estudos, mobile-first: banco de questões verificado (Cálculo II e Full Stack) e, a partir
 da 0.6, **estudos personalizados** — disciplinas próprias, materiais (PDF com texto ou texto colado), guias com

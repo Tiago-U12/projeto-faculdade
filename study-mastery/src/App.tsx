@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Header } from './components/Header';
 import { Help } from './components/Help';
+import { Feedback } from './components/Feedback';
+import { FeedbackAdmin } from './components/FeedbackAdmin';
 import { Account } from './components/Account';
 import { Disciplines } from './components/Disciplines';
 import { DisciplinePage } from './components/DisciplinePage';
@@ -61,6 +63,8 @@ export function App() {
         {route.name === 'progress' && <Progress go={go} />}
         {route.name === 'library' && <Library go={go} />}
         {route.name === 'help' && <Help go={go} />}
+        {route.name === 'feedback' && <Feedback key={`${route.questionId ?? ''}-${route.questionVersion ?? ''}`} go={go} questionId={route.questionId} questionVersion={route.questionVersion} />}
+        {route.name === 'feedbackAdmin' && <FeedbackAdmin />}
         {route.name === 'account' && <Account go={go} />}
         {route.name === 'privacy' && <Privacy go={go} />}
         {route.name === 'disciplines' && <Disciplines go={go} />}
@@ -78,7 +82,7 @@ export function App() {
         </ErrorBoundary>
       </main>
       <TabBar route={route} go={go} />
-      <footer><span>✳ Study Mastery · v{__APP_VERSION__}</span><a href="#/ajuda" className="foot-link">Ajuda e diagnóstico</a></footer>
+      <footer><span>✳ Study Mastery · v{__APP_VERSION__}</span><a href="#/feedback" className="foot-link">Feedback e melhorias</a><a href="#/ajuda" className="foot-link">Ajuda e diagnóstico</a></footer>
     </div>
   );
 }

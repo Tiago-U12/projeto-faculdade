@@ -35,7 +35,7 @@ test('pré-cache inclui chunks, fontes e ícones; hash muda com qualquer conteú
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'sm-precache-'));
   try {
     fs.mkdirSync(path.join(dir, 'assets'));
-    for (const name of ['index.html', 'assets/lazy.js', 'assets/font.woff2', 'assets/font.woff', 'assets/font.ttf', 'assets/pdf.worker.min-x1.mjs', 'icon.png']) fs.writeFileSync(path.join(dir, name), name);
+    for (const name of ['index.html', '_routes.json', '_headers', '_redirects', 'assets/lazy.js', 'assets/font.woff2', 'assets/font.woff', 'assets/font.ttf', 'assets/pdf.worker.min-x1.mjs', 'icon.png']) fs.writeFileSync(path.join(dir, name), name);
     const assets = injectPrecache(dir, template, '0.5.0');
     // .woff/.ttf e o leitor de PDF ficam fora do pré-cache (guardados no primeiro uso)
     assert.deepEqual(assets, ['./', './assets/font.woff2', './assets/lazy.js', './icon.png', './index.html']);
@@ -55,6 +55,14 @@ test('activate preserva todos os caches dos outros aplicativos', async () => {
   w.listeners.activate({ waitUntil: (p) => { pending = p; } });
   await pending;
   assert.deepEqual(w.removed, ['study-mastery-old']);
+});
+
+test('API privada de feedback nunca é interceptada ou guardada pelo worker', () => {
+  const w = worker();
+  for (const method of ['GET', 'POST', 'PATCH', 'DELETE']) {
+    assert.equal(w.request(undefined, base + 'api/feedback?action=list', method), undefined);
+  }
+  assert.equal(w.fetches, 0);
 });
 
 test('MP3 busca e guarda o arquivo completo; Range funciona sem rede', async () => {

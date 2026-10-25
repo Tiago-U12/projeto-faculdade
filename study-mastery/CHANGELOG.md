@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1 — feedbacks e melhorias (25/10/2026)
+
+- Formulário de feedback com categorias, contexto da questão, até dois prints, consentimento e rascunho offline explícito.
+- Caixa administrativa privada com status, notas, exportação por caso e exclusão de anexos/relato.
+- API Cloudflare Pages + D1, verificação Turnstile, limites atômicos, idempotência, retenção e autorização no servidor. Desativada até configurar os bindings e segredos; nenhuma ativação externa presumida.
+- API fora do cache PWA; configuração de plataforma fora do pré-cache. Banco de questões, progresso, Study Radio e projetos vizinhos preservados.
+- Operação e pendências documentadas em `docs/FEEDBACKS.md`.
+
 ## 0.6.0 — entrega do modo local (24/10/2026)
 
 - Disciplinas e materiais pessoais, extração local de PDF/texto, guias por trechos, questões manuais, agenda, planejamento e progresso implementados nos checkpoints A–F.
