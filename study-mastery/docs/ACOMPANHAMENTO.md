@@ -2,10 +2,14 @@
 
 Lista viva para retomar o trabalho sem repetir. Atualizada a cada checkpoint.
 
-- **Branch**: `ccr-71aa1f28-s1s3f6` (sem merge na `main`, sem publicação).
+- **Branch**: `ccr-71aa1f28-s1s3f6` (base da entrega; publicação do modo local autorizada em 24/10/2026).
 - **Pedido**: evoluir para estudos personalizados (etapas A–F). Arquitetura e decisões: [ARQUITETURA_V06.md](ARQUITETURA_V06.md).
-- **Regras que valem sempre**: não declarar revisão humana; não publicar nem fazer merge; não criar serviço pago;
+- **Regras que valem sempre**: não declarar revisão humana; publicação e merge apenas no escopo autorizado; não criar serviço pago;
   segredos nunca no repositório/frontend/logs; IA só no servidor; nada simulado apresentado como integração real.
+
+## Continuação Codex — autorização atual
+
+Tiago autorizou finalizar e colocar o site no ar. A liberação cobre a versão local gratuita; contas/Supabase/SMTP e IA não são ativados sem configuração e validação reais. As restrições de não publicar dos checkpoints anteriores foram superadas por essa autorização. Código e resultados novos em [ENTREGA_V06_CODEX.md](ENTREGA_V06_CODEX.md); os resultados abaixo permanecem como histórico do trabalho anterior.
 
 ## Estado por etapa
 

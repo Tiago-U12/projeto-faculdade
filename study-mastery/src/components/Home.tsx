@@ -96,7 +96,7 @@ export function Home({ go }: { go: (to: string) => void }) {
         <div><span>ACERTOS</span><strong>{acc === null ? '—' : acc + '%'}</strong><small>média geral</small></div>
         <div><span>PARA REVISAR</span><strong>{due.errors + due.due}</strong><small>{due.errors} erros · {due.due} vencidas</small></div>
       </div>
-      <p className="bank-note"><Flame size={14} aria-hidden="true" /><span>Banco existente: <b>{bank.questions.length}</b> questões disponíveis{bank.questions.length < goal ? ` de ${goal} planejadas` : ''}, com gabarito conferido e revisão assistida por IA. {qa.humanReviewed === 0 ? 'Revisão humana pendente.' : `${qa.humanReviewed} com revisão humana.`} <a href="#/library">Como verificamos as questões</a></span></p>
+      <p className="bank-note"><Flame size={14} aria-hidden="true" /><span>Banco existente: <b>{bank.questions.length}</b> questões disponíveis{bank.questions.length < goal ? ` de ${goal} planejadas` : ''}. Revisão registrada: {qa.aiReviewed} com assistência de IA e {qa.humanReviewed} com revisão humana. {qa.humanReviewed < qa.total && `Revisão humana pendente em ${qa.total - qa.humanReviewed} ${qa.total - qa.humanReviewed === 1 ? 'questão' : 'questões'}.`} <a href="#/library">Como verificamos as questões</a></span></p>
     </>
   );
 }

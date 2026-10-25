@@ -396,13 +396,13 @@ function QuestionItem({ q, quiz, onEdit, onStatus, onDelete }: { q: PQuestion; q
           </span>
         </summary>
         <div className="q-body">
-          <RichText as="p" text={q.stem} />
+          <RichText as="div" text={q.stem} />
           <ol className="q-opts" type="A">
             {q.options.map((o) => (
               <li key={o.id} className={o.id === q.correctOptionId ? 'right' : ''}><RichText text={o.text} />{o.id === q.correctOptionId && <b> · correta</b>}</li>
             ))}
           </ol>
-          <RichText as="p" className="muted" text={q.explanation.correct} />
+          <RichText as="div" className="muted" text={q.explanation.correct} />
           {q.status === 'reportada' && q.reportNote && <p className="form-error">Erro relatado: {q.reportNote}</p>}
           {quiz && <PersonalSources q={quiz} />}
           {quiz && <p className="src-meta">{personalProvenance(quiz)}</p>}

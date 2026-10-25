@@ -3,7 +3,8 @@
 Sem esta configuração o Study Mastery funciona como sempre: banco existente, progresso, disciplinas e calendário
 **neste aparelho**. As contas só aparecem quando o build recebe as duas variáveis públicas abaixo.
 
-> Nada aqui exige plano pago. O Supabase Free cobre o uso de uma turma (limites em `ARQUITETURA_V06.md`).
+> Contas podem usar Supabase Free dentro das quotas; a capacidade para uma turma depende do uso e precisa ser medida.
+> Geração por IA é opcional e paga, e permanece desativada nesta publicação. Limites em `ARQUITETURA_V06.md`.
 > Segredos (senha do banco, chave secreta/service role, chave de IA, senha SMTP) **nunca** vão para o repositório,
 > para o frontend, para variáveis `VITE_*` nem para mensagens de chat.
 
@@ -86,7 +87,7 @@ Valores em *Project Settings → API*: a **URL do projeto** e a **chave publicá
 - **GitHub Pages**: variáveis do repositório `STUDY_SUPABASE_URL` e `STUDY_SUPABASE_PUBLISHABLE_KEY`
   (o workflow já as repassa ao build).
 
-O app recusa, por segurança, uma chave secreta colada por engano nessas variáveis (fica sem contas).
+O app recusa usar uma chave secreta colada por engano nessas variáveis, mas isso não impede que o Vite inclua o valor no bundle. Nunca configure segredos em `VITE_*`; conferir as variáveis antes do build é obrigatório.
 
 ## 6. Conferir
 
@@ -109,3 +110,7 @@ O app recusa, por segurança, uma chave secreta colada por engano nessas variáv
 - Funções conferidas com `deno check` (Deno 2.9.6).
 - Isso **não** testa a API real (PostgREST, Auth, Storage) nem os limites de tipo/tamanho do bucket: esses dependem
   do projeto hospedado (script de integração acima).
+
+## Antes de ativar IA paga
+
+A cota diária atual consulta consumo antes de iniciar a tarefa e não constitui um teto financeiro atômico: pedidos distintos simultâneos podem ultrapassá-la. Antes de ativar a IA, implementar reserva atômica de cota, limite global e orçamento aprovado, além dos limites do provedor. Nenhuma chave ou geração paga foi ativada na publicação do modo local.

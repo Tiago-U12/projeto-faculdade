@@ -196,7 +196,7 @@ async function run(page: Page) {
   console.log('Acervo e tema');
   await page.getByRole('button', { name: 'Acervo e fontes' }).click();
   await page.getByRole('heading', { name: /Fontes que/ }).waitFor();
-  check(/Revisão humana\s*Pendente\./.test(await page.locator('main').innerText()), 'acervo declara que a revisão humana está pendente');
+  check(/A revisão humana ainda está pendente\./.test(await page.locator('main').innerText()), 'acervo declara que a revisão humana está pendente');
   await page.getByRole('button', { name: 'Usar tema claro' }).click();
   await page.screenshot({ path: shot('09-library-light.png'), fullPage: true });
   check((await page.locator('html').getAttribute('data-theme')) === 'light', 'tema claro aplicado');

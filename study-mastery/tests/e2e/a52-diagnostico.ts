@@ -147,7 +147,16 @@ async function main() {
     try {
       const page = await ctx.newPage();
       const errors: string[] = [];
-      page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+      page.on('console', (m) => {
+        if (m.type() !== 'error') return;
+        // A faixa opcional não acompanha o app; o worker devolve 503 ao sondá-la offline.
+        // Outros recursos/status continuam sendo falhas, como na homologação principal.
+        if (/(?:404|503)/.test(m.text()) && /\/audio\/study-radio\.mp3$/.test(m.location().url)) {
+          log('sondagem da faixa opcional', 'indisponível, como esperado sem música incluída');
+          return;
+        }
+        errors.push(m.text() + ' · ' + m.location().url);
+      });
       page.on('pageerror', (e) => errors.push(String(e)));
       await throttle(page);
       const t0 = Date.now();

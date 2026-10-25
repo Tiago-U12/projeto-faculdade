@@ -437,7 +437,7 @@ async function main() {
     ok('explicação mostra o passo a passo completo', steps === withSteps.explanation.steps!.length, `${withSteps.id}: ${steps} passos`);
     ok('cada questão traz fonte/referência', (await page.locator('.explain .sources li').count()) >= 1);
     manual('as 600 questões: 4 alternativas distintas, explicação de cada errada, fonte existente, LaTeX pareado', 'coberto por `bank-integrity.test.ts` (600 questões) e `e2e:render` (600 × 2 larguras, sem erro de KaTeX)');
-    manual('a alternativa marcada como correta realmente resolve o problema', '600/600 reexecutadas por SymPy/mpmath, Node, MariaDB e Chromium (`validate --recheck-approved`); amostra revisada à mão no relatório');
+    manual('qualidade pedagógica de enunciados, gabaritos e explicações', 'este E2E não valida o conteúdo; revisão humana continua pendente. source-review registra conferência declarada, sem execução');
   });
 
   // ================= 5. Resultados =================
@@ -805,14 +805,35 @@ async function main() {
     await page.getByRole('heading', { name: /Fontes que/ }).waitFor();
     const txt = await page.locator('main').innerText();
     ok('acervo mostra 600 questões disponíveis', /600 questões disponíveis/.test(txt));
-    ok('“Como verificamos as questões” com contagens do banco e revisão humana pendente', /Como verificamos as questões/.test(txt) && new RegExp(`${bank.filter((q) => !/^source-review/.test(q.verifiedBy)).length} de 600`).test(txt) && /Revisão humana\s*Pendente/.test(txt));
+    ok('“Como verificamos as questões” com revisão humana pendente e limites visíveis', /Como verificamos as questões/.test(txt) && /A revisão humana ainda está pendente\./.test(txt) && /As verificações automáticas não eliminam todos os erros\./.test(txt));
     const rows = await page.locator('.lib-disc').evaluateAll((ds) => ds.map((d) => [...d.querySelectorAll(':scope > .bar-row .bar-val')].map((b) => b.textContent)));
     ok('100/100 por dificuldade em cada disciplina', rows.length === 2 && rows.every((r) => r.join() === '100/100,100/100,100/100'), JSON.stringify(rows));
     await page.locator('.lib-disc details').evaluateAll((ds) => ds.forEach((d) => ((d as HTMLDetailsElement).open = true)));
     const cov = await page.locator('.cov li').evaluateAll((ls) => ls.map((l) => [l.querySelector('span')!.textContent, l.querySelector('b')!.textContent]));
     const expected = tax.disciplines.flatMap((d) => d.topics.map((t) => [t.name, `${bank.filter((q) => q.topicId === t.id).length}/${t.quota.facil + t.quota.medio + t.quota.dificil}`]));
     ok('cobertura por assunto bate com o banco e com as cotas', JSON.stringify(cov) === JSON.stringify(expected), `${cov.length} assuntos`);
-    ok('acervo declara revisão humana pendente', /Revisão humana\s*Pendente\./.test(txt));
+    ok('acervo declara revisão humana pendente', /A revisão humana ainda está pendente\./.test(txt));
+    const technical = page.locator('.qa-details');
+    const summary = technical.locator('summary');
+    ok('detalhes técnicos iniciam fechados', !(await technical.evaluate((el) => (el as HTMLDetailsElement).open)));
+    ok('métodos não aparecem na leitura inicial', !/sympy|mpmath|node --permission|source-review/i.test(txt));
+    await summary.focus();
+    await page.keyboard.press('Enter');
+    await technical.locator('.qa-methods').first().waitFor({ state: 'visible' });
+    const methods = new Map<string, number>();
+    for (const q of bank) methods.set(q.verifiedBy, (methods.get(q.verifiedBy) ?? 0) + 1);
+    const shown = await technical.locator('.qa-methods li').allTextContents();
+    ok('métodos recolhíveis têm as contagens reais', shown.length === methods.size && [...methods].every(([method, count]) => shown.includes(`${method}: ${count}`)));
+    ok('métodos agrupados em matemática, programação e fontes', await technical.getByRole('heading', { name: /^Matemática:/ }).isVisible() && await technical.getByRole('heading', { name: /^Programação:/ }).isVisible() && await technical.getByRole('heading', { name: /^Consulta às fontes:/ }).isVisible());
+    for (const width of [390, 320]) {
+      await page.setViewportSize({ width, height: 844 });
+      ok(`acervo com detalhes abertos cabe em ${width}px`, await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+    await summary.focus();
+    await page.keyboard.press('Space');
+    await technical.locator('.qa-methods').first().waitFor({ state: 'hidden' });
+    ok('Espaço fecha os detalhes técnicos', !(await technical.evaluate((el) => (el as HTMLDetailsElement).open)));
   });
 
   // ================= 11. Segurança e privacidade =================

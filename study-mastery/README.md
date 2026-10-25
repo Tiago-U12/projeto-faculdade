@@ -4,10 +4,9 @@ Plataforma universitária de estudos, mobile-first: banco de questões verificad
 da 0.6, **estudos personalizados** — disciplinas próprias, materiais (PDF com texto ou texto colado), guias com
 trechos do material, questões pessoais, agenda e planejamento até a prova.
 
-> **Estado em 24/10/2026:** a 0.6 está na branch `ccr-71aa1f28-s1s3f6`, **pronta para revisão, não publicada** e sem
-> merge na `main`. Tudo que roda **sem conta** está funcionando e testado no navegador. **Contas** (Supabase) e
-> **geração por IA** têm o código e os testes locais prontos, mas dependem de configuração que ainda não foi feita —
-> o app diz isso nas telas e não simula resultado. Acompanhamento etapa por etapa: [docs/ACOMPANHAMENTO.md](docs/ACOMPANHAMENTO.md).
+> **Entrega 0.6.0 — publicação autorizada em 24/10/2026:** o modo **neste aparelho** inclui banco existente, materiais pessoais, guias, questões manuais, agenda e progresso, sem cadastro ou API de IA. Endereço principal: <https://study-mastery.pages.dev/>.
+>
+> **Contas e geração por IA permanecem desativadas:** dependem de serviços reais ainda não configurados/homologados. A publicação não ativa cobrança, não cria projeto Supabase e não altera a privacidade do repositório. Resultados e limites desta revisão: [docs/ENTREGA_V06_CODEX.md](docs/ENTREGA_V06_CODEX.md).
 
 ## Funcionalidades
 
@@ -41,8 +40,8 @@ RLS em todas as tabelas, Storage privado, Edge Functions em Deno). Regras puras 
 
 | Serviço | Para quê | Estado |
 |---|---|---|
-| GitHub Pages / Cloudflare Pages | site estático | publicado (0.5.2); 0.6 não publicada |
-| Supabase (Free) | contas, banco, arquivos, funções | **não criado** (precisa da sua autorização) |
+| GitHub Pages / Cloudflare Pages | site estático | destino da publicação autorizada da 0.6; consultar os checks do commit em main |
+| Supabase (Free) | contas, banco, arquivos, funções | **não criado**; contas desativadas |
 | Anthropic API | geração de questões e seções | **sem chave** (decisão sua; tem custo) |
 
 ## Configuração (sem segredos)
@@ -65,12 +64,13 @@ contém chaves.
 
 ## Executar e testar
 
-Requer Node 22+.
+Requer Node 22+. Para os testes de materiais, o gerador usa Python 3 com `reportlab`, `pypdf` e `Pillow`, além das fontes DejaVu. Os fixtures são gerados localmente e não entram no build público. Para os testes editoriais, instale `sympy`/`mpmath` e execute `npm run sandbox:install`; configure `CHROMIUM_PATH` se necessário. Para incluir todos os testes de banco, instale Postgres ou indique seus binários em `PG_BIN`; ausência de binários resulta em testes pulados, não aprovados.
 
 ```bash
 npm ci
 npm run dev            # desenvolvimento
 npm run build          # tsc + vite
+python3 -I tools/fixtures/gerar_materiais.py # gera PDFs/texto próprios de teste (não são materiais da faculdade)
 npm test               # unitários, regras, funções (IA simulada) e banco (Postgres local, se houver binários)
 npm run test:db        # só o banco: RLS com duas contas, limites, exclusões (Postgres 16 local)
 npm run e2e:v06        # fluxos da 0.6 no navegador: 390, 320 e 1280 px, axe, sem segredos no build (exige build)
@@ -93,8 +93,7 @@ estimativas (sem medição real ainda), limites por conta.
 
 ## Limitações
 
-- Contas e IA não foram testadas contra os serviços reais (sem projeto, sem chave e sem rede até `*.supabase.co` neste
-  ambiente); os testes locais usam Postgres real com as mesmas regras e IA simulada.
+- Contas e IA não foram testadas contra os serviços reais (sem projeto e sem chave); os testes locais usam Postgres real com as mesmas regras e IA simulada.
 - Sem OCR: PDF escaneado fica “Precisa de atenção”. Fórmulas e tabelas extraídas de PDF podem perder formatação (o app avisa).
 - Cálculos e código das questões geradas por IA não são executados; nenhuma questão tem revisão humana.
 - Materiais, guias, questões e eventos criados sem conta não são importados para a conta nesta versão.

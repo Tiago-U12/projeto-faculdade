@@ -58,3 +58,27 @@ export function qualitySummary(questions: readonly PublishedQuestion[]): Quality
     groups,
   };
 }
+
+/** Agrupamento para estudantes; preserva os métodos e contagens detalhados do resumo editorial. */
+export function technicalGroups(summary: QualitySummary) {
+  const sections: { id: string; name: string; purposes: CheckPurpose[]; notes: string[] }[] = [
+    { id: 'math', name: 'Matemática', purposes: ['calculo'], notes: [
+      'SymPy faz cálculos simbólicos; mpmath confere aproximações numéricas.',
+      'diff calcula derivadas, quad calcula integrais e taylor calcula séries. Amostragem compara valores em pontos escolhidos.',
+    ] },
+    { id: 'code', name: 'Programação', purposes: ['codigo', 'navegador', 'sql'], notes: [
+      'js-exec e node-exec executam exemplos de JavaScript; web-chromium testa páginas no navegador.',
+      'node --permission limita operações do processo; sandbox indica um ambiente isolado.',
+      'SQL testa consultas em MariaDB. A equivalência com MySQL tem limitações.',
+    ] },
+    { id: 'source', name: 'Consulta às fontes', purposes: ['fonte'], notes: [
+      'source-review registra uma conferência declarada com o material citado, sem executar cálculo ou código.',
+      'Esse registro não valida automaticamente o significado do material.',
+    ] },
+    { id: 'other', name: 'Outros registros', purposes: ['outro'], notes: ['Métodos ainda não classificados neste agrupamento.'] },
+  ];
+  return sections.flatMap((section) => {
+    const methods = summary.groups.filter((g) => section.purposes.includes(g.purpose)).flatMap((g) => g.methods);
+    return methods.length ? [{ ...section, methods, count: methods.reduce((n, m) => n + m.count, 0) }] : [];
+  });
+}

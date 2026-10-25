@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 — entrega do modo local (24/10/2026)
+
+- Disciplinas e materiais pessoais, extração local de PDF/texto, guias por trechos, questões manuais, agenda, planejamento e progresso implementados nos checkpoints A–F.
+- Revisão Codex: explicação de qualidade curta, aviso humano visível e detalhes em três grupos com contagens reais; correção de blocos de código nas questões pessoais.
+- Validação nova: 817 testes sem pulos, typecheck/build, PWA 7/7, fluxos v0.6 293 verificações, homologação Cloudflare 145/145 e renderização das 600 questões em duas larguras.
+- Contas, SMTP, Supabase hospedado e IA permanecem desativados; banco existente com 600 revisões assistidas por IA, nenhuma humana.
+- Publicação autorizada por Tiago; detalhes e limitações em `docs/ENTREGA_V06_CODEX.md`.
+
 ## 0.5.2 — 2026-10-23
 - Corrigido o `ERR_FAILED` ao reabrir o Cloudflare Pages: a navegação usa a página canônica pré-cacheada, evitando a resposta redirecionada de `/index.html`.
 - Regressão em Chromium para reload online/offline, perfil persistente reaberto e atualização de um worker antigo sem apagar a sessão.
