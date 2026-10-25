@@ -26,6 +26,8 @@ Os dados ficam acessíveis por até 90 dias. A exclusão física dos expirados o
 
 ## Ativar uma vez no Cloudflare
 
+**Opção automatizada:** [configurar D1, Turnstile e segredos com preview primeiro](AUTOMACAO_FEEDBACKS.md). Requer uma credencial inicial gratuita cadastrada de forma segura; a ativação externa ainda está pendente. Os passos abaixo continuam sendo a alternativa manual. Não misture os dois procedimentos sobre um ambiente já configurado sem revisar os bindings e chaves existentes.
+
 1. No painel, confirme Workers Free. Crie um banco D1 chamado `study-mastery-feedback`. Abra o console desse banco e execute o SQL de [`../migrations-feedback/0001_feedback.sql`](../migrations-feedback/0001_feedback.sql).
 2. No projeto **Pages study-mastery**, adicione um binding de banco D1 em produção: nome `FEEDBACK_DB`, apontando para esse banco. A pasta raiz do build continua `study-mastery`; comando `npm run build`; saída `dist`. A pasta `functions/` precisa acompanhar o deploy pelo GitHub, além de `dist`.
 3. Crie um widget Turnstile gratuito, modo Managed, autorizado para `study-mastery.pages.dev`. Nas variáveis do Pages, adicione `TURNSTILE_SITE_KEY` (pública) e `TURNSTILE_SECRET_KEY` (secret). Não configure previews com o banco de produção; use um banco separado ou deixe o recebimento desativado neles.

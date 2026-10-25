@@ -7,6 +7,7 @@
 - API Cloudflare Pages + D1, verificação Turnstile, limites atômicos, idempotência, retenção e autorização no servidor. Desativada até configurar os bindings e segredos; nenhuma ativação externa presumida.
 - API fora do cache PWA; configuração de plataforma fora do pré-cache. Banco de questões, progresso, Study Radio e projetos vizinhos preservados.
 - Operação e pendências documentadas em `docs/FEEDBACKS.md`.
+- Automação optativa da configuração Cloudflare com bancos/chaves separados, testes em preview e bloqueio de preparação de produção sem protocolo revisado; instruções em `docs/AUTOMACAO_FEEDBACKS.md`. Ainda depende da credencial inicial e de validação real.
 
 ## 0.6.0 — entrega do modo local (24/10/2026)
 

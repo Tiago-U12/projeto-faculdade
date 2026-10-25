@@ -1,0 +1,94 @@
+name: Preparar feedbacks do Study Mastery
+
+on:
+  # Permite preparar o preview antes de este workflow existir na main.
+  # Desativado até o dono cadastrar os segredos e habilitar a variável explicitamente.
+  push:
+    branches: [feat/feedback-inbox]
+    paths:
+      - '.github/workflows/study-mastery-feedback.yml'
+      - 'study-mastery/tools/cloudflare-feedback.mjs'
+      - 'study-mastery/tests/automation/**'
+      - 'study-mastery/docs/AUTOMACAO_FEEDBACKS.md'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Ambiente a configurar (não publica produção)
+        type: choice
+        options: [preview, production]
+        default: preview
+      apply:
+        description: Aplicar configuração (desmarcado = somente leitura)
+        type: boolean
+        default: false
+      retry_preview:
+        description: Refazer preview do commit escolhido após configurar
+        type: boolean
+        default: false
+      preview_deployment_id:
+        description: UUID do deploy testado (obrigatório para produção)
+        type: string
+      preview_receipt:
+        description: Protocolo do relato com print marcado Em análise no preview
+        type: string
+      reviewed:
+        description: Conferi texto, imagem e funcionamento no preview
+        type: boolean
+        default: false
+      production_confirm:
+        description: Para preparar produção digite PUBLICAR_FEEDBACK
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: study-mastery-feedback-setup
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Testar automação sem credenciais nem dependências externas
+        working-directory: study-mastery
+        run: node tests/automation/cloudflare-feedback.test.mjs
+
+  configure:
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' || vars.STUDY_FEEDBACK_SETUP_PREVIEW == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Configurar somente o ambiente selecionado
+        working-directory: study-mastery
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          FEEDBACK_ADMIN_TOKEN: ${{ secrets[format('FEEDBACK_ADMIN_TOKEN_{0}', inputs.target == 'production' && 'PRODUCTION' || 'PREVIEW')] }}
+          FEEDBACK_TARGET: ${{ inputs.target || 'preview' }}
+          FEEDBACK_FREE_CONFIRMED: ${{ vars.CLOUDFLARE_FREE_CONFIRMED }}
+          FEEDBACK_PREVIEW_DEPLOYMENT_ID: ${{ inputs.preview_deployment_id }}
+          FEEDBACK_PREVIEW_RECEIPT: ${{ inputs.preview_receipt }}
+          FEEDBACK_PREVIEW_REVIEWED: ${{ inputs.reviewed }}
+          FEEDBACK_PRODUCTION_CONFIRM: ${{ inputs.production_confirm }}
+          SETUP_APPLY: ${{ github.event_name == 'push' || inputs.apply }}
+          SETUP_RETRY: ${{ github.event_name == 'push' || inputs.retry_preview }}
+        run: |
+          args=()
+          if [ "$SETUP_APPLY" = "true" ]; then args+=(--apply); fi
+          if [ "$SETUP_RETRY" = "true" ]; then args+=(--retry-preview); fi
+          node tools/cloudflare-feedback.mjs "${args[@]}"

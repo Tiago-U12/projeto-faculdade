@@ -25,7 +25,9 @@
     "e2e:a52": "tsx tests/e2e/a52-diagnostico.ts",
     "test:db": "vitest run tests/db",
     "test:integration": "tsx tests/integration/supabase-real.ts",
-    "e2e:feedback": "tsx tests/e2e/feedback.ts"
+    "e2e:feedback": "tsx tests/e2e/feedback.ts",
+    "feedback:setup": "node tools/cloudflare-feedback.mjs",
+    "test:automation": "node tests/automation/cloudflare-feedback.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
