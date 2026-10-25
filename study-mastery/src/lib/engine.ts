@@ -1,4 +1,4 @@
-import type { DisciplineId, Difficulty, Mode, PublishedQuestion, QuestionStat, Scope, SessionConfig } from '../types';
+import type { DisciplineId, Difficulty, Mode, Option, PublishedQuestion, QuestionStat, Scope, SessionConfig } from '../types';
 import { DIFFICULTIES } from '../types';
 import { hashString, mulberry32, shuffle, type Rng } from './rng';
 import { isDue, topicAccuracy } from './srs';
@@ -17,6 +17,22 @@ export function eligible(bank: readonly PublishedQuestion[], cfg: Pick<SessionCo
   return bank.filter(
     (q) => q.status === 'approved' && q.disciplineId === cfg.disciplineId && topics.has(q.topicId) && diffs.has(q.difficulty) && scopeAllows(cfg.scope, q.scope),
   );
+}
+
+/** O que o motor precisa de uma questão (banco existente ou pessoal). */
+export interface EngineQuestion {
+  id: string;
+  topicId: string;
+  difficulty: Difficulty;
+  options: Option[];
+  fixedOrder?: boolean;
+}
+
+/** Filtro estrito das questões pessoais: só disciplina, assuntos e dificuldades escolhidos; fora reportadas e arquivadas. */
+export function personalPool<Q extends EngineQuestion & { disciplineId: string; status: string }>(questions: readonly Q[], cfg: Pick<SessionConfig, 'disciplineId' | 'topicIds' | 'difficulties'>): Q[] {
+  const topics = new Set(cfg.topicIds);
+  const diffs = new Set(cfg.difficulties);
+  return questions.filter((q) => q.disciplineId === cfg.disciplineId && topics.has(q.topicId) && diffs.has(q.difficulty) && q.status !== 'reportada' && q.status !== 'arquivada');
 }
 
 export interface SessionItem {
@@ -51,23 +67,23 @@ export interface BuildContext {
   now?: Date;
 }
 
-export function optionOrder(q: PublishedQuestion, seed: number): string[] {
+export function optionOrder(q: EngineQuestion, seed: number): string[] {
   const ids = q.options.map((o) => o.id);
   if (q.fixedOrder) return ids;
   return shuffle(ids, mulberry32(seed ^ hashString(q.id)));
 }
 
-function byUnseenFirst(pool: PublishedQuestion[], stats: Record<string, QuestionStat>, rng: Rng): PublishedQuestion[] {
+function byUnseenFirst<Q extends EngineQuestion>(pool: Q[], stats: Record<string, QuestionStat>, rng: Rng): Q[] {
   const tagged = shuffle(pool, rng).map((q, i) => ({ q, i, seen: stats[q.id]?.seen ?? 0 }));
   tagged.sort((a, b) => a.seen - b.seen || a.i - b.i);
   return tagged.map((t) => t.q);
 }
 
-function pickMixed(pool: PublishedQuestion[], n: number, stats: Record<string, QuestionStat>, rng: Rng): PublishedQuestion[] {
+function pickMixed<Q extends EngineQuestion>(pool: Q[], n: number, stats: Record<string, QuestionStat>, rng: Rng): Q[] {
   // round-robin entre assuntos; dentro de cada assunto alterna dificuldades
-  const topics = new Map<string, Map<Difficulty, PublishedQuestion[]>>();
+  const topics = new Map<string, Map<Difficulty, Q[]>>();
   for (const q of byUnseenFirst(pool, stats, rng)) {
-    const t = topics.get(q.topicId) ?? new Map<Difficulty, PublishedQuestion[]>();
+    const t = topics.get(q.topicId) ?? new Map<Difficulty, Q[]>();
     const arr = t.get(q.difficulty) ?? [];
     arr.push(q);
     t.set(q.difficulty, arr);
@@ -75,7 +91,7 @@ function pickMixed(pool: PublishedQuestion[], n: number, stats: Record<string, Q
   }
   const topicOrder = shuffle([...topics.keys()], rng);
   const diffCursor = new Map<string, number>(topicOrder.map((t) => [t, Math.floor(rng() * 3)]));
-  const out: PublishedQuestion[] = [];
+  const out: Q[] = [];
   while (out.length < n) {
     let progressed = false;
     for (const t of topicOrder) {
@@ -98,7 +114,7 @@ function pickMixed(pool: PublishedQuestion[], n: number, stats: Record<string, Q
   return shuffle(out, rng);
 }
 
-function pickReview(pool: PublishedQuestion[], n: number, stats: Record<string, QuestionStat>, now: Date, rng: Rng): { list: PublishedQuestion[]; comp: Composition } {
+function pickReview<Q extends EngineQuestion>(pool: Q[], n: number, stats: Record<string, QuestionStat>, now: Date, rng: Rng): { list: Q[]; comp: Composition } {
   const t = (id: string) => new Date(stats[id].due).getTime();
   const errors = shuffle(pool.filter((q) => stats[q.id] && !stats[q.id].lastCorrect), rng).sort((a, b) => t(a.id) - t(b.id));
   const due = shuffle(pool.filter((q) => stats[q.id]?.lastCorrect && isDue(stats[q.id], now)), rng).sort((a, b) => t(a.id) - t(b.id));
@@ -112,9 +128,9 @@ function pickReview(pool: PublishedQuestion[], n: number, stats: Record<string, 
   };
   const freshSorted = shuffle(fresh, rng).sort((a, b) => score(a.topicId) - score(b.topicId));
   const other = shuffle(pool.filter((q) => stats[q.id]?.lastCorrect && !isDue(stats[q.id], now)), rng).sort((a, b) => t(a.id) - t(b.id));
-  const list: PublishedQuestion[] = [];
+  const list: Q[] = [];
   const comp: Composition = { errors: 0, due: 0, fresh: 0, other: 0 };
-  const take = (arr: PublishedQuestion[], key: keyof Composition) => {
+  const take = (arr: Q[], key: keyof Composition) => {
     for (const q of arr) {
       if (list.length >= n) return;
       list.push(q);
@@ -128,11 +144,11 @@ function pickReview(pool: PublishedQuestion[], n: number, stats: Record<string, 
   return { list, comp };
 }
 
-export function buildSession(pool: readonly PublishedQuestion[], config: SessionConfig, ctx: BuildContext, seed: number): Session {
+export function buildSession<Q extends EngineQuestion>(pool: readonly Q[], config: SessionConfig, ctx: BuildContext, seed: number): Session {
   const now = ctx.now ?? new Date();
   const rng = mulberry32(seed);
   const n = Math.min(config.size, pool.length);
-  let picked: PublishedQuestion[];
+  let picked: Q[];
   let comp: Composition = { errors: 0, due: 0, fresh: 0, other: 0 };
   if (config.mode === 'revisao') {
     const r = pickReview([...pool], n, ctx.stats, now, rng);
@@ -185,7 +201,7 @@ export function shortfall(poolSize: number, requested: number): number {
   return Math.max(0, requested - poolSize);
 }
 
-export function reviewCounts(pool: readonly PublishedQuestion[], stats: Record<string, QuestionStat>, now = new Date()) {
+export function reviewCounts(pool: readonly { id: string }[], stats: Record<string, QuestionStat>, now = new Date()) {
   let errors = 0;
   let due = 0;
   for (const q of pool) {

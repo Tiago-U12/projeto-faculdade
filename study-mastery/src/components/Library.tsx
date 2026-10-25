@@ -2,16 +2,14 @@ import { ArrowLeft, ArrowRight, BookOpen, ShieldCheck } from 'lucide-react';
 import { useMemo } from 'react';
 import { DIFFICULTIES, DIFFICULTY_LABEL } from '../types';
 import { countByTopic } from '../lib/engine';
+import { qualitySummary, technicalGroups } from '../lib/quality';
 import { useStudy } from '../state';
 
 export function Library({ go }: { go: (to: string) => void }) {
   const { bank } = useStudy();
-  const method = useMemo(() => {
-    const m: Record<string, number> = {};
-    for (const q of bank.questions) m[q.verifiedBy] = (m[q.verifiedBy] ?? 0) + 1;
-    return m;
-  }, [bank]);
-  const human = bank.questions.filter((q) => q.reviewedBy === 'human').length;
+  const qa = useMemo(() => qualitySummary(bank.questions), [bank]);
+  const groups = useMemo(() => technicalGroups(qa), [qa]);
+  const pendingHuman = qa.total - qa.humanReviewed;
   const goal = bank.taxonomy.disciplines.reduce((s, d) => s + d.topics.reduce((a, t) => a + t.quota.facil + t.quota.medio + t.quota.dificil, 0), 0);
 
   return (
@@ -19,11 +17,15 @@ export function Library({ go }: { go: (to: string) => void }) {
       <button type="button" className="back" onClick={() => go('#/')}><ArrowLeft size={18} aria-hidden="true" /> Início</button>
       <div className="eyebrow"><BookOpen size={16} aria-hidden="true" /> ACERVO E CONFIABILIDADE</div>
       <h1 className="screen-title">Fontes que <em>ensinam.</em></h1>
-      <p className="sub">Só entram aqui questões <b>aprovadas</b>: verificadas (matemática por SymPy e conferência numérica; código executado de verdade), com explicação e referência, e revisadas. Rascunhos nunca aparecem. Nenhuma IA é chamada durante suas sessões.</p>
+      <p className="sub">O banco existente reúne questões de Cálculo II e Full Stack preparadas a partir das aulas, com explicações e referências. Rascunhos ficam de fora. Estar disponível não significa aprovação por professores ou ausência de erros. Nenhuma IA é chamada durante as sessões com este banco.</p>
 
       <section className="panel" aria-labelledby="h-count">
-        <div className="panel-head"><h2 id="h-count">Banco completo · revisão humana pendente</h2><small className="muted">v{bank.manifest.bankVersion}</small></div>
-        <p><b>{bank.questions.length}</b> de {goal} questões aprovadas.</p>
+        <div className="panel-head"><h2 id="h-count">Banco existente</h2><small className="muted">v{bank.manifest.bankVersion}</small></div>
+        <p><b>{bank.questions.length}</b> questões disponíveis{bank.questions.length < goal ? ` (meta: ${goal})` : ''}.</p>
+        <dl className="qa-status">
+          <div><dt>Revisão assistida por IA</dt><dd><b>{qa.aiReviewed}</b> de {qa.total} questões com esse tipo de revisão registrado.</dd></div>
+          <div><dt>Revisão humana</dt><dd><b>{qa.humanReviewed}</b> de {qa.total} questões com revisão humana registrada.</dd></div>
+        </dl>
         {bank.taxonomy.disciplines.map((d) => {
           const per = countByTopic(bank.questions, d.id);
           return (
@@ -57,12 +59,31 @@ export function Library({ go }: { go: (to: string) => void }) {
       </section>
 
       <section className="panel" aria-labelledby="h-qa">
-        <div className="panel-head"><h2 id="h-qa"><ShieldCheck size={18} aria-hidden="true" /> Como garantimos a qualidade</h2></div>
+        <div className="panel-head"><h2 id="h-qa"><ShieldCheck size={18} aria-hidden="true" /> Como verificamos as questões</h2></div>
+        <p className="qa-intro">Conferimos respostas com ferramentas de cálculo, testes de código e consulta às fontes, conforme o tipo de questão.</p>
+        <p className="qa-notice">
+          {pendingHuman > 0 && <>{pendingHuman === qa.total ? 'A revisão humana ainda está pendente.' : `A revisão humana ainda está pendente em ${pendingHuman} ${pendingHuman === 1 ? 'questão' : 'questões'}.`} </>}
+          As verificações automáticas não eliminam todos os erros.
+        </p>
+        <details className="src-details qa-details">
+          <summary>Ver detalhes técnicos</summary>
+          <p>Os métodos e as contagens abaixo vêm dos registros das questões disponíveis.</p>
+          <ul className="qa-groups">
+            {groups.map((g) => (
+              <li key={g.id}>
+                <h3>{g.name}: {g.count}</h3>
+                <ul className="plain">{g.notes.map((note) => <li key={note}>{note}</li>)}</ul>
+                <ul className="plain qa-methods">{g.methods.map((m) => <li key={m.method}>{m.method}: {m.count}</li>)}</ul>
+              </li>
+            ))}
+            <li><b>Em todas</b><p>Quatro alternativas distintas, explicação da correta e de cada errada, fonte com o ponto exato (slide, página ou exercício) e detecção automática de duplicatas.</p></li>
+          </ul>
+        </details>
+        <h3 className="qa-sub">Limites</h3>
         <ul className="plain">
-          <li><b>Verificação:</b> {Object.entries(method).map(([k, v]) => `${v} por ${k}`).join(' · ') || '—'}.</li>
-          <li><b>Revisão:</b> {bank.questions.length - human} com revisão assistida por IA (revisão humana ainda pendente) · {human} com revisão humana.</li>
-          <li><b>Duplicatas e ambiguidades:</b> detecção automática; nada de “todas as anteriores”.</li>
-          <li><b>Rastreabilidade:</b> cada questão cita a fonte e o ponto exato (slide, página, exercício).</li>
+          <li>Essas verificações ajudam a encontrar erros, mas não avaliam sozinhas a clareza e a adequação de cada questão.</li>
+          <li>Revisão assistida por IA não substitui revisão humana. Se encontrar um erro, use “Relatar erro” na questão.</li>
+          <li>Questões pessoais, criadas a partir dos seus materiais, não passam por estas verificações: cada uma mostra o próprio status.</li>
         </ul>
       </section>
 

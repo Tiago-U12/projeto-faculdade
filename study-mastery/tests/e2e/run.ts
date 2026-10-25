@@ -58,7 +58,7 @@ async function run(page: Page) {
   await page.getByRole('heading', { name: /Aprenda mais/ }).waitFor();
   check(await noHScroll(page), 'sem rolagem horizontal na home (390px)');
   await page.screenshot({ path: shot('01-home.png'), fullPage: true });
-  check(await page.getByText(/Banco completo/).isVisible(), 'mostra a contagem real do banco');
+  check(await page.getByText(/Banco existente: 600 questões disponíveis/).isVisible(), 'mostra a contagem real do banco');
 
   console.log('Configuração (foco da prova)');
   await page.getByRole('button', { name: /Foco da prova de 26\/10/ }).click();
@@ -76,7 +76,7 @@ async function run(page: Page) {
   await page.getByRole('button', { name: 'Limpar' }).click();
   await deriv.check();
   await page.locator('label.seg-btn', { hasText: /^\s*20\s*$/ }).click();
-  check(/Só há (\d+) questões aprovadas/.test(await summary.innerText()) && Number(/Só há (\d+)/.exec(await summary.innerText())![1]) < 20, 'avisa quando há menos questões do que o pedido (20) em vez de completar');
+  check(/Só há (\d+) questões disponíveis/.test(await summary.innerText()) && Number(/Só há (\d+)/.exec(await summary.innerText())![1]) < 20, 'avisa quando há menos questões do que o pedido (20) em vez de completar');
   await page.getByRole('button', { name: 'Foco da prova' }).click();
   await page.getByRole('checkbox', { name: /Regra de L’Hôpital|Regra de L'Hôpital/ }).waitFor();
   check(await page.getByRole('checkbox', { name: /Regra de L’Hôpital|Regra de L'Hôpital/ }).isChecked(), 'preset da prova restaurado');
@@ -151,7 +151,7 @@ async function run(page: Page) {
   await page.screenshot({ path: shot('07-home-after.png'), fullPage: true });
 
   console.log('Progresso, exportar e importar');
-  await page.getByRole('button', { name: 'Meu progresso' }).click();
+  await page.getByRole('button', { name: 'Progresso', exact: true }).click();
   await page.getByRole('heading', { name: 'Seu progresso.' }).waitFor();
   await page.getByRole('button', { name: 'Cálculo II', exact: true }).click();
   check(/2/.test(await page.locator('.metrics').first().innerText()), 'histórico registra as sessões concluídas');
@@ -196,7 +196,7 @@ async function run(page: Page) {
   console.log('Acervo e tema');
   await page.getByRole('button', { name: 'Acervo e fontes' }).click();
   await page.getByRole('heading', { name: /Fontes que/ }).waitFor();
-  check(/revisão humana ainda pendente/.test(await page.locator('main').innerText()), 'acervo declara que a revisão humana está pendente');
+  check(/A revisão humana ainda está pendente\./.test(await page.locator('main').innerText()), 'acervo declara que a revisão humana está pendente');
   await page.getByRole('button', { name: 'Usar tema claro' }).click();
   await page.screenshot({ path: shot('09-library-light.png'), fullPage: true });
   check((await page.locator('html').getAttribute('data-theme')) === 'light', 'tema claro aplicado');

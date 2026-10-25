@@ -35,11 +35,13 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
     if (preset === 'exam') return discipline.topics.filter((t) => t.examFocus && withQuestions(t.id)).map((t) => t.id);
     return discipline.topics.filter((t) => withQuestions(t.id)).map((t) => t.id);
   };
-  const reuse = last && last.disciplineId === disciplineId && !route.preset;
-  const [topicIds, setTopicIds] = useState<string[]>(() => (reuse ? last.topicIds.filter(withQuestions) : defaultTopics(route.preset)));
+  const reuse = last && last.disciplineId === disciplineId && !route.preset && !route.topics;
+  // vindo da agenda: assuntos do evento (só os que têm questões)
+  const fromEvent = route.topics?.filter((t) => discipline.topics.some((x) => x.id === t) && withQuestions(t));
+  const [topicIds, setTopicIds] = useState<string[]>(() => (fromEvent?.length ? fromEvent : reuse ? last.topicIds.filter(withQuestions) : defaultTopics(route.preset)));
   const [scope, setScope] = useState<Scope>(reuse ? last.scope : 'aprofundamento');
   const [difficulties, setDifficulties] = useState<Difficulty[]>(reuse ? last.difficulties : [...DIFFICULTIES]);
-  const [mode, setMode] = useState<Mode>(reuse ? last.mode : 'aprender');
+  const [mode, setMode] = useState<Mode>(route.mode ?? (reuse ? last.mode : 'aprender'));
   const [size, setSize] = useState<number>(reuse ? last.size : 20);
 
   const cfg: SessionConfig = { disciplineId, topicIds, scope, difficulties, mode, size };
@@ -101,7 +103,7 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
                   <span className="checkmark" aria-hidden="true"><Check size={13} /></span>
                   <span className="topic-body">
                     <span className="topic-name">{t.name}{t.examFocus && <em className="badge-exam">prova 26/10</em>}</span>
-                    <small>{total === 0 ? 'ainda sem questões aprovadas' : `${total} questões · fácil ${c.facil} · média ${c.medio} · difícil ${c.dificil}`}</small>
+                    <small>{total === 0 ? 'ainda sem questões disponíveis' : `${total} questões · fácil ${c.facil} · média ${c.medio} · difícil ${c.dificil}`}</small>
                   </span>
                 </label>
               </li>
@@ -163,9 +165,9 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
         <div>
           <strong>{pool.length} questões elegíveis</strong>
           {pool.length === 0 ? (
-            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Selecione ao menos um assunto, uma dificuldade e uma profundidade com questões aprovadas.</small>
+            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Selecione ao menos um assunto, uma dificuldade e uma profundidade com questões disponíveis.</small>
           ) : missing > 0 ? (
-            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Só há {pool.length} questões aprovadas nesta seleção — a sessão terá {pool.length}, sem repetir e sem incluir outros assuntos.</small>
+            <small className="warn"><AlertTriangle size={13} aria-hidden="true" /> Só há {pool.length} questões disponíveis nesta seleção — a sessão terá {pool.length}, sem repetir e sem incluir outros assuntos.</small>
           ) : (
             <small>Sessão de {size} questões, sem repetição.</small>
           )}

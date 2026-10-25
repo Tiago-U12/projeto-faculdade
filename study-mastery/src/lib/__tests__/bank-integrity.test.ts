@@ -14,6 +14,7 @@ import { buildSession, eligible, scopeAllows } from '../engine';
 import { mulberry32 } from '../rng';
 import { nextStat } from '../srs';
 import { toPublished } from '../../../tools/lib/publish';
+import { purposeOf, qualitySummary } from '../quality';
 
 const bank = [...calculo2, ...fullstack] as unknown as PublishedQuestion[];
 const manifest = manifestJson as BankManifest;
@@ -98,6 +99,16 @@ describe('banco publicado: consistência de cada questão', () => {
     expect(src).toHaveLength(bank.length);
     const pub = new Map(bank.map((q) => [q.id, q]));
     for (const q of src) expect(pub.get(q.id), q.id).toEqual(toPublished(q));
+  });
+});
+
+describe('“Como verificamos as questões”: contagens derivadas do banco', () => {
+  it('todo método de verificação publicado cai em uma finalidade conhecida e as contagens fecham', () => {
+    expect(bank.filter((q) => purposeOf(q.verifiedBy) === 'outro').map((q) => `${q.id}: ${q.verifiedBy}`)).toEqual([]);
+    const s = qualitySummary(bank);
+    expect(s.automatic + s.sourceOnly).toBe(bank.length);
+    expect(s.groups.reduce((n, g) => n + g.count, 0)).toBe(bank.length);
+    expect(s.aiReviewed + s.humanReviewed).toBe(bank.length);
   });
 });
 

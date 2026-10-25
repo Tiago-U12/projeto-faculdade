@@ -67,6 +67,11 @@ jobs:
       - name: Gerar Study Mastery
         if: vars.PUBLICAR_STUDY_MASTERY == 'true'
         working-directory: study-mastery
+        # contas opcionais: URL e chave PUBLICÁVEL do Supabase (públicas por natureza). Sem as variáveis, o app
+        # funciona como antes, sem contas. Nunca coloque a chave secreta (service role) aqui.
+        env:
+          VITE_SUPABASE_URL: ${{ vars.STUDY_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.STUDY_SUPABASE_PUBLISHABLE_KEY }}
         run: npm run build
 
       - name: Incluir Study Mastery na publicacao

@@ -1,4 +1,4 @@
-import { BarChart3, BookOpen, Moon, Sun } from 'lucide-react';
+import { BookOpen, Moon, Sun } from 'lucide-react';
 import { useStudy } from '../state';
 import type { Route } from '../lib/route';
 import { RadioPlayer } from './RadioPlayer';
@@ -20,7 +20,6 @@ export function Header({ route, go }: { route: Route; go: (to: string) => void }
       </button>
       <nav className="top-actions" aria-label="Principal">
         <RadioPlayer />
-        {nav('#/progress', 'progress', 'Meu progresso', <BarChart3 size={19} />)}
         {nav('#/library', 'library', 'Acervo e fontes', <BookOpen size={19} />)}
         <button type="button" className="icon-btn" onClick={() => updateSettings({ theme: dark ? 'light' : 'dark' })} aria-label={dark ? 'Usar tema claro' : 'Usar tema escuro'} title="Alternar tema">
           {dark ? <Sun size={19} /> : <Moon size={19} />}

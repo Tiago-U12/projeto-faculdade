@@ -14,7 +14,7 @@ export default defineConfig({
   build: { chunkSizeWarningLimit: 900 },
   test: {
     // testes de componentes declaram o ambiente no próprio arquivo (// @vitest-environment jsdom)
-    include: ['src/**/*.test.{ts,tsx}', 'tools/**/*.test.ts'],
+    include: ['src/**/*.test.{ts,tsx}', 'tools/**/*.test.ts', 'tests/db/**/*.test.ts', 'tests/functions/**/*.test.ts'],
     setupFiles: ['./src/test-setup.ts'],
   },
 });

@@ -9,9 +9,73 @@
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <title>Study Mastery</title>
+    <style>
+      /* Ajuda de inicialização: estilo próprio, para funcionar mesmo se o CSS do app não carregar. */
+      #boot-help { font: 15px/1.5 system-ui, sans-serif; max-width: 34rem; width: calc(100% - 32px); box-sizing: border-box; margin: 24px auto; padding: 16px; border: 1px solid #ffd37a; border-radius: 14px; background: #151d31; color: #f5f6ff; }
+      #boot-help[hidden] { display: none; }
+      #boot-help h1 { font-size: 19px; margin: 0 0 8px; }
+      #boot-help p { margin: 0 0 10px; }
+      #boot-help button { font: inherit; font-weight: 700; min-height: 44px; padding: 8px 16px; margin: 0 8px 8px 0; border-radius: 12px; border: 1px solid #9a89ff; background: #6f5ce6; color: #fff; }
+      #boot-help button.alt { background: transparent; color: #f5f6ff; }
+      #boot-help pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; background: #090f1d; padding: 8px; border-radius: 8px; }
+      .boot-static { padding: 40px 20px; text-align: center; color: #a3b0cc; font: 15px/1.5 system-ui, sans-serif; }
+    </style>
+    <script>
+      // Antes do app: guarda erros e mostra ajuda se o Study Mastery não abrir (tela em branco, arquivo que não carregou…).
+      // "Reparar" remove só o service worker e os caches deste app; o progresso salvo no aparelho fica.
+      (function () {
+        var errors = (window.__smErrors = []);
+        var base = new URL('./', location.href).href;
+        function note(text) {
+          errors.push(new Date().toISOString().slice(11, 19) + ' ' + text);
+          if (errors.length > 12) errors.shift();
+        }
+        function show() {
+          if (window.__smBooted) return;
+          var box = document.getElementById('boot-help');
+          if (!box) return;
+          var pre = document.getElementById('boot-help-log');
+          if (pre) pre.textContent = 'Endereço: ' + location.href + '\nNavegador: ' + navigator.userAgent + '\nOnline: ' + navigator.onLine + '\nService worker: ' + (navigator.serviceWorker && navigator.serviceWorker.controller ? 'ativo' : 'nenhum') + '\n' + errors.join('\n');
+          box.hidden = false;
+        }
+        window.__smBootHelp = show;
+        window.__smRepair = function () {
+          var jobs = [];
+          if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+            jobs.push(navigator.serviceWorker.getRegistrations().then(function (regs) {
+              return Promise.all(regs.filter(function (r) { return r.scope.indexOf(base) === 0; }).map(function (r) { return r.unregister(); }));
+            }));
+          }
+          if (window.caches) {
+            jobs.push(caches.keys().then(function (keys) {
+              return Promise.all(keys.filter(function (k) { return k.indexOf('study-mastery-') === 0; }).map(function (k) { return caches.delete(k); }));
+            }));
+          }
+          return Promise.all(jobs);
+        };
+        addEventListener('error', function (e) {
+          var t = e.target;
+          if (t && t !== window && (t.src || t.href)) note('falha ao carregar ' + (t.src || t.href));
+          else note(String(e.message || 'erro') + (e.filename ? ' em ' + e.filename + ':' + e.lineno : ''));
+          if (!window.__smBooted) setTimeout(show, 1500);
+        }, true);
+        addEventListener('unhandledrejection', function (e) { note('promessa rejeitada: ' + String(e.reason && (e.reason.message || e.reason))); });
+        setTimeout(show, 20000);
+      })();
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><p class="boot-static">Carregando o Study Mastery…</p></div>
+    <div id="boot-help" role="alert" hidden>
+      <h1>O Study Mastery não terminou de abrir</h1>
+      <p>Tente de novo. Se continuar, use “Reparar e recarregar”: isso baixa o app novamente sem apagar o progresso salvo neste aparelho.</p>
+      <button type="button" onclick="location.reload()">Tentar de novo</button>
+      <button type="button" class="alt" onclick="window.__smRepair().then(function () { location.reload(); }, function () { location.reload(); })">Reparar e recarregar</button>
+      <details>
+        <summary>Detalhes para relatar o problema</summary>
+        <pre id="boot-help-log"></pre>
+      </details>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

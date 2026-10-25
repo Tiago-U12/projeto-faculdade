@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight, Check, Flag, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { DIFFICULTY_LABEL, MODE_LABEL, SCOPE_LABEL } from '../types';
+import { DIFFICULTY_LABEL, isPersonal, MODE_LABEL, SCOPE_LABEL, type QuizQuestion } from '../types';
 import { topicName } from '../lib/bank';
 import { useStudy } from '../state';
 import { ExplanationBlock } from './Explanation';
@@ -14,10 +14,12 @@ export function Quiz({ go }: { go: (to: string) => void }) {
   const feedbackRef = useRef<HTMLDivElement>(null);
   const confirmRef = useRef<HTMLButtonElement>(null);
 
-  const items = useMemo(() => (active ? active.session.items.filter((i) => bank.byId.has(i.questionId)) : []), [active, bank]);
+  // questões pessoais vêm da cópia guardada na própria sessão; as do banco existente, do banco publicado
+  const lookup = (id: string): QuizQuestion | undefined => active?.personal?.[id] ?? bank.byId.get(id);
+  const items = useMemo(() => (active ? active.session.items.filter((i) => !!(active.personal?.[i.questionId] ?? bank.byId.get(i.questionId))) : []), [active, bank]);
   const idx = active ? Math.min(active.index, Math.max(0, items.length - 1)) : 0;
   const item = items[idx];
-  const q = item ? bank.byId.get(item.questionId) : undefined;
+  const q = item ? lookup(item.questionId) : undefined;
   const mode = active?.session.config.mode ?? 'aprender';
   const simulado = mode === 'simulado';
   const chosen = q && active ? active.answers[q.id] : undefined;
@@ -68,7 +70,7 @@ export function Quiz({ go }: { go: (to: string) => void }) {
     {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const t = e.target as HTMLElement;
-      if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest('.radio-panel, .confirm'))) return;
+      if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest('.radio-panel, .confirm, .report'))) return;
       const k = e.key.toLowerCase();
       const pos = '1234'.includes(k) && k ? Number(k) - 1 : 'abcd'.indexOf(k);
       if (k.length === 1 && pos >= 0 && pos < item.order.length) {
@@ -103,9 +105,9 @@ export function Quiz({ go }: { go: (to: string) => void }) {
       <div className="quiztop"><h2 className="qnum">Questão {idx + 1} de {items.length}</h2><span>{answeredCount} respondida{answeredCount === 1 ? '' : 's'}</span></div>
       <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={items.length} aria-valuenow={idx + 1} aria-label="Progresso da sessão"><div style={{ width: `${((idx + 1) / items.length) * 100}%` }} /></div>
 
-      <div className="eyebrow"><span className="dot" aria-hidden="true" />{topicName(bank, q.disciplineId, q.topicId).toUpperCase()}</div>
+      <div className="eyebrow"><span className="dot" aria-hidden="true" />{(isPersonal(q) ? q.topicName : topicName(bank, q.disciplineId, q.topicId)).toUpperCase()}</div>
       <article className="quizcard" aria-labelledby="q-stem">
-        <span className="tag">{SCOPE_LABEL[q.scope]} · {DIFFICULTY_LABEL[q.difficulty]}</span>
+        <span className="tag">{isPersonal(q) ? 'Questão pessoal' : SCOPE_LABEL[q.scope]} · {DIFFICULTY_LABEL[q.difficulty]}</span>
         <div id="q-stem" className="stem" tabIndex={-1} ref={stemRef}><RichText as="div" text={q.stem} /></div>
         <div className="choices" role="radiogroup" aria-labelledby="q-stem">
           {opts.map((o, i) => {

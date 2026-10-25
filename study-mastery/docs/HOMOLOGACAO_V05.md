@@ -23,7 +23,7 @@ O roteiro de validação no celular corresponde a estes itens automatizados (tod
 | Carregar, ativar o modo avião e recarregar | navegador **fechado e reaberto** sem rede: página inicial, Cálculo II e Full Stack funcionam e o progresso é salvo |
 | Escolher um MP3 e tocar offline | MP3 de silêncio sintético escolhido no aparelho toca sem rede, continua após reabrir e é apagado ao remover; sem MP3, o fallback HTML do Cloudflare é corretamente tratado como “sem música” |
 
-A versão servida lá depende do branch configurado no painel do Cloudflare (provavelmente `main`, hoje a 0.5.0, sem as correções de acessibilidade da 0.5.1). Os quatro passos acima também passaram na 0.5.0.
+A versão servida lá depende do branch configurado no painel do Cloudflare (provavelmente `main`, hoje a 0.5.0, sem as correções de acessibilidade da 0.5.1). A homologação completa foi executada no código da 0.5.1; **não foi executada separadamente no código exato da 0.5.0**.
 
 ## Incidente de navegação no Cloudflare — correção 0.5.2
 

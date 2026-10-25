@@ -1,6 +1,8 @@
 // Tipos compartilhados entre o app do estudante (src/) e as ferramentas editoriais (tools/).
 
 export type DisciplineId = 'calculo2' | 'fullstack';
+/** disciplina do banco existente ou id (uuid) de uma disciplina pessoal */
+export type AnyDisciplineId = DisciplineId | (string & {});
 export type Difficulty = 'facil' | 'medio' | 'dificil';
 export type Scope = 'aula' | 'aprofundamento' | 'desafio';
 export type Mode = 'aprender' | 'simulado' | 'revisao' | 'misto';
@@ -173,15 +175,68 @@ export interface AnswerRecord {
   chosenOptionId: string | null;
   correct: boolean;
   ms?: number;
+  /** questões pessoais: versão respondida */
+  questionVersion?: number;
 }
 
 export interface Attempt {
   id: string;
   date: string;
-  disciplineId: DisciplineId;
+  disciplineId: AnyDisciplineId;
   mode: Mode;
   bankVersion: string;
   answers: AnswerRecord[];
+  /** ausente = banco existente */
+  source?: 'banco' | 'pessoal';
+  /** questões pessoais como estavam quando foram respondidas (o histórico não muda se a questão for editada) */
+  snapshots?: Record<string, PersonalQuizQuestion>;
+}
+
+/** Questão pessoal pronta para o quiz (cópia fiel da versão em uso). Não tem as verificações do banco existente. */
+export interface PersonalQuizQuestion {
+  personal: true;
+  id: string;
+  version: number;
+  disciplineId: string;
+  disciplineName: string;
+  topicId: string;
+  topicName: string;
+  difficulty: Difficulty;
+  stem: string;
+  options: Option[];
+  correctOptionId: string;
+  fixedOrder?: boolean;
+  explanation: Explanation;
+  status: 'gerada_ia' | 'criada_aluno' | 'reportada' | 'arquivada';
+  refs: { materialId: string; materialTitle: string; unit: 'página' | 'trecho'; page: number; quote: string }[];
+  checks?: { estrutura: boolean; alternativasDistintas: boolean; trechosConferidos: number; semDuplicata: boolean; calculo: string };
+  model?: string;
+  /** gerada por IA e editada depois pelo estudante (as checagens valem para a versão gerada) */
+  edited?: boolean;
+  origin?: 'ia' | 'aluno';
+}
+
+export type QuizQuestion = PublishedQuestion | PersonalQuizQuestion;
+export const isPersonal = (q: QuizQuestion): q is PersonalQuizQuestion => (q as PersonalQuizQuestion).personal === true;
+
+export type ReportReason = 'gabarito' | 'enunciado' | 'explicacao' | 'digitacao' | 'outro';
+export const REPORT_REASON_LABEL: Record<ReportReason, string> = {
+  gabarito: 'O gabarito parece errado',
+  enunciado: 'Enunciado ambíguo ou confuso',
+  explicacao: 'Explicação com erro',
+  digitacao: 'Erro de digitação ou de fórmula',
+  outro: 'Outro problema',
+};
+
+/** Relato de erro feito pelo estudante (fica no espaço dele: aparelho ou conta). */
+export interface QuestionReport {
+  id: string;
+  questionId: string;
+  questionVersion: number;
+  source: 'banco' | 'pessoal';
+  reason: ReportReason;
+  comment: string;
+  createdAt: string;
 }
 
 export interface QuestionStat {
@@ -196,7 +251,7 @@ export interface QuestionStat {
 }
 
 export interface SessionConfig {
-  disciplineId: DisciplineId;
+  disciplineId: AnyDisciplineId;
   topicIds: string[];
   scope: Scope; // profundidade máxima: aula < aprofundamento < desafio
   difficulties: Difficulty[];
