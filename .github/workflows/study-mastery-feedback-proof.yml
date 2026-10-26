@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: study-mastery-feedback-setup
+  cancel-in-progress: false
+
 jobs:
   verify-proof:
     runs-on: ubuntu-latest
@@ -55,9 +59,46 @@ jobs:
             report(`Chave administrativa de produção: ${/^[\x21-\x7e]{32,256}$/.test(env.FEEDBACK_ADMIN_TOKEN_PRODUCTION ?? '') ? 'formato válido' : 'ausente ou formato inválido'}.`);
             await checkProductionProof(options, api, prefix, project); // GET do deploy e SELECT do protocolo.
             report('Teste real confirmado: commit e ambiente corretos, banco separado, protocolo posterior ao deploy, versão do app, print presente e status Em análise.');
-            report('Somente leitura. Produção não foi configurada ou publicada por este workflow.');
+            report('Somente leitura nesta etapa. A preparação de produção depende da conclusão deste teste e ocorre no job seguinte.');
           } catch (error) {
             report('A prova do preview não foi confirmada. ' + error.message);
+            process.exitCode = 1;
+          }
+          NODE
+
+  prepare-production:
+    needs: verify-proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+      - name: Preparar banco e chaves de produção após verificar a prova real
+        working-directory: study-mastery
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || '3428838cbf6d8733de1ef6cc07bc4ebd' }}
+          FEEDBACK_ADMIN_TOKEN: ${{ secrets.FEEDBACK_ADMIN_TOKEN_PRODUCTION }}
+          FEEDBACK_FREE_CONFIRMED: ${{ vars.CLOUDFLARE_FREE_CONFIRMED }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import { cloudflareAPI, provision } from './tools/cloudflare-feedback.mjs';
+          const env = process.env;
+          const proof = JSON.parse(readFileSync('docs/feedback-preview-proof.json', 'utf8'));
+          try {
+            await provision({
+              ...proof, accountId: env.CLOUDFLARE_ACCOUNT_ID, target: 'production', apply: true,
+              adminToken: env.FEEDBACK_ADMIN_TOKEN, freePlanConfirmed: env.FEEDBACK_FREE_CONFIRMED === 'true',
+              confirmProduction: 'PUBLICAR_FEEDBACK', reviewed: true,
+            }, { api: cloudflareAPI(env.CLOUDFLARE_API_TOKEN), log: console.log });
+            console.log('Preparação de produção confirmada. Este job não publica o aplicativo.');
+          } catch (error) {
+            console.error(error.message);
             process.exitCode = 1;
           }
           NODE
