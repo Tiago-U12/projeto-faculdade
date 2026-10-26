@@ -134,7 +134,10 @@ export async function checkProductionProof(options, api, prefix, project) {
   const version = JSON.parse(readFileSync(new URL('package.json', APP), 'utf8')).version;
   const created = Date.parse(rows[0].created_at), deployed = Date.parse(deployment.created_on);
   requireThat(Number.isFinite(created) && Number.isFinite(deployed) && created >= deployed && created <= Date.now(), 'O relato deve ter sido enviado após a criação do deploy de preview informado.');
-  requireThat(payload.id === options.previewReceipt && payload.appVersion === version && Array.isArray(payload.images) && payload.images.length > 0 && rows[0].status === 'reviewing', 'Revise o relato com print na caixa do preview e marque Em análise antes de preparar produção.');
+  requireThat(payload.id === options.previewReceipt, 'O identificador no relato não corresponde ao protocolo informado.');
+  requireThat(payload.appVersion === version, 'O relato foi enviado por outra versão do aplicativo; repita o teste no preview indicado.');
+  requireThat(Array.isArray(payload.images) && payload.images.length > 0, 'O relato de teste não tem print anexado; envie um novo relato com print.');
+  requireThat(rows[0].status === 'reviewing', 'O relato de teste ainda não está Em análise. Confira texto/print na administração e marque Em análise.');
 }
 
 /** Plan by default. Mutates only the selected environment, never merges or deploys production. */

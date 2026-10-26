@@ -52,9 +52,9 @@ jobs:
             await provision(options, { api }); // Apenas GET; nenhuma configuração é aplicada.
             const prefix = `/accounts/${options.accountId}`;
             const project = await api('GET', `${prefix}/pages/projects/study-mastery`);
+            report(`Chave administrativa de produção: ${/^[\x21-\x7e]{32,256}$/.test(env.FEEDBACK_ADMIN_TOKEN_PRODUCTION ?? '') ? 'formato válido' : 'ausente ou formato inválido'}.`);
             await checkProductionProof(options, api, prefix, project); // GET do deploy e SELECT do protocolo.
             report('Teste real confirmado: commit e ambiente corretos, banco separado, protocolo posterior ao deploy, versão do app, print presente e status Em análise.');
-            report(`Chave administrativa de produção: ${/^[\x21-\x7e]{32,256}$/.test(env.FEEDBACK_ADMIN_TOKEN_PRODUCTION ?? '') ? 'formato válido' : 'ausente ou formato inválido'}.`);
             report('Somente leitura. Produção não foi configurada ou publicada por este workflow.');
           } catch (error) {
             report('A prova do preview não foi confirmada. ' + error.message);
