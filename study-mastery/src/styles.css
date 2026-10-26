@@ -117,7 +117,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 8px 16px 120px; flex: 1; }
 footer { padding-bottom: calc(84px + env(safe-area-inset-bottom)) !important; }
-footer { max-width: 1040px; width: 100%; margin: 0 auto; padding: 18px 16px 28px; display: flex; justify-content: space-between; gap: 12px; color: var(--faint); font-size: 12px; }
+footer { max-width: 1040px; width: 100%; margin: 0 auto; padding: 18px 16px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--faint); font-size: 12px; }
 
 h1, h2, h3 { font-family: 'Space Grotesk Variable', 'Space Grotesk', 'DM Sans Variable', sans-serif; letter-spacing: -0.02em; }
 .eyebrow { display: flex; align-items: center; gap: 8px; color: var(--mint); letter-spacing: 0.15em; font-size: 11px; font-weight: 800; text-transform: uppercase; }
@@ -534,3 +534,23 @@ code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-si
   .metrics > div { padding: 12px 8px; }
   .metrics span { overflow-wrap: normal; letter-spacing: 0.04em; font-size: 9.5px; }
 }
+
+/* Feedback: fixed-width screenshots never enlarge a mobile viewport. */
+.feedback-form { display: grid; gap: 16px; }
+.feedback-form fieldset { border: 0; padding: 0; margin: 0; }
+.feedback-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 12px; }
+.feedback-images figure { margin: 0; min-width: 0; }
+.screenshot-preview { display: block; max-width: 100%; width: auto; max-height: 440px; object-fit: contain; border: 1px solid var(--border); border-radius: 10px; }
+.feedback-inbox { display: grid; gap: 8px; }
+.feedback-inbox-row { width: 100%; text-align: left; display: grid; gap: 6px; white-space: normal; overflow-wrap: anywhere; }
+.feedback-message, .feedback-detail { overflow-wrap: anywhere; }
+.feedback-message { white-space: pre-wrap; }
+.feedback-challenge { max-width: 100%; min-width: 0; }
+.feedback-consent { display: flex; gap: 10px; align-items: flex-start; }
+.feedback-consent input { flex-shrink: 0; width: 20px; height: 20px; }
+.feedback-page { display: grid; gap: 14px; }
+.feedback-page fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 14px; min-width: 0; }
+.feedback-page legend { font-weight: 700; margin-bottom: 8px; }
+.feedback-page .feedback-images { list-style: none; padding: 0; }
+.feedback-page .feedback-images li { min-width: 0; display: grid; gap: 8px; }
+.feedback-receipt { overflow-wrap: anywhere; }

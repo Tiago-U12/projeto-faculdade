@@ -27,6 +27,8 @@ export function ReportError({ questionId, version, source }: { questionId: strin
   const [msg, setMsg] = useState('');
   const id = useId();
 
+  if (source === 'banco') return <a className="text-btn report-btn" href={`#/feedback?question=${encodeURIComponent(questionId)}&version=${version}`}><Flag size={14} aria-hidden="true" /> Relatar erro ou enviar print</a>;
+
   if (saved) {
     return (
       <div className="report done" role="status">

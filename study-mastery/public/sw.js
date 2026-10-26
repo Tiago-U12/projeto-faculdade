@@ -56,6 +56,8 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
   if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname)) return;
+  // Relatos/prints e autorização administrativa nunca passam pelo cache do PWA.
+  if (url.pathname.startsWith(scope.pathname + 'api/')) return;
   if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname.endsWith('.mp3')) {
     e.respondWith(audioResponse(req).catch(() => new Response(null, { status: 503 })));
     return;

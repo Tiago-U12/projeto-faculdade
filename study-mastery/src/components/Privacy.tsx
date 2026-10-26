@@ -34,7 +34,9 @@ export function Privacy({ go }: { go: (to: string) => void }) {
         <ul className="plain">
           <li><b>Supabase</b> (só com conta): hospeda a conta, o banco, os arquivos e as funções do servidor.</li>
           <li><b>Provedor de IA — Anthropic</b> (só com conta, só se a geração estiver configurada no site e só quando você pede): {AI_SENDS} A resposta é conferida e salva na sua conta. Segundo a documentação do provedor, dados retidos não são usados para treinar modelos sem permissão expressa; o prazo de retenção segue a política comercial da API (“API and data retention”, platform.claude.com).</li>
-          <li>Não há anúncios nem rastreadores. Sem conta, nada sai do aparelho.</li>
+          <li><b>Feedbacks:</b> ao escolher enviar, o texto, os prints que você anexar, a versão do app, a tela e o identificador da questão informado vão para a caixa privada da administração no Cloudflare. Não enviamos automaticamente seu histórico nem seus materiais. A verificação antispam Turnstile comunica-se com o Cloudflare quando você autoriza o envio.</li>
+          <li>Os prints são reduzidos e regravados sem os metadados do arquivo original. Mesmo assim, confira e esconda nomes, notas e outros dados pessoais visíveis antes de enviar.</li>
+          <li>Não há anúncios. Os dados de estudo sem conta permanecem no aparelho; enviar feedback é uma ação separada e opcional.</li>
         </ul>
       </section>
 
@@ -46,6 +48,8 @@ export function Privacy({ go }: { go: (to: string) => void }) {
           <li><b>Guia:</b> todas as seções e versões anteriores.</li>
           <li><b>Disciplina:</b> assuntos, materiais (com tudo acima), questões, guias e eventos dela.</li>
           <li><b>Conta:</b> tudo o que está nela, incluindo arquivos e o registro de consumo. Os dados deste aparelho sem conta não são afetados.</li>
+          <li><b>Feedback:</b> rascunhos ficam apenas neste navegador e podem ser apagados na tela de feedback. Depois de enviados, relatos e prints ficam na caixa privada por até 90 dias de disponibilidade (limpeza física ocorre no próximo envio ou acesso administrativo), ou menos se a administração os excluir. Para pedir exclusão, envie outro relato com o protocolo recebido. Limpar o aparelho não exclui um relato já enviado.</li>
+          <li>Para limitar abusos, o servidor guarda uma impressão criptográfica temporária do endereço de rede; o IP original não é salvo na caixa de feedbacks. A infraestrutura do Cloudflare pode manter seus próprios registros conforme suas políticas.</li>
           <li>Não há cópias guardadas para novas gerações: cada geração lê o material atual; material excluído não volta a ser usado.</li>
           <li>O que já foi enviado ao provedor de IA segue a política de retenção dele (acima); o Study Mastery não consegue apagar lá.</li>
         </ul>

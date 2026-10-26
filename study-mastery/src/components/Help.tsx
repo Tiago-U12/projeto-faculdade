@@ -49,6 +49,8 @@ export function Help({ go }: { go: (to: string) => void }) {
       <h1 className="screen-title">Ajuda e <em>diagnóstico.</em></h1>
       <p className="sub">Se o app não abre, fica em branco ou mostra algo estranho, comece por aqui. Nada nesta tela apaga seu progresso. Sobre armazenamento e envio de dados, veja <a href="#/dados">Seus dados e privacidade</a>.</p>
 
+      <section className="panel"><h2>Feedback e melhorias</h2><p>Encontrou uma resposta que parece errada, um problema no site ou tem uma sugestão? Descreva o que aconteceu e, se ajudar, adicione prints.</p><a className="primary" href="#/feedback">Enviar feedback</a></section>
+
       <section className="panel" aria-labelledby="h-steps">
         <div className="panel-head"><h2 id="h-steps"><LifeBuoy size={18} aria-hidden="true" /> O que tentar</h2></div>
         <ol className="plain">
@@ -84,6 +86,7 @@ export function Help({ go }: { go: (to: string) => void }) {
         )}
         <p role="status" className="hint">{msg}</p>
       </section>
+      <details className="panel"><summary>Administração</summary><p><a href="#/feedback-admin">Abrir caixa privada de feedbacks</a> (exige chave de acesso).</p></details>
     </>
   );
 }
