@@ -117,7 +117,7 @@ function checkDeployment(deployment, expectedSha, project) {
   requireThat(url.protocol === 'https:' && url.hostname.endsWith(`.${HOST}`) && !url.username && !url.password && !url.port, 'URL de preview inesperada.');
 }
 
-async function checkProductionProof(options, api, prefix, project) {
+export async function checkProductionProof(options, api, prefix, project) {
   requireThat(options.confirmProduction === 'PUBLICAR_FEEDBACK' && options.reviewed === true, 'Produção exige PUBLICAR_FEEDBACK e confirmação da revisão do relato/print no preview.');
   requireThat(uuid.test(options.previewDeploymentId ?? '') && uuid.test(options.previewReceipt ?? ''), 'Informe o ID do deploy de preview e o protocolo de teste.');
   const deployment = await api('GET', `${prefix}/pages/projects/${PROJECT}/deployments/${options.previewDeploymentId}`);
