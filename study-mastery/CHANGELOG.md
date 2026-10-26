@@ -4,10 +4,10 @@
 
 - Formulário de feedback com categorias, contexto da questão, até dois prints, consentimento e rascunho offline explícito.
 - Caixa administrativa privada com status, notas, exportação por caso e exclusão de anexos/relato.
-- API Cloudflare Pages + D1, verificação Turnstile, limites atômicos, idempotência, retenção e autorização no servidor. Desativada até configurar os bindings e segredos; nenhuma ativação externa presumida.
+- API Cloudflare Pages + D1, verificação Turnstile, limites atômicos, idempotência, retenção e autorização no servidor. Configuração ausente mantém envios desativados.
 - API fora do cache PWA; configuração de plataforma fora do pré-cache. Banco de questões, progresso, Study Radio e projetos vizinhos preservados.
 - Operação e pendências documentadas em `docs/FEEDBACKS.md`.
-- Automação optativa da configuração Cloudflare com bancos/chaves separados, testes em preview e bloqueio de preparação de produção sem protocolo revisado; instruções em `docs/AUTOMACAO_FEEDBACKS.md`. Ainda depende da credencial inicial e de validação real.
+- Automação optativa da configuração Cloudflare com bancos/chaves separados e bloqueio de preparação de produção sem protocolo revisado; 42 testes da automação passaram. Envio real com print conferido no preview pelo responsável; schema, widget e configuração de produção confirmados via API em 26/10/2026. Evidências e limites em `docs/ATIVACAO_FEEDBACKS.md`.
 
 ## 0.6.0 — entrega do modo local (24/10/2026)
 

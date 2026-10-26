@@ -4,7 +4,7 @@
 
 Automação preparada para **Tiago-U12/projeto-faculdade**, projeto **Pages study-mastery**, diretório `study-mastery`, build `npm run build`, saída `dist` e produção `main`. Não configura o Worker separado chamado `projeto-faculdade`.
 
-**Ainda não executada na conta Cloudflare.** Este ambiente não tem credencial Cloudflare. O formulário está no PR #9; testes locais e um preview estático publicado não comprovam recebimento real. Não se deve mesclar o PR para tentar ativar o banco.
+**Atualização de 26/10/2026:** automação executada pelo GitHub Actions com os segredos cadastrados pelo responsável. Preview com envio real e print conferidos; produção preparada com banco/chaves separados. [Registro e evidências](ATIVACAO_FEEDBACKS.md). As chaves continuam fora do ambiente local e do código. O roteiro abaixo preserva o procedimento de configuração; testes locais ou um preview estático, isoladamente, não comprovam recebimento real.
 
 O script usa a API oficial com Node 22+ e módulos nativos. Não instala Wrangler, não envia código-fonte para outro serviço e não substitui a configuração geral do Pages. Preserva o deploy por GitHub já existente. Não modifica os três outros aplicativos, a visibilidade do repositório ou `.github/workflows/deploy.yml`.
 

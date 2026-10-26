@@ -22,7 +22,7 @@ Os dados ficam acessíveis por até 90 dias. A exclusão física dos expirados o
 
 ## Estado da ativação
 
-**Implementado e testado localmente; recebimento público ainda não ativado.** O ambiente não possui sessão nem credencial de administração do Cloudflare. Criar o código e passar testes locais não cria o banco ou comprova o deploy. Não colocar chaves em `VITE_*`, no GitHub, em feedbacks ou no chat.
+**Preview homologado e configuração de produção concluída pela API.** O envio real com print foi confirmado e revisado pelo responsável no preview; banco e chaves de produção foram preparados pelo Actions. A publicação e o smoke do domínio principal são etapas separadas. Consulte [o registro de ativação e suas evidências](ATIVACAO_FEEDBACKS.md) e o resultado mais recente no Actions. Não colocar chaves em `VITE_*`, no código, em feedbacks ou no chat.
 
 ## Ativar uma vez no Cloudflare
 
