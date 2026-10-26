@@ -33,7 +33,7 @@ jobs:
       - name: Conferir que o aplicativo continua igual ao preview testado
         run: |
           tested=$(node -p "JSON.parse(require('fs').readFileSync('study-mastery/docs/feedback-preview-proof.json')).commitSha")
-          git diff --exit-code "$tested" HEAD -- study-mastery ':(exclude)study-mastery/tools' ':(exclude)study-mastery/tests' ':(exclude)study-mastery/docs'
+          git diff --exit-code "$tested" HEAD -- study-mastery ':(exclude)study-mastery/tools' ':(exclude)study-mastery/tests' ':(exclude)study-mastery/docs' ':(exclude)study-mastery/README.md' ':(exclude)study-mastery/CHANGELOG.md'
       - name: Conferir protocolo no D1 sem divulgar o relato ou as imagens
         working-directory: study-mastery
         env:
