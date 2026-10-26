@@ -287,3 +287,18 @@ test('erro HTTP identifica operação e campos conhecidos sem copiar mensagens p
   const api = cloudflareAPI('token-'.repeat(8), async () => new Response(JSON.stringify({ errors: [{ code: 1000, message: 'per_page must be within range; private-secret' }] }), { status: 400 }));
   await assert.rejects(api('GET', `/accounts/${ACCOUNT}/pages/projects/study-mastery/deployments?per_page=100&page=1`), error => /deployments/.test(error.message) && /per_page/.test(error.message) && !error.message.includes('private-secret'));
 });
+
+test('busca de previews usa páginas pequenas e encontra o commit na página seguinte', async t => {
+  const f = fixture(t), original = f.api;
+  const pages = [];
+  await provision({ ...options, retryPreview: true }, { ...f, api: async (method, path, body) => {
+    if (path.includes('/pages/projects/study-mastery/deployments?')) {
+      const params = new URL('https://example.invalid' + path).searchParams;
+      assert.equal(params.get('per_page'), '25');
+      const page = Number(params.get('page')); pages.push(page);
+      return page === 1 ? Array.from({ length: 25 }, () => ({ ...f.deployment, deployment_trigger: { metadata: { commit_hash: 'c'.repeat(40) } } })) : [clone(f.deployment)];
+    }
+    return original(method, path, body);
+  } });
+  assert.deepEqual(pages, [1, 2]);
+});

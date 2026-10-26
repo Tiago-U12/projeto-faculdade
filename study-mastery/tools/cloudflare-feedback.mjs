@@ -50,13 +50,13 @@ export function cloudflareAPI(token, fetcher = fetch) {
   };
 }
 
-async function list(api, path) {
+async function list(api, path, perPage = 100) {
   const items = [];
   for (let page = 1; page <= 20; page++) {
-    const part = await api('GET', `${path}${path.includes('?') ? '&' : '?'}per_page=100&page=${page}`);
+    const part = await api('GET', `${path}${path.includes('?') ? '&' : '?'}per_page=${perPage}&page=${page}`);
     requireThat(Array.isArray(part), 'Resposta de listagem inesperada.');
     items.push(...part);
-    if (part.length < 100) return items;
+    if (part.length < perPage) return items;
   }
   throw new Error('Listagem excede o limite de segurança; revise os recursos existentes no painel.');
 }
@@ -172,7 +172,7 @@ export async function provision(options, { api, log = () => {} }) {
       requireThat(uuid.test(options.previewDeploymentId), 'Identificador de deploy inválido.');
       retryDeployment = await api('GET', `${projectPath}/deployments/${options.previewDeploymentId}`);
     } else {
-      retryDeployment = (await list(api, `${projectPath}/deployments`)).find(d => d.environment === 'preview' && d.deployment_trigger?.metadata?.commit_hash === options.commitSha && d.latest_stage?.status === 'success');
+      retryDeployment = (await list(api, `${projectPath}/deployments`, 25)).find(d => d.environment === 'preview' && d.deployment_trigger?.metadata?.commit_hash === options.commitSha && d.latest_stage?.status === 'success');
       requireThat(retryDeployment, 'Aguarde o preview deste commit terminar no Cloudflare e execute novamente. Nenhuma configuração foi alterada.');
     }
     requireThat(uuid.test(retryDeployment.id ?? ''), 'Deploy não retornou identificador válido.');
