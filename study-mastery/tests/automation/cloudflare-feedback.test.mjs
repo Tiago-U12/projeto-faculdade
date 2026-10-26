@@ -265,3 +265,20 @@ test('cliente rejeita envelopes de erro mesmo com HTTP 200', async () => {
   const api = cloudflareAPI('token-'.repeat(8), async () => new Response(JSON.stringify({ success: false, errors: ['private'] })));
   await assert.rejects(api('GET', `/accounts/${ACCOUNT}/pages/projects/study-mastery`), /recusou/);
 });
+
+test('token copiado com espaço externo/quebra de linha mantém apenas a credencial no header', async () => {
+  const token = 'valid-token-'.repeat(4);
+  let authorization;
+  const api = cloudflareAPI(` \n${token}\r\n `, async (_, init) => {
+    authorization = init.headers.Authorization;
+    return new Response(JSON.stringify({ success: true, result: {} }));
+  });
+  await api('GET', `/accounts/${ACCOUNT}/pages/projects/study-mastery`);
+  assert.equal(authorization, `Bearer ${token}`);
+});
+
+test('token vazio, prefixo Bearer ou comando copiado são recusados sem mostrar o valor', () => {
+  for (const token of [' \n ', 'Bearer ' + 'x'.repeat(40), 'curl https://api.cloudflare.com/client/v4/accounts']) {
+    assert.throws(() => cloudflareAPI(token), e => /formato inválido/.test(e.message) && !e.message.includes(token));
+  }
+});

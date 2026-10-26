@@ -19,14 +19,17 @@ const schema = new Map(statements.map(sql => [sql.match(/CREATE (?:TABLE|INDEX) 
 
 /** Fixed origin, no redirects, bounded requests, and no remote body in exceptions/logs. */
 export function cloudflareAPI(token, fetcher = fetch) {
-  requireThat(typeof token === 'string' && /^[\x21-\x7e]{20,256}$/.test(token), 'Configure CLOUDFLARE_API_TOKEN como segredo.');
+  // Copiar de uma tela pode acrescentar espaço/quebra de linha nas bordas.
+  // Espaços internos ou um comando curl completo continuam inválidos.
+  const credential = typeof token === 'string' ? token.trim() : token;
+  requireThat(typeof credential === 'string' && /^[\x21-\x7e]{20,256}$/.test(credential), 'O segredo CLOUDFLARE_API_TOKEN está ausente ou em formato inválido. Salve somente o código do token.');
   return async (method, path, body) => {
     requireThat(/^\/accounts\/[a-f0-9]{32}\//i.test(path) && !path.includes('..'), 'Caminho de API inválido.');
     let response;
     try {
       response = await fetcher(`https://api.cloudflare.com/client/v4${path}`, {
         method, redirect: 'error', signal: AbortSignal.timeout(15000),
-        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        headers: { Authorization: `Bearer ${credential}`, 'Content-Type': 'application/json' },
         ...(body === undefined ? {} : { body: JSON.stringify(body) }),
       });
     } catch { throw new Error('Não foi possível concluir a chamada Cloudflare. Confira rede e credencial; não houve retry automático.'); }
