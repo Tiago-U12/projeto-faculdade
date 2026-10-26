@@ -18,11 +18,11 @@ O **token de API Cloudflare é uma credencial gratuita**, não crédito para IA.
    - `CLOUDFLARE_API_TOKEN`: o token acima.
    - `FEEDBACK_ADMIN_TOKEN_PREVIEW`: uma senha aleatória de pelo menos 32 caracteres ASCII sem espaços, gerada em gerenciador de senhas. Guarde-a: ela abre a caixa administrativa do preview. Alternativa no computador: `node study-mastery/tools/feedback-key.mjs`; guarde a **chave**, não o hash, neste segredo.
 4. Em [GitHub → Actions variables](https://github.com/Tiago-U12/projeto-faculdade/settings/variables/actions), cadastre:
-   - `CLOUDFLARE_ACCOUNT_ID`: ID de 32 caracteres da conta, disponível no painel Cloudflare; não é token nem e-mail.
+   - `CLOUDFLARE_ACCOUNT_ID` é opcional no workflow: ele já usa o ID público da conta confirmado pelos deploys existentes. Para outra conta, informar o ID de 32 caracteres; projeto e repositório continuam sendo conferidos pela API. Na execução local, a variável continua obrigatória.
    - `CLOUDFLARE_FREE_CONFIRMED`: `true`, somente após conferir os planos.
    - `STUDY_FEEDBACK_SETUP_PREVIEW`: `true`, para autorizar a preparação do preview neste branch.
 
-Os segredos são disponibilizados somente ao passo de configuração. Os testes não recebem credenciais. Não há arquivos de chaves, artefatos com segredos ou impressão dos valores nos logs.
+Os segredos são disponibilizados somente aos passos de checagem de acesso e configuração. Os testes não recebem credenciais. Não há arquivos de chaves, artefatos com segredos ou impressão dos valores nos logs. A checagem informa apenas presença/formato, registra se as variáveis de autorização estão habilitadas e usa GET para conferir o acesso ao projeto Pages e às listas D1/Turnstile. Ela não comprova permissão de escrita, plano contratado ou recebimento real.
 
 ## Primeiro preview, ainda antes do merge
 

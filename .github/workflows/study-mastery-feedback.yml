@@ -60,6 +60,39 @@ jobs:
       - name: Testar automação sem credenciais nem dependências externas
         working-directory: study-mastery
         run: node tests/automation/cloudflare-feedback.test.mjs
+      - name: Conferir acesso e pendências sem alterar Cloudflare
+        working-directory: study-mastery
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # ID público da conta confirmada pelos deploys existentes do projeto.
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || '3428838cbf6d8733de1ef6cc07bc4ebd' }}
+          FEEDBACK_ADMIN_TOKEN: ${{ secrets[format('FEEDBACK_ADMIN_TOKEN_{0}', inputs.target == 'production' && 'PRODUCTION' || 'PREVIEW')] }}
+          FEEDBACK_TARGET: ${{ inputs.target || 'preview' }}
+          FEEDBACK_FREE_CONFIRMED: ${{ vars.CLOUDFLARE_FREE_CONFIRMED }}
+          FEEDBACK_PREVIEW_ENABLED: ${{ vars.STUDY_FEEDBACK_SETUP_PREVIEW }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFileSync } from 'node:fs';
+          import { cloudflareAPI, provision } from './tools/cloudflare-feedback.mjs';
+          const env = process.env;
+          const report = line => {
+            console.log(line);
+            appendFileSync(env.GITHUB_STEP_SUMMARY, line + '\n\n');
+          };
+          report(`Token Cloudflare: ${env.CLOUDFLARE_API_TOKEN ? 'cadastrado' : 'ausente'}.`);
+          report(`Chave administrativa do ambiente: ${/^[\x21-\x7e]{32,256}$/.test(env.FEEDBACK_ADMIN_TOKEN ?? '') ? 'formato válido' : 'ausente ou formato inválido'}.`);
+          report(`Confirmação do plano Free: ${env.FEEDBACK_FREE_CONFIRMED === 'true' ? 'registrada' : 'pendente'}.`);
+          report(`Ativação optativa do preview: ${env.FEEDBACK_PREVIEW_ENABLED === 'true' ? 'habilitada' : 'desabilitada'}.`);
+          if (env.CLOUDFLARE_API_TOKEN) {
+            try {
+              await provision({ accountId: env.CLOUDFLARE_ACCOUNT_ID, target: env.FEEDBACK_TARGET, commitSha: env.GITHUB_SHA, apply: false }, { api: cloudflareAPI(env.CLOUDFLARE_API_TOKEN) });
+              report('Leitura confirmada: projeto Pages, lista de bancos D1 e lista de widgets Turnstile. Nenhum recurso alterado nesta checagem.');
+            } catch (error) {
+              report('A leitura Cloudflare não foi confirmada. ' + error.message);
+              process.exitCode = 1;
+            }
+          }
+          NODE
 
   configure:
     needs: verify
@@ -77,7 +110,7 @@ jobs:
         working-directory: study-mastery
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || '3428838cbf6d8733de1ef6cc07bc4ebd' }}
           FEEDBACK_ADMIN_TOKEN: ${{ secrets[format('FEEDBACK_ADMIN_TOKEN_{0}', inputs.target == 'production' && 'PRODUCTION' || 'PREVIEW')] }}
           FEEDBACK_TARGET: ${{ inputs.target || 'preview' }}
           FEEDBACK_FREE_CONFIRMED: ${{ vars.CLOUDFLARE_FREE_CONFIRMED }}
