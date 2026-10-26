@@ -33,7 +33,16 @@ export function cloudflareAPI(token, fetcher = fetch) {
         ...(body === undefined ? {} : { body: JSON.stringify(body) }),
       });
     } catch { throw new Error('Não foi possível concluir a chamada Cloudflare. Confira rede e credencial; não houve retry automático.'); }
-    requireThat(response.ok, `Cloudflare respondeu HTTP ${response.status}. Confira as permissões; detalhes privados não são registrados.`);
+    if (!response.ok) {
+      let fields = [];
+      try {
+        const body = await response.json();
+        const messages = (Array.isArray(body.errors) ? body.errors : []).map(e => String(e.message ?? '')).join(' ');
+        fields = ['per_page', 'page', 'env'].filter(field => new RegExp(`\\b${field}\\b`).test(messages));
+      } catch { /* O corpo remoto nunca é incluído no erro. */ }
+      const operation = path.split('?')[0].replace(/^\/accounts\/[a-f0-9]{32}/i, '');
+      throw new Error(`Cloudflare ${method} ${operation}: HTTP ${response.status}${fields.length ? `; campo(s): ${fields.join(', ')}` : ''}. Detalhes privados não são registrados.`);
+    }
     let envelope;
     try { envelope = await response.json(); } catch { throw new Error('Cloudflare retornou uma resposta não JSON.'); }
     requireThat(envelope.success === true, 'Cloudflare recusou a operação. Confira o painel; detalhes privados não são registrados.');

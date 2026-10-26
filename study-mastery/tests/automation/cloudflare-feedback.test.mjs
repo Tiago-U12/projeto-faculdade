@@ -282,3 +282,8 @@ test('token vazio, prefixo Bearer ou comando copiado são recusados sem mostrar 
     assert.throws(() => cloudflareAPI(token), e => /formato inválido/.test(e.message) && !e.message.includes(token));
   }
 });
+
+test('erro HTTP identifica operação e campos conhecidos sem copiar mensagens privadas', async () => {
+  const api = cloudflareAPI('token-'.repeat(8), async () => new Response(JSON.stringify({ errors: [{ code: 1000, message: 'per_page must be within range; private-secret' }] }), { status: 400 }));
+  await assert.rejects(api('GET', `/accounts/${ACCOUNT}/pages/projects/study-mastery/deployments?per_page=100&page=1`), error => /deployments/.test(error.message) && /per_page/.test(error.message) && !error.message.includes('private-secret'));
+});
