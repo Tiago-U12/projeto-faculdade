@@ -109,30 +109,48 @@ function LabExercisePage({ exercise, store, sessionId, go }: { exercise: LabExer
     if (!cur.includes(exercise.id)) await store.setMeta(STARTED_KEY, [...cur, exercise.id]);
   }, [store, exercise.id]);
 
+  const pending = useRef<Pick<LabDraft, 'sql' | 'files'> | null>(null);
+  const writeDraft = useCallback(() => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+    const d = pending.current;
+    pending.current = null;
+    if (!d) return;
+    setSaveState('idle');
+    store
+      .putDraft({ exerciseId: exercise.id, exerciseVersion: exercise.version, ...d, updatedAt: new Date().toISOString() })
+      .then(() => {
+        setSaveState(store.persistent ? 'saved' : 'memory');
+        return markStarted();
+      })
+      .catch((e) => {
+        setSaveState('error');
+        setSaveError((e as Error).message);
+      });
+  }, [store, exercise.id, exercise.version, markStarted]);
   const saveDraft = useCallback(
     (d: Pick<LabDraft, 'sql' | 'files'>) => {
+      pending.current = d;
       if (timer.current) clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        store
-          .putDraft({ exerciseId: exercise.id, exerciseVersion: exercise.version, ...d, updatedAt: new Date().toISOString() })
-          .then(() => {
-            setSaveState(store.persistent ? 'saved' : 'memory');
-            return markStarted();
-          })
-          .catch((e) => {
-            setSaveState('error');
-            setSaveError((e as Error).message);
-          });
-      }, 700);
+      timer.current = setTimeout(writeDraft, 700);
     },
-    [store, exercise.id, exercise.version, markStarted],
+    [writeDraft],
   );
-  useEffect(() => () => {
-    if (timer.current) clearTimeout(timer.current);
-  }, []);
+  // ao trocar de app, bloquear a tela, recarregar ou sair do exercício, grava na hora o que ainda estava esperando
+  useEffect(() => {
+    const onVisibility = () => document.visibilityState === 'hidden' && writeDraft();
+    addEventListener('pagehide', writeDraft);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      removeEventListener('pagehide', writeDraft);
+      document.removeEventListener('visibilitychange', onVisibility);
+      writeDraft();
+    };
+  }, [writeDraft]);
 
   const clearDraft = useCallback(async () => {
     if (timer.current) clearTimeout(timer.current);
+    pending.current = null;
     await store.deleteDraft(exercise.id);
     setDraft({});
     setSaveState('idle');

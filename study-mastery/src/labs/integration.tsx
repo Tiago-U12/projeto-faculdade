@@ -61,7 +61,7 @@ export function LabsDisciplineSection({ disciplineId, go }: { disciplineId: stri
       {d.topics.length === 0 ? (
         <p className="hint">Cadastre os assuntos da disciplina para associá-los.</p>
       ) : (
-        <ul className="topic-rows lab-assoc">
+        <ul className="lab-assoc">
           {d.topics.map((t) => {
             const linked = assoc[t.id] ?? [];
             return (

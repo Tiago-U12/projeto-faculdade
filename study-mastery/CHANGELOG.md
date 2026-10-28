@@ -7,6 +7,7 @@
 - Disciplinas pessoais encontram exercícios só por associação explícita de assuntos a capacidades (sem deduzir pelo nome).
 - Rascunhos, tentativas, associações e tempo de prática no IndexedDB `study-mastery-labs`, separados por espaço (aparelho/conta), com fallback em memória e aviso; nada é enviado a servidor.
 - Rotas `#/labs` e `#/lab`; entradas no Início, no foco da disciplina do banco, na disciplina pessoal, na explicação da questão, no guia, no evento da agenda e no Progresso (progresso prático separado do quiz).
+- Rascunho pendente gravado na hora ao ocultar/sair da página (antes, recarregar logo após digitar perdia até 0,7 s de edição); entrada do Início e lista de associações com classes próprias (não colidem com o cartão "continuar" nem com a lista de assuntos quando há laboratórios registrados).
 - Teste de homologação corrigido: o item do histórico era encontrado pelo texto "8/10", que também casa com a data 28/10 (falhava só nesse dia, também na `main`).
 
 ## 0.6.1 — feedbacks e melhorias (25/10/2026)

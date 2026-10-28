@@ -78,6 +78,8 @@ ou cada conta) isolados por chave:
 | `attempts` | tentativas verificadas: versão, pontuação, aprovado, resultado de cada teste (até 2.000 por espaço) |
 | `meta` | associações de assuntos pessoais, exercícios iniciados, tempo de prática, sessão atual |
 
+- Ao trocar de app, bloquear a tela, recarregar ou sair do exercício, o que ainda esperava a gravação é salvo na hora
+  (`pagehide`/`visibilitychange`, com `commit()` explícito da transação).
 - Ao voltar, o rascunho é restaurado com aviso e opção “Começar do zero”. Rascunho de uma versão antiga do exercício
   não é aplicado sozinho: o estudante escolhe usar ou descartar.
 - Sem IndexedDB (navegação privada, bloqueio), tudo funciona em memória e a tela avisa que não será guardado.

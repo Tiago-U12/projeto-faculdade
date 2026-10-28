@@ -67,6 +67,16 @@ describe('página de exercício', () => {
     expect(screen.queryByText(/Rascunho restaurado/)).not.toBeInTheDocument();
   });
 
+  it('ao sair da página (pagehide) o rascunho pendente é gravado na hora, sem esperar', async () => {
+    mount(<LabPage id="demo-001" go={vi.fn()} />);
+    fireEvent.change(await screen.findByLabelText('Código'), { target: { value: 'SELECT 7;' } });
+    const store = await labStoreFor('device');
+    expect(await store.getDraft('demo-001')).toBeUndefined();
+    window.dispatchEvent(new Event('pagehide'));
+    // antes dos 700 ms da espera normal
+    await waitFor(async () => expect((await store.getDraft('demo-001'))?.sql).toBe('SELECT 7;'), { timeout: 300 });
+  });
+
   it('dicas uma de cada vez; verificar registra tentativa, marca concluído e mostra a explicação', async () => {
     mount(<LabPage id="demo-001" go={vi.fn()} />);
     await screen.findByLabelText('Código');

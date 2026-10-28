@@ -92,7 +92,7 @@ export function Home({ go }: { go: (to: string) => void }) {
       </div>
 
       {LABS.length > 0 && (
-        <button type="button" className="resume lab-entry" onClick={() => go('#/labs')}>
+        <button type="button" className="lab-entry" onClick={() => go('#/labs')}>
           <FlaskConical size={20} aria-hidden="true" />
           <span>
             <strong>Study Labs</strong>

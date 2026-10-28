@@ -118,6 +118,8 @@ function idbLabStore(db: IDBDatabase, space: string): LabStore {
       if (draftSize(d) > MAX_DRAFT_CHARS) throw new DraftTooLargeError();
       const tx = db.transaction('drafts', 'readwrite');
       tx.objectStore('drafts').put({ ...d, space });
+      // pede a gravação já (sem esperar o fim da tarefa): chamado ao sair da página, garante o commit antes do descarte
+      tx.commit?.();
       await done(tx);
     },
     async deleteDraft(id) {
