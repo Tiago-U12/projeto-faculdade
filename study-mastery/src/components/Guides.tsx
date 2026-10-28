@@ -7,6 +7,7 @@ import type { PersonalRepo } from '../personal/repo';
 import { LIMITS, newId, nowIso, type GuideItem, type GuideSection, type PGuide, type PMaterial, type PTopic, type SectionKind } from '../personal/types';
 import { plural, StatusBadge } from './MaterialPage';
 import { RichText } from './RichText';
+import { LabPracticeLink } from '../labs/integration';
 import { AI_SENDS } from './Privacy';
 
 export const NOT_A_PREDICTION = 'O Study Mastery não sabe o que vai cair na avaliação: o guia cobre só os assuntos que você confirmou, a partir dos seus materiais.';
@@ -295,6 +296,7 @@ export function GuidePage({ id, go }: { id: string; go: (to: string) => void }) 
                 />
               );
             })}
+            <LabPracticeLink disciplineId={g.disciplineId} topicIds={[t.id]} label="Praticar no Lab" go={go} />
           </details>
         </section>
       ))}

@@ -8,6 +8,7 @@ import { spaceLabel } from './Disciplines';
 import { isStuck, plural, StatusBadge } from './MaterialPage';
 import { useMaterialCtx } from './MaterialNew';
 import { deleteMaterial } from '../materials/service';
+import { LabsDisciplineSection } from '../labs/integration';
 import { useCatalog, useTimeZone } from '../calendar/hooks';
 import { eventDay, isOverdue } from '../calendar/plan';
 import { todayIn } from '../calendar/time';
@@ -173,6 +174,8 @@ export function DisciplinePage({ id, go }: { id: string; go: (to: string) => voi
           <button type="button" className="ghost" onClick={() => go(`#/planejar?d=${d.id}`)}><RouteIcon size={16} aria-hidden="true" /> Planejar até a prova</button>
         </div>
       </section>
+
+      <LabsDisciplineSection disciplineId={d.id} go={go} />
 
       <section className="panel" aria-labelledby="h-guides">
         <div className="panel-head"><h2 id="h-guides"><BookOpen size={18} aria-hidden="true" /> Guias de estudo</h2><small className="muted">{guides.length}</small></div>

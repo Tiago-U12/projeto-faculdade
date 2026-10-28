@@ -2,6 +2,7 @@ import { ArrowLeft, Ban, CalendarClock, Check, ExternalLink, Pencil, RotateCcw, 
 import { useMemo, useState } from 'react';
 import { eventLinkHref, useCatalog, useTimeZone } from '../calendar/hooks';
 import { busyFrom, conflictsWith, eventDay, eventTimes, isOverdue, suggestReschedule } from '../calendar/plan';
+import { LabPracticeLink } from '../labs/integration';
 import { brDate, cap, instantToZoned, isHHMM, isYMD, longDate, shortDate, todayIn, zonedToInstant } from '../calendar/time';
 import { useCollection, usePersonal } from '../personal/context';
 import { EVENT_STATUS_LABEL, EVENT_TYPE_LABEL, EVENT_TYPES, LIMITS, newId, nowIso, type EventLink, type EventStatus, type EventType, type PEvent } from '../personal/types';
@@ -264,6 +265,7 @@ export function EventPage({ id, go }: { id: string; go: (to: string) => void }) 
         {e.notes && <p className="ev-notes">{e.notes}</p>}
         {e.plan && <p className="hint">Criado pelo planejamento para a prova de {brDate(e.plan.examDate)}.</p>}
         {link && !linkedGuideMissing && <button type="button" className="ghost" onClick={() => go(link.href)}><ExternalLink size={16} aria-hidden="true" /> {link.label}</button>}
+        {e.topicIds.length > 0 && e.type !== 'prova' && e.type !== 'entrega' && <LabPracticeLink disciplineId={e.disciplineId} topicIds={e.topicIds} label="Praticar no Lab" go={go} />}
         {linkedGuideMissing && <p className="muted">O guia vinculado foi excluído. <button type="button" className="text-btn" onClick={() => go(`#/questoes?d=${e.disciplineId}`)}>Abrir questões</button></p>}
       </section>
 

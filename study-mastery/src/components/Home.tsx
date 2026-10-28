@@ -1,10 +1,11 @@
-import { ArrowRight, CalendarDays, ChevronRight, Flame, History, Sparkles, Target } from 'lucide-react';
+import { ArrowRight, CalendarDays, ChevronRight, FlaskConical, Flame, History, Sparkles, Target } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { reviewCounts } from '../lib/engine';
 import { qualitySummary } from '../lib/quality';
 import { MODE_LABEL } from '../types';
 import { useStudy } from '../state';
 import { useAccount } from '../account';
+import { LABS } from '../labs/registry';
 import { useTimeZone } from '../calendar/hooks';
 import { pendingActivities, upcomingExams } from '../lib/progress';
 import { usePersonalOptional } from '../personal/context';
@@ -89,6 +90,17 @@ export function Home({ go }: { go: (to: string) => void }) {
           );
         })}
       </div>
+
+      {LABS.length > 0 && (
+        <button type="button" className="resume lab-entry" onClick={() => go('#/labs')}>
+          <FlaskConical size={20} aria-hidden="true" />
+          <span>
+            <strong>Study Labs</strong>
+            <small>Pratique executando: {LABS.map((l) => l.name).join(', ')}</small>
+          </span>
+          <ChevronRight size={18} aria-hidden="true" />
+        </button>
+      )}
 
       <div className="section-heading"><h2>Sua jornada</h2><span>{account.status === 'signedIn' ? 'Salvo na conta' : 'Salvo no dispositivo'}</span></div>
       <div className="metrics">

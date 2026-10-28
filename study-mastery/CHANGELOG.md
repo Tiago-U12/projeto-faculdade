@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0 — Study Labs (em revisão, sem merge nem publicação)
+
+### Core (PR 1, `feat/study-labs-core`)
+- Subsistema `src/labs/`: tipos próprios (exercícios práticos não são questões), registro extensível de laboratórios, catálogo validado e carregado sob demanda, filtros estritos por disciplina/assunto/dificuldade/tipo/profundidade, sessões de 1 ou 3 exercícios que nunca completam com outros assuntos.
+- Disciplinas pessoais encontram exercícios só por associação explícita de assuntos a capacidades (sem deduzir pelo nome).
+- Rascunhos, tentativas, associações e tempo de prática no IndexedDB `study-mastery-labs`, separados por espaço (aparelho/conta), com fallback em memória e aviso; nada é enviado a servidor.
+- Rotas `#/labs` e `#/lab`; entradas no Início, no foco da disciplina do banco, na disciplina pessoal, na explicação da questão, no guia, no evento da agenda e no Progresso (progresso prático separado do quiz).
+- Teste de homologação corrigido: o item do histórico era encontrado pelo texto "8/10", que também casa com a data 28/10 (falhava só nesse dia, também na `main`).
+
 ## 0.6.1 — feedbacks e melhorias (25/10/2026)
 
 - Formulário de feedback com categorias, contexto da questão, até dois prints, consentimento e rascunho offline explícito.

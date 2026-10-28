@@ -13,6 +13,7 @@ import { usePersonalOptional } from '../personal/context';
 import { usePersonalQuiz } from '../personal/quiz';
 import { copyText } from './Help';
 import { formatReport } from './ReportError';
+import { LabsProgressSection } from '../labs/integration';
 import { plural } from './MaterialPage';
 
 export function Progress({ go }: { go: (to: string) => void }) {
@@ -183,6 +184,8 @@ export function Progress({ go }: { go: (to: string) => void }) {
           })
         )}
       </section>
+
+      <LabsProgressSection go={go} />
 
       <section className="panel" aria-labelledby="h-hist">
         <div className="panel-head"><h2 id="h-hist">Últimas sessões</h2></div>

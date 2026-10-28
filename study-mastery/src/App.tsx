@@ -15,6 +15,8 @@ import { Calendar } from './components/Calendar';
 import { EventForm, EventPage } from './components/EventPage';
 import { Planner } from './components/Planner';
 import { Privacy } from './components/Privacy';
+import { LabsHub } from './labs/LabsHub';
+import { LabPage } from './labs/LabPage';
 import { EVENT_TYPES, type EventType } from './personal/types';
 import { TabBar } from './components/TabBar';
 import { Home } from './components/Home';
@@ -79,6 +81,8 @@ export function App() {
         {route.name === 'planner' && <Planner key={`${route.disciplineId}-${route.guideId}`} disciplineId={route.disciplineId} guideId={route.guideId} go={go} />}
         {route.name === 'guideNew' && <GuideNew key={route.disciplineId} disciplineId={route.disciplineId} go={go} />}
         {route.name === 'guide' && <GuidePage key={route.id} id={route.id} go={go} />}
+        {route.name === 'labs' && <LabsHub key={`${route.disciplineId}-${route.topicIds?.join()}-${route.kind}`} disciplineId={route.disciplineId} topicIds={route.topicIds} kind={route.kind} go={go} />}
+        {route.name === 'lab' && <LabPage key={`${route.id}-${route.sessionId}`} id={route.id} sessionId={route.sessionId} go={go} />}
         </ErrorBoundary>
       </main>
       <TabBar route={route} go={go} />
