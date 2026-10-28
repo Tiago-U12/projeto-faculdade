@@ -26,6 +26,8 @@
     "test:db": "vitest run tests/db",
     "test:integration": "tsx tests/integration/supabase-real.ts",
     "e2e:feedback": "tsx tests/e2e/feedback.ts",
+    "e2e:labs": "tsx tests/e2e/labs.ts",
+    "labs:sql-portability": "tsx tools/sql-portability.ts",
     "feedback:setup": "node tools/cloudflare-feedback.mjs",
     "test:automation": "node tests/automation/cloudflare-feedback.test.mjs"
   },
@@ -39,6 +41,7 @@
     "pdfjs-dist": "^6.4.299",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sql.js": "1.14.2",
     "vite": "^6.2.0"
   },
   "devDependencies": {

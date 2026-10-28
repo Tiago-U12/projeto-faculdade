@@ -10,6 +10,14 @@
 - Rascunho pendente gravado na hora ao ocultar/sair da página (antes, recarregar logo após digitar perdia até 0,7 s de edição); entrada do Início e lista de associações com classes próprias (não colidem com o cartão "continuar" nem com a lista de assuntos quando há laboratórios registrados).
 - Teste de homologação corrigido: o item do histórico era encontrado pelo texto "8/10", que também casa com a data 28/10 (falhava só nesse dia, também na `main`).
 
+### SQL Lab (PR 2, `feat/study-labs-sql`)
+- SQLite 3.49 (sql.js 1.14.2, WebAssembly servido pelo app) num Web Worker com protocolo tipado e validado, fila, limite de tempo (3 s/6 s) com worker encerrado e recriado, Cancelar, limites de tamanho/linhas/comandos/memória e banco novo por execução.
+- 12 exercícios originais (loja, biblioteca, universidade): SELECT, WHERE, ORDER BY, LIMIT, JOIN, LEFT JOIN, GROUP BY, COUNT/SUM/AVG, HAVING, subconsultas, INSERT/UPDATE/DELETE e CREATE TABLE, com casos de duplicatas, NULL, clientes sem pedido, resultado vazio, decimais e ordem.
+- Correção pelo comportamento em vários bancos de teste (resultado, estado final ou estrutura por sondas), nunca pelo texto; feedback educativo sem revelar a solução; desafios com menos pistas.
+- Interface com dialeto informado, dados do banco, editor, Executar/Verificar/Restaurar, tabela com NULL, erros traduzidos e resultado por caso; uma coluna no celular, lado a lado no desktop.
+- Pré-cache inclui worker e WebAssembly (offline verificado na raiz e no subcaminho); `public/sw.js` inalterado.
+- Portabilidade: as soluções de referência dos 12 exercícios conferidas num MariaDB 10.11 com o modo do MySQL 8 (`npm run labs:sql-portability`), e as diferenças de dialeto documentadas foram confirmadas nos dois bancos.
+
 ## 0.6.1 — feedbacks e melhorias (25/10/2026)
 
 - Formulário de feedback com categorias, contexto da questão, até dois prints, consentimento e rascunho offline explícito.
