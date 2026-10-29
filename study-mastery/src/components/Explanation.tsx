@@ -3,6 +3,7 @@ import type { PersonalQuizQuestion, PublishedQuestion, QuizQuestion } from '../t
 import { DIFFICULTY_LABEL, isPersonal, SCOPE_LABEL } from '../types';
 import type { Bank } from '../lib/bank';
 import { ReportError } from './ReportError';
+import { LabPracticeLink } from '../labs/integration';
 import { RichText } from './RichText';
 
 export function Sources({ q, bank }: { q: PublishedQuestion; bank: Bank }) {
@@ -91,6 +92,8 @@ export function ExplanationBlock({ q, chosenId, bank }: { q: QuizQuestion; chose
           <p className="src-meta">Camada: {SCOPE_LABEL[q.scope]} · Nível: {DIFFICULTY_LABEL[q.difficulty]} · Verificação: {q.verifiedBy} · Revisão: {q.reviewedBy === 'human' ? 'humana' : 'assistida por IA (revisão humana pendente)'}</p>
         </details>
       )}
+      {/* só quando há exercício prático do mesmo assunto; a sessão do quiz fica salva ao sair */}
+      <LabPracticeLink disciplineId={q.disciplineId} topicIds={[q.topicId]} />
       <ReportError questionId={q.id} version={q.version} source={isPersonal(q) ? 'pessoal' : 'banco'} />
     </div>
   );

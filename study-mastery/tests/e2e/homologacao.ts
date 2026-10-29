@@ -464,7 +464,8 @@ async function main() {
     await runAprender([true, true]);
     await goHash('#/progress');
     await page.getByRole('heading', { name: /Seu progresso/ }).waitFor();
-    const link = page.locator('.hist li', { hasText: '8/10' }).first().locator('a');
+    // pela pontuação (<b>), não pelo texto do item: a data "28/10/2026" também contém "8/10"
+    const link = page.locator('.hist li').filter({ has: page.locator('b', { hasText: /^8\/10$/ }) }).first().locator('a');
     const href = await link.getAttribute('href');
     await link.click();
     await page.locator('.result').waitFor();

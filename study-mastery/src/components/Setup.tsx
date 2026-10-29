@@ -4,6 +4,7 @@ import { countBy, eligible, reviewCounts, shortfall } from '../lib/engine';
 import type { Route } from '../lib/route';
 import { DIFFICULTIES, DIFFICULTY_LABEL, MODE_LABEL, type Difficulty, type DisciplineId, type Mode, type Scope, type SessionConfig } from '../types';
 import { useStudy } from '../state';
+import { LabPracticeLink } from '../labs/integration';
 
 const MODES: { id: Mode; icon: React.ReactNode; text: string }[] = [
   { id: 'aprender', icon: <BrainCircuit size={18} aria-hidden="true" />, text: 'Feedback e explicação logo após cada resposta.' },
@@ -111,6 +112,8 @@ export function Setup({ route, go }: { route: Extract<Route, { name: 'setup' }>;
           })}
         </ul>
       </section>
+
+      <LabPracticeLink disciplineId={disciplineId} topicIds={topicIds} label="Praticar estes assuntos nos Labs" go={go} />
 
       <section className="panel" aria-labelledby="h-depth">
         <div className="panel-head"><h2 id="h-depth">Profundidade</h2></div>
