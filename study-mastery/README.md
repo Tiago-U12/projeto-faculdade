@@ -24,6 +24,10 @@ trechos do material, questões pessoais, agenda e planejamento até a prova.
   atrasados nunca concluídos sozinhos; fuso editável; planejamento por regras com prévia e confirmação. Regras: [docs/AGENDA.md](docs/AGENDA.md).
 - Progresso separando atividade, desempenho e evidência; próximas provas e pendências.
 
+**Em revisão (0.7, PRs empilhados, sem merge nem publicação):** **Study Labs**, prática executável separada do quiz
+e das 600 questões — SQL Lab com SQLite no navegador (Web Worker + WebAssembly, offline), 12 exercícios corrigidos
+pelo resultado em vários bancos de teste. Detalhes, limites e diferenças SQLite × MySQL 8: [docs/STUDY_LABS.md](docs/STUDY_LABS.md).
+
 **Pronto no código, depende de configuração (ver [docs/CONFIGURACAO_CONTAS.md](docs/CONFIGURACAO_CONTAS.md)):**
 - Contas (e-mail e senha, recuperação), dados privados por conta (RLS), retomada em outro aparelho, importação
   explícita dos dados do aparelho, PDF em pasta privada conferido no servidor, exclusão da conta.
@@ -78,6 +82,8 @@ npm run test:db        # só o banco: RLS com duas contas, limites, exclusões (
 npm run e2e:v06        # fluxos da 0.6 no navegador: 390, 320 e 1280 px, axe, sem segredos no build (exige build)
 npm run e2e:homologacao # checklist de uso real do banco existente
 npm run e2e:a52        # cenários do relato no Galaxy A52 (emulação)
+npm run e2e:labs       # Study Labs no navegador: raiz e subcaminho, offline, laço infinito, 360–1280 px, axe (exige build)
+npm run labs:sql-portability # soluções do SQL Lab num MariaDB local com o modo do MySQL 8 (requer mariadbd)
 npm run test:integration # Supabase REAL: duas contas, Storage, funções (variáveis no topo do arquivo; não roda sem projeto)
 ```
 
@@ -106,7 +112,7 @@ estimativas (sem medição real ainda), limites por conta.
 [Privacidade e dados](src/components/Privacy.tsx) (também no app em `#/dados`) · [Agenda](docs/AGENDA.md) ·
 [Custos](docs/CUSTOS_E_LIMITES.md) · [Configuração](docs/CONFIGURACAO_CONTAS.md) · [Arquitetura](docs/ARQUITETURA_V06.md) ·
 [Diagnóstico A52](docs/DIAGNOSTICO_A52.md) · [Roteiro para colegas](docs/ROTEIRO_TESTES_COLEGAS.md) ·
-[Acompanhamento](docs/ACOMPANHAMENTO.md)
+[Acompanhamento](docs/ACOMPANHAMENTO.md) · [Study Labs](docs/STUDY_LABS.md)
 
 ## Histórico: estado da v0.5
 

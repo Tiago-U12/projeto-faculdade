@@ -591,3 +591,48 @@ code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-si
 .lab-assoc { list-style: none; margin: 0 0 12px; padding: 0; display: grid; }
 .lab-assoc > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; min-height: 48px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
 .lab-assoc-edit { flex-basis: 100%; margin-top: 6px; padding: 10px; border: 1px solid var(--border); border-radius: 12px; }
+
+/* SQL Lab */
+.sql-dialect { border-color: var(--lav); }
+.sql-dialect-title { margin: 0 0 4px; font-size: 16px; }
+.sql-diffs { display: grid; gap: 6px; margin: 8px 0 0; font-size: 14px; }
+.sql-data > summary { cursor: pointer; font-weight: 800; display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.sql-tables { display: grid; gap: 14px; margin-top: 8px; }
+.sql-tview h3 { margin: 0 0 4px; font-size: 15px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.sql-cols { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+.sql-col { border: 1px solid var(--border); border-radius: 8px; padding: 2px 8px; }
+.sql-col b { color: var(--text); }
+.sql-pre { margin: 8px 0 0; padding: 10px; border-radius: 10px; background: var(--panel-2); overflow-x: auto; font-size: 13px; line-height: 1.45; }
+.sql-pre, .sql-editor, .sql-table { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.sql-work { display: grid; gap: 0 14px; min-width: 0; }
+.sql-work > .panel { min-width: 0; }
+.sql-editor { display: block; width: 100%; box-sizing: border-box; min-height: 180px; resize: vertical; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-size: 16px; line-height: 1.5; tab-size: 2; }
+.sql-editor:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sql-actions { margin-top: 10px; }
+.sql-actions .primary, .sql-actions .ghost { flex: 1 1 140px; }
+.sql-confirm { flex-wrap: wrap; align-items: center; margin-top: 10px; }
+.sql-engine { min-height: 1.3em; margin: 8px 0 0; font-size: 13px; color: var(--faint); }
+.sql-output h2 { margin: 0 0 8px; font-size: 17px; }
+.sql-output h2:focus { outline: none; }
+.sql-output h2:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sql-error { color: var(--bad); display: flex; gap: 8px; align-items: flex-start; overflow-wrap: anywhere; margin: 0; }
+.sql-error svg, .sql-verdict svg, .sql-test-label svg { flex: none; margin-top: 2px; }
+.sql-table-wrap { max-width: 100%; max-height: 420px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; }
+.sql-table-wrap:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sql-table { border-collapse: collapse; font-size: 13.5px; width: max-content; min-width: 100%; }
+.sql-table th, .sql-table td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; max-width: 28ch; overflow: hidden; text-overflow: ellipsis; }
+.sql-table th { position: sticky; top: 0; background: var(--panel-2); font-weight: 800; }
+.sql-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.sql-null { color: var(--faint); font-style: italic; }
+.sql-verdict { display: flex; gap: 8px; align-items: flex-start; margin: 0 0 10px; color: var(--warn); overflow-wrap: anywhere; }
+.sql-verdict.ok { color: var(--ok); }
+.sql-tests { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sql-tests li { display: grid; gap: 4px; padding: 8px 10px; border-radius: 10px; background: var(--panel-2); border-left: 4px solid var(--bad); }
+.sql-tests li.ok { border-left-color: var(--ok); }
+.sql-test-label { display: flex; gap: 6px; font-weight: 700; }
+.sql-tests li.ok .sql-test-label svg { color: var(--ok); }
+.sql-tests li.bad .sql-test-label svg { color: var(--bad); }
+.sql-test-msg { font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+@media (min-width: 1000px) {
+  .sql-work { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+}
