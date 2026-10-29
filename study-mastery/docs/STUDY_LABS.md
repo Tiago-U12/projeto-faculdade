@@ -276,7 +276,7 @@ endereço do próprio worker (funciona em subcaminho). Custo: o pré-cache passo
   malformadas ignoradas, nova tentativa de carga, runner compartilhado (também com StrictMode), validação do protocolo.
 - `SqlLab.test.tsx` (7, jsdom + SQLite real): dialeto, Executar com NULL, erro traduzido, Ctrl+Enter, verificação
   errada/certa com histórico e explicação, rascunho e restaurar, dados, tempo esgotado, falha ao carregar.
-- `npm run e2e:labs` (Chromium, build de produção; 53 verificações no total com o Web/React Lab): ver a seção de testes
+- `npm run e2e:labs` (Chromium, build de produção; 54 verificações no total com o Web/React Lab): ver a seção de testes
   de navegador abaixo.
 - `npm run labs:sql-portability`: comparação com MariaDB descrita acima.
 
@@ -328,7 +328,8 @@ flowchart LR
 - **Console didático**: `console.log/info/warn/error` (objetos, arrays e elementos formatados), erros com a **linha do
   editor** (`script.js:3 — …`), recursos bloqueados explicados, limite de 200 mensagens.
 - **Testes**: a lista do que será conferido aparece antes; depois, o resultado de cada um com o motivo da falha.
-- No celular, **Código / Prévia / Console / Testes** são abas; a partir de 1000 px ficam lado a lado.
+- No celular, **Código / Prévia / Console / Testes** são abas; a partir de 1000 px ficam lado a lado. As abas seguem o
+  padrão de teclado WAI-ARIA: só a ativa entra no Tab; setas, Home e End trocam de aba.
 
 ### Exercícios
 
@@ -434,8 +435,8 @@ principal do app cresceu ~37 KB (Core dos Labs; os laboratórios em si carregam 
   inválida), montagem do documento (CSP e harness no topo, CSS/script no lugar, escape de `</script>`, linha do
   script, `defer`, erro de sintaxe, React), atributo sandbox e CSP, validação de mensagens (janela, origem, nonce,
   exercício, versão, tipo, formato, tamanho), catálogo.
-- `WebLab.test.tsx` (3, jsdom): abas de arquivo e de painel, iframe com sandbox/CSP, arquivo só leitura, rascunho só
-  dos editáveis, restaurar, falha ao carregar o React com nova tentativa.
+- `WebLab.test.tsx` (4, jsdom): abas de arquivo e de painel (inclusive pelo teclado), iframe com sandbox/CSP, arquivo
+  só leitura, rascunho só dos editáveis, restaurar, falha ao carregar o React com nova tentativa.
 - `npm run e2e:labs` (Chromium): os 12 exercícios (inicial falha, solução passa), prévia, console com linha, laço
   infinito no script e em evento, isolamento (armazenamento, DOM, popups, navegação da janela principal, rede), link
   externo barrado, navegação por script encerrando a prévia, mensagem forjada,

@@ -28,6 +28,16 @@ function useWide(query = '(min-width: 1000px)') {
   return wide;
 }
 
+/** Teclado no padrão de abas (WAI-ARIA): setas, Home e End trocam de aba e levam o foco junto; só a aba ativa entra no Tab. */
+function onTabKeys<T extends string>(e: KeyboardEvent<HTMLElement>, ids: readonly T[], current: T, select: (id: T) => void, domId: (id: T) => string) {
+  const i = ids.indexOf(current);
+  const next = e.key === 'ArrowRight' ? ids[(i + 1) % ids.length] : e.key === 'ArrowLeft' ? ids[(i - 1 + ids.length) % ids.length] : e.key === 'Home' ? ids[0] : e.key === 'End' ? ids[ids.length - 1] : undefined;
+  if (next === undefined) return;
+  e.preventDefault();
+  select(next);
+  document.getElementById(domId(next))?.focus();
+}
+
 const LANG: Record<WebFileName, string> = { 'index.html': 'HTML', 'style.css': 'CSS', 'script.js': 'JavaScript', 'App.jsx': 'JSX' };
 
 export default function WebLab({ exercise, initialDraft, saveDraft, clearDraft, recordAttempt, completed }: LabPageProps<WebLabExercise>) {
@@ -201,9 +211,9 @@ export default function WebLab({ exercise, initialDraft, saveDraft, clearDraft, 
       )}
 
       {!wide && (
-        <div className="web-panels" role="tablist" aria-label="Áreas do laboratório">
+        <div className="web-panels" role="tablist" aria-label="Áreas do laboratório" onKeyDown={(e) => onTabKeys(e, tabs.map((t) => t.id), panel, setPanel, (id) => `web-tab-${id}`)}>
           {tabs.map((t) => (
-            <button key={t.id} type="button" role="tab" id={`web-tab-${t.id}`} aria-selected={panel === t.id} aria-controls={`web-panel-${t.id}`} className={'chip' + (panel === t.id ? ' on' : '')} onClick={() => setPanel(t.id)}>
+            <button key={t.id} type="button" role="tab" id={`web-tab-${t.id}`} aria-selected={panel === t.id} aria-controls={`web-panel-${t.id}`} tabIndex={panel === t.id ? 0 : -1} className={'chip' + (panel === t.id ? ' on' : '')} onClick={() => setPanel(t.id)}>
               {t.label}
             </button>
           ))}
@@ -213,9 +223,9 @@ export default function WebLab({ exercise, initialDraft, saveDraft, clearDraft, 
       <div className="web-grid">
         <section className="panel web-code" id="web-panel-codigo" role={wide ? undefined : 'tabpanel'} aria-labelledby={wide ? 'h-web-code' : 'web-tab-codigo'} hidden={!show('codigo')}>
           <h2 id="h-web-code" className={wide ? 'web-h' : 'sr-only'}>Código</h2>
-          <div className="web-files" role="tablist" aria-label="Arquivos">
+          <div className="web-files" role="tablist" aria-label="Arquivos" onKeyDown={(e) => onTabKeys(e, names, active, setActive, (n) => `web-file-${n}`)}>
             {names.map((n) => (
-              <button key={n} type="button" role="tab" id={`web-file-${n}`} aria-selected={active === n} aria-controls="web-editor-panel" className={'web-file' + (active === n ? ' on' : '')} onClick={() => setActive(n)}>
+              <button key={n} type="button" role="tab" id={`web-file-${n}`} aria-selected={active === n} aria-controls="web-editor-panel" tabIndex={active === n ? 0 : -1} className={'web-file' + (active === n ? ' on' : '')} onClick={() => setActive(n)}>
                 {n}
                 {!exercise.editable.includes(n) && <small> (leitura)</small>}
               </button>

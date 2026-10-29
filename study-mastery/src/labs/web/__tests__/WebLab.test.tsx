@@ -49,6 +49,31 @@ describe('Web Lab', () => {
     expect(screen.getByText('subtotal soma preço × quantidade (e vale 0 para carrinho vazio)')).toBeInTheDocument();
   });
 
+  it('abas pelo teclado (padrão WAI-ARIA): só a ativa entra no Tab; setas, Home e End trocam e levam o foco', async () => {
+    mount('web-funcoes-carrinho');
+    const script = await screen.findByRole('tab', { name: 'script.js' });
+    const files = screen.getByRole('tablist', { name: 'Arquivos' });
+    expect([...files.querySelectorAll('[role=tab]')].map((t) => t.getAttribute('tabindex'))).toEqual(['-1', '-1', '0']);
+    script.focus();
+    fireEvent.keyDown(script, { key: 'ArrowRight' });
+    const html = screen.getByRole('tab', { name: 'index.html' });
+    expect(html).toHaveAttribute('aria-selected', 'true');
+    expect(document.activeElement).toBe(html);
+    expect(await screen.findByLabelText('Editor de index.html (HTML)')).toBeInTheDocument();
+    fireEvent.keyDown(html, { key: 'End' });
+    expect(document.activeElement).toBe(script);
+    fireEvent.keyDown(script, { key: 'ArrowLeft' });
+    expect(screen.getByRole('tab', { name: 'style.css' })).toHaveAttribute('aria-selected', 'true');
+    const panels = screen.getByRole('tablist', { name: 'Áreas do laboratório' });
+    const codigo = screen.getByRole('tab', { name: 'Código' });
+    codigo.focus();
+    fireEvent.keyDown(codigo, { key: 'ArrowLeft' });
+    expect(document.activeElement).toBe(screen.getByRole('tab', { name: 'Testes' }));
+    expect([...panels.querySelectorAll('[role=tab]')].filter((t) => t.getAttribute('tabindex') === '0')).toHaveLength(1);
+    fireEvent.keyDown(document.activeElement!, { key: 'Home' });
+    expect(codigo).toHaveAttribute('aria-selected', 'true');
+  });
+
   it('arquivo de apoio é só leitura; edição vira rascunho dos arquivos editáveis; restaurar volta ao inicial', async () => {
     const first = mount('react-contador');
     fireEvent.click(await screen.findByRole('tab', { name: /index\.html/ }));

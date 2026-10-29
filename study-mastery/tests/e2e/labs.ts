@@ -76,7 +76,7 @@ async function newContext(width = 390, height = 844): Promise<{ ctx: BrowserCont
   });
   ctx.on('requestfailed', (r) => {
     if (!external(r.url())) return;
-    if (/BLOCKED_BY_CSP|blocked/i.test(r.failure()?.errorText ?? '')) return;
+    if (/BLOCKED_BY_CSP|blocked|^csp$/i.test(r.failure()?.errorText ?? '')) return;
     else foreign.push(`${r.url()} (${r.failure()?.errorText})`);
   });
   const page = await ctx.newPage();
@@ -436,6 +436,12 @@ setTimeout(() => link.click(), 100);
     v.push(...(await axe()));
   }
   ok('axe-core (WCAG 2.2 A/AA) sem violações nas quatro abas do celular', v.length === 0, v.join(' ') || '0 violações');
+  // teclado no padrão de abas: setas trocam a aba e levam o foco
+  await showPanel(page, 'Código');
+  await page.getByRole('tablist', { name: 'Arquivos' }).getByRole('tab', { selected: true }).focus();
+  await page.keyboard.press('ArrowRight');
+  const kb = await page.evaluate(() => ({ focused: document.activeElement?.textContent ?? '', selected: document.activeElement?.getAttribute('aria-selected') }));
+  ok('teclado: setas trocam a aba de arquivo e levam o foco (padrão WAI-ARIA)', kb.selected === 'true' && /index\.html|style\.css/.test(kb.focused), JSON.stringify(kb));
   const tabs = await page.getByRole('tablist', { name: 'Áreas do laboratório' }).getByRole('tab').allInnerTexts();
   ok('celular: Código, Prévia, Console e Testes em abas', tabs.length === 4, tabs.join(' / '));
 
