@@ -1,0 +1,88 @@
+name: Diagnosticar Worker legado (somente leitura)
+
+on:
+  push:
+    branches: [ops/diagnosticar-worker-projeto-faculdade]
+    paths: ['.github/workflows/diagnosticar-worker-legado.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Conferir Pages, Worker e log de build sem alterar recursos
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFileSync } from 'node:fs';
+          const account = '3428838cbf6d8733de1ef6cc07bc4ebd';
+          const token = process.env.CLOUDFLARE_API_TOKEN?.trim();
+          const report = text => {
+            console.log(text);
+            appendFileSync(process.env.GITHUB_STEP_SUMMARY, text + '\n\n');
+          };
+          if (!token || !/^[A-Za-z0-9_-]{20,256}$/.test(token)) {
+            report('Token ausente ou formato inválido; nenhuma chamada efetuada.');
+            process.exit(1);
+          }
+          async function get(path, label) {
+            const response = await fetch('https://api.cloudflare.com/client/v4/accounts/' + account + path, {
+              method: 'GET',
+              headers: { Authorization: 'Bearer ' + token },
+              redirect: 'error',
+              signal: AbortSignal.timeout(15000),
+            });
+            const data = await response.json().catch(() => null);
+            const codes = Array.isArray(data?.errors) ? data.errors.map(e => e.code).filter(Number.isInteger) : [];
+            report(label + ': HTTP ' + response.status + '; success=' + (data?.success === true) + '; códigos=' + JSON.stringify(codes));
+            return response.ok && data?.success !== false ? data?.result : null;
+          }
+          try {
+            const pages = await get('/pages/projects/study-mastery', 'Controle: Pages study-mastery');
+            if (pages) report('Pages: nome correto=' + (pages.name === 'study-mastery') + '; produção main=' + (pages.production_branch === 'main'));
+            const scripts = await get('/workers/scripts', 'Permissão: Workers Scripts');
+            const worker = Array.isArray(scripts) ? scripts.find(s => s.id === 'projeto-faculdade') : null;
+            if (Array.isArray(scripts)) report('Worker projeto-faculdade encontrado=' + Boolean(worker));
+            const logs = await get('/builds/builds/c7470433-732c-4c90-938d-25aa052b87ef/logs', 'Permissão: Workers Builds e log do PR 13');
+            if (logs) {
+              const serialized = JSON.stringify(logs);
+              const known = [
+                ['token de build excluído/alterado', /build token.*(deleted|rolled|invalid)|stale.*token/i],
+                ['entrada Wrangler ausente', /Missing entry-point|Missing entry.point to Worker script/i],
+                ['package.json ausente', /ENOENT[^\n]*package\.json|Could not read package\.json/i],
+                ['autenticação de build falhou', /authentication error|invalid access token/i],
+              ];
+              for (const [label, pattern] of known) report('Log contém indicação de ' + label + '=' + pattern.test(serialized));
+              report('Log lido; seu conteúdo integral não foi publicado para evitar expor variáveis do build.');
+            }
+            if (worker?.tag && /^[a-f0-9-]{32,36}$/i.test(worker.tag)) {
+              const triggers = await get('/builds/workers/' + worker.tag + '/triggers', 'Gatilhos do Worker projeto-faculdade');
+              if (Array.isArray(triggers)) {
+                report('Quantidade de gatilhos=' + triggers.length);
+                for (const t of triggers) {
+                  report(JSON.stringify({
+                    trigger_uuid: /^[a-f0-9-]{36}$/i.test(t.trigger_uuid ?? '') ? t.trigger_uuid : null,
+                    worker_tag: worker.tag,
+                    root_is_repo: ['', '/', '.', null, undefined].includes(t.root_directory),
+                    build_is_npm_run_build: t.build_command === 'npm run build',
+                    deploy_is_wrangler: /^npx wrangler (deploy|versions upload|preview)$/.test(t.deploy_command ?? ''),
+                    production_main: JSON.stringify(t.branch_includes) === '["main"]',
+                    all_branches: JSON.stringify(t.branch_includes) === '["*"]',
+                    excludes_all: t.branch_excludes?.includes('*') === true,
+                  }));
+                }
+              }
+            }
+            const home = await fetch('https://study-mastery.pages.dev/', { redirect: 'error', signal: AbortSignal.timeout(15000) });
+            report('Site público Study Mastery: HTTP ' + home.status + '.');
+            report('Diagnóstico finalizado. Somente requisições GET; nenhum recurso/configuração alterado.');
+          } catch {
+            report('Falha de transporte ou resposta inesperada; detalhes suprimidos para proteger credenciais.');
+            process.exitCode = 1;
+          }
+          NODE
