@@ -1,4 +1,4 @@
-# Study Mastery v0.6.1
+# Study Mastery v0.7.0 (em revisão)
 
 **Novo na 0.6.1:** feedback de questão, problema ou sugestão com prints, rascunho offline e caixa administrativa privada. Código em `functions/api/feedback.ts` + D1; não depende de conta de estudante ou IA. O fluxo real foi testado no preview e a configuração de produção foi confirmada pela API. [Ativação, privacidade e análise dos relatos](docs/FEEDBACKS.md) e [registro de implantação e verificações](docs/ATIVACAO_FEEDBACKS.md).
 
@@ -24,9 +24,11 @@ trechos do material, questões pessoais, agenda e planejamento até a prova.
   atrasados nunca concluídos sozinhos; fuso editável; planejamento por regras com prévia e confirmação. Regras: [docs/AGENDA.md](docs/AGENDA.md).
 - Progresso separando atividade, desempenho e evidência; próximas provas e pendências.
 
-**Em revisão (0.7, PRs empilhados, sem merge nem publicação):** **Study Labs**, prática executável separada do quiz
-e das 600 questões — SQL Lab com SQLite no navegador (Web Worker + WebAssembly, offline), 12 exercícios corrigidos
-pelo resultado em vários bancos de teste. Detalhes, limites e diferenças SQLite × MySQL 8: [docs/STUDY_LABS.md](docs/STUDY_LABS.md).
+**Em revisão (0.7.0, PRs empilhados, sem merge nem publicação):** **Study Labs**, prática executável separada do
+quiz e das 600 questões — **SQL Lab** (SQLite no navegador em Web Worker + WebAssembly; 12 exercícios corrigidos pelo
+resultado em vários bancos de teste), **Web Lab** (8 exercícios de HTML/CSS/JS) e **React Lab** (4), ambos numa
+página isolada sem rede, com prévia, console e testes. Tudo funciona offline depois de instalado. Detalhes, isolamento,
+riscos residuais e diferenças SQLite × MySQL 8: [docs/STUDY_LABS.md](docs/STUDY_LABS.md).
 
 **Pronto no código, depende de configuração (ver [docs/CONFIGURACAO_CONTAS.md](docs/CONFIGURACAO_CONTAS.md)):**
 - Contas (e-mail e senha, recuperação), dados privados por conta (RLS), retomada em outro aparelho, importação

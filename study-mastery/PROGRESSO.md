@@ -2,6 +2,12 @@
 
 Atualizado a cada etapa. As **contagens** abaixo são geradas do banco (`npm run progress`); o restante é mantido à mão.
 
+## Study Labs v0.7.0 (2026-10-28, em revisão — sem merge nem publicação)
+
+Prática executável separada do quiz, em três PRs empilhados: Core (`feat/study-labs-core`), SQL Lab
+(`feat/study-labs-sql`, 12 exercícios) e Web/React Lab (`feat/study-labs-web`, 8 + 4 exercícios). O banco de 600
+questões não foi alterado. Arquitetura, isolamento, testes e riscos: [docs/STUDY_LABS.md](docs/STUDY_LABS.md).
+
 ## Publicação e homologação (2026-10-23)
 
 Publicado em <https://tiago-u12.github.io/projeto-faculdade/study-mastery/>; os três passos do Study Mastery no workflow executaram com sucesso. Homologação do checklist de uso real: 137/137 verificações automatizadas, com 8 problemas de acessibilidade e usabilidade corrigidos; veja [HOMOLOGACAO_V05.md](docs/HOMOLOGACAO_V05.md). Revisão humana continua pendente.

@@ -18,6 +18,14 @@
 - Pré-cache inclui worker e WebAssembly (offline verificado na raiz e no subcaminho); `public/sw.js` inalterado.
 - Portabilidade: as soluções de referência dos 12 exercícios conferidas num MariaDB 10.11 com o modo do MySQL 8 (`npm run labs:sql-portability`), e as diferenças de dialeto documentadas foram confirmadas nos dois bancos.
 
+### Web Lab e React Lab (PR 3, `feat/study-labs-web`)
+- Web Lab (8 exercícios: HTML semântico, formulário acessível, Flexbox, grid mobile-first, funções puras, filtrar/ordenar sem mutar, validação com erro customizado, lista de tarefas) e React Lab (4: props e map, useState, formulário controlado, busca com estado derivado), todos originais.
+- Código do estudante só numa página isolada: iframe `sandbox="allow-scripts allow-forms"` sem `allow-same-origin`, CSP sem rede, mensagens validadas por janela, origem, nonce, exercício, versão e formato; laços protegidos (acorn) e watchdog. Resultado dos testes descrito como educativo, não à prova de fraude.
+- Testes declarativos executados em página nova por teste (DOM, estilos calculados, colunas do grid em 3 larguras, rótulos acessíveis, funções puras sem mutação, erros customizados, interações).
+- Interface com abas de arquivo, prévia com largura selecionável, console didático com a linha do editor, testes e abas no celular.
+- React 19 do próprio app embutido no sandbox e JSX transformado no aparelho (sucrase), no lugar do Sandpack (que depende de servidor externo, inacessível neste ambiente): React Lab funciona offline.
+- Versão 0.7.0. Pré-cache 3,84 MB (era 2,41 MB na 0.6.1).
+
 ## 0.6.1 — feedbacks e melhorias (25/10/2026)
 
 - Formulário de feedback com categorias, contexto da questão, até dois prints, consentimento e rascunho offline explícito.

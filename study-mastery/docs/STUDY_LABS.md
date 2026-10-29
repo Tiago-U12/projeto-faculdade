@@ -1,4 +1,4 @@
-# Study Labs — prática executável (v0.7, em revisão)
+# Study Labs — prática executável (v0.7.0, em revisão)
 
 Os Study Labs são uma modalidade nova, **separada do quiz e do banco de 600 questões**: o estudante escreve código ou
 SQL, executa, vê o resultado e recebe correção pelo **comportamento**, não pelo texto da resposta.
@@ -9,7 +9,7 @@ Estado por PR (empilhados, sem merge):
 |---|---|---|
 | 1 | `feat/study-labs-core` | Core: tipos, registro, catálogo, filtros estritos, sessões, persistência, progresso, Hub, rotas e integrações |
 | 2 | `feat/study-labs-sql` | SQL Lab: SQLite/WASM em Web Worker, 12 exercícios corrigidos pelo comportamento — depende do PR 1 |
-| 3 | `feat/study-labs-web` | Web Lab (HTML/CSS/JS e React) — depende do PR 2 |
+| 3 | `feat/study-labs-web` | Web Lab (8, HTML/CSS/JS) e React Lab (4) em página isolada; versão 0.7.0 — depende do PR 2 |
 
 ## Arquitetura do Core
 
@@ -272,11 +272,12 @@ endereço do próprio worker (funciona em subcaminho). Custo: o pré-cache passo
   média fixa, UPDATE sem WHERE, DELETE pela data errada, id fixo, CHECK/FK ausentes, sintaxe, divisão inteira);
   limites (linhas, tamanho, comandos, memória) e isolamento (banco novo, sem extensões, FKs).
 - `compare.test.ts` (10): NULL, tolerância, duplicatas, alinhamento de colunas, ordem com empates, feedback.
-- `client.test.ts` (7): fila, limite de tempo com worker recriado, cancelamento, falha do worker, mensagens
-  malformadas ignoradas, nova tentativa de carga, validação do protocolo.
+- `client.test.ts` (8): fila, limite de tempo com worker recriado, cancelamento, falha do worker, mensagens
+  malformadas ignoradas, nova tentativa de carga, runner compartilhado (também com StrictMode), validação do protocolo.
 - `SqlLab.test.tsx` (7, jsdom + SQLite real): dialeto, Executar com NULL, erro traduzido, Ctrl+Enter, verificação
   errada/certa com histórico e explicação, rascunho e restaurar, dados, tempo esgotado, falha ao carregar.
-- `npm run e2e:labs` (Chromium, build de produção, 29 verificações): ver a seção de testes de navegador abaixo.
+- `npm run e2e:labs` (Chromium, build de produção; 54 verificações no total com o Web/React Lab): ver a seção de testes
+  de navegador abaixo.
 - `npm run labs:sql-portability`: comparação com MariaDB descrita acima.
 
 ### Testes de navegador (`npm run e2e:labs`)
@@ -299,3 +300,160 @@ outros domínios; sem erros de página. Capturas em `docs/screenshots/labs/`.
 4. Rodar `WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x + 1 FROM n) SELECT COUNT(*) FROM n;` — interrompe em 3 s;
    a página continua usável.
 5. Desligar a rede (DevTools › Offline), recarregar e abrir outro exercício: tudo funciona.
+
+## Web Lab e React Lab (PR 3)
+
+HTML, CSS e JavaScript (Web Lab, 8 exercícios) e React 19 com JSX (React Lab, 4 exercícios). O código do estudante
+roda **só dentro de uma página isolada** (iframe); a página do Study Mastery monta o documento, mostra a prévia, o
+console e os testes.
+
+```mermaid
+flowchart LR
+  ED[Editor: index.html · style.css · script.js / App.jsx] --> B[buildPage — sandbox.ts]
+  SUC[sucrase: JSX → JS, no aparelho] -.React.-> B
+  RT[React 19 do app, como texto pré-cacheado] -.React.-> B
+  G[guard.ts: acorn analisa e protege laços] --> B
+  B -->|srcdoc + nonce| F["iframe sandbox=&quot;allow-scripts allow-forms&quot;\nCSP sem rede"]
+  H[harness.js: console, erros, testes] --> F
+  F -->|postMessage| V[readSandboxMessage: janela, origem null, nonce, exercício, versão, formato]
+  V --> UI[Prévia · Console · Testes]
+```
+
+### Interface
+
+- Abas de arquivo (`index.html`, `style.css`, `script.js` ou `App.jsx`); arquivos de apoio aparecem **somente leitura**.
+- **Executar** (Ctrl+Enter) monta uma página nova; **Verificar resposta** roda os testes; **Restaurar exercício**
+  com confirmação. Rascunho dos arquivos editáveis salvo no aparelho enquanto digita (mesmo mecanismo do Core).
+- **Prévia** com largura selecionável (celular 360 px, tablet 768 px, largura disponível) para conferir media queries.
+- **Console didático**: `console.log/info/warn/error` (objetos, arrays e elementos formatados), erros com a **linha do
+  editor** (`script.js:3 — …`), recursos bloqueados explicados, limite de 200 mensagens.
+- **Testes**: a lista do que será conferido aparece antes; depois, o resultado de cada um com o motivo da falha.
+- No celular, **Código / Prévia / Console / Testes** são abas; a partir de 1000 px ficam lado a lado. As abas seguem o
+  padrão de teclado WAI-ARIA: só a ativa entra no Tab; setas, Home e End trocam de aba.
+
+### Exercícios
+
+| id | Assunto (banco) | Capacidades | Dificuldade | Profundidade | Testes |
+|---|---|---|---|---|---|
+| `web-pagina-semantica` | HTML semântico | html.semantic | fácil | aula | 3 |
+| `web-formulario-acessivel` | HTML semântico | html.forms | médio | aula | 4 |
+| `web-barra-flex` | CSS | css.layout | fácil | aula | 2 |
+| `web-galeria-mobile-first` | CSS | css.responsive, css.layout | médio | aprofundamento | 3 (360/700/1000 px) |
+| `web-funcoes-carrinho` | JS: funções puras e arrays | js.arrays | fácil | aula | 3 |
+| `web-filtrar-ordenar` | JS: funções puras e arrays | js.arrays, js.dom | médio | aprofundamento | 3 |
+| `web-validacao-cadastro` | Classes, validação e erros | js.validation | médio | aprofundamento | 4 |
+| `web-lista-tarefas` | JS: funções puras e arrays | js.dom, js.arrays | difícil | desafio | 3 |
+| `react-cartoes-props` | React: componentes | react.components | fácil | aula | 2 |
+| `react-contador` | React: hooks e formulários | react.state | fácil | aula | 3 |
+| `react-formulario-controlado` | React: hooks e formulários | react.forms, react.state | médio | aprofundamento | 4 |
+| `react-busca-lista` | React: hooks e formulários | react.state, react.forms | médio | aprofundamento | 3 |
+
+Todos originais, na disciplina Desenvolvimento Web Full Stack. No e2e, **o código inicial de cada um falha e a solução
+de referência passa** no Chromium.
+
+### Testes declarativos
+
+Os testes são **dados** (sem funções no exercício): o harness dentro da página isolada os executa sobre a página do
+estudante, cada teste numa **página nova** (iframe fora da tela, na largura do teste) para não herdar estado.
+
+| Verificação | O que confere |
+|---|---|
+| `exists`, `count` | elementos pelo seletor (mínimo/máximo) |
+| `text`, `attr`, `value`, `disabled` | texto (normalizado), atributos, valor e estado de campos |
+| `style`, `columns`, `fits` | estilo calculado, colunas reais do grid, ausência de rolagem lateral |
+| `labelled` | nome acessível de campos (label, aria-label, aria-labelledby) |
+| `call` (+ `pure`) | chama a função do script com outros dados e confere o retorno — e que o array recebido não foi modificado |
+| `throws` | a função lança o erro customizado certo, com as propriedades certas |
+| `no-errors` | o script não gerou erro |
+
+Passos de interação: preencher (com o setter nativo + eventos `input`/`change`, o que funciona com campos controlados
+do React), clicar e enviar formulário (`requestSubmit`). Funções declaradas com `const`/`let` também são alcançadas: o
+app acrescenta ao fim do script uma exportação só dos nomes que o exercício lista.
+
+### Isolamento e segurança
+
+| Camada | Como | Verificado no e2e |
+|---|---|---|
+| iframe `sandbox="allow-scripts allow-forms"` **sem** `allow-same-origin` | origem opaca: sem DOM do app, sem `localStorage`, cookies, IndexedDB ou service worker; sem popups, navegação da janela principal ou `alert` | localStorage, cookie, IndexedDB, `parent.document`, `window.open` e `top.location` bloqueados; URL e armazenamento do app intactos |
+| `allow-forms` | só para o evento `submit` existir nos exercícios de formulário. Envio para outro endereço é barrado pelo CSP (`form-action 'none'`); envio sem `preventDefault` é cancelado pelo harness e explicado no console. `form.submit()` (que pula o evento) só recarrega a própria página isolada — sem rede — e, durante a verificação, o teste falha explicando o recarregamento | conferido à parte no Chromium: envio externo recusado pelo CSP, nenhuma requisição; recarregar o `about:srcdoc` não é barrado pelo CSP (por isso o harness e o runner tratam o caso) |
+| CSP no documento | `default-src 'none'`; scripts e estilos só embutidos; sem `connect`, `img` externo, `frame`, `worker`, `object` | `fetch` externo, `fetch` ao próprio app e imagem externa bloqueados; nenhuma requisição a outros domínios |
+| Navegação do iframe | a CSP não cobre a navegação do próprio iframe. Cliques em links para fora são barrados pelo harness; se o script trocar o documento (`location.href = …`), a página do app percebe (documento carregado sem o harness) e encerra a prévia com uma explicação | link externo barrado; `location.href` para fora: prévia encerrada |
+| Mensagens | aceitas só da janela daquele iframe, origem `"null"`, versão do protocolo, **nonce** da execução, exercício, versão e formato, com textos cortados | mensagem forjada de “teste aprovado” ignorada (unitário e e2e) |
+| Laços | `guard.ts` (acorn, sem executar) insere `__smLoop()` em todo `for/while/do…while`; o harness interrompe o laço que rodar 1,5 s sem devolver o controle | `while (true)` no script e `for (;;)` num evento interrompidos; interface do app respondendo |
+| Watchdog | com a prévia visível, 6 s sem batimento do harness descartam o iframe | — |
+| Dados | o documento leva só os arquivos do exercício, o código do estudante, o harness e (React) o runtime — nada de dados do estudante, tokens ou materiais | — |
+
+`eval`/`new Function` ficam bloqueados pelo CSP (sem `'unsafe-eval'`), então todo laço passa pela proteção.
+
+**Riscos residuais (documentados, não resolvidos):**
+
+- O código do estudante roda **junto** do harness e pode adulterá-lo (sobrescrever funções do DOM, forjar o próprio
+  resultado com acesso ao nonce em memória). Os testes são **educativos, não à prova de fraude**; a página valida a
+  origem e o formato, mas não pode provar que o harness não foi alterado.
+- Travamentos **sem laço** (expressão regular catastrófica, recursão profunda em APIs nativas) não passam pela
+  proteção. No Chromium de desktop usado nos testes o iframe isolado roda em **outro processo** e a interface do app
+  continuou respondendo (medido no e2e). Em navegadores sem isolamento de processos para iframes isolados — comum no
+  **Android** — o iframe pode compartilhar a thread da página e travá-la até o laço terminar; o watchdog só age depois.
+  Não foi possível testar em aparelho Android real neste ambiente.
+- Atributos de evento no HTML (`onclick="…"`) não são instrumentados (raro nos exercícios).
+- **Navegação por script**: `location.href = 'https://…'` no código do estudante faz o iframe pedir aquele endereço — a
+  CSP não cobre navegação e a Navigation API não emite eventos em documentos de origem opaca, então não há como
+  impedir o pedido no navegador. O app detecta a troca de documento e encerra a prévia (verificado no e2e). Exige ação
+  do próprio código do estudante, e o iframe continua isolado (origem opaca, sem dados do app).
+
+### React Lab: runtime local em vez do Sandpack
+
+O pedido citava **Sandpack**. Ele executa o código num bundler hospedado pela CodeSandbox (outro domínio): exige
+internet, envia o código do estudante a terceiros e **não estava acessível neste ambiente** (conexão recusada), então
+não seria possível verificar que funciona. A alternativa adotada, testada e offline:
+
+- **sucrase 3.35.1** transforma JSX e `import/export` no aparelho (só análise de texto; mantém os números de linha);
+- o **React 19 do próprio app** é empacotado no build como script clássico (`tools/react-runtime.ts`, módulo virtual
+  com licença MIT preservada) e **embutido no documento isolado** — o sandbox não baixa nada;
+- `import` de outros pacotes gera erro explicado (“Pacote não disponível no laboratório”).
+
+Por isso o React Lab é anunciado como **offline** (verificado no e2e, na raiz). Se o Sandpack for desejado como modo
+online opcional (mais pacotes npm), é um próximo passo separado, com aviso de rede e de envio do código a terceiros.
+
+### Offline, tamanho e desempenho
+
+Tudo entra no pré-cache e é baixado só ao abrir um exercício do tipo:
+
+| Chunk | Tamanho |
+|---|---|
+| página do Web/React Lab (inclui acorn) | 156 KB |
+| sucrase (JSX) | 207 KB |
+| runtime do React para o sandbox (texto) | 223 KB |
+| exercícios Web/React | 41 KB |
+
+Pré-cache total: **2,41 MB** (base 0.6.1) → **3,21 MB** (com SQL Lab) → **3,84 MB** (com Web/React Lab). O chunk
+principal do app cresceu ~37 KB (Core dos Labs; os laboratórios em si carregam sob demanda). `public/sw.js` não mudou.
+
+### Testes do Web Lab
+
+- `src/labs/web/__tests__/sandbox.test.ts` (13): proteção de laços (todos os tipos, linhas preservadas, sintaxe
+  inválida), montagem do documento (CSP e harness no topo, CSS/script no lugar, escape de `</script>`, linha do
+  script, `defer`, erro de sintaxe, React), atributo sandbox e CSP, validação de mensagens (janela, origem, nonce,
+  exercício, versão, tipo, formato, tamanho), catálogo.
+- `WebLab.test.tsx` (4, jsdom): abas de arquivo e de painel (inclusive pelo teclado), iframe com sandbox/CSP, arquivo
+  só leitura, rascunho só dos editáveis, restaurar, falha ao carregar o React com nova tentativa.
+- `npm run e2e:labs` (Chromium): os 12 exercícios (inicial falha, solução passa), prévia, console com linha, laço
+  infinito no script e em evento, isolamento (armazenamento, DOM, popups, navegação da janela principal, rede), link
+  externo barrado, navegação por script encerrando a prévia, mensagem forjada,
+  React (renderiza, cliques, erro de JSX, pacote externo), axe nas quatro abas, 360–1280 px, layout lado a lado,
+  offline (React e validação), medição informativa de travamento sem laço.
+
+## Math Lab (futuro, não implementado)
+
+Exercícios de Cálculo II executáveis exigem um runtime matemático confiável; nada disso foi implementado nesta versão.
+
+- **Correção simbólica/numérica**: comparar a expressão do estudante com a esperada por avaliação em vários pontos
+  (com tolerância e cuidado com domínios), e não por texto — o mesmo princípio do SQL Lab.
+- **Runtime candidato**: um parser/avaliador de expressões no navegador (ex.: math.js) para derivadas/integrais
+  conferidas numericamente; Pyodide + SymPy (WebAssembly, ~10 MB) daria simplificação simbólica, mas pesa no celular.
+  O projeto já usa SymPy no pipeline editorial (servidor/CLI), não no app.
+- **Entrada**: editor com prévia em KaTeX (já usado no app) e teclado matemático no celular.
+- **Isolamento**: avaliar expressões num Web Worker, com limite de tempo, como no SQL Lab.
+- Disciplinas pessoais só entrariam por associação explícita a capacidades novas (`math.*`).
+
+Nenhuma disciplina executa código ou matemática automaticamente sem um runtime compatível registrado em `LABS`.
