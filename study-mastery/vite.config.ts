@@ -3,13 +3,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { readFileSync } from 'node:fs';
 import { offlinePrecache } from './tools/pwa';
+import { reactSandboxRuntime } from './tools/react-runtime';
 
 const { version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string };
 
 // base relativa: o build funciona em qualquer subcaminho (ex.: GitHub Pages).
 export default defineConfig({
   base: './',
-  plugins: [react(), offlinePrecache(version)],
+  plugins: [react(), reactSandboxRuntime(), offlinePrecache(version)],
   define: { __APP_VERSION__: JSON.stringify(version) },
   build: { chunkSizeWarningLimit: 900 },
   test: {

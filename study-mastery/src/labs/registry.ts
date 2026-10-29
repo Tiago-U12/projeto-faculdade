@@ -2,6 +2,7 @@
 // LabDefinition e incluí-lo em LABS. O Core (catálogo, filtros, sessões, progresso, rotas) não muda.
 import type { ComponentType } from 'react';
 import { sqlLab } from './sql';
+import { reactLab, webLab } from './web';
 import type { LabAttempt, LabDraft, LabExerciseBase, LabGrade } from './types';
 
 /** O que a página de um laboratório recebe do Core (o Core cuida de rascunho, tentativas e sessão). */
@@ -39,6 +40,6 @@ export interface LabDefinition {
 }
 
 /** Laboratórios disponíveis nesta versão. */
-export const LABS: LabDefinition[] = [sqlLab];
+export const LABS: LabDefinition[] = [sqlLab, webLab, reactLab];
 
 export const labByKind = (kind: string, labs: readonly LabDefinition[] = LABS) => labs.find((l) => l.kind === kind);
