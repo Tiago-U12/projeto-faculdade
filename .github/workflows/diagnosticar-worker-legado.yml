@@ -1,4 +1,6 @@
 name: Diagnosticar Worker legado (somente leitura)
+# Nova execução após a desconexão manual dos builds do Worker, informada pelo dono.
+# Comparar os checks deste commit com 2adafe1, que ainda acionava o Worker.
 
 on:
   push:
