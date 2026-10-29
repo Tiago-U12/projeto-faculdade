@@ -276,7 +276,8 @@ endereço do próprio worker (funciona em subcaminho). Custo: o pré-cache passo
   malformadas ignoradas, nova tentativa de carga, runner compartilhado (também com StrictMode), validação do protocolo.
 - `SqlLab.test.tsx` (7, jsdom + SQLite real): dialeto, Executar com NULL, erro traduzido, Ctrl+Enter, verificação
   errada/certa com histórico e explicação, rascunho e restaurar, dados, tempo esgotado, falha ao carregar.
-- `npm run e2e:labs` (Chromium, build de produção, 29 verificações): ver a seção de testes de navegador abaixo.
+- `npm run e2e:labs` (Chromium, build de produção; 53 verificações no total com o Web/React Lab): ver a seção de testes
+  de navegador abaixo.
 - `npm run labs:sql-portability`: comparação com MariaDB descrita acima.
 
 ### Testes de navegador (`npm run e2e:labs`)
@@ -436,7 +437,8 @@ principal do app cresceu ~37 KB (Core dos Labs; os laboratórios em si carregam 
 - `WebLab.test.tsx` (3, jsdom): abas de arquivo e de painel, iframe com sandbox/CSP, arquivo só leitura, rascunho só
   dos editáveis, restaurar, falha ao carregar o React com nova tentativa.
 - `npm run e2e:labs` (Chromium): os 12 exercícios (inicial falha, solução passa), prévia, console com linha, laço
-  infinito no script e em evento, isolamento (armazenamento, DOM, popups, navegação, rede), mensagem forjada,
+  infinito no script e em evento, isolamento (armazenamento, DOM, popups, navegação da janela principal, rede), link
+  externo barrado, navegação por script encerrando a prévia, mensagem forjada,
   React (renderiza, cliques, erro de JSX, pacote externo), axe nas quatro abas, 360–1280 px, layout lado a lado,
   offline (React e validação), medição informativa de travamento sem laço.
 
