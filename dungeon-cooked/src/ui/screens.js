@@ -47,6 +47,32 @@ function btn(label, onClick, { primary = false, danger = false, small = false, s
   return b;
 }
 
+// Copia para a área de transferência; se o navegador negar, seleciona o texto para copiar à mão.
+function copyText(area, text, status) {
+  const done = () => { status.textContent = 'Copiado para a área de transferência.'; };
+  const fallback = () => { area.focus(); area.select(); status.textContent = 'Texto selecionado: use Ctrl+C (ou Copiar no celular).'; };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  } catch {
+    fallback();
+  }
+}
+
+// Resumo legível de um arquivo de save, para comparar antes de substituir.
+function progressLines(file) {
+  const lines = [];
+  for (const mode of ['historia', 'tranquilo']) {
+    const c = file.slots[mode];
+    if (!c) continue;
+    const where = c.completed ? `concluída · ${ENDINGS[c.ending].name}` : `próxima: Noite ${c.night} de ${NIGHT_COUNT}`;
+    lines.push(`${MODE_INFO[mode].name}: ${where} · ${c.coins} moedas`);
+  }
+  if (file.meta.challengeBest > 0) lines.push(`Desafio: recorde de ${file.meta.challengeBest} pontos`);
+  if (file.meta.achievements.length) lines.push(`${file.meta.achievements.length} conquista(s)`);
+  return lines.length ? lines : ['Nenhum progresso'];
+}
+
 function hearts(value) {
   const full = Math.floor(value);
   const half = value - full >= 0.5 ? 1 : 0;
@@ -204,6 +230,14 @@ export function createScreens(modal) {
         panel.append(el('ul', { class: 'list-plain' }, o.achievements.map((a) => el('li', { text: `★ ${a.name} — ${a.desc}` }))));
       }
       if (o.saveError) panel.append(el('div', { class: 'storage-warning', text: o.saveError }));
+      if (o.success) {
+        panel.append(el('div', { class: 'backup-note' }, [
+          el('p', { text: o.saveError
+            ? 'Este navegador não guardou a noite. Para não perder o progresso, guarde o link de continuar agora.'
+            : 'Progresso salvo neste navegador. Para não perder se limpar o navegador ou trocar de aparelho, guarde o link de continuar.' }),
+          btn('Guardar link de continuar', o.onBackup, { small: true }),
+        ]));
+      }
       const row = el('div', { class: 'btn-row sticky' });
       if (o.success) {
         row.append(btn(o.isFinal ? 'Ver o epílogo' : 'Ir à loja da taberna', o.onNext, { primary: true, autofocus: true }));
@@ -312,7 +346,9 @@ export function createScreens(modal) {
         select('pace', 'Ritmo do serviço (História)', Object.fromEntries(Object.entries(PACE).map(([k, v]) => [k, v.label])), 'Vale a partir da próxima noite'));
       panel.append(el('h3', { text: 'Dados salvos' }));
       if (!o.storageOk) panel.append(el('div', { class: 'storage-warning', text: 'Este navegador não permite salvar agora.' }));
+      panel.append(el('p', { class: 'setting-help', text: 'O progresso fica neste navegador. O link de continuar leva tudo para outro aparelho, sem conta.' }));
       panel.append(el('div', { class: 'btn-row' }, [
+        btn('Link de continuar', o.onLink, { small: true }),
         btn('Exportar save', o.onExport, { small: true }),
         btn('Importar save', o.onImport, { small: true }),
         btn('Apagar todo o progresso', o.onReset, { small: true, danger: true }),
@@ -330,18 +366,8 @@ export function createScreens(modal) {
       const status = el('p', { class: 'json-status', role: 'status' });
       panel.append(el('span', { class: 'eyebrow', text: 'Cópia de segurança' }), el('h2', { text: 'Exportar save' }));
       panel.append(el('p', { text: 'Guarde este texto num arquivo ou numa nota. Para recuperar, use Importar save e cole o texto.' }), area, status);
-      const copy = () => {
-        const done = () => { status.textContent = 'Copiado para a área de transferência.'; };
-        const fallback = () => { area.focus(); area.select(); status.textContent = 'Texto selecionado: use Ctrl+C (ou Copiar no celular).'; };
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(o.json).then(done, fallback);
-          else fallback();
-        } catch {
-          fallback();
-        }
-      };
       panel.append(el('div', { class: 'btn-row' }, [
-        btn('Copiar texto', copy, { primary: true, autofocus: true }),
+        btn('Copiar texto', () => copyText(area, o.json, status), { primary: true, autofocus: true }),
         o.canDownload ? btn('Baixar arquivo .json', o.onDownload) : null,
         btn('Fechar', () => modal.close(entry)),
       ]));
@@ -349,18 +375,69 @@ export function createScreens(modal) {
       return entry;
     },
 
+    // Link de continuar: o progresso inteiro dentro de um endereço para guardar ou mandar.
+    continueLink(o) {
+      const panel = el('div', { class: 'panel' });
+      const area = el('textarea', { id: 'continue-link', class: 'json-box link-box', readonly: true, rows: '4', 'aria-label': 'Link de continuar' });
+      area.value = o.link;
+      const status = el('p', { class: 'json-status', role: 'status' });
+      panel.append(el('span', { class: 'eyebrow', text: 'Guardar fora do navegador' }), el('h2', { text: 'Link de continuar' }));
+      panel.append(el('p', { text: 'Este link leva todo o seu progresso: campanhas, recorde e conquistas. Mande para você mesmo (WhatsApp, e-mail ou uma nota) e abra em qualquer aparelho para continuar de onde parou.' }));
+      if (o.online) panel.append(el('p', { class: 'setting-help', text: 'O link abre a versão online do jogo.' }));
+      panel.append(area, status);
+      panel.append(el('p', { class: 'setting-help', text: 'Ele guarda o progresso de agora: depois de jogar mais, gere um novo. Não tem senha nem dados pessoais; quem abrir o link carrega este progresso.' }));
+      const canShare = typeof navigator.share === 'function';
+      const share = async () => {
+        try {
+          await navigator.share({ title: 'Dungeon Cooked', text: 'Meu progresso no Dungeon Cooked', url: o.link });
+          status.textContent = 'Link enviado.';
+        } catch (error) {
+          if (error && error.name === 'AbortError') return;
+          copyText(area, o.link, status);
+        }
+      };
+      panel.append(el('div', { class: 'btn-row' }, [
+        btn('Copiar link', () => copyText(area, o.link, status), { primary: true, autofocus: true }),
+        canShare ? btn('Compartilhar…', share) : null,
+        btn('Fechar', () => modal.close(entry)),
+      ]));
+      const entry = modal.open(panel, { label: 'Link de continuar', dismissible: true, name: 'continueLink' });
+      return entry;
+    },
+
+    // Antes de trocar o progresso deste navegador pelo de um link ou save importado.
+    loadSave(o) {
+      const fromLink = o.source === 'link';
+      const panel = el('div', { class: 'panel', style: { maxWidth: '480px' } });
+      panel.append(el('span', { class: 'eyebrow', text: fromLink ? 'Link de continuar' : 'Importar save' }));
+      panel.append(el('h2', { text: o.replaces ? 'Substituir o progresso?' : 'Carregar este progresso?' }));
+      const list = (title, file) => [el('h3', { text: title }), el('ul', { class: 'list-plain' }, progressLines(file).map((t) => el('li', { text: t })))];
+      panel.append(...list(fromLink ? 'No link' : 'No save importado', o.incoming));
+      if (o.replaces) {
+        panel.append(...list('Neste navegador agora', o.current));
+        panel.append(el('p', { text: 'Carregar substitui o progresso deste navegador. Uma cópia de segurança do atual fica guardada.' }));
+      }
+      const close = () => modal.close(entry);
+      panel.append(el('div', { class: 'btn-row' }, [
+        btn('Carregar progresso', () => { close(); o.onConfirm(); }, { primary: !o.replaces, danger: o.replaces }),
+        btn(o.replaces ? 'Manter o deste navegador' : 'Agora não', close, { autofocus: true }),
+      ]));
+      const entry = modal.open(panel, { label: 'Carregar progresso', dismissible: true, name: 'loadSave' });
+      return entry;
+    },
+
     // Importar: arquivo .json ou texto colado. A validação acontece antes de qualquer troca.
     importData(o) {
       const panel = el('div', { class: 'panel' });
       const file = el('input', { type: 'file', id: 'import-file', accept: 'application/json,.json', hidden: true });
-      const area = el('textarea', { id: 'import-json', class: 'json-box', rows: '6', placeholder: 'Cole aqui o texto exportado…', 'aria-label': 'Texto do save para importar' });
+      const area = el('textarea', { id: 'import-json', class: 'json-box', rows: '6', placeholder: 'Cole aqui o link de continuar ou o texto exportado…', 'aria-label': 'Link de continuar ou texto do save para importar' });
       file.addEventListener('change', () => {
         const f = file.files && file.files[0];
         file.value = '';
         if (f) { modal.close(entry); o.onFile(f); }
       });
       panel.append(el('span', { class: 'eyebrow', text: 'Recuperar progresso' }), el('h2', { text: 'Importar save' }));
-      panel.append(el('p', { text: 'Escolha um arquivo exportado ou cole o texto. Nada muda antes da sua confirmação, e o save atual ganha uma cópia de segurança.' }));
+      panel.append(el('p', { text: 'Escolha um arquivo exportado, ou cole o link de continuar ou o texto. Nada muda antes da sua confirmação, e o save atual ganha uma cópia de segurança.' }));
       panel.append(file, el('div', { class: 'btn-row' }, [btn('Escolher arquivo .json', () => file.click())]), area);
       panel.append(el('div', { class: 'btn-row' }, [
         btn('Importar texto colado', () => {

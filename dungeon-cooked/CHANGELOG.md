@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0 — 22/10/2026
+
+### Link de continuar
+
+- Novo **link de continuar**: o save inteiro, compactado (`CompressionStream` deflate, base64url), vai no endereço do jogo depois de `#continuar=`. Abrir o link em outro aparelho ou navegador mostra o que vem nele e o que já existe ali, e só substitui com confirmação e cópia de segurança. Sem servidor e sem conta.
+- Acesso em **Opções → Dados salvos** e num lembrete no resultado de cada noite concluída. Botões de copiar e, onde o navegador oferece, compartilhar.
+- **Importar save** aceita também o link (ou só o código), mesmo com quebras de linha de apps de mensagem.
+- Links cortados, alterados, de formato desconhecido ou que inflariam além de 2 MB são recusados sem tocar no save atual; o conteúdo passa pela mesma validação estrita do import.
+- O código sai da barra de endereço logo após ser lido (recarregar não pergunta de novo). Abrir um link com o mesmo progresso só avisa.
+- Pedido de armazenamento persistente (`navigator.storage.persist`) ao fim da primeira noite salva.
+- Correção: o aviso "Importado só nesta sessão" era fechado na mesma hora pela volta ao menu; agora aparece depois dela.
+
 ## 1.0.0 — 21/10/2026
 
 Reescrita completa a partir do protótipo `docs/originais/dungeon_cooked_cozinha_2d.html` (preservado sem alterações), seguindo o GDD V1.0.

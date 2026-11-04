@@ -390,6 +390,10 @@ button:disabled { cursor: not-allowed; }
 
 .json-box { width: 100%; min-height: 120px; resize: vertical; background: var(--pane-2); color: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 8px; font: 0.78em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin-top: 8px; }
 .json-status { min-height: 1.2em; font-size: 0.82em; color: var(--mint); }
+.link-box { min-height: 84px; word-break: break-all; }
+.setting-help { margin: 6px 0; color: var(--muted); font-size: 0.8em; }
+.backup-note { margin-top: 12px; background: var(--pane-2); border: 1px solid var(--mint); border-radius: 12px; padding: 10px 12px; display: grid; gap: 8px; justify-items: start; }
+.backup-note p { margin: 0; font-size: 0.86em; }
 
 /* Diálogo */
 .dialogue-screen { align-items: end; background: linear-gradient(180deg, transparent 30%, #0c0814cc); backdrop-filter: none; }

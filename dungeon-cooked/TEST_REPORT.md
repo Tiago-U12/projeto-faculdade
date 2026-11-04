@@ -1,10 +1,10 @@
 # Relatório de testes — Dungeon Cooked (web 2D)
 
-Data: 21/10/2026. Ambiente: contêiner Linux, Node.js 22.22.0, Playwright 1.56.1 com Chromium headless (build 1194). Só estão listados testes que foram executados de fato.
+Data: 21/10/2026 (link de continuar: 22/10/2026). Ambiente: contêiner Linux, Node.js 22.22.0, Playwright 1.56.1 com Chromium headless (build 1194). Só estão listados testes que foram executados de fato.
 
 ## 1. Testes de regras (`npm test`)
 
-**51 de 51 passando.** Rodam a simulação real (sem DOM) com relógio controlado.
+**56 de 56 passando.** Rodam a simulação real (sem DOM) com relógio controlado.
 
 | Arquivo | Casos |
 | --- | --- |
@@ -13,13 +13,14 @@ Data: 21/10/2026. Ambiente: contêiner Linux, Node.js 22.22.0, Playwright 1.56.1
 | `chaos.test.mjs` | **CH-01** (sino sem conflito não paga, nem repetido). Conflito: aviso → ativo, tensão só sobe com atrito. Sino resolve, paga bônus uma vez e entra em recarga. Conversar acalma (+0,5 de vínculo). Prato da paz reconcilia (+1). Harmonia de rivais que chegam juntos. **CH-02** (crise visível, limitada, paciência não zera, serviço continua). Tranquilo sem crise. Faixas com nome e ícone. |
 | `progression.test.mjs` | **PR-02**: um robô joga as **7 noites completas três vezes** com estratégias de diálogo diferentes e chega aos **três finais** (Segredo do Luar, Mesa Compartilhada, Lenda), comprando ≥ 3 melhorias. **PR-01** (débito único; +12% de velocidade medido no movimento). Commit não duplica recompensa. Final exige elegibilidade; revisitar a Noite 7 restaura o checkpoint. |
 | `save.test.mjs` | **SV-01** (salvar/reabrir reconstitui noite, melhorias, confiança, conquistas e ajustes). **SV-02** (8 arquivos corrompidos/maliciosos recusados; save anterior intacto). **SV-03** (versão mais nova ou antiga recusada com erro claro). Exportar/importar ida e volta. Armazenamento bloqueado. Save corrompido no armazenamento. |
+| `save-link.test.mjs` | **LK-01** (campanha completa vai e volta idêntica pelo link; ~1.200 caracteres). **LK-02** (sem compressão no navegador o código só cresce). **LK-03** (código achado no link inteiro, no trecho `#` e com quebras de linha; JSON e endereço sem código não confundem). **LK-04** (link cortado, com um caractere trocado, de formato desconhecido ou com save inválido dentro é recusado sem lançar erro). **LK-05** (link que infla para mais de 2 MB é recusado). |
 | `input.test.mjs` | Navegação por clique entre **todas as 156 combinações** de estações. Colisão: 3.200 passos em 8 direções sem entrar em bancada. A* com destino inalcançável. **IN-04** (toque → objeto sob o dedo com escala, câmera seguindo e canvas deslocado). Câmera (letterbox no desktop, zoom e limites no celular). **IN-03** na lógica do joystick (zona morta e vetor). |
 
 Observação do robô de campanha (perfeito, sem tempo de caminhada real): 6–11 pratos por noite, média 5★, ~1.000 moedas por noite. É um teto, não a experiência de uma pessoa.
 
 ## 2. Verificação no navegador (`npm run test:browser`)
 
-**15 de 15 passando**, abrindo `dist/Dungeon_Cooked_FINAL_OFFLINE.html` via `file://`:
+**18 de 18 passando**, abrindo `dist/Dungeon_Cooked_FINAL_OFFLINE.html` via `file://`:
 
 1. abre sem erros de JavaScript;
 2. não deixa tirar prato durante o cozimento;
@@ -35,7 +36,10 @@ Observação do robô de campanha (perfeito, sem tempo de caminhada real): 6–1
 12. tutorial completo por toque com a câmera seguindo o chef;
 13. armazenamento bloqueado: aviso e jogo funcionando;
 14. recarregar lê o save local;
-15. save corrompido não impede abrir.
+15. save corrompido não impede abrir;
+16. gera o link de continuar em Opções;
+17. o link abre em outro navegador (contexto limpo), carrega o progresso e sai da barra de endereço;
+18. link com um caractere trocado é recusado sem mexer no save.
 
 ## 3. Sessões guiadas no Chromium headless (roteiros de Playwright)
 
@@ -52,6 +56,7 @@ Executadas durante o desenvolvimento, com capturas de tela revisadas uma a uma:
 | Teclado | WASD até a Horta, E abriu o seletor, tecla 1 pegou o cogumelo. |
 | Tranquilo, alto contraste, texto maior | Pedidos "sem pressa", tensão desligada; ajustes aplicados e salvos. |
 | Áudio | Nenhuma nota antes do primeiro gesto (autoplay respeitado); trilha agendada após o gesto; mudo salvo. Qualidade sonora **não** foi avaliada por ouvido. |
+| Link de continuar (22/10, 23 verificações) | Link gerado no arquivo offline aponta para a versão online e é copiado; navegador limpo pergunta antes de carregar e mostra "História: próxima: Noite 3 de 7"; menu passa a oferecer a Noite 3; recarregar não pergunta de novo; mesmo progresso só avisa; código gerado no Node abre no navegador; navegador com outro progresso mostra os dois e "Manter" não altera nada; link colado em Importar carrega e guarda cópia de segurança; links alterado e cortado recusados; resultado da Noite 1 mostra o lembrete e o link dele leva à Noite 2. Capturas em 390×844 e 1366×768, inclusive alto contraste. `navigator.storage.persist` chamado sem erro (o Chromium headless respondeu "não persistido", como esperado fora de um uso real). |
 | Desempenho | 60 FPS medidos em 1920×1080 na Noite 7 com todas as reformas (Chromium headless; não é medição em celular real). |
 
 Resoluções revisadas por captura: 360×800, 390×844, 768×1024 (toque), 800×360 e 844×390 (celular deitado), 1366×768 e 1920×1080. Nenhuma teve rolagem horizontal; botões de ação ficam visíveis e com 42–62 px de altura.
@@ -73,3 +78,4 @@ Resoluções revisadas por captura: 360×800, 390×844, 768×1024 (toque), 800×
 - Zoom do navegador em 125% e 200%; modo avião literal (a build não referencia rede e o build recusa recursos externos).
 - Leitor de tela e auditoria de contraste formal.
 - Playtest com pessoas: nenhuma das métricas da seção 17.4 do GDD foi medida.
+- Link de continuar aberto pela versão publicada no GitHub Pages: a rede deste ambiente bloqueia o `github.io`, então o caminho foi testado só pelo arquivo offline. Compartilhar pelo menu do sistema (`navigator.share`) não existe no Chromium headless e não foi exercitado.

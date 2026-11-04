@@ -172,6 +172,37 @@ try {
     check('save corrompido não impede abrir', (await page.getByText('Save inválido ignorado').count()) > 0);
     await context.close();
   }
+  // 5. Link de continuar: gerado num navegador, abre em outro (sem servidor).
+  {
+    const seed = { saveVersion: 1, game: 'dungeon-cooked', slots: { historia: null, tranquilo: null }, meta: { challengeBest: 555, challengeBestServed: 4, challengeRuns: 2, achievements: [], endingsSeen: [], conflictsTotal: 0 } };
+    const a = await browser.newContext();
+    const pa = await a.newPage();
+    await pa.goto(URL_GAME);
+    await pa.evaluate((s) => localStorage.setItem('dungeonCooked.save.v1', s), JSON.stringify(seed));
+    await pa.reload();
+    await pa.getByRole('button', { name: /Opções/ }).first().click();
+    await pa.getByRole('button', { name: 'Link de continuar' }).click();
+    const link = await pa.locator('#continue-link').inputValue();
+    const code = link.split('#continuar=')[1] || '';
+    check('gera link de continuar', /^DC1[zj]/.test(code), `${link.length} caracteres`);
+    await a.close();
+    const b = await browser.newContext();
+    const pb = await b.newPage();
+    const errors = [];
+    pb.on('pageerror', (e) => errors.push(e.message));
+    await pb.goto(`${URL_GAME}#continuar=${code}`);
+    await pb.getByRole('button', { name: 'Carregar progresso' }).click({ timeout: 3000 });
+    await pb.waitForTimeout(200);
+    const best = await pb.evaluate(() => JSON.parse(localStorage.getItem('dungeonCooked.save.v1')).meta.challengeBest);
+    check('link abre em outro navegador e carrega o progresso', best === 555 && !pb.url().includes('continuar='));
+    const bad = code.slice(0, 30) + (code[30] === 'A' ? 'B' : 'A') + code.slice(31);
+    await pb.goto('about:blank');
+    await pb.goto(`${URL_GAME}#continuar=${bad}`);
+    const refused = await pb.getByText('O link não abriu').isVisible({ timeout: 3000 }).catch(() => false);
+    const kept = await pb.evaluate(() => JSON.parse(localStorage.getItem('dungeonCooked.save.v1')).meta.challengeBest);
+    check('link alterado é recusado sem mexer no save', refused && kept === 555 && errors.length === 0, errors.join(' | '));
+    await b.close();
+  }
 } finally {
   await browser.close();
 }
